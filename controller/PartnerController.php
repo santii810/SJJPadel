@@ -36,7 +36,7 @@ class PartnerController extends BaseController {
 	public function selectChampionship() {
 		$championship = new ChampionshipMapper();
 
-		if (!isset($this->currentUser)) {
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' )) {
 			throw new Exception("Not in session. Adding partner Championship requires login");
 		}
 		
@@ -72,7 +72,7 @@ class PartnerController extends BaseController {
 	}
 
 	public function inscription() {
-		if (!isset($this->currentUser)) {
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' )) {
 			throw new Exception("Not in session. Adding partner Championship requires login");
 		}
 		//Solo se realiza al inicio

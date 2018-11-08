@@ -10,17 +10,17 @@ $view->setVariable("title", "Usuarios");
 $cabecera = array("login","nombre","apellidos","rol","genero");
 ?>
 
-<h3>Usuarios</h3>
+<h3><?= i18n("Usuarios"); ?></h3>
   <table class="table">
   <thead class="thead-dark">
     <tr>
       <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
-          <?php echo $valor; ?>
+          <?php echo i18n($valor); ?>
         </th>
       <?php } ?>
       <th scope="col" colspan="2">
-        Opciones
+        <?= i18n("Opciones"); ?>
       </th>
     </tr>
   </thead>
@@ -37,10 +37,10 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
               <?php echo $user->getSurname() ; ?>
             </td>
             <td>
-              <?php echo $user->getRol() ; ?>
+              <?php echo i18n($user->getRol()) ; ?>
             </td>
             <td>
-              <?php echo $user->getGender() ; ?>
+              <?php echo i18n($user->getGender()) ; ?>
             </td>
           <td>
             <a href="index.php?controller=users&amp;action=edit&amp;login=<?php echo $user->getLogin() ?>">

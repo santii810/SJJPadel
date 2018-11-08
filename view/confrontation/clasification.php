@@ -46,7 +46,5 @@ $cabecera = array("puesto","Pareja","Puntos Totales","Sets Totales");
 </table>
 
 <input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
-  
-  <button type="submit" class="btn btn-primary" value="" >Submit</button>
 
 </form>

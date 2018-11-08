@@ -11,7 +11,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
 
 ?>
 
-<h3>Usuarios</h3>
+<h3><?php echo i18n("Eliminar") ?></h3>
   <form action="index.php?controller=users&amp;action=delete" method="POST">
       <form action="index.php?controller=users&amp;action=edit" method="POST">
     <table class="table">
@@ -26,7 +26,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("Nombre") ?> 
+            <?php echo i18n("nombre") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="nombre" value="<?php echo $datos->getUserName() ?>">
@@ -34,7 +34,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("Apellidos") ?> 
+            <?php echo i18n("apellidos") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="apellidos" value="<?php echo $datos->getSurName() ?>">
@@ -42,42 +42,27 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("Rol") ?> 
+            <?php echo i18n("rol") ?> 
           </th>
           <td>
-            <input type="text" class="form-control" name="rol" value="<?php echo $datos->getRol() ?>">
+            <input type="text" class="form-control" name="rol" value="<?php echo i18n($datos->getRol()) ?>">
           </td> 
       </tr>
       <tr>
-          <th>
-            <?php echo i18n("Genero") ?> 
-          </th>
-          <td>
-          <?php if($datos->getGender() == 'masculino') { ?>
-            <div class="form-group">
-              <select class="form-control" id="genero" name="genero">
-                  <option selected="selected" value="masculino"><?php echo i18n("Masculino") ?></option>
-                  <option value="femenino"><?php echo i18n("Femenino") ?></option>
-              </select>
-            </div> 
-          <?php } else { ?>
-            <div class="form-group">
-              <label for="genero" size="1">Genero</label>
-              <select class="form-control" id="genero" name="genero">
-                  <option value="masculino"><?php echo i18n("Masculino") ?></option>
-                  <option selected="selected" value="femenino"><?php echo i18n("Femenino") ?></option>
-              </select>
-            </div> 
-          <?php } ?>  
-          </td> 
+        <th>
+            <?php echo i18n("genero") ?> 
+        </th>
+        <td>
+          <input type="text" class="form-control" name="rol" value="<?php echo i18n($datos->getGender()) ?>">
+        </td> 
       </tr>
       </thead>
     </table>
 
     <input type="hidden" name="pass" value="<?php echo $datos->getPass() ?>">
 
-    <?php echo "¿Estas seguro de eliminar a este usuario?" ?>
+    <?= i18n("¿Estas seguro de eliminar a este usuario?") ?> <br>
 
-    <button type="submit" class="btn btn-primary" value="submit" >Submit</button>
+    <button type="submit" class="btn btn-primary" value="submit" ><?php echo i18n("Eliminar") ?></button>
   </form>
 

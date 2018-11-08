@@ -29,7 +29,7 @@ class ConfrontationController extends BaseController {
 	}
 
 	public function selectClasification() {
-		if (!isset($this->currentUser)) {
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' ) ) {
 			throw new Exception("Not in session. select Championship requires login");
 		}
 			
@@ -56,7 +56,7 @@ class ConfrontationController extends BaseController {
 	}
 
 	public function clasification() {
-		if (!isset($this->currentUser)) {
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' ) ) {
 			throw new Exception("Not in session. select Championship requires login");
 		}
 		$confrontationMapper = new confrontationMapper();
@@ -144,7 +144,7 @@ class ConfrontationController extends BaseController {
 	}
 
 	public function select() {
-		if (!isset($this->currentUser)) {
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' ) ) {
 			throw new Exception("Not in session. select Championship requires login");
 		}
 			
@@ -173,7 +173,7 @@ class ConfrontationController extends BaseController {
 
 
 	public function setresults() {
-		if (!isset($this->currentUser)) {
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' ) ) {
 			throw new Exception("Not in session. select Championship requires login");
 		}
 		$confrontationMapper = new confrontationMapper();
@@ -194,10 +194,10 @@ class ConfrontationController extends BaseController {
             			
             			if ($setsP1 > $setsP2) {
             				$puntosP1 = 3;
-            				$puntosP2 = 0;
+            				$puntosP2 = 1;
             			}
             			else{
-            				$puntosP1 = 0;
+            				$puntosP1 = 1;
             				$puntosP2 = 3;
             			}
 

@@ -25,12 +25,14 @@ $currentRol = $view->getVariable("currentRol");
 	
 	
 
+
 	<script src="index.php?controller=language&amp;action=i18njs">
 	</script>
 	<?= $view->getFragment("css") ?>
 	<?= $view->getFragment("javascript") ?>
 
 	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/Footer-with-social-icons.css" type="text/css">
 	
 	<!-- provisional (hasta que sepa como meterlo con el viewManager)-->
 
@@ -66,102 +68,68 @@ $currentRol = $view->getVariable("currentRol");
 	
 </head>
 	<body>
-		<div class="container">
+		
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <img class="img-circle icono" src="images/icono.png">
+			  <?php if (isset($currentuser)): ?>
+				<img class="icono" src="images/<?php echo $currentGender; ?>.png">
+			  	<?= sprintf(i18n("%s"), $currentuser) ?>
+			  <?php endif ?>
+ 
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
 
-	      <div class="masthead">
-	      	<img class="img-circle icono" src="images/icono.png">
-	        
-	        <div class="navbar">
-	          <div class="navbar-inner">
-	            <div class="container">
-	              <ul class="nav">
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav mr-auto">
+			      
+			      <li class="nav-item">
+			        <a class="nav-link" href="index.php?controller=users&amp;action=showall">Usuarios</a>
+			      </li>
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Campeonato
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="index.php?controller=championship&amp;action=add">Crear</a>
+			          <a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship">Inscripción</a>
+			          <a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select">Gestionar Resultados</a>
+			        </div>
+			      </li>
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Partido
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href="">Crear</a>
+			          <a class="dropdown-item" href="">Inscripción</a>
+			          <a class="dropdown-item" href="">Gestionar Resultados</a>
+			       </div>
+			      </li>
 
-	              	<?php if (isset($currentuser)): ?>
-	              		
-					<li>
-						<img src="images/<?php echo $currentGender; ?>.png">
-					</li>
-					<li>
-						<?= sprintf(i18n("%s"), $currentuser) ?>
-					</li>
+			      
+
+			    </ul>
+
+			  </div>
+			  <li class="nav-item">
+			    	<?php include(__DIR__."/language_select_element.php"); ?>
+			    </li>
+			    <li class="nav-item">
+			        <?php if (isset($currentuser)): ?>
+			        <a 	href="index.php?controller=users&amp;action=logout">
+						<img src="images/salir.png" class="rounded icono" alt="Imágenes responsive">
+					</a>
 					<?php else: ?>
-						<li>
-							<a href="index.php?controller=users&amp;action=login">
-								<img src="images/entrar.png" class="rounded" alt="Imágenes responsive">
-							</a>
-						</li>
+					<a href="index.php?controller=users&amp;action=login">
+						<img src="images/entrar.png" class="rounded icono" alt="Imágenes responsive">
+					</a>
 					<?php endif ?>
-
-	              	<div class="btn-group">
-	              		<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-							<div class="btn-group" role="group">
-								<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  Campeonato
-								</button>
-								<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								  <a class="dropdown-item" href="index.php?controller=championship&amp;action=add">Crear</a>
-								  <a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship">Inscripción</a>
-								  <a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select">Gestionar resultados</a>
-								  <a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectClasification">Ver clasificación</a>
-								</div>
-							</div>
-							<div class="btn-group" role="group">
-								<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  Usuarios
-								</button>
-								<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								  <a class="dropdown-item" href="index.php?controller=users&amp;action=showall">Mostrar Usuarios</a>
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								</div>
-							</div>
-							<div class="btn-group" role="group">
-								<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  Pista
-								</button>
-								<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								</div>
-							</div>
-							<div class="btn-group" role="group">
-								<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  Partido
-								</button>
-								<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								</div>
-							</div>
-							<div class="btn-group" role="group">
-								<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								  Dropdown
-								</button>
-								<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								  <a class="dropdown-item" href="#">Dropdown link</a>
-								</div>
-							</div>
-
-							<?php if (isset($currentuser)): ?>
-	              		
-							<li>
-								<a 	href="index.php?controller=users&amp;action=logout">
-									<img src="images/salir.png" class="rounded" alt="Imágenes responsive">
-								</a>
-							</li>
-			
-							<?php endif ?>
-
-
-						</div>
-
-					</div>
-
-	            </div>
-	          </div>
-	        </div><!-- /.navbar -->
-	      </div>
-
+			    </li>
+			</nav>
+	      
+	    <!-- Container -->
+		<div class="container">
 	      <!-- Jumbotron -->
 	      <div class="jumbotron">
 	      	<div id="flash">
@@ -170,15 +138,56 @@ $currentRol = $view->getVariable("currentRol");
 
 			<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 	      </div>
+	      </div> <!-- /container -->
 
-	      <div class="footer">
-	        <p>© Company 2013</p>
-	        <?php
-				include(__DIR__."/language_select_element.php");
-			?>
-	      </div>
+	    <footer id="myFooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 myCols">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Sign up</a></li>
+                        <li><a href="#">Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Help desk</a></li>
+                        <li><a href="#">Forums</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 myCols">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="social-networks">
+            <a href="https://twitter.com/?lang=es" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="facebook"><i class="fa fa-facebook-official"></i></a>
+            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2019 SJJPadel Company </p>
+        </div>
+    </footer>
 
-    </div> <!-- /container -->
+    
 
 	</body>
 </html>

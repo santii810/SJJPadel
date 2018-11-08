@@ -9,5 +9,5 @@ $currentuser = $view->getVariable("currentusername");
 $view->setVariable("title", "Posts");
 
 ?>
-<img class="img-circle" src="images/silueta.jpg"></img>
+<img class="img-fluid" src="images/silueta.jpg"></img>
 

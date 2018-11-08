@@ -12,15 +12,28 @@ require_once(__DIR__."/../core/ValidationException.php");
 */
 class User {
 
+	private $login;
 	private $username;	
 	private $surname;
 	private $pass;
 	private $rol;
 	private $gender;
 	
-	public function __construct($username=NULL, $passwd=NULL) {
+	public function __construct($login=NULL,$username=NULL,$surname=NULL,$pass=NULL,$rol=NULL,$gender=NULL) {
+		$this->login = $login;
 		$this->username = $username;
-		$this->passwd = $passwd;
+		$this->surname = $surname;
+		$this->pass = $pass;
+		$this->rol = $rol;
+		$this->gender = $gender;
+	}
+
+	public function getLogin() {
+		return $this->login;
+	}
+
+	public function setLogin($login) {
+		$this->login = $login;
 	}
 
 	public function getUsername() {
@@ -44,7 +57,7 @@ class User {
 	}
 	
 	public function setPass($pass) {
-		$this->passwd = $pass;
+		$this->pass = $pass;
 	}
 
 	public function getRol() {
@@ -65,23 +78,27 @@ class User {
 
 	public function checkIsValidForRegister() {
 		$errors = array();
-		if (strlen($this->username) < 5) {
-			$errors["username"] = "Username must be at least 5 characters length";
+		if (strlen($this->login) < 3) {
+			$errors["login"] = "login must be at least 3 characters length";
 
 		}
-		if (strlen($this->surname) < 5) {
-			$errors["surname"] = "Surname must be at least 5 characters length";
+		if (strlen($this->username) < 3) {
+			$errors["username"] = "Username must be at least 3 characters length";
 
 		}
-		if (strlen($this->pass) < 5) {
-			$errors["pass"] = "Password must be at least 5 characters length";
-		}
-		if (strlen($this->rol) < 5) {
-			$errors["rol"] = "Rol must be at least 5 characters length";
+		if (strlen($this->surname) < 3) {
+			$errors["surname"] = "Surname must be at least 3 characters length";
 
 		}
-		if (strlen($this->gender) < 5) {
-			$errors["gender"] = "Gender must be at least 5 characters length";
+		if (strlen($this->pass) < 3) {
+			$errors["pass"] = "Password must be at least 3 characters length";
+		}
+		if (strlen($this->rol) < 1) {
+			$errors["rol"] = "Rol must be at least 1 characters length";
+
+		}
+		if (strlen($this->gender) < 1) {
+			$errors["gender"] = "Gender must be at least 1 characters length";
 
 		}
 		if (sizeof($errors)>0){

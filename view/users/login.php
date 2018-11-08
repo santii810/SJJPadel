@@ -7,13 +7,22 @@ $view->setVariable("title", "Login");
 $errors = $view->getVariable("errors");
 ?>
 
-<h1><?= i18n("Login") ?></h1>
+<h3><?= i18n("Login") ?></h3>
 <?= isset($errors["general"])?$errors["general"]:"" ?>
 
-<form action="index.php?controller=users&amp;action=login" method="POST">
-	<?= i18n("Username")?>: <input type="text" name="username">
-	<?= i18n("Password")?>: <input type="password" name="passwd">
-	<input type="submit" value="<?= i18n("Login") ?>">
+<form class="form-inline" action="index.php?controller=users&amp;action=login" method="POST">
+  <label for="login">Login:</label>
+  <input type="text" class="form-control" id="login" name="login">
+
+  <label for="pwd">Contraseña:</label>
+  <input type="password" class="form-control" id="pass" name="pass">
+
+  <div class="form-check mb-2 mr-sm-2">
+    <label class="form-check-label">
+      <input class="form-check-input" type="checkbox"> Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary" value="Iniciar sesion">Iniciar sesión</button>
 </form>
 
 <p><?= i18n("Not user?")?> <a href="index.php?controller=users&amp;action=register"><?= i18n("Register here!")?></a></p>

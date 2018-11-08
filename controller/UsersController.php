@@ -33,7 +33,7 @@ class UsersController extends BaseController {
 		// Users controller operates in a "welcome" layout
 		// different to the "default" layout where the internal
 		// menu is displayed
-		$this->view->setLayout("welcome");
+		//$this->view->setLayout("default");
 	}
 
 	/**
@@ -63,19 +63,29 @@ class UsersController extends BaseController {
 	*
 	* @return void
 	*/
+
+	public function index() {
+		// put the array containing Post object to the view
+		//$this->view->setVariable("posts", $posts);
+
+		// render the view (/view/posts/index.php)
+		$this->view->render("users", "start");
+	}
+
+
+
 	public function login() {
-		if (isset($_POST["username"])){ // reaching via HTTP Post...
+		if (isset($_POST["login"])){ // reaching via HTTP Post...
 			//process login form
-			if ($this->userMapper->isValidUser($_POST["username"],$_POST["passwd"])) {
+			if ($this->userMapper->isValidUser($_POST["login"],$_POST["pass"])) {
 
-				$_SESSION["currentuser"]=$_POST["username"];
-
+				$_SESSION["currentuser"]=$_POST["login"];
 				// send user to the restricted area (HTTP 302 code)
-				$this->view->redirect("posts", "index");
+				$this->view->redirect("users", "index");
 
 			}else{
 				$errors = array();
-				$errors["general"] = "Username is not valid";
+				$errors["general"] = "Login is not valid";
 				$this->view->setVariable("errors", $errors);
 			}
 		}
@@ -118,14 +128,18 @@ class UsersController extends BaseController {
 		if (isset($_POST["username"])){ // reaching via HTTP Post...
 
 			// populate the User object with data form the form
+			$user->setLogin($_POST["login"]);
 			$user->setUsername($_POST["username"]);
-			$user->setPassword($_POST["passwd"]);
+			$user->setSurname($_POST["surname"]);
+			$user->setPass($_POST["pass"]);
+			$user->setRol(0);
+			$user->setGender($_POST["gender"]);
 
 			try{
 				$user->checkIsValidForRegister(); // if it fails, ValidationException
 
 				// check if user exists in the database
-				if (!$this->userMapper->usernameExists($_POST["username"])){
+				if (!$this->userMapper->loginExists($_POST["login"])){
 
 					// save the User object into the database
 					$this->userMapper->save($user);
@@ -135,7 +149,7 @@ class UsersController extends BaseController {
 					// We want to see a message after redirection, so we establish
 					// a "flash" message (which is simply a Session variable) to be
 					// get in the view after redirection.
-					$this->view->setFlash("Username ".$user->getUsername()." successfully added. Please login now");
+					$this->view->setFlash("Login ".$user->getLogin()." successfully added. Please login now");
 
 					// perform the redirection. More or less:
 					// header("Location: index.php?controller=users&action=login")
@@ -143,7 +157,7 @@ class UsersController extends BaseController {
 					$this->view->redirect("users", "login");
 				} else {
 					$errors = array();
-					$errors["username"] = "Username already exists";
+					$errors["login"] = "Login already exists";
 					$this->view->setVariable("errors", $errors);
 				}
 			}catch(ValidationException $ex) {
@@ -159,6 +173,86 @@ class UsersController extends BaseController {
 
 		// render the view (/view/users/register.php)
 		$this->view->render("users", "register");
+
+	}
+
+
+	public function showall(){
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. Adding partner Championship requires login");
+		}
+
+		$userMapper = new UserMapper();
+
+		$usuarios = $userMapper->getUsuarios();
+
+		// Put the User object visible to the view
+		$this->view->setVariable("usuarios", $usuarios);
+
+		// render the view (/view/users/register.php)
+		$this->view->render("users", "showall");
+
+	}
+
+	public function delete(){
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. delete user requires login");
+		}
+
+		$userMapper = new UserMapper();
+		
+		if ( isset($_POST['login']) && isset($_POST['nombre']) && isset($_POST['apellidos']) && isset($_POST['rol']) && isset($_POST['genero']) ) {
+			
+			$userMapper->borrar($_POST['login']);
+
+			$this->view->setFlash("successfully delete");
+
+			$this->view->redirect("users", "showall");
+
+			exit();
+
+		}
+
+		
+
+		$datos = $userMapper->getDatos($_REQUEST['login']);
+
+		// Put the User object visible to the view
+		$this->view->setVariable("datosUsuario", $datos);
+
+		// render the view (/view/users/register.php)
+		$this->view->render("users", "delete");
+
+	}
+
+	public function edit(){
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. Adding partner Championship requires login");
+		}
+
+		$userMapper = new UserMapper();
+		
+		if ( isset($_POST['login']) && isset($_POST['nombre']) && isset($_POST['apellidos']) && isset($_POST['rol']) && isset($_POST['genero']) ) {
+			
+			$userMapper->editar($_POST['login'],$_POST['nombre'],$_POST['apellidos'],$_POST['pass'],$_POST['rol'],$_POST['genero']);
+
+			$this->view->setFlash("successfully modify");
+
+			$this->view->redirect("users", "showall");
+
+			exit();
+
+		}
+
+		
+
+		$datos = $userMapper->getDatos($_REQUEST['login']);
+
+		// Put the User object visible to the view
+		$this->view->setVariable("datosUsuario", $datos);
+
+		// render the view (/view/users/register.php)
+		$this->view->render("users", "edit");
 
 	}
 

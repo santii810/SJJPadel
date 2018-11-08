@@ -30,8 +30,15 @@ class UserMapper {
 	* @return void
 	*/
 	public function save($user) {
-		$stmt = $this->db->prepare("INSERT INTO users values (?,?)");
-		$stmt->execute(array($user->getUsername(), $user->getPasswd()));
+		$stmt = $this->db->prepare("INSERT INTO usuario (login,nombre,apellidos,pass,rol,genero) 
+												values (?,?,?,?,?,?)");
+		$stmt->execute(array($user->getLogin(),
+							 $user->getUsername(),
+							 $user->getSurname(),
+							 $user->getPass(),
+							 $user->getRol(),
+							 $user->getGender()
+							));
 	}
 
 	/**
@@ -40,9 +47,21 @@ class UserMapper {
 	* @param string $username the username to check
 	* @return boolean true if the username exists, false otherwise
 	*/
-	public function usernameExists($username) {
-		$stmt = $this->db->prepare("SELECT count(username) FROM users where username=?");
-		$stmt->execute(array($username));
+
+
+	public function borrar($login){
+		$stmt = $this->db->prepare("DELETE FROM usuario where login=?");
+		$stmt->execute(array($login));
+	}
+
+	public function editar($login,$nombre,$apellidos,$pass,$rol,$genero){
+		$stmt = $this->db->prepare("UPDATE usuario set nombre=?, apellidos=?, pass=?, rol=?, genero=? where login=?");
+		$stmt->execute(array($nombre, $apellidos, $pass, $rol, $genero, $login));
+	}
+
+	public function loginExists($login) {
+		$stmt = $this->db->prepare("SELECT count(login) FROM usuario where login=?");
+		$stmt->execute(array($login));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
@@ -56,12 +75,58 @@ class UserMapper {
 	* @param string $passwd the password
 	* @return boolean true the username/passwrod exists, false otherwise.
 	*/
-	public function isValidUser($username, $passwd) {
-		$stmt = $this->db->prepare("SELECT count(username) FROM users where username=? and passwd=?");
-		$stmt->execute(array($username, $passwd));
+	public function isValidUser($login, $pass) {
+		$stmt = $this->db->prepare("SELECT count(login) FROM usuario where login=? and pass=?");
+		$stmt->execute(array($login, $pass));
 
 		if ($stmt->fetchColumn() > 0) {
 			return true;
 		}
 	}
+
+	public function getDatos($login){
+		$stmt = $this->db->prepare("SELECT * FROM usuario where login=?");
+		$stmt->execute(array($login));
+
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$user = null;
+
+		foreach ($toret_db as $datos) {
+			$user = new User(
+				$datos['login'],
+				$datos['nombre'],
+				$datos['apellidos'],
+				$datos['pass'],
+				$datos['rol'],
+				$datos['genero']
+			);
+		}
+
+		return $user;
+	}
+
+	public function getUsuarios(){
+		$stmt = $this->db->query("SELECT *
+								  FROM   usuario");
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$users = array();
+
+		foreach ($toret_db as $user) {
+			array_push($users, new User(
+				$user['login'],
+				$user['nombre'],
+				$user['apellidos'],
+				$user['pass'],
+				$user['rol'],
+				$user['genero']
+			));
+		}
+
+		return $users;
+
+	}
+
+
 }

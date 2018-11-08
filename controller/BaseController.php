@@ -5,6 +5,7 @@ require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/UserMapper.php");
 
 /**
  * Class BaseController
@@ -40,11 +41,17 @@ class BaseController {
 		}
 
 		if(isset($_SESSION["currentuser"])) {
+			$userMapper = new UserMapper();
+			$datosUser = $userMapper->getDatos($_SESSION["currentuser"]);
 
-			$this->currentUser = new User($_SESSION["currentuser"]);
+			//new User($_SESSION["currentuser"],$nombre,$apellidos,$pass,$rol,$genero);			
+			//Tiene todos los datos del usuario logeado
+			$this->currentUser = $datosUser;
+
 			//add current user to the view, since some views require it
-			$this->view->setVariable("currentusername",
-					$this->currentUser->getUsername());
+			$this->view->setVariable("currentusername",$this->currentUser->getLogin());
+			$this->view->setVariable("currentGender",$this->currentUser->getGender());
+			$this->view->setVariable("currentRol",$this->currentUser->getRol());
 		}
 	}
 }

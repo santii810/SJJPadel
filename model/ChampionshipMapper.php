@@ -1,0 +1,107 @@
+<?php
+// file: model/PostMapper.php
+require_once(__DIR__."/../core/PDOConnection.php");
+
+require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/Championship.php");
+require_once(__DIR__."/../model/Group.php");
+require_once(__DIR__."/../model/Category.php");
+
+/**
+* Class PostMapper
+*
+* Database interface for Post entities
+*
+* @author lipido <lipido@gmail.com>
+*/
+class ChampionshipMapper {
+
+	/**
+	* Reference to the PDO connection
+	* @var PDO
+	*/
+	private $db;
+
+	public function __construct() {
+		$this->db = PDOConnection::getInstance();
+	}
+	
+	public function save($championship) {
+		$stmt = $this->db->prepare("INSERT INTO campeonato(fechaInicioInscripcion, fechaFinInscripcion, fechaInicioCampeonato, fechaFinCampeonato, nombreCampeonato) values (?,?,?,?,?)");
+		$stmt->execute(array($championship->getFechaInicioInscripcion(), $championship->getFechaFinInscripcion(),$championship->getFechaInicioCampeonato(),$championship->getFechaFinCampeonato(), $championship->getNombreCampeonato()));
+		return $this->db->lastInsertId();
+	}
+
+	//prueba objectos
+	public function getCampeonatos(){
+		$stmt = $this->db->query("SELECT *
+								  FROM   campeonato");
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$championships = array();
+
+		foreach ($toret_db as $championship) {
+			array_push($championships, new Championship(
+				$championship["idCampeonato"],
+				$championship["fechaInicioInscripcion"],
+			 	$championship["fechaFinInscripcion"], 
+				$championship["fechaInicioCampeonato"],
+				$championship["fechaFinCampeonato"],
+				$championship["nombreCampeonato"]));
+		}
+
+		return $championships;
+
+	}
+
+	public function getCategorias($idCampeonato) {
+		$stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
+									FROM campeonato cam,categoriascampeonato catc, categoría cat  
+									WHERE cam.idCampeonato = catc.idCampeonato AND
+										  catc.idCategoria = cat.idCategoría AND
+										  cam.idCampeonato = ?			  
+									ORDER BY idCategoria");
+		$stmt->execute(array($idCampeonato));
+
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$categories = array();
+
+		foreach ($toret_db as $category) {
+			array_push($categories, new Category(
+				$category["idCategoria"],
+				$category["nivel"],
+				$category["sexo"]
+			 	));
+		}
+
+		return $categories;
+	}
+
+	
+
+    public function getGrupos($idCampeonato,$idCategoria) {
+		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato 
+									FROM campeonato cam,grupo g,categoría c 
+						   			WHERE cam.idCampeonato = g.idCampeonato AND
+                           		 	c.idCategoría = g.idCategoria AND
+                                 	cam.idCampeonato = ? AND
+                                 	c.idCategoría = ? ");
+		$stmt->execute(array($idCampeonato,$idCategoria));
+
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$groups = array();
+
+		foreach ($toret_db as $group) {
+			array_push($groups, new Group(
+				$group["idGrupo"],
+				$group["idCategoria"],
+				$group["idCampeonato"],
+				$group["nombreGrupo"]
+			 	));
+		}
+
+		return $groups;
+	}
+}

@@ -256,6 +256,7 @@ class ViewManager {
 	*/
 	public function redirect($controller, $action, $queryString=NULL) {
 		header("Location: index.php?controller=$controller&action=$action".(isset($queryString)?"&$queryString":""));
+
 		die();
 	}
 

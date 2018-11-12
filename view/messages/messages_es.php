@@ -3,7 +3,7 @@
 $i18n_messages =
 array(
 "Users Login" => "Iniciar sesion",
-"Please enter your login and password" => "Porfavor introduce tu usuario y contraseña",
+"Please enter your login and password" => "Por favor introduce tu usuario y contraseña",
 "Login here" => "Usuario aqui",
 "Password here" => "Contraseña aqui",
 "Register here!" => "Registrate aqui!",
@@ -25,23 +25,24 @@ array(
 "Crear" => "Crear",
 "Campeonato" => "Campeonato",
 "Inscripción" => "Inscripción",
-"Gestionar Resultados" => "Gestionar Resultados",
+"Gestionar Resultados" => "Gestionar resultados",
 "Ver clasificacion" => "Ver clasificacion",
 "Partido" => "Partido",
 
 
 "Match successfully organize" => "Partido organizador correctamente",
-"Organize Match" => "Organizar Partido",
-"View Organized Matches" => "Ver Partidos Organizados",
+"Organize Match" => "Organizar partido",
+"View Organized Matches" => "Ver partidos organizados",
 "Date" => "Fecha",
-"IDMatch" => "IDPartido",
+"IDMatch" => "ID Partido",
 "Time" => "Hora",
 "View Organized Matches" => "Ver partidos organizados",
 "Participants" => "Participantes",
 "Join" => "Unirse",
 "User Login is mandatory" => "Nombre de usuario es obligatorio",
 "Id Participantes Partido is mandatory" => "ID participantes partido es obligatorio",
-"Id Organizar Partido is mandatory" => "ID organizar partido es obligatorio"
-
+"Id Organizar Partido is mandatory" => "ID organizar partido es obligatorio",
+"Generate championship calendar" => "Generar calendario de campeonato",
+"Reserve court" => "Reservar pista"
 )
 ?>

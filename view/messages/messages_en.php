@@ -4,7 +4,7 @@
 // empty array, no translation needed,
 // since keys are in english in the source code.
 $i18n_messages = array(
-"Users Login" => "Users Login",
+"Users Login" => "Users login",
 "Please enter your login and password" => "Please enter your login and password",
 "Login here" => "Login here",
 "Password here" => "Password here",
@@ -29,7 +29,8 @@ $i18n_messages = array(
 "Inscripción" => "inscription",
 "Gestionar Resultados" => "Manage Results",
 "Ver clasificacion" => "See classification",
-"Partido" => "Match"
-
+"Partido" => "Match",
+"Generate championship calendar" => "Generate championship calendar",
+"Reserve court" => "Reserve court"
 )
 ?>

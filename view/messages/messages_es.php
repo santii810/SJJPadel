@@ -43,6 +43,7 @@ array(
 "Id Participantes Partido is mandatory" => "ID participantes partido es obligatorio",
 "Id Organizar Partido is mandatory" => "ID organizar partido es obligatorio",
 "Generate championship calendar" => "Generar calendario de campeonato",
-"Reserve court" => "Reservar pista"
+"Reserve court" => "Reservar pista",
+"Select schedule" => "Seleccionar horario"
 )
 ?>

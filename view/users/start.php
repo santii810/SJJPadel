@@ -6,8 +6,7 @@ $view = ViewManager::getInstance();
 
 $currentuser = $view->getVariable("currentusername");
 
-$view->setVariable("title", "Posts");
+$view->setVariable("title", "Welcome");
 
 ?>
 <img class="img-fluid" src="images/silueta.jpg"></img>
-

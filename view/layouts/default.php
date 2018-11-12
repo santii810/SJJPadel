@@ -14,16 +14,16 @@ $currentRol = $view->getVariable("currentRol");
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	
+
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	
-	
+
+
 
 
 	<script src="index.php?controller=language&amp;action=i18njs">
@@ -33,56 +33,56 @@ $currentRol = $view->getVariable("currentRol");
 
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/Footer-with-social-icons.css" type="text/css">
-	
+
 	<!-- provisional (hasta que sepa como meterlo con el viewManager)-->
 
 	<script language="javascript">
 			$(document).ready(function(){
 				$("#idCampeonato").change(function () {
- 
+
 					$("#idCampeonato option:selected").each(function () {
 						var idCampeonato = $(this).val();
 
 						$.post("includes/getCategorias.php", { idCampeonato: idCampeonato }, function(data){
 							$("#idCategoria").html(data);
-						}); 
-			      		      
+						});
+
 					});
 				})
 			});
-		
+
 			$(document).ready(function(){
 				$("#idCategoria").change(function () {
 					$("#idCategoria option:selected").each(function () {
 						var idCategoria = $(this).val();
 						var idCampeonato = $("#idCampeonato").val();
-						
+
 						$.post("includes/getGrupos.php", { idCategoria: idCategoria,idCampeonato: idCampeonato }, function(data){
 							$("#idGrupo").html(data);
-						});            
+						});
 					});
 				})
 			});
 		</script>
 
-	
+
 </head>
 	<body>
-		
+
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			  <img class="img-circle icono" src="images/icono.png">
 			  <?php if (isset($currentuser)): ?>
 				<img class="icono" src="images/<?php echo $currentGender; ?>.png">
 			  	<?= sprintf(i18n("%s"), $currentuser) ?>
 			  <?php endif ?>
- 
+
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
-			      
+
 			      <?php if($currentRol == 'a'): ?>
 
 			      <li class="nav-item">
@@ -100,7 +100,7 @@ $currentRol = $view->getVariable("currentRol");
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
 			          <?php if($currentRol == 'a'): ?>
-			           	
+
 			          <a class="dropdown-item" href="index.php?controller=championship&amp;action=add"><?php echo i18n("Crear") ?></a>
 			          <?php endif ?>
 
@@ -108,7 +108,7 @@ $currentRol = $view->getVariable("currentRol");
 			          <a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship"><?php echo i18n("Inscripción") ?></a>
 
 			          <?php endif ?>
-			          
+
 			          <?php if($currentRol == 'a'): ?>
 
 			          <a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select"><?php echo i18n("Gestionar Resultados") ?></a>
@@ -132,14 +132,16 @@ $currentRol = $view->getVariable("currentRol");
 			          <?php echo i18n("Partido") ?>
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="">Crear</a>
-			          <a class="dropdown-item" href="">Inscripción</a>
-			          <a class="dropdown-item" href="">Gestionar Resultados</a>
+								<?php if($currentRol == 'a'): ?>
+			          <a class="dropdown-item" href="index.php?controller=organizeMatch&amp;action=add"><?= i18n("Organize Match") ?></a>
+								<?php endif ?>
+								<a class="dropdown-item" href="index.php?controller=organizeMatch&amp;action=viewAll"><?= i18n("View Organized Matches") ?></a>
+			          <!-- <a class="dropdown-item" href="">Gestionar Resultados</a> -->
 			       </div>
 			      </li>
 
 			  	  <?php endif ?>
-			      
+
 
 			    </ul>
 
@@ -159,7 +161,7 @@ $currentRol = $view->getVariable("currentRol");
 					<?php endif ?>
 			    </li>
 			</nav>
-	      
+
 	    <!-- Container -->
 		<div class="container">
 	      <!-- Jumbotron -->
@@ -219,7 +221,7 @@ $currentRol = $view->getVariable("currentRol");
         </div>
     </footer>
 
-    
+
 
 	</body>
 </html>

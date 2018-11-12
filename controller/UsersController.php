@@ -75,23 +75,28 @@ class UsersController extends BaseController {
 
 
 	public function login() {
-		if (isset($_POST["login"])){ // reaching via HTTP Post...
-			//process login form
-			if ($this->userMapper->isValidUser($_POST["login"],$_POST["pass"])) {
+		if(!isset($_SESSION["currentuser"])){
+			if (isset($_POST["login"])){ // reaching via HTTP Post...
+				//process login form
+				if ($this->userMapper->isValidUser($_POST["login"],$_POST["pass"])) {
 
-				$_SESSION["currentuser"]=$_POST["login"];
-				// send user to the restricted area (HTTP 302 code)
-				$this->view->redirect("users", "index");
+					$_SESSION["currentuser"]=$_POST["login"];
+					// send user to the restricted area (HTTP 302 code)
+					$this->view->redirect("users", "index");
 
+				}else{
+					$errors = array();
+					$errors["general"] = "Login is not valid";
+					$this->view->setVariable("errors", $errors);
+				}
 			}else{
-				$errors = array();
-				$errors["general"] = "Login is not valid";
-				$this->view->setVariable("errors", $errors);
+				// render the view (/view/users/login.php)
+				$this->view->render("users", "login");
 			}
+		}else{
+			// render the view (/view/users/login.php)
+			$this->view->redirect("users", "index");
 		}
-
-		// render the view (/view/users/login.php)
-		$this->view->render("users", "login");
 	}
 
 	/**
@@ -132,7 +137,7 @@ class UsersController extends BaseController {
 			$user->setUsername($_POST["username"]);
 			$user->setSurname($_POST["surname"]);
 			$user->setPass($_POST["pass"]);
-			$user->setRol(0);
+			$user->setRol('d');
 			$user->setGender($_POST["gender"]);
 
 			try{
@@ -200,9 +205,9 @@ class UsersController extends BaseController {
 		}
 
 		$userMapper = new UserMapper();
-		
+
 		if ( isset($_POST['login']) && isset($_POST['nombre']) && isset($_POST['apellidos']) && isset($_POST['rol']) && isset($_POST['genero']) ) {
-			
+
 			$userMapper->borrar($_POST['login']);
 
 			$this->view->setFlash("successfully delete");
@@ -213,7 +218,7 @@ class UsersController extends BaseController {
 
 		}
 
-		
+
 
 		$datos = $userMapper->getDatos($_REQUEST['login']);
 
@@ -231,9 +236,9 @@ class UsersController extends BaseController {
 		}
 
 		$userMapper = new UserMapper();
-		
+
 		if ( isset($_POST['login']) && isset($_POST['nombre']) && isset($_POST['apellidos']) && isset($_POST['rol']) && isset($_POST['genero']) ) {
-			
+
 			$userMapper->editar($_POST['login'],$_POST['nombre'],$_POST['apellidos'],$_POST['pass'],$_POST['rol'],$_POST['genero']);
 
 			$this->view->setFlash("successfully modify");
@@ -244,7 +249,7 @@ class UsersController extends BaseController {
 
 		}
 
-		
+
 
 		$datos = $userMapper->getDatos($_REQUEST['login']);
 

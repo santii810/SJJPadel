@@ -17,6 +17,21 @@ ul , li {
 	height: 50px;
 }
 
+table{
+  border-collapse: inherit;
+}
+
+.button-organize{
+  background-color: rgba(33,37,41,1);
+  border:none;
+  border-radius: 3px;
+  color: white;
+}
+
+.color-1{
+  color: rgba(33,37,41,1);
+}
+
 #languagechooser{
 	padding: 0;
 	margin-top: 0;
@@ -109,9 +124,9 @@ border-radius: 0 3px 3px 0;
 
 /* Small devices (tablets, 768px and up) */
 /* container width: 750px */
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
 body {
-   		
+
 	}
 
 }
@@ -120,23 +135,17 @@ body {
 /* container width: 970 */
 @media (min-width: 992px) {
 body {
-		
+
 	}
 }
-	
+
 
 
 /* Large devices (large desktops, 1200px and up) */
 /* container width: 1170px */
 @media (min-width: 1200px) {
 body {
-		
+
 	}
 
 }
-
-
-
-
-
-

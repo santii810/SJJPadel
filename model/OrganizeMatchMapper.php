@@ -29,13 +29,25 @@ class OrganizeMatchMapper {
 	* @throws PDOException if a database error occurs
 	* @return void
 	*/
-	public function save(OrganizeMatch $organizeMarch) {
+	public function save(OrganizeMatch $organizeMatch) {
 		$stmt = $this->db->prepare("INSERT INTO organizarpartido (fecha, hora)
 												values (?,?)");
-		$stmt->execute(array($organizeMarch->getFecha(),
-							 $organizeMarch->getHora(),
+		$stmt->execute(array($organizeMatch->getFecha(),
+							 $organizeMatch->getHora(),
 							));
 	}
+
+	public function find($idOrganizarPartido){
+		$stmt = $this->db->prepare("SELECT * FROM organizarpartido WHERE idOrganizarPartido =?");
+		$stmt->execute(array($idOrganizarPartido));
+		$match_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if( $match_sql!= null ){
+			$match = new OrganizeMatch($match_sql["idOrganizarPartido"],$match_sql["fecha"],$match_sql["hora"]);
+			return $match;
+		}
+		return null;
+		}
 
 	/**
 	* Find all the matches organized by an admin
@@ -52,7 +64,7 @@ class OrganizeMatchMapper {
 		foreach ($organizedMatches as $match) {
 			$fecha = new DateTime($match["fecha"]);
 
-			$organizedMatch = new OrganizeMatch($fecha->format('d-m-Y'), substr($match["hora"], 0, 5));
+			$organizedMatch = new OrganizeMatch(null, $fecha->format('d-m-Y'), substr($match["hora"], 0, 5));
 			$organizedMatch-> setIdOrganizarPartido($match["idOrganizarPartido"]);
 			array_push( $organizedMatchesArray, $organizedMatch );
 		}
@@ -115,7 +127,7 @@ class OrganizeMatchMapper {
 	*
 	* @throws PDOException if a database error occurs
 	*/
-	public function borrar($idOrganizarPartido){
+	public function delete($idOrganizarPartido){
 		$stmt = $this->db->prepare("DELETE FROM organizarpartido where idOrganizarPartido=?");
 		$stmt->execute(array($idOrganizarPartido));
 	}

@@ -17,7 +17,7 @@ class ReservationMapper {
 		//SELECT count(fechaReserva), fechaReserva, horaReserva FROM reserva WHERE fechaReserva BETWEEN curdate() AND curdate()+7 group by fechaReserva, horaReserva
 		$stmt = $this->db->prepare("SELECT * FROM reserva WHERE fechaReserva BETWEEN CURDATE() AND CURDATE() + 7 ORDER BY fechaReserva, horaReserva");
 		$stmt->execute();
-		
+
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$torretReservations = array();
@@ -48,9 +48,9 @@ class ReservationMapper {
 		$stmt = $this->db->prepare("SELECT max(idPista) as pista FROM reserva WHERE fechaReserva  = ? AND horaReserva = ?");
 		$date = date("Y-m-d", strtotime($date));
 		$stmt->execute(array($date, $hour));
-		
+
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$lastPista = $result[0]["pista"];
 		return $lastPista;
 	}
@@ -58,9 +58,9 @@ class ReservationMapper {
 	public function getReservationCount(){
 		$stmt = $this->db->prepare("SELECT count(fechaReserva) as numReservas, fechaReserva, horaReserva FROM reserva WHERE fechaReserva BETWEEN curdate() AND curdate()+7 group by fechaReserva, horaReserva");
 		$stmt->execute();
-		
+
 		$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$torretReservations = array();
 
 		foreach ($results as $result) {
@@ -71,5 +71,19 @@ class ReservationMapper {
 		);
 		}
 		return $torretReservations;
+	}
+
+	public function getReservationId($idUsuarioReserva, $fechaReserva, $horaReserva, $pista){
+		$stmt = $this->db->prepare("SELECT * FROM reserva WHERE idUsuarioReserva=? AND fechaReserva=? AND horaReserva=? AND idPista=?");
+		$stmt->execute(array($idUsuarioReserva,
+													$fechaReserva,
+													$horaReserva,
+													$pista));
+		$reservation = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($reservation != null){
+			return $reservation["idReserva"];
+		}
+		return null;
 	}
 }

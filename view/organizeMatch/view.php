@@ -45,7 +45,7 @@ $currentRol = $view->getVariable("currentRol");
                   <a href="index.php?controller=organizeMatch&amp;action=join&amp;idOrganizeMatch=<?=$match->getIdOrganizarPartido(); ?>"><i class="fas fa-plus-circle color-1"></i></a>
                 <?php endif; ?>
                 <?php if ($currentRol == 'a'): ?>
-                  <a href="index.php?controller=organizeMatch&amp;action=delete"><i class="fas fa-trash-alt color-1"></i></a>
+                  <a href="index.php?controller=organizeMatch&amp;action=delete&amp;idOrganizeMatch=<?=$match->getIdOrganizarPartido(); ?>"><i class="fas fa-trash-alt color-1"></i></a>
                 <?php endif; ?>
               </form>
               </td>

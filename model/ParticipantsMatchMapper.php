@@ -22,6 +22,21 @@ class ParticipantsMatchMapper {
 		$this->db = PDOConnection::getInstance();
 	}
 
+
+	public function play($idOrganizeMatch, $userLogin){
+		$stmt = $this->db->prepare("SELECT * FROM participantespartido WHERE idOrganizarPartido =? AND loginUsuario=?");
+		$stmt->execute(array($idOrganizeMatch, $userLogin));
+		$play = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		if( $play != null ){
+			$play = true;
+		}
+		else{
+			$play = false;
+		}
+		return $play;
+	}
+
 	/**
 	* Saves a OrganizeMatch into the database
 	*
@@ -37,13 +52,22 @@ class ParticipantsMatchMapper {
 							));
 	}
 
+	public function count($idOrganizeMatch){
+		$stmt = $this->db->prepare("SELECT COUNT(*) as count FROM participantespartido WHERE idOrganizarPartido =?");
+		$stmt->execute(array($idOrganizeMatch));
+		$count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $count["count"];
+
+	}
+
 	/**
 	* Delete an organize Match
 	*
 	* @throws PDOException if a database error occurs
 	*/
-	public function borrar($idParticipantesPartido){
-		$stmt = $this->db->prepare("DELETE FROM participantespartido where idParticipantesPartido=?");
-		$stmt->execute(array($idParticipantesPartido));
+	public function cancel($idOrganizeMatch, $userLogin){
+		$stmt = $this->db->prepare("DELETE FROM participantespartido where idOrganizarPartido=? AND loginUsuario=?");
+		$stmt->execute(array($idOrganizeMatch, $userLogin));
 	}
 }

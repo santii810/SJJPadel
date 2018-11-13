@@ -8,6 +8,8 @@ $joinMatch = $view->getVariable("joinMatch");
 $view->setVariable("title", "Unirse a Partido Organizado");
 $currentRol = $view->getVariable("currentRol");
 
+$play = $view->getVariable("play");
+
 ?>
 
 <h3><?= i18n("View Organized Matches"); ?></h3>
@@ -41,16 +43,23 @@ $currentRol = $view->getVariable("currentRol");
             </td>
             <td>
               <?php foreach($joinMatch->getParticipants() as $participant): ?>
-              <tr>
-                <?= $participant ?>
-              </tr>
-            <?php endforeach; ?>
+                <div>
+                  <?= $participant ?>
+                </div>
+              <?php endforeach; ?>
             </td>
         <tr>
   </tbody>
 </table>
-
-<form action="index.php?controller=organizeMatch&amp;action=join" method="POST">
-  <input type="hidden" value="<?= $joinMatch->getIdOrganizarPartido(); ?>" name="idOrganizeMatch" id="idOrganizeMatch"/>
-  <input class="button-organize" type="submit" value="<?= i18n("Join"); ?>"/>
-</form>
+<?php if(!$play): ?>
+  <form action="index.php?controller=organizeMatch&amp;action=join" method="POST">
+    <input type="hidden" value="<?= $joinMatch->getIdOrganizarPartido(); ?>" name="idOrganizeMatch" id="idOrganizeMatch"/>
+    <input class="button-organize" type="submit" value="<?= i18n("Join"); ?>"/>
+  </form>
+<?php endif; ?>
+<?php if($play): ?>
+  <form action="index.php?controller=organizeMatch&amp;action=cancel" method="POST">
+    <input type="hidden" value="<?= $joinMatch->getIdOrganizarPartido(); ?>" name="idOrganizeMatch" id="idOrganizeMatch"/>
+    <input class="button-organize" type="submit" value="<?= i18n("Cancel"); ?>"/>
+  </form>
+<?php endif; ?>

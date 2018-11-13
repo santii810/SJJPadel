@@ -2,7 +2,6 @@
 
 require_once(__DIR__."/../model/Reservation.php");
 require_once(__DIR__."/../model/ReservationMapper.php");
-require_once(__DIR__."/../model/Reservation.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -26,6 +25,9 @@ class ReservationController extends BaseController {
 		$this->view->setVariable("reservations", $reservations);
 		$this->view->render("reservation", "selectSchedule");
 	}
+
+
+	
 	public function add(){
 		$reservationMapper = new ReservationMapper();
 		

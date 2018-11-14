@@ -52,6 +52,27 @@ class ChampionshipMapper {
 		return $championships;
 	}
 
+	// devuelve una lista de campeonatos con la fecha de incripcion finalziada y que no tengan grupos ya creados
+	public function getCampeonatosToGenerateGroups(){
+		$stmt = $this->db->query("SELECT * FROM campeonato where fechaFinInscripcion < curdate() and (Select count(idCampeonato) from grupo where campeonato.idCampeonato = grupo.idCampeonato ) = 0");
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$championships = array();
+
+		foreach ($toret_db as $championship) {
+			array_push($championships, new Championship(
+				$championship["idCampeonato"],
+				$championship["fechaInicioInscripcion"],
+			 	$championship["fechaFinInscripcion"], 
+				$championship["fechaInicioCampeonato"],
+				$championship["fechaFinCampeonato"],
+				$championship["nombreCampeonato"]));
+		}
+
+		return $championships;
+
+	}
+
 		//prueba objectos
 	public function getCampeonatosParaIncripcion(){
 		$stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioInscripcion <= curdate() and fechaFinInscripcion >= curdate()");

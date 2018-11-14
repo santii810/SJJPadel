@@ -35,7 +35,26 @@ class ChampionshipMapper {
 	//prueba objectos
 	public function getCampeonatos(){
 		$stmt = $this->db->query("SELECT *
-								  FROM   campeonato");
+								  FROM campeonato");
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$championships = array();
+
+		foreach ($toret_db as $championship) {
+			array_push($championships, new Championship(
+				$championship["idCampeonato"],
+				$championship["fechaInicioInscripcion"],
+			 	$championship["fechaFinInscripcion"], 
+				$championship["fechaInicioCampeonato"],
+				$championship["fechaFinCampeonato"],
+				$championship["nombreCampeonato"]));
+		}
+		return $championships;
+	}
+
+		//prueba objectos
+	public function getCampeonatosParaIncripcion(){
+		$stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioInscripcion <= curdate() and fechaFinInscripcion >= curdate()");
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$championships = array();

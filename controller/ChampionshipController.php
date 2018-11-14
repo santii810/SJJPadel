@@ -3,7 +3,14 @@
 
 require_once(__DIR__."/../model/Championship.php");
 require_once(__DIR__."/../model/ChampionshipMapper.php");
+require_once(__DIR__."/../model/CategoryChampionship.php");
+require_once(__DIR__."/../model/CategoryChampionshipMapper.php");
 require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/Partner.php");
+require_once(__DIR__."/../model/Group.php");
+require_once(__DIR__."/../model/GroupMapper.php");
+require_once(__DIR__."/../model/Partnergroup.php");
+require_once(__DIR__."/../model/partnerGroupMapper.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -18,6 +25,7 @@ require_once(__DIR__."/../controller/BaseController.php");
 class ChampionshipController extends BaseController {
 
 	private $championshipMapper;
+	private $groupNames = array("Grupo A", "Grupo B", "Grupo C", "Grupo D", "Grupo E", "Grupo F");
 
 	public function __construct() {
 		parent::__construct();
@@ -31,7 +39,7 @@ class ChampionshipController extends BaseController {
 		}
 
 		$championship = new Championship();
-			
+
 		if (isset($_POST["fechaInicioInscripcion"])) { // reaching via HTTP Post...
 
 			// populate the Post object with data form the form
@@ -73,7 +81,60 @@ class ChampionshipController extends BaseController {
 
 		// render the view (/view/posts/add.php)
 		$this->view->render("championship", "add");
+	}
+
+
+
+	public function selectToCalendar() {
+		$campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
+
+		$this->view->setVariable("campeonatos", $campeonatos);
+		$this->view->render("championship", "selectToCalendar");
+	}
+
+
+	/* Genera el calendario de un campeonato.
+	* Recorre el conjunto de categorias de los campeonatos.
+	* Para cada una crea grupos de entre 8 y 12 parejas
+	* Luego, usando la lista de parejas se asignan N parejas a cada grupo
+	*/
+	public function generateCalendar(){
+		$categoryChampionshipMapper = new CategoryChampionshipMapper();
+		$groupMapper = new GroupMapper();
+		$partnerGroupMapper = new PartnergroupMapper();
+
+		$idCampeonato =  $_POST["idCampeonato"];
+		unset($_POST["idCampeonato"]);
+		$categoriasCampeonato = $categoryChampionshipMapper->getCategoriesFromChampionship($idCampeonato);
+
+		foreach ($categoriasCampeonato as $categoriaCampeonato) {
+			$couples = $categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
+
+			if(sizeof($couples) > 7){
+				$numGroups = floor(sizeof($couples)/8); // calculo el numero de grupos dividiendo
+				$groupSize = min(sizeof($couples)/$numGroups, 12); // si el tamaño de los grupos es mayor de 12 lo trunco
+				
+				$groupIds = array();
+				//Se crean los grupos necesarios
+				for($i = 0; $i < $numGroups; $i++){
+					$group =  new Group(NULL, $categoriaCampeonato->getIdCategory(), $categoriaCampeonato->getIdChampionship(), $this->groupNames[$i]);
+					array_push($groupIds, $groupMapper->save($group));	
+				}
+				
+				//Va repartiendo las parejas en los grupos creados
+				$roulette = 0; $asignedCouples = 0;
+				foreach ($couples as $couple) {
+					if($asignedCouples < 12*sizeof($groupIds)){ // Se asegura de que no existan grupos de mas de 12 parejas
+						$partnerGroupMapper->save(new Partnergroup($couple->getIdPartner(), $groupIds[$roulette]));
+						$roulette = ($roulette+1) % sizeof($groupIds);
+						$asignedCouples++;
+					}
+
+				}
+
+
+			}
+		}
 
 	}
-	
 }

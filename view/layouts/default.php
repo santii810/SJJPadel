@@ -123,7 +123,7 @@ $currentRol = $view->getVariable("currentRol");
 
 							<?php if($currentRol == 'a'): ?>
 
-								<a class="dropdown-item" href="index.php?controller=championship&amp;action=select"><?php echo i18n("Generate championship calendar") ?></a>
+								<a class="dropdown-item" href="index.php?controller=championship&amp;action=selectToCalendar"><?php echo i18n("Generate championship calendar") ?></a>
 
 							<?php endif ?>
 

@@ -56,9 +56,9 @@ class ChampionshipMapper {
 
 	public function getCategorias($idCampeonato) {
 		$stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
-									FROM campeonato cam,categoriascampeonato catc, categoría cat  
+									FROM campeonato cam,categoriascampeonato catc, categoria cat  
 									WHERE cam.idCampeonato = catc.idCampeonato AND
-										  catc.idCategoria = cat.idCategoría AND
+										  catc.idCategoria = cat.idCategoria AND
 										  cam.idCampeonato = ?			  
 									ORDER BY idCategoria");
 		$stmt->execute(array($idCampeonato));
@@ -82,11 +82,11 @@ class ChampionshipMapper {
 
     public function getGrupos($idCampeonato,$idCategoria) {
 		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato 
-									FROM campeonato cam,grupo g,categoría c 
+									FROM campeonato cam,grupo g,categoria c 
 						   			WHERE cam.idCampeonato = g.idCampeonato AND
-                           		 	c.idCategoría = g.idCategoria AND
+                           		 	c.idCategoria = g.idCategoria AND
                                  	cam.idCampeonato = ? AND
-                                 	c.idCategoría = ? ");
+                                 	c.idCategoria = ? ");
 		$stmt->execute(array($idCampeonato,$idCategoria));
 
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);

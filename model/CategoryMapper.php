@@ -31,7 +31,7 @@ class CategoryMapper {
 	*/
 	
 	function esGeneroAceptado($idCategoria,$genero){
-		$stmt = $this->db->prepare("SELECT sexo FROM categoría WHERE idCategoría = ? "
+		$stmt = $this->db->prepare("SELECT sexo FROM categoria WHERE idCategoria = ? "
                       					  );
 		$stmt->execute(array($idCategoria));
 

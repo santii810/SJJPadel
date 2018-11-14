@@ -46,6 +46,7 @@ array(
 	"Reserve court" => "Reservar pista",
 	"Select schedule" => "Seleccionar horario",
 	"Reserve" => "Reservar",
-	"Track reserved" => "Pista reservada"
+	"Track reserved" => "Pista reservada",
+	"Select championship" => "Seleccionar campeonato"
 )
 ?>

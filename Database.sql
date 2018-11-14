@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2018 a las 03:22:16
+-- Tiempo de generación: 14-11-2018 a las 19:02:49
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -110,7 +110,6 @@ INSERT INTO `categoriascampeonato` (`idCategoriasCampeonato`, `idCategoria`, `id
 (14, 9, 4),
 (15, 9, 5);
 
-
 -- --------------------------------------------------------
 
 --
@@ -129,13 +128,6 @@ CREATE TABLE `enfrentamiento` (
   `setsPareja1` int(11) DEFAULT NULL,
   `setsPareja2` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `enfrentamiento`
---
-
-INSERT INTO `enfrentamiento` (`idEnfrentamiento`, `idPareja1`, `idPareja2`, `idGrupo`, `fecha`, `hora`, `puntosPareja1`, `puntosPareja2`, `setsPareja1`, `setsPareja2`) VALUES
-(1, 1, 4, 1, '2018-11-30', '10:00:00', 4, 9, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -157,7 +149,9 @@ CREATE TABLE `grupo` (
 INSERT INTO `grupo` (`idGrupo`, `idCategoria`, `idCampeonato`, `nombreGrupo`) VALUES
 (1, 3, 1, 'Grupo 1'),
 (2, 1, 2, 'Grupo 1'),
-(3, 5, 2, 'Grupo 2');
+(3, 5, 2, 'Grupo 2'),
+(4, 1, 1, 'Grupo A'),
+(5, 1, 3, 'Grupo A');
 
 -- --------------------------------------------------------
 
@@ -364,13 +358,6 @@ CREATE TABLE `reservaenfrentamiento` (
   `idEnfrentamiento` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `reservaenfrentamiento`
---
-
-INSERT INTO `reservaenfrentamiento` (`idReserva`, `idEnfrentamiento`) VALUES
-(12, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -381,13 +368,6 @@ CREATE TABLE `reservaorganizarpartido` (
   `idReserva` int(11) NOT NULL,
   `idOrganizarPartido` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `reservaorganizarpartido`
---
-
-INSERT INTO `reservaorganizarpartido` (`idReserva`, `idOrganizarPartido`) VALUES
-(13, 3);
 
 -- --------------------------------------------------------
 
@@ -578,7 +558,12 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `enfrentamiento`
 --
 ALTER TABLE `enfrentamiento`
-  MODIFY `idEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `grupo`
+--
+ALTER TABLE `grupo`
+  MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `ofertaenfrentamiento`
 --

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2018 at 06:19 PM
+-- Generation Time: Nov 15, 2018 at 07:33 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -45,7 +45,7 @@ CREATE TABLE `campeonato` (
 
 INSERT INTO `campeonato` (`idCampeonato`, `fechaInicioInscripcion`, `fechaFinInscripcion`, `fechaInicioCampeonato`, `fechaFinCampeonato`, `nombreCampeonato`) VALUES
 (1, '2018-10-01', '2018-10-05', '2018-10-10', '2018-10-31', 'Campeonato Septiembre'),
-(2, '2018-11-01', '2018-11-05', '2018-11-10', '2018-12-02', 'Campeonato Octubre'),
+(2, '2018-11-01', '2018-11-16', '2018-11-10', '2018-12-02', 'Campeonato Octubre'),
 (3, '2018-12-01', '2018-12-05', '2018-12-10', '2018-01-05', 'Campeonato Diciembre'),
 (4, '2018-12-01', '2018-12-05', '2018-12-10', '2018-01-05', 'Campeonato Especial Navidad'),
 (5, '2019-01-01', '2019-01-05', '2019-01-10', '2019-01-31', 'Campeonato Enero');
@@ -147,7 +147,7 @@ CREATE TABLE `grupo` (
 --
 
 INSERT INTO `grupo` (`idGrupo`, `idCategoria`, `idCampeonato`, `nombreGrupo`) VALUES
-(1, 3, 1, 'Grupo 1'),
+(1, 1, 1, 'Grupo 1'),
 (2, 1, 2, 'Grupo 1'),
 (3, 5, 2, 'Grupo 2'),
 (4, 1, 1, 'Grupo A'),
@@ -199,7 +199,8 @@ CREATE TABLE `organizarpartido` (
 INSERT INTO `organizarpartido` (`idOrganizarPartido`, `fecha`, `hora`) VALUES
 (1, '2018-11-21', '11:30:00'),
 (2, '2018-11-23', '11:30:00'),
-(3, '2018-11-25', '19:00:00');
+(3, '2018-11-25', '19:00:00'),
+(4, '2018-11-15', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -286,33 +287,12 @@ CREATE TABLE `participantespartido` (
 --
 
 INSERT INTO `participantespartido` (`idParticipantesPartido`, `idOrganizarPartido`, `loginUsuario`) VALUES
+(0, 4, 'aa'),
 (1, 1, 'jgrossier2a'),
 (2, 1, 'bkeitley1'),
 (3, 2, 'dmeeusk'),
 (4, 3, 'bjankovic1p'),
 (5, 3, 'cjost0');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pista`
---
-
-CREATE TABLE `pista` (
-  `idPista` int(11) NOT NULL,
-  `nombrePista` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `pista`
---
-
-INSERT INTO `pista` (`idPista`, `nombrePista`) VALUES
-(1, 'Pista 1'),
-(2, 'Pista 2'),
-(3, 'Pista 3'),
-(4, 'Pìsta 4'),
-(5, 'Pista 5');
 
 -- --------------------------------------------------------
 
@@ -324,39 +304,42 @@ CREATE TABLE `reserva` (
   `idReserva` int(11) NOT NULL,
   `idUsuarioReserva` varchar(20) NOT NULL,
   `fechaReserva` varchar(15) NOT NULL,
-  `horaReserva` varchar(15) NOT NULL,
-  `idPista` int(11) NOT NULL
+  `horaReserva` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `reserva`
 --
 
-INSERT INTO `reserva` (`idReserva`, `idUsuarioReserva`, `fechaReserva`, `horaReserva`, `idPista`) VALUES
-(1, 'jgrossier2a', '2018-11-01', '10:00', 1),
-(2, 'hcassea', '2018-11-01', '11:30', 1),
-(3, 'mpitcockb', '2018-11-01', '11:30', 2),
-(4, 'ywalshe29', '2018-11-01', '11:30', 3),
-(5, 'sbellfieldy', '2018-11-01', '13:00', 1),
-(6, 'bjankovic1p', '2018-11-01', '13:00', 1),
-(7, 'ngavagan8', '2018-11-01', '16:00', 1),
-(8, 'uadshed7', '2018-11-01', '16:00', 2),
-(9, 'cjost0', '2018-11-01', '17:30', 1),
-(10, 'dmeeusk', '2018-11-01', '19:00', 1),
-(11, 'kloftie5', '2018-11-01', '19:00', 2),
-(12, 'bkeitley1', '2018-11-30', '10:00', 2),
-(13, 'bkeitley1', '2018-11-25', '19:00', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `reservaenfrentamiento`
---
-
-CREATE TABLE `reservaenfrentamiento` (
-  `idReserva` int(11) NOT NULL,
-  `idEnfrentamiento` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `reserva` (`idReserva`, `idUsuarioReserva`, `fechaReserva`, `horaReserva`) VALUES
+(1, 'jgrossier2a', '2018-11-01', '10:00'),
+(2, 'hcassea', '2018-11-01', '11:30'),
+(3, 'mpitcockb', '2018-11-01', '11:30'),
+(4, 'ywalshe29', '2018-11-01', '11:30'),
+(5, 'sbellfieldy', '2018-11-01', '13:00'),
+(6, 'bjankovic1p', '2018-11-01', '13:00'),
+(7, 'ngavagan8', '2018-11-01', '16:00'),
+(8, 'uadshed7', '2018-11-01', '16:00'),
+(9, 'cjost0', '2018-11-01', '17:30'),
+(10, 'dmeeusk', '2018-11-01', '19:00'),
+(11, 'kloftie5', '2018-11-01', '19:00'),
+(12, 'bkeitley1', '2018-11-30', '10:00'),
+(13, 'bkeitley1', '2018-11-25', '19:00'),
+(14, 'admin', '2018-11-15', '10:00'),
+(15, 'admin', '2018-11-15', '10:00'),
+(16, 'admin', '2018-11-15', '10:00'),
+(17, 'admin', '2018-11-15', '10:00'),
+(18, 'admin', '2018-11-15', '10:00'),
+(19, 'admin', '2018-11-15', '11:30'),
+(20, 'admin', '2018-11-16', '11:30'),
+(21, 'admin', '2018-11-16', '11:30'),
+(22, 'admin', '2018-11-16', '11:30'),
+(23, 'admin', '2018-11-16', '11:30'),
+(24, 'admin', '2018-11-15', '13:00'),
+(25, 'admin', '2018-11-15', '13:00'),
+(26, 'admin', '2018-11-15', '13:00'),
+(27, 'admin', '2018-11-15', '11:30'),
+(28, 'admin', '2018-11-15', '11:30');
 
 -- --------------------------------------------------------
 
@@ -378,6 +361,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`login`, `nombre`, `apellidos`, `pass`, `rol`, `genero`) VALUES
+('aa', 'aa', 'aa', 'aa', 'd', 'masculino'),
 ('admin', 'admin', 'admin', 'admin', 'a', 'masculino'),
 ('avanelli2p', 'Audre', 'Vanelli', 'Ajqb8pziF', 'd', 'femenino'),
 ('bjankovic1p', 'Bernarr', 'Jankovic', 'qspW50hGXD', 'd', 'masculino'),
@@ -496,25 +480,11 @@ ALTER TABLE `participantespartido`
   ADD KEY `FK_Usuario_idx` (`loginUsuario`);
 
 --
--- Indexes for table `pista`
---
-ALTER TABLE `pista`
-  ADD PRIMARY KEY (`idPista`);
-
---
 -- Indexes for table `reserva`
 --
 ALTER TABLE `reserva`
   ADD PRIMARY KEY (`idReserva`),
-  ADD KEY `FK_Usuario_idx` (`idUsuarioReserva`),
-  ADD KEY `FK_Pista_idx` (`idPista`);
-
---
--- Indexes for table `reservaenfrentamiento`
---
-ALTER TABLE `reservaenfrentamiento`
-  ADD PRIMARY KEY (`idReserva`,`idEnfrentamiento`),
-  ADD KEY `FK_Enfrentamiento_idx` (`idEnfrentamiento`);
+  ADD KEY `FK_Usuario_idx` (`idUsuarioReserva`);
 
 --
 -- Indexes for table `usuario`
@@ -560,7 +530,7 @@ ALTER TABLE `ofertaenfrentamiento`
 -- AUTO_INCREMENT for table `organizarpartido`
 --
 ALTER TABLE `organizarpartido`
-  MODIFY `idOrganizarPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idOrganizarPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pareja`
@@ -569,16 +539,10 @@ ALTER TABLE `pareja`
   MODIFY `idPareja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- AUTO_INCREMENT for table `pista`
---
-ALTER TABLE `pista`
-  MODIFY `idPista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Constraints for dumped tables
@@ -638,15 +602,7 @@ ALTER TABLE `participantespartido`
 -- Constraints for table `reserva`
 --
 ALTER TABLE `reserva`
-  ADD CONSTRAINT `FK_Reserva_Pista` FOREIGN KEY (`idPista`) REFERENCES `pista` (`idPista`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_Reserva_Usuario` FOREIGN KEY (`idUsuarioReserva`) REFERENCES `usuario` (`login`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `reservaenfrentamiento`
---
-ALTER TABLE `reservaenfrentamiento`
-  ADD CONSTRAINT `FK_RE_Enfrentamiento` FOREIGN KEY (`idEnfrentamiento`) REFERENCES `enfrentamiento` (`idEnfrentamiento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_RE_Reserva` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

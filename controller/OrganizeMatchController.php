@@ -152,7 +152,7 @@ class OrganizeMatchController extends BaseController {
           if( $players == 4 ){
             $organizeMatch = $this->organizeMatchMapper->find($idOrganizeMatch);
             if($organizeMatch != null){
-              $freePista = $this->reservationMapper->getFreePista($organizeMatch->getFecha(), $organizeMatch->getHora());
+              $freePista = $this->reservationMapper->getNumReservations($organizeMatch->getFecha(), $organizeMatch->getHora());
               $reservation = new Reservation(null, "admin", $organizeMatch->getFecha(), $organizeMatch->getHora(), $freePista+1);
               $this->reservationMapper->makeReservation($reservation);
 

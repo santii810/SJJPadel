@@ -44,14 +44,14 @@ class ReservationMapper {
 
 	}
 
-	public function getFreePista($date, $hour){
-		$stmt = $this->db->prepare("SELECT max(idPista) as pista FROM reserva WHERE fechaReserva  = ? AND horaReserva = ?");
+	public function getNumReservations($date, $hour){
+		$stmt = $this->db->prepare("SELECT count(*) as numPistas FROM reserva WHERE fechaReserva  = ? AND horaReserva = ?");
 		$date = date("Y-m-d", strtotime($date));
 		$stmt->execute(array($date, $hour));
 
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		$lastPista = $result[0]["pista"];
+		$lastPista = $result["numPistas"];
 		return $lastPista;
 	}
 

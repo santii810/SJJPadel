@@ -34,7 +34,7 @@ class ReservationController extends BaseController {
 		$date = explode('#', $_POST["scheduleButton"])[0];
 		$date = date("Y-m-d", strtotime($date));
 		$hour = explode('#', $_POST["scheduleButton"])[1];
-		$pista = $reservationMapper->getFreePista($date, $hour);
+		$pista = $reservationMapper->getNumReservations($date, $hour);
 		
 		
 		$reservation = new Reservation(null, $_SESSION["currentuser"], $date, $hour, $pista+1);

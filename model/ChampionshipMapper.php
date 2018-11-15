@@ -35,7 +35,7 @@ class ChampionshipMapper {
 	//prueba objectos
 	public function getCampeonatos(){
 		$stmt = $this->db->query("SELECT *
-								  FROM campeonato");
+			FROM campeonato");
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$championships = array();
@@ -44,7 +44,26 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-			 	$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"], 
+				$championship["fechaInicioCampeonato"],
+				$championship["fechaFinCampeonato"],
+				$championship["nombreCampeonato"]));
+		}
+		return $championships;
+	}
+
+	//Retorna campeonatos ya en curso
+	public function getCampeonatosInProgress(){
+		$stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioCampeonato < curdate()");
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$championships = array();
+
+		foreach ($toret_db as $championship) {
+			array_push($championships, new Championship(
+				$championship["idCampeonato"],
+				$championship["fechaInicioInscripcion"],
+				$championship["fechaFinInscripcion"], 
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -63,7 +82,7 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-			 	$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"], 
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -84,7 +103,7 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-			 	$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"], 
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -96,11 +115,11 @@ class ChampionshipMapper {
 
 	public function getCategorias($idCampeonato) {
 		$stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
-									FROM campeonato cam,categoriascampeonato catc, categoria cat  
-									WHERE cam.idCampeonato = catc.idCampeonato AND
-										  catc.idCategoria = cat.idCategoria AND
-										  cam.idCampeonato = ?			  
-									ORDER BY idCategoria");
+			FROM campeonato cam,categoriascampeonato catc, categoria cat  
+			WHERE cam.idCampeonato = catc.idCampeonato AND
+			catc.idCategoria = cat.idCategoria AND
+			cam.idCampeonato = ?			  
+			ORDER BY idCategoria");
 		$stmt->execute(array($idCampeonato));
 
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -112,7 +131,7 @@ class ChampionshipMapper {
 				$category["idCategoria"],
 				$category["nivel"],
 				$category["sexo"]
-			 	));
+			));
 		}
 
 		return $categories;
@@ -120,13 +139,13 @@ class ChampionshipMapper {
 
 	
 
-    public function getGrupos($idCampeonato,$idCategoria) {
+	public function getGrupos($idCampeonato,$idCategoria) {
 		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato 
-									FROM campeonato cam,grupo g,categoria c 
-						   			WHERE cam.idCampeonato = g.idCampeonato AND
-                           		 	c.idCategoria = g.idCategoria AND
-                                 	cam.idCampeonato = ? AND
-                                 	c.idCategoria = ? ");
+			FROM campeonato cam,grupo g,categoria c 
+			WHERE cam.idCampeonato = g.idCampeonato AND
+			c.idCategoria = g.idCategoria AND
+			cam.idCampeonato = ? AND
+			c.idCategoria = ? ");
 		$stmt->execute(array($idCampeonato,$idCategoria));
 
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -139,7 +158,7 @@ class ChampionshipMapper {
 				$group["idCategoria"],
 				$group["idCampeonato"],
 				$group["nombreGrupo"]
-			 	));
+			));
 		}
 
 		return $groups;

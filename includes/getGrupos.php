@@ -2,11 +2,8 @@
 	require_once("../model/ChampionshipMapper.php");
 	require_once("../model/Group.php");
 
-	//$idCampeonato = $_REQUEST['idCampeonato'];
-	//$idCategoria = $_REQUEST['idCategoria'];
-
-	$idCampeonato = 6;
-	$idCategoria = 2;
+	$idCampeonato = $_REQUEST['idCampeonato'];
+	$idCategoria = $_REQUEST['idCategoria'];
 
 	$championshipMapper = new ChampionshipMapper();
 

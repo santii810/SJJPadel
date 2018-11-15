@@ -23,7 +23,7 @@ $view->setVariable("title", "Inscripción");
 	<select class="form-control" id="idCategoria" name="idCategoria">
 
 	  <?php foreach($categorias as $categoria) {?>
-	    <option value="<?php echo $categoria->getId() ?>"><?php echo $categoria->getNivel()."-".$categoria->getNivel() ?> </option>
+	    <option value="<?php echo $categoria->getId() ?>"><?php echo $categoria->getNivel()."-".$categoria->getSexo() ?> </option>
 	  <?php } ?>
 
 	</select>

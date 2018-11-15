@@ -38,9 +38,8 @@ class ReservationController extends BaseController {
 		
 		
 		$reservation = new Reservation(null, $_SESSION["currentuser"], $date, $hour, $pista+1);
-		
-		$reservationMapper->makeReservation($reservation);
 
+		$reservationMapper->makeReservation($reservation);
 
 		$this->view->setVariable("reservation", $reservation);
 		$this->view->render("reservation", "add");

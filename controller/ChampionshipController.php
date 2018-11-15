@@ -10,18 +10,12 @@ require_once(__DIR__."/../model/Partner.php");
 require_once(__DIR__."/../model/Group.php");
 require_once(__DIR__."/../model/GroupMapper.php");
 require_once(__DIR__."/../model/Partnergroup.php");
-require_once(__DIR__."/../model/partnerGroupMapper.php");
+require_once(__DIR__."/../model/PartnergroupMapper.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-/**
-* Class PostsController
-*
-* Controller to make a CRUDL of Posts entities
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class ChampionshipController extends BaseController {
 
 	private $championshipMapper;
@@ -129,12 +123,8 @@ class ChampionshipController extends BaseController {
 						$roulette = ($roulette+1) % sizeof($groupIds);
 						$asignedCouples++;
 					}
-
 				}
-
-
 			}
 		}
-
 	}
 }

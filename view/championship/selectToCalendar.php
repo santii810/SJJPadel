@@ -6,7 +6,7 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $campeonatos = $view->getVariable("campeonatos");
-$view->setVariable("title", "Selecionar Campeonato");
+$view->setVariable("title", i18n("Select championship"));
 
 ?>
 

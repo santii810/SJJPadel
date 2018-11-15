@@ -45,7 +45,7 @@ class ConfrontationController extends BaseController {
 
 		$championship = new ChampionshipMapper();
 		//todos los campeonatos
-		$campeonatos = $championship->getCampeonatosInProgress();
+		$campeonatos = $championship->getCampeonatos();
 
 		//mandamos el valor de variable para que lo recoga la vista
 		$this->view->setVariable("campeonatos",$campeonatos);
@@ -160,7 +160,7 @@ class ConfrontationController extends BaseController {
 
 		$championship = new ChampionshipMapper();
 		//todos los campeonatos
-		$campeonatos = $championship->getCampeonatos();
+		$campeonatos = $championship->getCampeonatosInProgress();
 
 		//mandamos el valor de variable para que lo recoga la vista
 		$this->view->setVariable("campeonatos",$campeonatos);

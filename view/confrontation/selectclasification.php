@@ -16,7 +16,7 @@ $view->setVariable("title", "Selecionar Campeonato");
   <div class="form-group">
     <label for="idCampeonato" size="1">Campeonato</label>
     <select class="form-control" id="idCampeonato" name="idCampeonato">
-      <option value="0">Seleccionar Campeonato</option>
+      <option value="">Seleccionar Campeonato</option>
       <?php foreach($campeonatos as $campeonato) {?>
         <option value="<?php echo $campeonato->getId() ?>"><?php echo $campeonato->getNombreCampeonato() ?> </option>
       <?php } ?>

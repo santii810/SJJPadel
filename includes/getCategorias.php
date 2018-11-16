@@ -10,6 +10,8 @@
 	
 	$html="";
 
+	$html.= "<option value=''>Selecciona Categoria</option>";
+
 	foreach($categories as $category)
 	{
 		$html.= "<option value='".$category->getId()."'>".$category->getNivel()."-".$category->getSexo()."</option>";

@@ -66,21 +66,21 @@ class ConfrontationController extends BaseController {
 			$idGrupo = $_REQUEST['idGrupo'];
 		}
 
-		if (isset($_POST["setsPareja1"])) {
-			
-            
 
-		}
+		
 		//Recoge todos los id de las parejas que estan en el grupo seleccionado
 		$partnergroupMapper = new PartnergroupMapper();
 		$idParejas = $partnergroupMapper->getIdParejasGrupo($idGrupo);
 		$array_idParejas = array();
+		
 		foreach ($idParejas as $id) {
 			$array_idParejas[] = $id->getIdPartner();
 		}
 
+
 		$partnerMapper = new PartnerMapper();
 		$partidos = $confrontationMapper->getPartidos($idGrupo);
+
 		$array_partidos = array();
 		
 		//array multidimensional

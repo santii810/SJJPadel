@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/../model/CategoryChampionship.php");
 
 class CategoryChampionshipMapper {
 
@@ -12,7 +13,7 @@ class CategoryChampionshipMapper {
 
 	
 	function getCategoriesFromChampionship($idChampionship){
-		$stmt = $this->db->prepare("SELECT * FROM categoriasCampeonato WHERE idCampeonato = ? ");
+		$stmt = $this->db->prepare("SELECT * FROM categoriascampeonato WHERE idCampeonato = ? ");
 		$stmt->execute(array($idChampionship));
 
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -36,5 +37,25 @@ class CategoryChampionshipMapper {
 			array_push($toret, new Partner($data["idPareja"], $data["idCapitan"], $data["idCompañero"], $data["idCategoriaCampeonato"]));
 		}
 		return $toret;
+	}
+
+	function getCategoryFromChampionship($idChampionship,$idCategory){
+		$stmt = $this->db->prepare("SELECT * FROM categoriascampeonato 
+											 WHERE idCampeonato = ? AND 
+											 	   idCategoria = ? ");
+		$stmt->execute(array($idChampionship,$idCategory));
+
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+		if($toret_db != null) {
+			return new CategoryChampionship(
+			$toret_db["idCategoriasCampeonato"],
+			$toret_db["idCategoria"],
+			$toret_db["idCampeonato"]
+			);
+		} else {
+			return NULL;
+		}
+
 	}
 }

@@ -15,13 +15,13 @@ class Partner {
 	private $idPartner;
 	private $idCaptain;	
 	private $idFellow;
-	private $idCategory;
+	private $idCategoryChampionship;
 	
-	public function __construct($idPartner=NULL,$idCaptain=NULL,$idFellow=NULL,$idCategory=NULL) {
+	public function __construct($idPartner=NULL,$idCaptain=NULL,$idFellow=NULL,$idCategoryChampionship=NULL) {
 		$this->idPartner = $idPartner;
 		$this->idCaptain = $idCaptain;
 		$this->idFellow = $idFellow;
-		$this->idCategory = $idCategory;
+		$this->idCategoryChampionship = $idCategoryChampionship;
 	}
 
 	public function getIdPartner() {
@@ -44,12 +44,12 @@ class Partner {
 		$this->idFellow = $id;
 	}
 
-	public function getIdCategory() {
-		return $this->idCategory;
+	public function getIdCategoryChampionship() {
+		return $this->idCategoryChampionship;
 	}
 
-	public function setIdCategory($id) {
-		$this->idCategory = $id;
+	public function setIdCategoryChampionship($id) {
+		$this->idCategoryChampionship = $id;
 	}
 
 	public function checkIsValidForRegister() {
@@ -60,8 +60,8 @@ class Partner {
 		if (strlen(trim($this->idFellow)) == 0 ) {
 			$errors["idFellow"] = "idFellow is mandatory";
 		}
-		if (strlen(trim($this->idCategory)) == 0 ) {
-			$errors["idCategory"] = "idCategory is mandatory";
+		if (strlen(trim($this->idCategoryChampionship)) == 0 ) {
+			$errors["idCategoryChampionship"] = "idCategoryChampionship is mandatory";
 		}
 		if (sizeof($errors)>0){
 			throw new ValidationException($errors, "user is not valid");

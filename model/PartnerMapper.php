@@ -25,40 +25,22 @@ class PartnerMapper {
 	}
 	
 	public function save($partner) {
-		$stmt = $this->db->prepare("INSERT INTO pareja(idCapitan,idCompañero,idCategoria) values (?,?,?)");
-		$stmt->execute(array($partner->getIdCaptain(), $partner->getIdFellow(),$partner->getIdCategory()));
+		$stmt = $this->db->prepare("INSERT INTO pareja(idCapitan,idCompañero,idCategoriaCampeonato) values (?,?,?)");
+		$stmt->execute(array($partner->getIdCaptain(), $partner->getIdFellow(),$partner->getIdCategoryChampionship()));
 		return $this->db->lastInsertId();
 	}
 
-	public function comprobarParejaCategoria($idGrupo,$login) {
-		$stmt = $this->db->prepare("SELECT * FROM pareja p,parejagrupo pg,grupo g 
-									WHERE p.idPareja = pg.idPareja AND
-        			  					  pg.idGrupo = g.idGrupo AND
-                      					  g.idGrupo = ? AND
-                      					  ( p.idCapitan = ? OR 
-                      					  p.idCompañero = ? )"
-                      					  );
-		$stmt->execute(array($idGrupo,$login,$login));
-
-		if ($stmt->rowCount() == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public function existeParejaCategoria($idCapitan,$idCompañero,$idCategoria){
+	public function existeParejaCategoria($login,$idCategoriaCampeonato){
 		$stmt = $this->db->prepare("SELECT * FROM pareja 
-									WHERE idCapitan = ? AND
-										  idCompañero = ? AND
-										  idCategoria = ? "
-                      					  );
-		$stmt->execute(array($idCapitan,$idCompañero,$idCategoria));
+									WHERE idCategoriaCampeonato = ? AND
+										  ( idCapitan = ? || idCompañero = ? )
+									");
+		$stmt->execute(array($idCategoriaCampeonato,$login,$login));
 
 		if ($stmt->rowCount() == 0) {
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 	}
 

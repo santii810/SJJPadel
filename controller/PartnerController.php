@@ -9,6 +9,7 @@ require_once(__DIR__."/../model/PartnergroupMapper.php");
 require_once(__DIR__."/../model/CategoryMapper.php");
 require_once(__DIR__."/../model/Group.php");
 require_once(__DIR__."/../model/GroupMapper.php");
+require_once(__DIR__."/../model/CategoryChampionshipMapper.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
@@ -44,7 +45,7 @@ class PartnerController extends BaseController {
 			$user = new UserMapper();
 
 			if ($_POST['login'] != $this->currentUser->getLogin() && $user->loginExists($_POST["login"])) {
-				//$queryString = "idCampeonato=".$_POST['idCampeonato']."&login=".$_POST['login'];
+				
 				$_SESSION['idCamp'] = $_POST['idCampeonato'];
 				$_SESSION['loginComp'] = $_POST['login'];
 				$this->view->redirect("partner", "inscription" );
@@ -88,42 +89,36 @@ class PartnerController extends BaseController {
 		$partner = new Partner();
 		
 		if (isset($_POST["idCategoria"])) { // reaching via HTTP Post...
-			$groupMapper = new GroupMapper();
-			$partnerMapper = new PartnerMapper();
+			//Obtenemos el objecto category-campionship relacionado con el idCampeonato y idCategoria seleccionado
+			$CategoryChampionshipMapper = new CategoryChampionshipMapper();
+			$objectCategoryChampionship = $CategoryChampionshipMapper->getCategoryFromChampionship($_POST['idCampeonato'],$_POST['idCategoria']);
+
+			//Obtenemos el genero del compañero de equipo
 			$userMapper = new UserMapper();
-			$categoryMapper = new categoryMapper();
-
-			//Grupo por defecto de la categoria seleccionada
-			$GrupoDefault = $groupMapper->getGrupoDefault($_POST['idCampeonato'],$_POST['idCategoria']);
-
-			//Recogemos generos de los componentes de la pareja
 			$datosPareja = $userMapper->getDatos($_POST['login']);
 			$generoPareja = $datosPareja->getGender();
-			//Comprobaciones para poder inscribirse en el torneo
-			if($partnerMapper->comprobarParejaCategoria($idGrupoDefault,$this->currentUser->getLogin()) && 
-				$partnerMapper->comprobarParejaCategoria($idGrupoDefault,$_POST['login']) &&
-				$categoryMapper->esGeneroAceptado($_POST['idCategoria'],$generoPareja) &&
-				$categoryMapper->esGeneroAceptado($_POST['idCategoria'],$this->currentUser->getGender())
-			) {
-				
-				//Rellenamos los datos de la pareja
+
+			//Mapper para obtener la funcion de 'esGeneroAceptado'
+			$categoryMapper = new categoryMapper();
+
+			//Mapper para la fucion existe pareja categoria
+			$partnerMapper = new PartnerMapper();
+
+			if ( $categoryMapper->esGeneroAceptado($_POST['idCategoria'],$generoPareja) &&
+				 $categoryMapper->esGeneroAceptado($_POST['idCategoria'],$this->currentUser->getGender()) &&
+				 !$partnerMapper->existeParejaCategoria($_POST['login'],$objectCategoryChampionship->getId()) &&
+				 !$partnerMapper->existeParejaCategoria($this->currentUser->getLogin(),$objectCategoryChampionship->getId())
+				) {
+
+				//Si no esta inscrito ya en el campeonato y el genero es compatible lo insertamos en la tabla pareja
+
 				$partner = new Partner();
 				$partner->setIdCaptain($this->currentUser->getLogin());
 				$partner->setIdFellow($_POST['login']);
-				$partner->setIdCategory($_POST['idCategoria']);
+				$partner->setIdCategoryChampionship($objectCategoryChampionship->getId());
 
-				//id del elemento insertado
-				$idPareja = $partnerMapper->save($partner);
-
-				//relleno tabla pareja grupo
-				$partnergroup = new PartnerGroup();
-				$partnergroupMapper = new PartnergroupMapper(); 
-				//Insertamos los datos en el modelo pareja grupo
-				$partnergroup->setIdPartner($idPareja);
-				$partnergroup->setIdGroup($GrupoDefault->getIdGroup());
-
-				//Guardamos los datos en la tabla pareja grupo
-				$partnergroupMapper->save($partnergroup);
+				//inscribimos en la base de datos la pareja
+				$partnerMapper->save($partner);
 
 				$this->view->setFlash("successfully inscription");
 
@@ -132,24 +127,23 @@ class PartnerController extends BaseController {
 					// die();
 				$this->view->redirect("users", "index");
 				
-
 			} else {
 				$errors = array();
-				if (!$partnerMapper->comprobarParejaCategoria($idGrupoDefault,$this->currentUser->getLogin())) {
-					$errors["login"] = "Login current user already exists in category";
-				} else if(!$partnerMapper->comprobarParejaCategoria($idGrupoDefault,$_POST['login'])){
-					$errors["login"] = "Login fellow already exists in category";
-				} else if(!$categoryMapper->esGeneroAceptado($_POST['idCategoria'],$generoPareja)){
-					$errors['login'] = "Fellow Gender not compability in this category";
-				} else if(!$categoryMapper->esGeneroAceptado($_POST['idCategoria'],$this->currentUser->getGender())){
-					$errors['login'] = "CurrentUser Gender not compability in this category";
+				
+				if (!$categoryMapper->esGeneroAceptado($_POST['idCategoria'],$generoPareja)) {
+					$errors["login"] = "El genero de tu pareja no es compatible con esta categoria";
+				} else if (!$categoryMapper->esGeneroAceptado($_POST['idCategoria'],$this->currentUser->getGender())) {
+					$errors["login"] = "Tu genero no es compatible con esta categoria";
+				} else if($partnerMapper->existeParejaCategoria($_POST['login'],$objectCategoryChampionship->getId())) {
+					$errors["login"] = "Tu compañero ya esta inscrito en esta categoría";
+				} else if($partnerMapper->existeParejaCategoria($this->currentUser->getLogin())) {
+					$errors["login"] = "Ya estas inscrito en esta categoría";
 				} else {
 					$errors['login'] = "Error";
 				} 
 
 				$this->view->setVariable("errors", $errors);
 			}
-
 		}
 
 		if (isset($_POST["idCampeonato"])) {

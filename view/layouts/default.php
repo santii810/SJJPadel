@@ -41,6 +41,7 @@ $currentRol = $view->getVariable("currentRol");
 			$("#idCampeonato").change(function () {
 
 				$("#idCampeonato option:selected").each(function () {
+					$('#idGrupo').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
 					var idCampeonato = $(this).val();
 
 					$.post("includes/getCategorias.php", { idCampeonato: idCampeonato }, function(data){

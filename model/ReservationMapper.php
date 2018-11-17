@@ -35,11 +35,10 @@ class ReservationMapper {
 	}
 
 	public function makeReservation($reservation){
-		$stmt = $this->db->prepare("INSERT INTO reserva (idUsuarioReserva, fechaReserva, horaReserva, idPista) values (?,?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO reserva (idUsuarioReserva, fechaReserva, horaReserva) values (?,?,?)");
 		$stmt->execute(array($reservation->getIdUserReservation(),
 			$reservation->getDateReservation(),
 			$reservation->getHourReservation(),
-			$reservation->getIdPista()
 		));
 
 	}

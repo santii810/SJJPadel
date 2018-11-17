@@ -5,17 +5,16 @@ require_once(__DIR__."/../core/ValidationException.php");
 
 class Reservation {
 	private $idReservation;
-	private $idUserReservation;	
+	private $idUserReservation;
 	private $dateReservation;
 	private $hourReservation;
 	private $idPista;
-        
-        function __construct($idReservation, $idUserReservation, $dateReservation, $hourReservation, $idPista) {
+
+        function __construct($idReservation, $idUserReservation, $dateReservation, $hourReservation) {
             $this->idReservation = $idReservation;
             $this->idUserReservation = $idUserReservation;
             $this->dateReservation = $dateReservation;
             $this->hourReservation = $hourReservation;
-            $this->idPista = $idPista;
         }
 
         function getIdReservation() {
@@ -34,10 +33,6 @@ class Reservation {
             return $this->hourReservation;
         }
 
-        function getIdPista() {
-            return $this->idPista;
-        }
-
         function setIdReservation($idReservation) {
             $this->idReservation = $idReservation;
         }
@@ -53,10 +48,5 @@ class Reservation {
         function setHourReservation($hourReservation) {
             $this->hourReservation = $hourReservation;
         }
-
-        function setIdPista($idPista) {
-            $this->idPista = $idPista;
-        }
-
 
 }

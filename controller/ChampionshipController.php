@@ -114,17 +114,22 @@ class ChampionshipController extends BaseController
      */
     public function generateCalendar()
     {
-    	$idCampeonato = $_POST["idCampeonato"];
-    	unset($_POST["idCampeonato"]);
-    	$categoriasCampeonato = $this->categoryChampionshipMapper->getCategoriesFromChampionship($idCampeonato);
-    	
-    	foreach ($categoriasCampeonato as $categoriaCampeonato) {
-    		$couples = $this->categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
-    		if (sizeof($couples) > 7) {
-    			$groupIds = $this->createGroups($couples, $categoriaCampeonato);
-    			$this->asignCouples($couples, $groupIds);
-    			$this->fillConfrontations($groupIds);
+    	//Comprobamos que se haya seleccionado un campeonato
+    	if(isset($_POST["idCampeonato"]) && $_POST["idCampeonato"] != 0){
+    		$idCampeonato = $_POST["idCampeonato"];
+    		unset($_POST["idCampeonato"]);
+    		$categoriasCampeonato = $this->categoryChampionshipMapper->getCategoriesFromChampionship($idCampeonato);
+
+    		foreach ($categoriasCampeonato as $categoriaCampeonato) {
+    			$couples = $this->categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
+    			if (sizeof($couples) > 7) {
+    				$groupIds = $this->createGroups($couples, $categoriaCampeonato);
+    				$this->asignCouples($couples, $groupIds);
+    				$this->fillConfrontations($groupIds);
+    			}
     		}
+    	}else{
+    		$this->view->render("championship", "selectToCalendar");
     	}
     }
 

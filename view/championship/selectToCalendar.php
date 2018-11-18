@@ -1,5 +1,5 @@
 <?php
-//file: view/users/register.php
+//file: view/championship/selectToCalendar.php
 
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
@@ -26,5 +26,5 @@ $view->setVariable("title", i18n("Select championship"));
       </div> 
     </div> 
   </div>
-  <button type="submit" class="btn btn-primary" value="">Submit</button>
+  <button type="submit" class="btn btn-primary" value=""><?= i18n("Generate calendar")?></button>
 </form>

@@ -47,6 +47,8 @@ array(
 	"Select schedule" => "Seleccionar horario",
 	"Reserve" => "Reservar",
 	"Track reserved" => "Pista reservada",
-	"Select championship" => "Seleccionar campeonato"
+	"Select championship" => "Seleccionar campeonato",
+	"Generate calendar" => "Generar calendario"
+
 )
 ?>

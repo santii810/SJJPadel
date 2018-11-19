@@ -8,12 +8,12 @@ $errors = $view->getVariable("errors");
 $partidos = $view->getVariable("partidos");
 $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
-$view->setVariable("title", "Introducir resultados");
+$view->setVariable("title", i18n("Introducir resultados") );
 $cabecera = array("Id","Fecha","Hora","Pareja1","Pareja2","sets Pareja1","sets Pareja2");
 
 ?>
 
-<h3>Introduce resultados</h3>
+<h3> <?= i18n("Introducir resultados") ?> </h3>
 <form action="index.php?controller=confrontation&amp;action=setresults" method="POST">
 
   <table class="table table-striped">
@@ -21,7 +21,7 @@ $cabecera = array("Id","Fecha","Hora","Pareja1","Pareja2","sets Pareja1","sets P
     <tr>
       <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
-          <?php echo $valor; ?>
+          <?php echo i18n( $valor ); ?>
         </th>
       <?php } ?>
     </tr>
@@ -40,10 +40,10 @@ $cabecera = array("Id","Fecha","Hora","Pareja1","Pareja2","sets Pareja1","sets P
       <?php echo $partido->getTime(); ?>
       </td>
       <td>
-      <?php echo $partido->getIdPartner1(); ?>
+      <?php echo $parejas[$partido->getIdPartner1()]; ?>
       </td>
       <td>
-      <?php echo $partido->getIdPartner2(); ?>
+      <?php echo $parejas[$partido->getIdPartner2()]; ?>
       </td>
       <td>
         <div class="col-xs-3">
@@ -62,6 +62,6 @@ $cabecera = array("Id","Fecha","Hora","Pareja1","Pareja2","sets Pareja1","sets P
 
 <input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
   
-  <button type="submit" class="btn btn-primary" value="" >Submit</button>
+  <button type="submit" class="btn btn-primary" value="" > <?= i18n("Submit") ?> </button>
 
 </form>

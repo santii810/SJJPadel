@@ -9,19 +9,19 @@ $errors = $view->getVariable("errors");
 $clasificacion = $view->getVariable("clasificacion");
 $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
-$view->setVariable("title", "Clasificacion ");
+$view->setVariable("title", i18n("Clasificación") );
 $cabecera = array("puesto","Pareja","Puntos Totales","Sets Totales");
 
 ?>
 
-<h3>Clasificacion</h3>
+<h3><?= i18n("Clasificación") ?></h3>
 <form action="index.php?controller=confrontation&amp;action=setresults" method="POST">
 
   <table class="table table-striped">
   <thead>
     <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
-          <?php echo $valor; ?>
+          <?php echo i18n( $valor ); ?>
         </th>
       <?php } ?>
   </thead>

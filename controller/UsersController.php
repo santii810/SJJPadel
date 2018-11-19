@@ -8,9 +8,21 @@ require_once(__DIR__."/../model/UserMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
+/**
+* Class UsersController
+*
+* Controller to login, logout and user registration
+*
+* @author lipido <lipido@gmail.com>
+*/
 class UsersController extends BaseController {
 
-
+	/**
+	* Reference to the UserMapper to interact
+	* with the database
+	*
+	* @var UserMapper
+	*/
 	private $userMapper;
 
 	public function __construct() {
@@ -18,11 +30,45 @@ class UsersController extends BaseController {
 
 		$this->userMapper = new UserMapper();
 
+		// Users controller operates in a "welcome" layout
+		// different to the "default" layout where the internal
+		// menu is displayed
+		//$this->view->setLayout("default");
 	}
 
-	
+	/**
+	* Action to login
+	*
+	* Logins a user checking its creedentials agains
+	* the database
+	*
+	* When called via GET, it shows the login form
+	* When called via POST, it tries to login
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>login: The username (via HTTP POST)</li>
+	* <li>passwd: The password (via HTTP POST)</li>
+	* </ul>
+	*
+	* The views are:
+	* <ul>
+	* <li>posts/login: If this action is reached via HTTP GET (via include)</li>
+	* <li>posts/index: If login succeds (via redirect)</li>
+	* <li>users/login: If validation fails (via include). Includes these view variables:</li>
+	* <ul>
+	*	<li>errors: Array including validation errors</li>
+	* </ul>
+	* </ul>
+	*
+	* @return void
+	*/
 
 	public function index() {
+		// put the array containing Post object to the view
+		//$this->view->setVariable("posts", $posts);
+
+		// render the view (/view/posts/index.php)
 		$this->view->render("users", "start");
 	}
 
@@ -53,7 +99,34 @@ class UsersController extends BaseController {
 		}
 	}
 
-		public function register() {
+	/**
+	* Action to register
+	*
+	* When called via GET, it shows the register form.
+	* When called via POST, it tries to add the user
+	* to the database.
+	*
+	* The expected HTTP parameters are:
+	* <ul>
+	* <li>login: The username (via HTTP POST)</li>
+	* <li>passwd: The password (via HTTP POST)</li>
+	* </ul>
+	*
+	* The views are:
+	* <ul>
+	* <li>users/register: If this action is reached via HTTP GET (via include)</li>
+	* <li>users/login: If login succeds (via redirect)</li>
+	* <li>users/register: If validation fails (via include). Includes these view variables:</li>
+	* <ul>
+	*	<li>user: The current User instance, empty or being added
+	*	(but not validated)</li>
+	*	<li>errors: Array including validation errors</li>
+	* </ul>
+	* </ul>
+	*
+	* @return void
+	*/
+	public function register() {
 
 		$user = new User();
 
@@ -76,8 +149,16 @@ class UsersController extends BaseController {
 					// save the User object into the database
 					$this->userMapper->save($user);
 
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
 					$this->view->setFlash("Login ".$user->getLogin()." successfully added. Please login now");
 
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=users&action=login")
+					// die();
 					$this->view->redirect("users", "login");
 				} else {
 					$errors = array();
@@ -137,6 +218,8 @@ class UsersController extends BaseController {
 
 		}
 
+
+
 		$datos = $userMapper->getDatos($_REQUEST['login']);
 
 		// Put the User object visible to the view
@@ -166,6 +249,8 @@ class UsersController extends BaseController {
 
 		}
 
+
+
 		$datos = $userMapper->getDatos($_REQUEST['login']);
 
 		// Put the User object visible to the view
@@ -176,9 +261,26 @@ class UsersController extends BaseController {
 
 	}
 
-
+	/**
+	* Action to logout
+	*
+	* This action should be called via GET
+	*
+	* No HTTP parameters are needed.
+	*
+	* The views are:
+	* <ul>
+	* <li>users/login (via redirect)</li>
+	* </ul>
+	*
+	* @return void
+	*/
 	public function logout() {
 		session_destroy();
+
+		// perform a redirection. More or less:
+		// header("Location: index.php?controller=users&action=login")
+		// die();
 		$this->view->redirect("users", "login");
 
 	}

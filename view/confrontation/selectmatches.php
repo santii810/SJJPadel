@@ -6,17 +6,17 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $campeonatos = $view->getVariable("campeonatos");
-$view->setVariable("title", "Selecionar Campeonato");
+$view->setVariable("title", i18n("Selecionar Campeonato") );
 
 ?>
 
-<h3>Selecciona Campeonato</h3>
+<h3><?= i18n("Selecionar Campeonato") ?></h3>
 <form action="index.php?controller=confrontation&amp;action=select" method="POST">
 
   <div class="form-group">
-    <label for="idCampeonato" size="1">Campeonato</label>
+    <label for="idCampeonato" size="1"><?= i18n("Campeonato") ?></label>
     <select class="form-control" id="idCampeonato" name="idCampeonato">
-      <option value="0">Seleccionar Campeonato</option>
+      <option value="0"><?= i18n("Selecionar Campeonato") ?></option>
       <?php foreach($campeonatos as $campeonato) {?>
         <option value="<?php echo $campeonato->getId() ?>"><?php echo $campeonato->getNombreCampeonato() ?> </option>
       <?php } ?>
@@ -24,19 +24,19 @@ $view->setVariable("title", "Selecionar Campeonato");
   </div> 
 
   <div class="form-group">
-    <label for="idCampeonato" size="1">Categoria</label>
+    <label for="idCampeonato" size="1"><?= i18n("Category") ?></label>
     <select class="form-control" name="idCategoria" id="idCategoria">    
     </select>
 </div>
   
       
   <div class="form-group">
-    <label for="idCampeonato" size="1">Grupo</label>
+    <label for="idCampeonato" size="1"> <?= i18n("Group") ?> </label>
     <select class="form-control" name="idGrupo" id="idGrupo">
       
     </select>
   </div>
 
-  <button type="submit" class="btn btn-primary" value="" >Submit</button>
+  <button type="submit" class="btn btn-primary" value="" ><?= i18n("Submit") ?></button>
 
 </form>

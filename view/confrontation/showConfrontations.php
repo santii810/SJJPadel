@@ -6,11 +6,11 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $confrontations = $view->getVariable("confrontations");
-$view->setVariable("title", i18n("Confrontations"));
-$cabecera = array("Pareja 1","Pareja 2","Fecha","Hora","Sets P1", "Sets P2");
+$view->setVariable("title", i18n("Enfrentamientos"));
+$cabecera = array("Pareja1","Pareja2","Fecha","Hora","Sets Pareja1", "Sets Pareja2");
 ?>
 
-<h3><?= i18n("Confrontations")?></h3>
+<h3><?= i18n("Enfrentamientos")?></h3>
 
 <form action="index.php?controller=confrontation&amp;action=setresults" method="POST">
 

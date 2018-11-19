@@ -1,5 +1,5 @@
 <?php
-//file: controller/PartnerController.php
+//file: controller/PostController.php
 
 require_once(__DIR__."/../model/Partner.php");
 require_once(__DIR__."/../model/PartnerMapper.php");
@@ -17,7 +17,13 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-
+/**
+* Class PostsController
+*
+* Controller to make a CRUDL of Posts entities
+*
+* @author lipido <lipido@gmail.com>
+*/
 class PartnerController extends BaseController {
 
 	private $partnerMapper;
@@ -31,8 +37,8 @@ class PartnerController extends BaseController {
 	public function selectChampionship() {
 		$championship = new ChampionshipMapper();
 
-		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' )) {
-			throw new Exception("Not in session. Adding partner Championship requires login");
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' )) { 
+			throw new Exception( i18n("No hay sesión, para inscribir una pareja requiere estar logeado") );
 		}
 		
 		if (isset($_POST['idCampeonato'])) {
@@ -46,9 +52,9 @@ class PartnerController extends BaseController {
 			} else {
 				$errors = array();
 				if ($_POST['login'] == $this->currentUser->getLogin()) {
-					$errors["login"] = "the login can not be the same as the logged in user";
+					$errors["login"] = "El login de tu pareja no puede ser igual a tu login";
 				} else {
-					$errors["login"] = "Login does not exist";
+					$errors["login"] = "El login no existe";
 				}
 				$this->view->setVariable("errors", $errors);
 			}
@@ -68,7 +74,7 @@ class PartnerController extends BaseController {
 
 	public function inscription() {
 		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' )) {
-			throw new Exception("Not in session. Adding partner Championship requires login");
+			throw new Exception("No hay sesión, para inscribir una pareja requiere estar logeado");
 		}
 		//Solo se realiza al inicio
 		if ((isset($_SESSION['idCamp'])) && (isset($_SESSION['loginComp']))) {
@@ -114,8 +120,11 @@ class PartnerController extends BaseController {
 				//inscribimos en la base de datos la pareja
 				$partnerMapper->save($partner);
 
-				$this->view->setFlash("successfully inscription");
+				$this->view->setFlash( i18n("Inscripción con exito") );
 
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=users&action=login")
+					// die();
 				$this->view->redirect("users", "index");
 				
 			} else {

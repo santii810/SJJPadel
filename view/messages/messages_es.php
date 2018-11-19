@@ -50,6 +50,16 @@ $i18n_messages = array(
     "View confrontations" => "Ver enfrentamientos",
     "Confrontations" => "Enfrentamientos",
     "Properly generated calendar." => "Calendario generado correctamente.",
-    "There are not enough athletes register to create a group." => "No hay suficientes deportistas apuntados para crear un grupo."
+    "There are not enough athletes register to create a group." => "No hay suficientes deportistas apuntados para crear un grupo.",
+    "Create championship" => "Crear campeonato",
+    "Championship name" => "Nombre de campeonato",
+    "Registration start date" => "Fecha inicial de registro",
+    "Registration limit date" => "Fecha límite de registro",
+    "Championship start date" => "Fecha de inicio del campeonato",
+    "Championship finish date" => "Fecha fin del campeonato",
+    "Register championship" => "Registrar campeonato",
+    "Select categories" => "Seleccionar categorías",
+    "Add categories" => "Añadir categorias"
+    
 
 )?>

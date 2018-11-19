@@ -55,16 +55,16 @@ class Partner {
 	public function checkIsValidForRegister() {
 		$errors = array();
 		if (strlen(trim($this->idCaptain)) == 0 ) {
-			$errors["idCaptain"] = "idCaptain is mandatory";
+			$errors["idCaptain"] = "idCapitan es obligatorio";
 		}
 		if (strlen(trim($this->idFellow)) == 0 ) {
-			$errors["idFellow"] = "idFellow is mandatory";
+			$errors["idFellow"] = "idCompañero es obligatorio";
 		}
 		if (strlen(trim($this->idCategoryChampionship)) == 0 ) {
 			$errors["idCategoryChampionship"] = "idCategoryChampionship is mandatory";
 		}
 		if (sizeof($errors)>0){
-			throw new ValidationException($errors, "user is not valid");
+			throw new ValidationException($errors, "compañero no es valido");
 		}
 	}
 }

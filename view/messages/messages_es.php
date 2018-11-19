@@ -59,7 +59,20 @@ $i18n_messages = array(
     "Championship finish date" => "Fecha fin del campeonato",
     "Register championship" => "Registrar campeonato",
     "Select categories" => "Seleccionar categorías",
-    "Add categories" => "Añadir categorias"
-    
+    "Add categories" => "Añadir categorias",
+    "Sign up for championship" => "Inscribirse a campeonato",
+    "Sign up" => "Incribirse",
+    "Championship" => "Campeonato",
+    "Category" => "Categoría",
+    "Couple username" => "Nombre de pareja",
+    "Enter match results" => "Introducir resultados de los partidos",
+    "Save" => "Guardar",
+    "Manage results" => "Gestionar resultados",
+    "Show clasification" => "Ver clasificacion"
+    "Clasification" => "Clasificación",
+    "Position" => "Posición",
+    "Couple" => "Pareja",
+    "Total points" => "Puntos totales",
+    "Total sets" => "Sets totales"
 
 )?>

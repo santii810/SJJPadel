@@ -148,7 +148,7 @@ class ViewManager {
 	* Variables could be also kept in session (via $flash parameter)
 	*
 	* @param string $varname The name of the variable
-	* @param value The value of the variable
+	* @param any $value The value of the variable
 	* @param boolean $flash If the variable value shoud be kept
 	* in session
 	*/
@@ -172,9 +172,9 @@ class ViewManager {
 	* from the session after being retrieved
 	*
 	* @param string $varname The name of the variable
-	* @param default value of the variable to return
+	* @param $default The value of the variable to return
 	* if the variable does not exists
-	* @return Object value of the variable
+	* @return any value of the variable
 	*/
 	public function getVariable($varname, $default=NULL) {
 		if (!isset($this->variables[$varname])) {

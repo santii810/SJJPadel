@@ -30,12 +30,4 @@ $view->setVariable("title", "Pista reservada");
         <?php echo $reservation->getHourReservation();?>
       </div>
     </div>
-    <div class="row">
-      <div class="col-6 " >
-        Pista
-      </div>
-      <div class="col-6 " >
-        <?php echo $reservation->getIdPista();?>
-      </div>
-    </div>
   </div>

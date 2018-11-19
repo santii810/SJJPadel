@@ -87,7 +87,7 @@ $currentRol = $view->getVariable("currentRol");
 				<?php if($currentRol == 'a'): ?>
 
 					<li class="nav-item">
-						<a class="nav-link" href="index.php?controller=users&amp;action=showall"><?= i18n("Usuarios") ?></a>
+						<a class="nav-link" href="index.php?controller=users&amp;action=showall"><?= i18n("Users") ?></a>
 					</li>
 
 				<?php endif ?>
@@ -96,29 +96,29 @@ $currentRol = $view->getVariable("currentRol");
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<?php echo i18n("Campeonato") ?>
+							<?php echo i18n("Championship") ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
 							<?php if($currentRol == 'a'): ?>
 
-								<a class="dropdown-item" href="index.php?controller=championship&amp;action=add"><?php echo i18n("Crear") ?></a>
+								<a class="dropdown-item" href="index.php?controller=championship&amp;action=add"><?php echo i18n("Create championship") ?></a>
 							<?php endif ?>
 
 							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
-								<a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship"><?php echo i18n("Inscripción") ?></a>
+								<a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship"><?php echo i18n("Inscript to championship") ?></a>
 
 							<?php endif ?>
 
 							<?php if($currentRol == 'a'): ?>
 
-								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select"><?php echo i18n("Gestionar Resultados") ?></a>
+								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select"><?php echo i18n("Manage results") ?></a>
 
 							<?php endif ?>
 
 							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
 
-								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectclasification"><?php echo i18n("Ver clasificacion") ?></a>
+								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectclasification"><?php echo i18n("Show clasification") ?></a>
 
 							<?php endif ?>
 
@@ -142,7 +142,7 @@ $currentRol = $view->getVariable("currentRol");
 
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<?php echo i18n("Partido") ?>
+							<?php echo i18n("Match") ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<?php if($currentRol == 'a'): ?>

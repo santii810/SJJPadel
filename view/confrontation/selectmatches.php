@@ -6,17 +6,17 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $campeonatos = $view->getVariable("campeonatos");
-$view->setVariable("title", i18n("Selecionar Campeonato") );
+$view->setVariable("title", i18n("Select championship") );
 
 ?>
 
-<h3><?= i18n("Selecionar Campeonato") ?></h3>
+<h3><?= i18n("Select championship") ?></h3>
 <form action="index.php?controller=confrontation&amp;action=select" method="POST">
 
   <div class="form-group">
-    <label for="idCampeonato" size="1"><?= i18n("Campeonato") ?></label>
+    <label for="idCampeonato" size="1"><?= i18n("Championship") ?></label>
     <select class="form-control" id="idCampeonato" name="idCampeonato">
-      <option value="0"><?= i18n("Selecionar Campeonato") ?></option>
+      <option value="0"><?= i18n("Select championship") ?></option>
       <?php foreach($campeonatos as $campeonato) {?>
         <option value="<?php echo $campeonato->getId() ?>"><?php echo $campeonato->getNombreCampeonato() ?> </option>
       <?php } ?>

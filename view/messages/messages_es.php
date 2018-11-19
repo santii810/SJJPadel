@@ -43,7 +43,7 @@
 	"Enter match results" => "Introducir resultados de los partidos",
 	"Save" => "Guardar",
 	"Manage results" => "Gestionar resultados",
-	"Show clasification" => "Ver clasificacion"
+	"Show clasification" => "Ver clasificacion",
 	"Clasification" => "Clasificación",
 	"Position" => "Posición",
 	"Couple" => "Pareja",
@@ -57,7 +57,9 @@
 	"Couple 2" => "Pareja 2",
 	"Sets couple 1" => "Sets pareja 1",
 	"Sets couple 2" => "Sets pareja 2",
-	
+	"Inscript to championship" => "Incribirse a campeonato",
+	"Create championship" => "Crear campeonato",
+	"Match" => "Partido"
 	
 
 

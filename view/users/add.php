@@ -5,10 +5,10 @@ require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $user = $view->getVariable("user");
-$view->setVariable("title", i18n("Register") );
+$view->setVariable("title", i18n("ADD") );
 ?>
-<h1><?= i18n("Register")?></h1>
-<form action="index.php?controller=users&amp;action=register" method="POST">
+<h1><?= i18n("ADD")?></h1>
+<form action="index.php?controller=users&amp;action=add" method="POST">
 
   <div class="form-group">
     <label for="login"> <?= i18n("Login") ?> </label>
@@ -35,6 +35,15 @@ $view->setVariable("title", i18n("Register") );
   </div>
 
   <div class="form-group">
+    <label for="gender" size="1"> <?= i18n("Rol") ?> </label>
+    <select class="form-control" id="rol" name="rol">
+        <option selected="selected" value="a"><?php echo i18n("a") ?></option>
+        <option value="e"><?php echo i18n("e") ?></option>
+        <option value="d"><?php echo i18n("d") ?></option>
+    </select>
+  </div> 
+
+  <div class="form-group">
     <label for="gender" size="1"> <?= i18n("Gender") ?> </label>
     <select class="form-control" id="gender" name="gender">
         <option value="masculino"> <?= i18n("masculino") ?> </option>
@@ -42,6 +51,6 @@ $view->setVariable("title", i18n("Register") );
     </select>
   </div> 
 
-  <button type="submit" class="btn btn-primary" value="<?= i18n("Register")?>" >Submit</button>
+  <button type="submit" class="btn btn-primary" value="<?= i18n("ADD")?>" >Submit</button>
 
 </form>

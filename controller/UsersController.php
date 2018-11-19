@@ -245,8 +245,6 @@ class UsersController extends BaseController {
 
 			$this->view->redirect("users", "showall");
 
-			exit();
-
 		}
 
 
@@ -261,6 +259,58 @@ class UsersController extends BaseController {
 
 	}
 
+	public function add(){
+		$user = new User();
+
+		if (isset($_POST["username"])){ // reaching via HTTP Post...
+
+			// populate the User object with data form the form
+			$user->setLogin($_POST["login"]);
+			$user->setUsername($_POST["username"]);
+			$user->setSurname($_POST["surname"]);
+			$user->setPass($_POST["pass"]);
+			$user->setRol($_POST['rol']);
+			$user->setGender($_POST["gender"]);
+
+			try{
+				$user->checkIsValidForRegister(); // if it fails, ValidationException
+
+				// check if user exists in the database
+				if (!$this->userMapper->loginExists($_POST["login"])){
+
+					// save the User object into the database
+					$this->userMapper->save($user);
+
+					// POST-REDIRECT-GET
+					// Everything OK, we will redirect the user to the list of posts
+					// We want to see a message after redirection, so we establish
+					// a "flash" message (which is simply a Session variable) to be
+					// get in the view after redirection.
+					$this->view->setFlash("Login ".$user->getLogin()." successfully added. Please login now");
+
+					// perform the redirection. More or less:
+					// header("Location: index.php?controller=users&action=login")
+					// die();
+					$this->view->redirect("users", "login");
+				} else {
+					$errors = array();
+					$errors["login"] = "Login already exists";
+					$this->view->setVariable("errors", $errors);
+				}
+			}catch(ValidationException $ex) {
+				// Get the errors array inside the exepction...
+				$errors = $ex->getErrors();
+				// And put it to the view as "errors" variable
+				$this->view->setVariable("errors", $errors);
+			}
+		}
+
+		// Put the User object visible to the view
+		$this->view->setVariable("user", $user);
+
+		// render the view (/view/users/register.php)
+		$this->view->render("users", "add");
+	}
 	/**
 	* Action to logout
 	*

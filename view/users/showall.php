@@ -10,7 +10,12 @@ $view->setVariable("title", "Usuarios");
 $cabecera = array("login","nombre","apellidos","rol","genero");
 ?>
 
-<h3><?= i18n("Usuarios"); ?></h3>
+  <h3><?= i18n("Usuarios"); ?></h3>
+  
+  <a href="index.php?controller=users&amp;action=add">
+    <img src="images/addUser.png" class="img-fluid" alt="Responsive image">
+  </a>
+
   <table class="table">
   <thead class="thead-dark">
     <tr>

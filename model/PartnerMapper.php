@@ -84,4 +84,13 @@ class PartnerMapper {
 		return $toret;
 	}
 	
+	public function getPartnerNames($idPartner){
+	    $stmt = $this->db->prepare("SELECT concat(idCapitan,\" - \", idCompañero) as names FROM `pareja` WHERE idPareja = ?");
+	    
+	    $stmt->execute(array($idPartner));
+	    
+	    $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	    return $toret_db["names"];
+	}
+	
 }

@@ -32,7 +32,7 @@ class ConfrontationController extends BaseController {
 		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' ) ) {
 			throw new Exception("Not in session. select Championship requires login");
 		}
-			
+
 		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
 			
 			//$queryString = "idCampeonato=".$_POST['idCampeonato']."&idCategoria=".$_POST['idCategoria']."&idGrupo=".$_POST['idGrupo'];
@@ -112,9 +112,9 @@ class ConfrontationController extends BaseController {
 				}
 			}
 			$array_clasificacion[] = array( $array_idParejas[$i],
-											$puntos,
-											$sets
-										  );
+				$puntos,
+				$sets
+			);
 			$puntos = 0;
 			$sets = 0;
 		}
@@ -147,7 +147,7 @@ class ConfrontationController extends BaseController {
 		if (!isset($this->currentUser) && ( $this->currentRol == 'a' ) ) {
 			throw new Exception("Not in session. select Championship requires login");
 		}
-			
+
 		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
 			
 			//$queryString = "idCampeonato=".$_POST['idCampeonato']."&idCategoria=".$_POST['idCategoria']."&idGrupo=".$_POST['idGrupo'];
@@ -185,27 +185,27 @@ class ConfrontationController extends BaseController {
 
 		if (isset($_POST["setsPareja1"])) {
 			
-            for ($i=0; $i < count($_POST['idEnfrentamiento']); $i++) { 
-            	if($_POST['setsPareja1'][$i] != '' && $_POST['setsPareja2'][$i] != ''){
-            		$setsP1 = $_POST['setsPareja1'][$i];
-            		$setsP2 = $_POST['setsPareja2'][$i];
+			for ($i=0; $i < count($_POST['idEnfrentamiento']); $i++) { 
+				if($_POST['setsPareja1'][$i] != '' && $_POST['setsPareja2'][$i] != ''){
+					$setsP1 = $_POST['setsPareja1'][$i];
+					$setsP2 = $_POST['setsPareja2'][$i];
 
-            		if ( ($setsP1 <= 3 || $setsP2 <= 3) && (($setsP1 + $setsP2) <= 5) && ($setsP1 != $setsP2) ) {
-            			
-            			if ($setsP1 > $setsP2) {
-            				$puntosP1 = 3;
-            				$puntosP2 = 1;
-            			}
-            			else{
-            				$puntosP1 = 1;
-            				$puntosP2 = 3;
-            			}
+					if ( ($setsP1 <= 3 || $setsP2 <= 3) && (($setsP1 + $setsP2) <= 5) && ($setsP1 != $setsP2) ) {
+
+						if ($setsP1 > $setsP2) {
+							$puntosP1 = 3;
+							$puntosP2 = 1;
+						}
+						else{
+							$puntosP1 = 1;
+							$puntosP2 = 3;
+						}
 
             			//actualiza los resultados recogidos
-            			$confrontationMapper->actualizarResultados($_POST['idEnfrentamiento'][$i],$puntosP1,$puntosP2,$setsP1,$setsP2); 
-            		}
-            	}
-            }
+						$confrontationMapper->actualizarResultados($_POST['idEnfrentamiento'][$i],$puntosP1,$puntosP2,$setsP1,$setsP2); 
+					}
+				}
+			}
 
 		}
 		$partnerMapper = new PartnerMapper();
@@ -223,4 +223,34 @@ class ConfrontationController extends BaseController {
 
 	}
 
+
+
+	public function selectGroup(){
+		if (!isset($this->currentUser) && ( $this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd' ) ) {
+			throw new Exception("Not in session. select Championship requires login");
+		}
+
+		$championship = new ChampionshipMapper();
+		//todos los campeonatos
+		$campeonatos = $championship->getCampeonatosInProgress();
+
+		//mandamos el valor de variable para que lo recoga la vista
+		$this->view->setVariable("campeonatos",$campeonatos);
+
+		// render the view (/view/posts/add.php)
+		$this->view->render("confrontation", "selectGroup");
+	}
+
+
+	public function showConfrontations(){
+		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
+			$confrontations = $this->confrontationMapper->getPartidos($_POST["idGrupo"]);
+
+			$this->view->setVariable("confrontations",$confrontations);
+			$this->view->render("confrontation", "showConfrontations");
+		}
+		else{
+			$this->view->render("confrontation", "selectGroup");
+		}
+	}
 }

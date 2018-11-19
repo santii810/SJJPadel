@@ -119,4 +119,15 @@ class Confrontation {
 			throw new ValidationException($errors, "confrontation is not valid");
 		}
 	}
+
+	public function getPartner1Names(){
+		$partnerMapper = new PartnerMapper();
+		return $partnerMapper->getPartnerNames($this->idPartner1);
+	}
+	
+	public function getPartner2Names(){
+		$partnerMapper = new PartnerMapper();
+		return $partnerMapper->getPartnerNames($this->idPartner2);
+	}
+	
 }

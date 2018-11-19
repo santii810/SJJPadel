@@ -77,7 +77,7 @@ function loadController($controllerName) {
 *
 * For example $controllerName = "users" will return "UsersController"
 *
-* @param $controllerName The name of the controller found in the URL
+* @param controllerName The name of the controller found in the URL
 * @return string The controller class name
 */
 function getControllerClassName($controllerName) {

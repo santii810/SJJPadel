@@ -1,5 +1,5 @@
 <?php
-//file: controller/PostController.php
+//file: controller/ConfrontationController.php
 require_once(__DIR__."/../model/Confrontation.php");
 require_once(__DIR__."/../model/ConfrontationMapper.php");
 require_once(__DIR__."/../model/ChampionshipMapper.php");
@@ -11,13 +11,6 @@ require_once(__DIR__."/../model/Partnergroup.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-/**
-* Class PostsController
-*
-* Controller to make a CRUDL of Posts entities
-*
-* @author lipido <lipido@gmail.com>
-*/
 class ConfrontationController extends BaseController {
 
 	private $confrontationMapper;
@@ -34,9 +27,7 @@ class ConfrontationController extends BaseController {
 		}
 
 		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
-			
-			//$queryString = "idCampeonato=".$_POST['idCampeonato']."&idCategoria=".$_POST['idCategoria']."&idGrupo=".$_POST['idGrupo'];
-			
+					
 			$queryString = "idGrupo=".$_POST['idGrupo'];
 
 			$this->view->redirect("confrontation", "clasification", $queryString );
@@ -131,9 +122,6 @@ class ConfrontationController extends BaseController {
 
 		$parejas = $partnerMapper->getParejas();
 		
-		//todos los partidos sin los resultados
-		//$partidos = $confrontationMapper->getPartidosResultadoNull($idGrupo);
-		
 		//mandamos el valor de variable para que lo recoga la vista
 		$this->view->setVariable("clasificacion",array_reverse($array_clasificacion));
 		$this->view->setVariable("idGrupo",$idGrupo);
@@ -148,10 +136,7 @@ class ConfrontationController extends BaseController {
 			throw new Exception("Not in session. select Championship requires login");
 		}
 
-		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
-			
-			//$queryString = "idCampeonato=".$_POST['idCampeonato']."&idCategoria=".$_POST['idCategoria']."&idGrupo=".$_POST['idGrupo'];
-			
+		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {	
 			$queryString = "idGrupo=".$_POST['idGrupo'];
 
 			$this->view->redirect("confrontation", "setresults", $queryString );

@@ -50,6 +50,6 @@ $i18n_messages = array(
     "View confrontations" => "Ver enfrentamientos",
     "Confrontations" => "Enfrentamientos",
     "Properly generated calendar." => "Calendario generado correctamente.",
-    "There are not enough athletes register to create a group." => "No hay suficientes deportistas apuntados para crear un grupo"
+    "There are not enough athletes register to create a group." => "No hay suficientes deportistas apuntados para crear un grupo."
 
 )?>

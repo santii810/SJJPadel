@@ -1,5 +1,5 @@
 <?php
-//file: controller/PostController.php
+//file: controller/PartnerController.php
 
 require_once(__DIR__."/../model/Partner.php");
 require_once(__DIR__."/../model/PartnerMapper.php");
@@ -17,13 +17,7 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-/**
-* Class PostsController
-*
-* Controller to make a CRUDL of Posts entities
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class PartnerController extends BaseController {
 
 	private $partnerMapper;
@@ -122,9 +116,6 @@ class PartnerController extends BaseController {
 
 				$this->view->setFlash("successfully inscription");
 
-					// perform the redirection. More or less:
-					// header("Location: index.php?controller=users&action=login")
-					// die();
 				$this->view->redirect("users", "index");
 				
 			} else {

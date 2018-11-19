@@ -28,7 +28,8 @@ $view->setVariable("title", "Organizar Partido");
       <option value="19:00">19:00</option>
       <option value="20:30">20:30</option>
     </select>
-    <?= isset($errors["timeEmpty"])?i18n($errors["timeEmpty"]):"" ?></br>
+    <?= isset($errors["timeEmpty"])?i18n($errors["timeEmpty"]):"" ?>
+    <br>
   </div>
 
   <button type="submit" class="btn btn-primary">Crear</button>

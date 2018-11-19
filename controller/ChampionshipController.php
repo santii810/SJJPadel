@@ -20,53 +20,53 @@ require_once (__DIR__ . "/../controller/BaseController.php");
 class ChampionshipController extends BaseController
 {
 
-	private $championshipMapper;
+    private $championshipMapper;
 
-	private $categoryChampionshipMapper;
+    private $categoryChampionshipMapper;
 
-	private $groupMapper;
+    private $groupMapper;
 
-	private $partnerGroupMapper;
+    private $partnerGroupMapper;
 
-	private $confrontationMapper;
+    private $confrontationMapper;
 
-	private $groupNames = array(
-		"Grupo A",
-		"Grupo B",
-		"Grupo C",
-		"Grupo D",
-		"Grupo E",
-		"Grupo F"
-	);
+    private $groupNames = array(
+        "Grupo A",
+        "Grupo B",
+        "Grupo C",
+        "Grupo D",
+        "Grupo E",
+        "Grupo F"
+    );
 
-	public function __construct()
-	{
-		parent::__construct();
-		
-		$this->championshipMapper = new ChampionshipMapper();
-		$this->categoryChampionshipMapper = new CategoryChampionshipMapper();
-		$this->groupMapper = new GroupMapper();
-		$this->partnerGroupMapper = new PartnergroupMapper();
-		$this->confrontationMapper = new ConfrontationMapper();
-	}
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->championshipMapper = new ChampionshipMapper();
+        $this->categoryChampionshipMapper = new CategoryChampionshipMapper();
+        $this->groupMapper = new GroupMapper();
+        $this->partnerGroupMapper = new PartnergroupMapper();
+        $this->confrontationMapper = new ConfrontationMapper();
+    }
 
-	public function add()
-	{
-		if (! isset($this->currentUser) && $this->currentRol == 'a') {
-			throw new Exception("Not in session. Adding Championship requires admin");
-		}
-		
-		$championship = new Championship();
-		
+    public function add()
+    {
+        if (! isset($this->currentUser) && $this->currentRol == 'a') {
+            throw new Exception("Not in session. Adding Championship requires admin");
+        }
+        
+        $championship = new Championship();
+        
         if (isset($_POST["fechaInicioInscripcion"])) { // reaching via HTTP Post...
                                                        // populate the Post object with data form the form
-        	$championship->setFechaInicioInscripcion($_POST["fechaInicioInscripcion"]);
-        	$championship->setFechaFinInscripcion($_POST["fechaFinInscripcion"]);
-        	$championship->setFechaInicioCampeonato($_POST["fechaInicioCampeonato"]);
-        	$championship->setFechaFinCampeonato($_POST["fechaFinCampeonato"]);
-        	$championship->setNombreCampeonato($_POST["nombreCampeonato"]);
-        	
-        	try {
+            $championship->setFechaInicioInscripcion($_POST["fechaInicioInscripcion"]);
+            $championship->setFechaFinInscripcion($_POST["fechaFinInscripcion"]);
+            $championship->setFechaInicioCampeonato($_POST["fechaInicioCampeonato"]);
+            $championship->setFechaFinCampeonato($_POST["fechaFinCampeonato"]);
+            $championship->setNombreCampeonato($_POST["nombreCampeonato"]);
+            
+            try {
                 // validate Post object
                 $championship->checkIsValidForCreate(); // if it fails, ValidationException
                                                         // save the Post object into the database
@@ -85,9 +85,9 @@ class ChampionshipController extends BaseController
                 $this->view->redirect("users", "index");
             } catch (ValidationException $ex) {
                 // Get the errors array inside the exepction...
-            	$errors = $ex->getErrors();
+                $errors = $ex->getErrors();
                 // And put it to the view as "errors" variable
-            	$this->view->setVariable("errors", $errors);
+                $this->view->setVariable("errors", $errors);
             }
         }
         
@@ -100,10 +100,10 @@ class ChampionshipController extends BaseController
 
     public function selectToCalendar()
     {
-    	$campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
-    	
-    	$this->view->setVariable("campeonatos", $campeonatos);
-    	$this->view->render("championship", "selectToCalendar");
+        $campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
+        
+        $this->view->setVariable("campeonatos", $campeonatos);
+        $this->view->render("championship", "selectToCalendar");
     }
 
     /*
@@ -114,23 +114,34 @@ class ChampionshipController extends BaseController
      */
     public function generateCalendar()
     {
-    	//Comprobamos que se haya seleccionado un campeonato
-    	if(isset($_POST["idCampeonato"]) && $_POST["idCampeonato"] != 0){
-    		$idCampeonato = $_POST["idCampeonato"];
-    		unset($_POST["idCampeonato"]);
-    		$categoriasCampeonato = $this->categoryChampionshipMapper->getCategoriesFromChampionship($idCampeonato);
-
-    		foreach ($categoriasCampeonato as $categoriaCampeonato) {
-    			$couples = $this->categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
-    			if (sizeof($couples) > 7) {
-    				$groupIds = $this->createGroups($couples, $categoriaCampeonato);
-    				$this->asignCouples($couples, $groupIds);
-    				$this->fillConfrontations($groupIds);
-    			}
-    		}
-    	}else{
-    		$this->view->render("championship", "selectToCalendar");
-    	}
+        $groupHasGenerated = false;
+        // Comprobamos que se haya seleccionado un campeonato
+        if (isset($_POST["idCampeonato"]) && $_POST["idCampeonato"] != 0) {
+            $idCampeonato = $_POST["idCampeonato"];
+            unset($_POST["idCampeonato"]);
+            $categoriasCampeonato = $this->categoryChampionshipMapper->getCategoriesFromChampionship($idCampeonato);
+            
+            foreach ($categoriasCampeonato as $categoriaCampeonato) {
+                $couples = $this->categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
+                if (sizeof($couples) > 7) {
+                    $groupHasGenerated = true;
+                    $groupIds = $this->createGroups($couples, $categoriaCampeonato);
+                    $this->asignCouples($couples, $groupIds);
+                    $this->fillConfrontations($groupIds);
+                }
+            }
+            
+            if ($groupHasGenerated) {
+                $this->view->setVariable("messageToShow", i18n("Properly generated calendar."));
+                $this->view->setVariable("showButton", true);
+                
+            } else{
+                $this->view->setVariable("messageToShow", i18n("There are not enough athletes register to create a group."));                
+            }
+            $this->view->render("championship", "calendarGenerated");
+        } else {
+            $this->view->render("championship", "selectToCalendar");
+        }
     }
 
     /**
@@ -143,13 +154,13 @@ class ChampionshipController extends BaseController
      */
     private function asignCouples($couples, $groupIds)
     {
-    	$roulette = 0;
-    	$asignedCouples = 0;
-    	foreach ($couples as $couple) {
+        $roulette = 0;
+        $asignedCouples = 0;
+        foreach ($couples as $couple) {
             if ($asignedCouples < 12 * sizeof($groupIds)) { // Se asegura de que no existan grupos de mas de 12 parejas
-            	$this->partnerGroupMapper->save(new Partnergroup($couple->getIdPartner(), $groupIds[$roulette]));
-            	$roulette = ($roulette + 1) % sizeof($groupIds);
-            	$asignedCouples ++;
+                $this->partnerGroupMapper->save(new Partnergroup($couple->getIdPartner(), $groupIds[$roulette]));
+                $roulette = ($roulette + 1) % sizeof($groupIds);
+                $asignedCouples ++;
             }
         }
     }
@@ -170,24 +181,24 @@ class ChampionshipController extends BaseController
         $groupIds = array();
         // Se crean los grupos necesarios
         for ($i = 0; $i < $numGroups; $i ++) {
-        	$group = new Group(NULL, $categoriaCampeonato->getIdCategory(), $categoriaCampeonato->getIdChampionship(), $this->groupNames[$i]);
-        	array_push($groupIds, $this->groupMapper->save($group));
+            $group = new Group(NULL, $categoriaCampeonato->getIdCategory(), $categoriaCampeonato->getIdChampionship(), $this->groupNames[$i]);
+            array_push($groupIds, $this->groupMapper->save($group));
         }
         return $groupIds;
     }
 
     private function fillConfrontations($groupIds)
     {
-    	foreach ($groupIds as $idGrupo) {
-    		$couplesGroup = $this->partnerGroupMapper->getIdParejasGrupo($idGrupo);
-    		for ($i = 0; $i < sizeof($couplesGroup); $i ++) {
-    			for ($j = ($i + 1); $j < sizeof($couplesGroup); $j ++) {
-    				$confrontation = new Confrontation(NULL, $couplesGroup[$i]->getIdPartner(), $couplesGroup[$j]->getIdPartner(), $idGrupo);
-    				$this->confrontationMapper->save($confrontation);
-    			}
-    		}
-    		
-    		foreach ($couplesGroup as $couple) {}
-    	}
-}
+        foreach ($groupIds as $idGrupo) {
+            $couplesGroup = $this->partnerGroupMapper->getIdParejasGrupo($idGrupo);
+            for ($i = 0; $i < sizeof($couplesGroup); $i ++) {
+                for ($j = ($i + 1); $j < sizeof($couplesGroup); $j ++) {
+                    $confrontation = new Confrontation(NULL, $couplesGroup[$i]->getIdPartner(), $couplesGroup[$j]->getIdPartner(), $idGrupo);
+                    $this->confrontationMapper->save($confrontation);
+                }
+            }
+            
+            foreach ($couplesGroup as $couple) {}
+        }
+    }
 }

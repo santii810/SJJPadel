@@ -244,10 +244,10 @@ class ConfrontationController extends BaseController {
 
 	public function showConfrontations(){
 		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
-			$confrontations = $this->confrontationMapper->getPartidos($_POST["idGrupo"]);
-
-			$this->view->setVariable("confrontations",$confrontations);
-			$this->view->render("confrontation", "showConfrontations");
+		    $confrontations = $this->confrontationMapper->getPartidos($_POST["idGrupo"]);
+		   		    
+		    $this->view->setVariable("confrontations",$confrontations);
+		    $this->view->render("confrontation", "showConfrontations");
 		}
 		else{
 			$this->view->render("confrontation", "selectGroup");

@@ -7,10 +7,10 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $usuarios = $view->getVariable("usuarios");
 $view->setVariable("title", "Usuarios");
-$cabecera = array("login","nombre","apellidos","rol","genero");
+$cabecera = array("login","name","surname","rol","gender");
 ?>
 
-  <h3><?= i18n("Usuarios"); ?></h3>
+  <h3><?= i18n("Users"); ?></h3>
   
   <a href="index.php?controller=users&amp;action=add">
     <img src="images/addUser.png" class="img-fluid" alt="Responsive image">

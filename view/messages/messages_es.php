@@ -59,10 +59,34 @@
 	"Sets couple 2" => "Sets pareja 2",
 	"Inscript to championship" => "Incribirse a campeonato",
 	"Create championship" => "Crear campeonato",
-	"Match" => "Partido"
+	"Match" => "Partido",
+	"ADD" => "AÑADIR",
+	"Name" => "Nombre",
+	"Surname" => "Apellidos",
+	"Password" => "Contraseña",
+	"Gender" => "Genero",
+	"admin" => "Administrador",
+	"trainer" => "entrenador",
+	"deportist" => "deportista",
+	"male" => "masculino",
+	"female" => "femenino",
+	"Enter login" => "Inserta login",
+	"Enter Username" => "Iserta nombre",
+	"Enter surname" => "Inserta apellidos",
+	"Password" => "Contraseña",
+	"Login is not valid" => "El login no es valido",
+	"User successfully added. Please login now" => "Usuario correctamente añadido",
+	"Login already exists" => "El login ya existe",
+	"Not in session. see users requires admin" => "No estas en sesión, ver usuarios require ser administrador",
+	"Not in session. delete user requires login" => "No estas en sesión, borrar usuarios requiere sesión",
+	"successfully delete" => "Correctamente borrado",
+	"Not in session. edit user requires sesion" => "No estas en sesión, editar usuarios requiere sesión",
+	"name" => "nombre",
+	"surname" => "apellidos",
+	"gender" => "genero",
+	"Users" => "Usuarios"
+
 	
-
-
 
 
 

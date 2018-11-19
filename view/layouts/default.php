@@ -182,7 +182,7 @@ $currentRol = $view->getVariable("currentRol");
 			<!-- Jumbotron -->
 			<div class="jumbotron">
 				<div id="flash">
-					<?= $view->popFlash() ?>
+					<?= i18n( $view->popFlash() ) ?>
 				</div>
 
 				<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>

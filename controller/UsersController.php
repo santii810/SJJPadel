@@ -29,40 +29,7 @@ class UsersController extends BaseController {
 		parent::__construct();
 
 		$this->userMapper = new UserMapper();
-
-		// Users controller operates in a "welcome" layout
-		// different to the "default" layout where the internal
-		// menu is displayed
-		//$this->view->setLayout("default");
 	}
-
-	/**
-	* Action to login
-	*
-	* Logins a user checking its creedentials agains
-	* the database
-	*
-	* When called via GET, it shows the login form
-	* When called via POST, it tries to login
-	*
-	* The expected HTTP parameters are:
-	* <ul>
-	* <li>login: The username (via HTTP POST)</li>
-	* <li>passwd: The password (via HTTP POST)</li>
-	* </ul>
-	*
-	* The views are:
-	* <ul>
-	* <li>posts/login: If this action is reached via HTTP GET (via include)</li>
-	* <li>posts/index: If login succeds (via redirect)</li>
-	* <li>users/login: If validation fails (via include). Includes these view variables:</li>
-	* <ul>
-	*	<li>errors: Array including validation errors</li>
-	* </ul>
-	* </ul>
-	*
-	* @return void
-	*/
 
 	public function index() {
 		// put the array containing Post object to the view
@@ -99,33 +66,7 @@ class UsersController extends BaseController {
 		}
 	}
 
-	/**
-	* Action to register
-	*
-	* When called via GET, it shows the register form.
-	* When called via POST, it tries to add the user
-	* to the database.
-	*
-	* The expected HTTP parameters are:
-	* <ul>
-	* <li>login: The username (via HTTP POST)</li>
-	* <li>passwd: The password (via HTTP POST)</li>
-	* </ul>
-	*
-	* The views are:
-	* <ul>
-	* <li>users/register: If this action is reached via HTTP GET (via include)</li>
-	* <li>users/login: If login succeds (via redirect)</li>
-	* <li>users/register: If validation fails (via include). Includes these view variables:</li>
-	* <ul>
-	*	<li>user: The current User instance, empty or being added
-	*	(but not validated)</li>
-	*	<li>errors: Array including validation errors</li>
-	* </ul>
-	* </ul>
-	*
-	* @return void
-	*/
+	
 	public function register() {
 
 		$user = new User();
@@ -154,7 +95,7 @@ class UsersController extends BaseController {
 					// We want to see a message after redirection, so we establish
 					// a "flash" message (which is simply a Session variable) to be
 					// get in the view after redirection.
-					$this->view->setFlash("Login ".$user->getLogin()." successfully added. Please login now");
+					$this->view->setFlash("User successfully added. Please login now");
 
 					// perform the redirection. More or less:
 					// header("Location: index.php?controller=users&action=login")
@@ -184,7 +125,7 @@ class UsersController extends BaseController {
 
 	public function showall(){
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding partner Championship requires login");
+			throw new Exception("Not in session. see users requires admin");
 		}
 
 		$userMapper = new UserMapper();
@@ -232,7 +173,7 @@ class UsersController extends BaseController {
 
 	public function edit(){
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. Adding partner Championship requires login");
+			throw new Exception("Not in session. edit user requires sesion");
 		}
 
 		$userMapper = new UserMapper();
@@ -286,7 +227,7 @@ class UsersController extends BaseController {
 					// We want to see a message after redirection, so we establish
 					// a "flash" message (which is simply a Session variable) to be
 					// get in the view after redirection.
-					$this->view->setFlash("Login ".$user->getLogin()." successfully added. Please login now");
+					$this->view->setFlash("User successfully added. Please login now");
 
 					// perform the redirection. More or less:
 					// header("Location: index.php?controller=users&action=login")
@@ -311,20 +252,7 @@ class UsersController extends BaseController {
 		// render the view (/view/users/register.php)
 		$this->view->render("users", "add");
 	}
-	/**
-	* Action to logout
-	*
-	* This action should be called via GET
-	*
-	* No HTTP parameters are needed.
-	*
-	* The views are:
-	* <ul>
-	* <li>users/login (via redirect)</li>
-	* </ul>
-	*
-	* @return void
-	*/
+	
 	public function logout() {
 		session_destroy();
 

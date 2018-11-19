@@ -1,6 +1,6 @@
 <?php
 
-// file: controller/ChampionshipController.php
+// file: controller/PostController.php
 require_once (__DIR__ . "/../model/Championship.php");
 require_once (__DIR__ . "/../model/ChampionshipMapper.php");
 require_once (__DIR__ . "/../model/CategoryChampionship.php");
@@ -67,14 +67,26 @@ class ChampionshipController extends BaseController
             $championship->setNombreCampeonato($_POST["nombreCampeonato"]);
             
             try {
-                $championship->checkIsValidForCreate(); 
+                // validate Post object
+                $championship->checkIsValidForCreate(); // if it fails, ValidationException
+                                                        // save the Post object into the database
                 $this->championshipMapper->save($championship);
-  
+                
+                // POST-REDIRECT-GET
+                // Everything OK, we will redirect the user to the list of posts
+                // We want to see a message after redirection, so we establish
+                // a "flash" message (which is simply a Session variable) to be
+                // get in the view after redirection.
                 $this->view->setFlash(sprintf(i18n("Post \"%s\" successfully added."), $championship->getNombreCampeonato()));
                 
+                // perform the redirection. More or less:
+                // header("Location: index.php?controller=posts&action=index")
+                // die();
                 $this->view->redirect("users", "index");
             } catch (ValidationException $ex) {
+                // Get the errors array inside the exepction...
                 $errors = $ex->getErrors();
+                // And put it to the view as "errors" variable
                 $this->view->setVariable("errors", $errors);
             }
         }

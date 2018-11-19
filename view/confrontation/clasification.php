@@ -9,12 +9,14 @@ $errors = $view->getVariable("errors");
 $clasificacion = $view->getVariable("clasificacion");
 $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
+
 $view->setVariable("title", i18n("Clasification") );
 $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Total sets"));
 
 ?>
 
 <h3><?= i18n("Clasification") ?></h3>
+
 <form action="index.php?controller=confrontation&amp;action=setresults" method="POST">
 
   <table class="table table-striped">

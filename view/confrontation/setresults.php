@@ -61,7 +61,8 @@ $cabecera = array("Id","Fecha","Hora","Pareja1","Pareja2","sets Pareja1","sets P
 </table>
 
 <input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
-  
+
   <button type="submit" class="btn btn-primary" value="" > <?= i18n("Save") ?> </button>
+
 
 </form>

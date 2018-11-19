@@ -9,7 +9,7 @@ $partidos = $view->getVariable("partidos");
 $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
 $view->setVariable("title", i18n("Enter match results") );
-$cabecera = array("Id","Fecha","Hora","Pareja1","Pareja2","sets Pareja1","sets Pareja2");
+$cabecera = "Id",i18n("Date"),i18n("Hour"),i18n("Couple 1"),i18n("Couple 2"),i18n("Sets couple 1"),i18n("Sets couple 2");
 
 ?>
 

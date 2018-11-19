@@ -50,7 +50,16 @@
 	"Total points" => "Puntos totales",
 	"Total sets" => "Sets totales",
 	"There are not enough athletes register to create a group." => "No hay suficientes deportistas apuntados para crear un grupo",
-	"Submit" => "Enviar"
+	"Submit" => "Enviar",
+	"Date" => "Fecha",
+	"Hour" => "Hora",
+	"Couple 1" => "Pareja 1",
+	"Couple 2" => "Pareja 2",
+	"Sets couple 1" => "Sets pareja 1",
+	"Sets couple 2" => "Sets pareja 2",
+	
+	
+
 
 
 

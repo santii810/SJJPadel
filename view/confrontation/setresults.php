@@ -1,68 +1,77 @@
 <?php
-//file: view/users/register.php
-
-require_once(__DIR__."/../../core/ViewManager.php");
+// file: view/users/register.php
+require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $partidos = $view->getVariable("partidos");
 $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
-$view->setVariable("title", i18n("Enter match results") );
-$cabecera = "Id",i18n("Date"),i18n("Hour"),i18n("Couple 1"),i18n("Couple 2"),i18n("Sets couple 1"),i18n("Sets couple 2");
+$view->setVariable("title", i18n("Enter match results"));
+$cabecera = array(
+    "Id",
+    i18n("Date"),
+    i18n("Hour"),
+    i18n("Couple 1"),
+    i18n("Couple 2"),
+    i18n("Sets couple 1"),
+    i18n("Sets couple 2")
+);
 
 ?>
 
 <h3> <?= i18n("Enter match results") ?> </h3>
-<form action="index.php?controller=confrontation&amp;action=setresults" method="POST">
+<form action="index.php?controller=confrontation&amp;action=setresults"
+	method="POST">
 
-  <table class="table table-striped">
-  <thead>
-    <tr>
+	<table class="table table-striped">
+		<thead>
+			<tr>
       <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
           <?php echo i18n( $valor ); ?>
         </th>
       <?php } ?>
     </tr>
-  </thead>
-  <tbody>
+		</thead>
+		<tbody>
   <?php foreach($partidos as $partido) { ?>
-    <input type="hidden" name="idEnfrentamiento[]" value="<?php echo $partido->getIdConfrontation() ?>">
-    <tr>
-      <td>
+    <input type="hidden" name="idEnfrentamiento[]"
+				value="<?php echo $partido->getIdConfrontation() ?>">
+			<tr>
+				<td>
       <?php echo $partido->getIdConfrontation(); ?>
       </td>
-      <td>
+				<td>
       <?php echo $partido->getDate(); ?>
       </td>
-      <td>
+				<td>
       <?php echo $partido->getTime(); ?>
       </td>
-      <td>
+				<td>
       <?php echo $parejas[$partido->getIdPartner1()]; ?>
       </td>
-      <td>
+				<td>
       <?php echo $parejas[$partido->getIdPartner2()]; ?>
       </td>
-      <td>
-        <div class="col-xs-3">
-          <input class="form-control" type="number" name="setsPareja1[]">
-        </div>  
-      </td>
-      <td>
-        <div class="col-xs-3">
-          <input class="form-control" type="number" name="setsPareja2[]">
-        </div>
-      </td>
-    </tr>
+				<td>
+					<div class="col-xs-3">
+						<input class="form-control" type="number" name="setsPareja1[]">
+					</div>
+				</td>
+				<td>
+					<div class="col-xs-3">
+						<input class="form-control" type="number" name="setsPareja2[]">
+					</div>
+				</td>
+			</tr>
   <?php } ?>
   </tbody>
-</table>
+	</table>
 
-<input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
+	<input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
 
-  <button type="submit" class="btn btn-primary" value="" > <?= i18n("Save") ?> </button>
+	<button type="submit" class="btn btn-primary" value=""> <?= i18n("Save") ?> </button>
 
 
 </form>

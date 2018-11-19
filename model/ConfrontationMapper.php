@@ -60,10 +60,12 @@ class ConfrontationMapper
     public function getPartidosResultadoNull($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE 
-								   puntosPareja1 is null AND
-								   puntosPareja2 is null AND
+                                   puntosPareja1 is null AND
+                                   puntosPareja2 is null AND
                                    setsPareja1 is null AND
                                    setsPareja2 is null AND
+                                   fecha is not null AND
+                                   hora is not null AND
                                    idGrupo = ? ");
         $stmt->execute(array(
             $idGrupo

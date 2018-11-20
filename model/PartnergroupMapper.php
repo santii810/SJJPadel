@@ -30,7 +30,7 @@ class PartnergroupMapper {
 	* @return void
 	*/
 	public function save($partnergroup) {
-		$stmt = $this->db->prepare("INSERT INTO parejagrupo (idPareja,idGrupo) 
+		$stmt = $this->db->prepare("INSERT INTO parejagrupo (idPareja,idGrupo)
 												values (?,?)");
 		$stmt->execute(array($partnergroup->getIdPartner(),
 							 $partnergroup->getIdGroup(),
@@ -41,7 +41,7 @@ class PartnergroupMapper {
 
 		$stmt = $this->db->prepare("SELECT * FROM parejagrupo WHERE idGrupo = ? ");
 		$stmt->execute(array($idGrupo));
-		
+
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$partnergroups = array();
@@ -55,4 +55,23 @@ class PartnergroupMapper {
 
 		return $partnergroups;
 	}
+
+/*
+	public function joinPartnerConfrontationOffer($idPareja){
+		$stmt = $this->db->prepare("SELECT
+			P.idPareja as 'parejagrupo.idPareja',
+			P.idGrupo as 'parejagrupo.idGrupo',
+			O.idOfertaEnfrentamiento as 'ofertaenfrentamiento.idOfertaEnfrentamiento',
+			O.idPareja as 'ofertaenfrentamiento.idPareja',
+			O.hora as 'ofertaenfrentamiento.hora',
+			O.fecha as 'ofertaenfrentamiento.fecha',
+			FROM parejagrupo P LEFT OUTER JOIN ofertaenfrentamiento O
+			ON O.idOrganizarPartido = P.idOrganizarPartido
+			WHERE
+			P.idPareja = ? AND P.idGrupo = ¿O.idGrupo? ");
+
+			$stmt->execute(array($id));
+			$match_wt_participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	}
+	*/
 }

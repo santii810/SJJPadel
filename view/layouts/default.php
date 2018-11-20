@@ -103,7 +103,7 @@ $currentRol = $view->getVariable("currentRol");
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-							<?php if($currentRol == 'a'): ?>
+							<?php if($currentRol == 'beta'): ?>
 
 								<a class="dropdown-item" href="index.php?controller=championship&amp;action=add"><?php echo i18n("Create championship") ?></a>
 							<?php endif ?>

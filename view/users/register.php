@@ -7,7 +7,10 @@ $errors = $view->getVariable("errors");
 $user = $view->getVariable("user");
 $view->setVariable("title", i18n("Register") );
 ?>
-<h1><?= i18n("Register")?></h1>
+<h3><?= i18n("Register")?></h3>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-xs-12">
 <form action="index.php?controller=users&amp;action=register" method="POST">
 
   <div class="form-group">
@@ -45,3 +48,4 @@ $view->setVariable("title", i18n("Register") );
   <button type="submit" class="btn btn-primary" value="<?= i18n("Register")?>" >Submit</button>
 
 </form>
+</div></div></div>

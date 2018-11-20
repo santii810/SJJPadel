@@ -126,8 +126,8 @@ class ChampionshipController extends BaseController
                 if (sizeof($couples) > 7) {
                     $groupHasGenerated = true;
                     $groupIds = $this->createGroups($couples, $categoriaCampeonato);
-                    $this->asignCouples($couples, $groupIds);
-                    $this->fillConfrontations($groupIds);
+                //    $this->asignCouples($couples, $groupIds);
+                //    $this->fillConfrontations($groupIds);
                 }
             }
             

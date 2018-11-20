@@ -19,28 +19,30 @@ $view->setVariable("title", i18n("Sign up for championship") );
 
 
 <form class="justify-content-center align-items-center" action="index.php?controller=partner&amp;action=selectChampionship" method="POST">
-	
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-sm-6 col-xs-12">
 
-	<label for="login"> <?= i18n("Couple username") ?> </label>
+				<label for="login"> <?= i18n("Couple username") ?> </label>
 
-    <div class="form-group">
-        <input type="text" class="form-control input-lg" id="login" name="login" aria-describedby="loginHelp" placeholder="<?=i18n("Couple username")?>" value="">
-	   	<?= isset($errors["login"])?i18n($errors["login"]):"" ?><br>
-    </div>
-	
+				<div class="form-group">
+					<input type="text" class="form-control input-lg" id="login" name="login" aria-describedby="loginHelp" placeholder="<?=i18n("Couple username")?>" value="">
+					<?= isset($errors["login"])?i18n($errors["login"]):"" ?><br>
+				</div>
+				
 
-    <label for="idCampeonato" size="1"> <?= i18n("Championship") ?> </label>
+				<label for="idCampeonato" size="1"> <?= i18n("Championship") ?> </label>
 
-	<div class="form-group">
-		<select class="form-control" id="idCampeonato" name="idCampeonato">
-			<?php foreach($campeonatos as $campeonato) {?>
-				 <option value="<?php echo $campeonato->getId() ?>"><?php echo $campeonato->getNombreCampeonato() ?> </option>
-			<?php } ?>
-		</select>
-	</div>
-		
+				<div class="form-group">
+					<select class="form-control" id="idCampeonato" name="idCampeonato">
+						<?php foreach($campeonatos as $campeonato) {?>
+							<option value="<?php echo $campeonato->getId() ?>"><?php echo $campeonato->getNombreCampeonato() ?> </option>
+						<?php } ?>
+					</select>
+				</div>
+				
 
-  <button type="submit" class="btn btn-primary" value="" > <?= i18n("Sign up") ?> </button>
+				<button type="submit" class="btn btn-primary" value="" > <?= i18n("Sign up") ?> </button>
 
-
-</form>
+			</div></div></div>
+		</form>

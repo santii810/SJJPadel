@@ -32,6 +32,7 @@ class GroupMapper {
 	public function save($group) {
 		$stmt = $this->db->prepare("INSERT INTO grupo (idCategoria,idCampeonato,nombreGrupo)
 			values (?,?,?)");
+
 		$stmt->execute(array($group->getIdCategory(),
 			$group->getIdChampionship(),
 			$group->getGroupName(),

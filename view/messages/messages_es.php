@@ -60,7 +60,7 @@
 	"Inscript to championship" => "Incribirse a campeonato",
 	"Create championship" => "Crear campeonato",
 	"Match" => "Partido",
-	"ADD" => "AÑADIR",
+	"Add user" => "Añadir usuario",
 	"Name" => "Nombre",
 	"Surname" => "Apellidos",
 	"Password" => "Contraseña",

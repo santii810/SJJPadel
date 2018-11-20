@@ -5,11 +5,13 @@ require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $user = $view->getVariable("user");
-$view->setVariable("title", i18n("ADD") );
+$view->setVariable("title", i18n("Add user") );
 ?>
-<h1><?= i18n("ADD")?></h1>
+<h3><?= i18n("Add user")?></h3>
 <form action="index.php?controller=users&amp;action=add" method="POST">
-
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-xs-12">
   <div class="form-group">
     <label for="login"> <?= i18n("Login") ?> </label>
     <input type="text" class="form-control" id="login" name="login" aria-describedby="loginHelp" placeholder="<?= i18n("Enter login") ?>" value="<?= $user->getLogin() ?>">
@@ -51,6 +53,6 @@ $view->setVariable("title", i18n("ADD") );
     </select>
   </div> 
 
-  <button type="submit" class="btn btn-primary" value="<?= i18n("ADD")?>" ><?= i18n("ADD")?></button>
-
+  <button type="submit" class="btn btn-primary" value="<?= i18n("Add user")?>" ><?= i18n("Add user")?></button>
+</div></div></div>
 </form>

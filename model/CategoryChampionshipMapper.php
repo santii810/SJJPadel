@@ -18,9 +18,8 @@ class CategoryChampionshipMapper {
 
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		$toret = array();
-
 		foreach ($toret_db as $data) {
-			array_push($toret, new CategoryChampionship($data["idCategoriasCampeonato"], $data["idCategoria"], $data["idCampeonato"]));
+			array_push($toret, new CategoryChampionship($data["idCategoriasCampeonato"], $data["idCampeonato"], $data["idCategoria"]));
 		}
 		return $toret;
 	}

@@ -10,6 +10,9 @@ $view->setVariable("title", i18n("Edit Users") );
 ?>
 
 <h3><?php echo i18n("Edit") ?></h3>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-xs-12">
   <form action="index.php?controller=users&amp;action=edit" method="POST">
     <table class="table">
       <thead class="thead-dark">
@@ -104,4 +107,5 @@ $view->setVariable("title", i18n("Edit Users") );
 
     <button type="submit" class="btn btn-primary" value="submit" ><?= i18n("Edit") ?></button>
   </form>
+</div></div></div>
 

@@ -7,9 +7,11 @@ $errors = $view->getVariable("errors");
 $view->setVariable("title", "Organizar Partido");
 ?>
 
-<h1>Organizar Partido</h1>
+<h3>Organizar Partido</h3>
 <form action="index.php?controller=organizeMatch&amp;action=add" method="POST">
-
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 col-xs-12">
   <div class="form-group">
     <label for="fechaInicioInscripcion">Fecha</label>
     <input type="date" class="form-control" id="dateOrganizeMatch" name="dateOrganizeMatch" aria-describedby="loginHelp">
@@ -32,5 +34,5 @@ $view->setVariable("title", "Organizar Partido");
   </div>
 
   <button type="submit" class="btn btn-primary">Crear</button>
-
+</div></div></div>
 </form>

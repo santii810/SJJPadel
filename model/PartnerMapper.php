@@ -23,7 +23,7 @@ class PartnerMapper {
 	public function __construct() {
 		$this->db = PDOConnection::getInstance();
 	}
-	
+
 	public function save($partner) {
 		$stmt = $this->db->prepare("INSERT INTO pareja(idCapitan,idCompañero,idCategoriaCampeonato) values (?,?,?)");
 		$stmt->execute(array($partner->getIdCaptain(), $partner->getIdFellow(),$partner->getIdCategoryChampionship()));
@@ -31,7 +31,7 @@ class PartnerMapper {
 	}
 
 	public function existeParejaCategoria($login,$idCategoriaCampeonato){
-		$stmt = $this->db->prepare("SELECT * FROM pareja 
+		$stmt = $this->db->prepare("SELECT * FROM pareja
 									WHERE idCategoriaCampeonato = ? AND
 										  ( idCapitan = ? || idCompañero = ? )
 									");
@@ -45,7 +45,7 @@ class PartnerMapper {
 	}
 
 	public function devolverPareja($idCapitan,$idCompañero,$idCategoria){
-		$stmt = $this->db->prepare("SELECT * FROM pareja 
+		$stmt = $this->db->prepare("SELECT * FROM pareja
 									WHERE idCapitan = ? AND
 										  idCompañero = ? AND
 										  idCategoria = ? "
@@ -53,7 +53,7 @@ class PartnerMapper {
 		$stmt->execute(array($idCapitan,$idCompañero,$idCategoria));
 
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$pareja = null;
 
 		foreach ($toret_db as $datos) {
@@ -83,14 +83,32 @@ class PartnerMapper {
 
 		return $toret;
 	}
-	
+
 	public function getPartnerNames($idPartner){
 	    $stmt = $this->db->prepare("SELECT concat(idCapitan,\" - \", idCompañero) as names FROM `pareja` WHERE idPareja = ?");
-	    
+
 	    $stmt->execute(array($idPartner));
-	    
+
 	    $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
 	    return $toret_db["names"];
 	}
-	
+
+
+	public function getMyParners($user){
+		$stmt = $this->db->prepare("SELECT * FROM `pareja` WHERE  idCapitan = ? || idCompañero = ?");
+		$stmt->execute(array($user, $user));
+		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$partner_array = array();
+
+		if($toret_db != null ){
+			foreach( $toret_db as $partner ){
+				$partner_o = new Partner( $partner["idPareja"], $partner["idCapitan"], $partner["idCompañero"], $partner["idCategoriaCampeonato"] );
+				array_push($partner_array, $partner_o);
+			}
+			return $partner_array;
+		}
+		return null;
+	}
+
 }

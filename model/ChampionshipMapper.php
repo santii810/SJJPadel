@@ -25,7 +25,7 @@ class ChampionshipMapper {
 	public function __construct() {
 		$this->db = PDOConnection::getInstance();
 	}
-	
+
 	public function save($championship) {
 		$stmt = $this->db->prepare("INSERT INTO campeonato(fechaInicioInscripcion, fechaFinInscripcion, fechaInicioCampeonato, fechaFinCampeonato, nombreCampeonato) values (?,?,?,?,?)");
 		$stmt->execute(array($championship->getFechaInicioInscripcion(), $championship->getFechaFinInscripcion(),$championship->getFechaInicioCampeonato(),$championship->getFechaFinCampeonato(), $championship->getNombreCampeonato()));
@@ -44,7 +44,7 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"],
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -63,7 +63,7 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"],
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -82,7 +82,7 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"],
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -103,7 +103,7 @@ class ChampionshipMapper {
 			array_push($championships, new Championship(
 				$championship["idCampeonato"],
 				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"], 
+				$championship["fechaFinInscripcion"],
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
 				$championship["nombreCampeonato"]));
@@ -115,10 +115,10 @@ class ChampionshipMapper {
 
 	public function getCategorias($idCampeonato) {
 		$stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
-			FROM campeonato cam,categoriascampeonato catc, categoria cat  
+			FROM campeonato cam,categoriascampeonato catc, categoria cat
 			WHERE cam.idCampeonato = catc.idCampeonato AND
 			catc.idCategoria = cat.idCategoria AND
-			cam.idCampeonato = ?			  
+			cam.idCampeonato = ?
 			ORDER BY idCategoria");
 		$stmt->execute(array($idCampeonato));
 
@@ -137,11 +137,11 @@ class ChampionshipMapper {
 		return $categories;
 	}
 
-	
+
 
 	public function getGrupos($idCampeonato,$idCategoria) {
-		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato 
-			FROM campeonato cam,grupo g,categoria c 
+		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato
+			FROM campeonato cam,grupo g,categoria c
 			WHERE cam.idCampeonato = g.idCampeonato AND
 			c.idCategoria = g.idCategoria AND
 			cam.idCampeonato = ? AND
@@ -162,5 +162,16 @@ class ChampionshipMapper {
 		}
 
 		return $groups;
+	}
+
+
+	public function getNombreCampeonato($idCampeonato){
+		$stmt = $this->db->prepare("SELECT nombreCampeonato FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= curdate() AND fechaFinCampeonato >= curdate()");
+		$stmt->execute(array($idCampeonato));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($toret_db != null ){
+			return $toret_db["nombreCampeonato"];
+		}
 	}
 }

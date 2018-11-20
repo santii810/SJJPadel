@@ -30,26 +30,47 @@ class GroupMapper {
 	* @return void
 	*/
 	public function save($group) {
-		$stmt = $this->db->prepare("INSERT INTO grupo (idCategoria,idCampeonato,nombreGrupo) 
+		$stmt = $this->db->prepare("INSERT INTO grupo (idCategoria,idCampeonato,nombreGrupo)
 			values (?,?,?)");
 		$stmt->execute(array($group->getIdCategory(),
 			$group->getIdChampionship(),
 			$group->getGroupName(),
 		));
-	
+
 		return $this->db->lastInsertId();
 	}
 
 
 
-	public function getGrupoDefault($idCampeonato,$idCategoria){
+	public function getGrupoDefault($idCampeonato, $idCategoria){
 		$stmt = $this->db->prepare("SELECT *
 			FROM   grupo
-			WHERE nombreGrupo ='Default' AND 
+			WHERE nombreGrupo = 'Default' AND
 			idCampeonato = ? AND
 			idCategoria = ?"
 		);
 		$stmt->execute(array($idCampeonato,$idCategoria));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($toret_db != null) {
+			return new Group(
+				$toret_db["idGrupo"],
+				$toret_db["idCategoria"],
+				$toret_db["idCampeonato"],
+				$toret_db["nombreGrupo"]);
+		} else {
+			return NULL;
+		}
+	}
+
+	public function getGroup ($idCampeonato, $idCategoria){
+		$stmt = $this->db->prepare("SELECT *
+			FROM   grupo
+			WHERE nombreGrupo != 'Default' AND
+			idCampeonato = ? AND
+			idCategoria = ?"
+		);
+		$stmt->execute(array($idCampeonato, $idCategoria));
 		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if($toret_db != null) {

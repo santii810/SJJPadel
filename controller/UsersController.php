@@ -55,6 +55,8 @@ class UsersController extends BaseController {
 					$errors = array();
 					$errors["general"] = "Login is not valid";
 					$this->view->setVariable("errors", $errors);
+					// render the view (/view/users/login.php)
+					$this->view->render("users", "login");
 				}
 			}else{
 				// render the view (/view/users/login.php)

@@ -25,7 +25,7 @@ $cabecera = array("login","name","surname","rol","gender");
         </th>
       <?php } ?>
       <th scope="col" colspan="2">
-        <?= i18n("Opciones"); ?>
+        <?= i18n("Options"); ?>
       </th>
     </tr>
   </thead>

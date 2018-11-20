@@ -85,8 +85,15 @@
 	"surname" => "apellidos",
 	"gender" => "genero",
 	"Users" => "Usuarios",
-	"Match Offer" => "Ofrecer Partido"
-
+	"Match Offer" => "Ofrecer Partido",
+	"Log in" => "Iniciar sesión",
+	"Login here" => "Login aqui",
+	"Options" => "Opciones",
+	"Edit Users" => "Editar Usuarios",
+	"Edit" => "Editar",
+	"Delete User" => "Borrar Usuario",
+	"Delete" => "Eliminar",
+	"Are you sure to eliminate this user?" => "¿Estas seguro de eliminar a este usuario?"
 
 
 

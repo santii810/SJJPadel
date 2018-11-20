@@ -6,10 +6,10 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $datos = $view->getVariable("datosUsuario");
-$view->setVariable("title", "Editar Usuario");
+$view->setVariable("title", i18n("Edit Users") );
 ?>
 
-<h3><?php echo i18n("Editar") ?></h3>
+<h3><?php echo i18n("Edit") ?></h3>
   <form action="index.php?controller=users&amp;action=edit" method="POST">
     <table class="table">
       <thead class="thead-dark">
@@ -23,7 +23,7 @@ $view->setVariable("title", "Editar Usuario");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("nombre") ?> 
+            <?php echo i18n("Name") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="nombre" value="<?php echo $datos->getUserName() ?>">
@@ -31,7 +31,7 @@ $view->setVariable("title", "Editar Usuario");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("apellidos") ?> 
+            <?php echo i18n("Surname") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="apellidos" value="<?php echo $datos->getSurName() ?>">
@@ -39,16 +39,16 @@ $view->setVariable("title", "Editar Usuario");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("rol") ?> 
+            <?php echo i18n("Rol") ?> 
           </th>
           <td>
             <?php if( $datos->getRol() == 'a' ){ ?>
 
             <div class="form-group">
               <select class="form-control" id="rol" name="rol">
-                  <option selected="selected" value="a"><?php echo i18n("a") ?></option>
-                  <option value="e"><?php echo i18n("e") ?></option>
-                  <option value="d"><?php echo i18n("d") ?></option>
+                  <option selected="selected" value="a"><?php echo i18n("admin") ?></option>
+                  <option value="e"><?php echo i18n("trainer") ?></option>
+                  <option value="d"><?php echo i18n("deportist") ?></option>
               </select>
             </div> 
 
@@ -56,18 +56,18 @@ $view->setVariable("title", "Editar Usuario");
 
               <div class="form-group">
               <select class="form-control" id="rol" name="rol">
-                  <option value="a"><?php echo i18n("a") ?></option>
-                  <option selected="selected" value="e"><?php echo i18n("e") ?></option>
-                  <option value="d"><?php echo i18n("d") ?></option>
+                  <option value="a"><?php echo i18n("admin") ?></option>
+                  <option selected="selected" value="e"><?php echo i18n("trainer") ?></option>
+                  <option value="d"><?php echo i18n("deportist") ?></option>
               </select>
             </div> 
 
             <?php } else { ?>  
 
               <select class="form-control" id="rol" name="rol">
-                  <option value="a"><?php echo i18n("a") ?></option>
-                  <option value="e"><?php echo i18n("e") ?></option>
-                  <option selected="selected" value="d"><?php echo i18n("d") ?></option>
+                  <option value="a"><?php echo i18n("admin") ?></option>
+                  <option value="e"><?php echo i18n("trainer") ?></option>
+                  <option selected="selected" value="d"><?php echo i18n("deportist") ?></option>
               </select>
 
             <?php } ?>
@@ -76,22 +76,22 @@ $view->setVariable("title", "Editar Usuario");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("genero") ?> 
+            <?php echo i18n("Gender") ?> 
           </th>
           <td>
           <?php if($datos->getGender() == 'masculino') { ?>
             <div class="form-group">
               <select class="form-control" id="genero" name="genero">
-                  <option selected="selected" value="masculino"><?php echo i18n("masculino") ?></option>
-                  <option value="femenino"><?php echo i18n("femenino") ?></option>
+                  <option selected="selected" value="masculino"><?php echo i18n("male") ?></option>
+                  <option value="femenino"><?php echo i18n("female") ?></option>
               </select>
             </div> 
           <?php } else { ?>
             <div class="form-group">
-              <label for="genero" size="1">Genero</label>
+              <label for="genero" size="1"> <?= i18n("Gender") ?> </label>
               <select class="form-control" id="genero" name="genero">
-                  <option value="masculino"><?php echo i18n("masculino") ?></option>
-                  <option selected="selected" value="femenino"><?php echo i18n("femenino") ?></option>
+                  <option value="masculino"><?php echo i18n("male") ?></option>
+                  <option selected="selected" value="femenino"><?php echo i18n("female") ?></option>
               </select>
             </div> 
           <?php } ?>  
@@ -102,6 +102,6 @@ $view->setVariable("title", "Editar Usuario");
 
     <input type="hidden" name="pass" value="<?php echo $datos->getPass() ?>">
 
-    <button type="submit" class="btn btn-primary" value="submit" ><?= i18n("Editar") ?></button>
+    <button type="submit" class="btn btn-primary" value="submit" ><?= i18n("Edit") ?></button>
   </form>
 

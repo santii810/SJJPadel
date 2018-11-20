@@ -6,12 +6,12 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $datos = $view->getVariable("datosUsuario");
-$view->setVariable("title", "Borrar Usuario");
-$cabecera = array("login","nombre","apellidos","rol","genero");
+$view->setVariable("title", i18n("Delete User") );
+$cabecera = array("login","name","surname","rol","gender");
 
 ?>
 
-<h3><?php echo i18n("Eliminar") ?></h3>
+<h3><?php echo i18n("Delete User") ?></h3>
   <form action="index.php?controller=users&amp;action=delete" method="POST">
       <form action="index.php?controller=users&amp;action=edit" method="POST">
     <table class="table">
@@ -26,7 +26,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("nombre") ?> 
+            <?php echo i18n("Name") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="nombre" value="<?php echo $datos->getUserName() ?>">
@@ -34,7 +34,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("apellidos") ?> 
+            <?php echo i18n("Surname") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="apellidos" value="<?php echo $datos->getSurName() ?>">
@@ -42,7 +42,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
           <th>
-            <?php echo i18n("rol") ?> 
+            <?php echo i18n("Rol") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="rol" value="<?php echo i18n($datos->getRol()) ?>">
@@ -50,7 +50,7 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
       </tr>
       <tr>
         <th>
-            <?php echo i18n("genero") ?> 
+            <?php echo i18n("Gender") ?> 
         </th>
         <td>
           <input type="text" class="form-control" name="rol" value="<?php echo i18n($datos->getGender()) ?>">
@@ -61,8 +61,8 @@ $cabecera = array("login","nombre","apellidos","rol","genero");
 
     <input type="hidden" name="pass" value="<?php echo $datos->getPass() ?>">
 
-    <?= i18n("¿Estas seguro de eliminar a este usuario?") ?> <br>
+    <?= i18n("Are you sure to eliminate this user?") ?> <br>
 
-    <button type="submit" class="btn btn-primary" value="submit" ><?php echo i18n("Eliminar") ?></button>
+    <button type="submit" class="btn btn-primary" value="submit" ><?php echo i18n("Delete") ?></button>
   </form>
 

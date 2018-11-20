@@ -12,25 +12,27 @@ require_once(__DIR__."/../core/ValidationException.php");
 */
 class OrganizeMatch {
 
-  private $idOrganizarPartido;
+	private $idOrganizarPartido;
 	private $fecha;
 	private $hora;
-  private $participants;
+	private $participants;
+	private $numParticipants;
 
-	public function __construct($idOrganizeMatch=NULL, $fecha=NULL, $hora=NULL, array $participants=NULL) {
-    $this->idOrganizarPartido = $idOrganizeMatch;
+	public function __construct($idOrganizeMatch=NULL, $fecha=NULL, $hora=NULL, array $participants=NULL, $numParticipants=NULL) {
+		$this->idOrganizarPartido = $idOrganizeMatch;
 		$this->fecha = $fecha;
 		$this->hora = $hora;
-    $this->participants = $participants;
+		$this->participants = $participants;
+		$this->numParticipants = $numParticipants;
 	}
 
 	public function getIdOrganizarPartido() {
 		return $this->idOrganizarPartido;
 	}
 
-  public function setIdOrganizarPartido($idOrganizarPartido) {
-    $this->idOrganizarPartido = $idOrganizarPartido;
-  }
+	public function setIdOrganizarPartido($idOrganizarPartido) {
+		$this->idOrganizarPartido = $idOrganizarPartido;
+	}
 
 	public function getFecha() {
 		return $this->fecha;
@@ -48,16 +50,25 @@ class OrganizeMatch {
 		$this->hora = $hora;
 	}
 
-  public function getParticipants(){
-    return $this->participants;
-  }
+	public function getParticipants(){
+		return $this->participants;
+	}
 
-  public function setParticipants($participants){
-    $this->participants = $participants;
-  }
+	public function setParticipants($participants){
+		$this->participants = $participants;
+	}
 
-	public function checkIsValidForCreate() {
-    $fecha_actual = new DateTime(date('Y-m-d'));
+	public function getNumParticipants(){
+		return $this->numParticipants;
+	}
+
+    public function setNumParticipants($numParticipants)
+    {
+        $this->numParticipants = $numParticipants;
+    }
+
+    public function checkIsValidForCreate() {
+		$fecha_actual = new DateTime(date('Y-m-d'));
 
 		$errors = array();
 	/*	if ($fecha_actual > $this->getFecha() ) {

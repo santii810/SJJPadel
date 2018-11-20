@@ -51,12 +51,12 @@ class OrganizeMatchController extends BaseController {
   }
 
 
-    public function add() {
-      if (!isset($this->currentUser) && $this->currentRol == 'a' ) {
-        throw new Exception("Not in session. Organize a match requires admin");
-      }
+  public function add() {
+    if (!isset($this->currentUser) && $this->currentRol == 'a' ) {
+      throw new Exception("Not in session. Organize a match requires admin");
+    }
 
-      $organizeMatch = new OrganizeMatch();
+    $organizeMatch = new OrganizeMatch();
 
       if (isset($_POST["dateOrganizeMatch"])) { // reaching via HTTP Post...
         $organizeMatch->setFecha(date("Y-m-d", strtotime($_POST["dateOrganizeMatch"])));
@@ -99,6 +99,9 @@ class OrganizeMatchController extends BaseController {
       $this->validateAllOrganizeMatches();
 
       $organizedMatches = $this->organizeMatchMapper->findAll();
+      foreach ($organizedMatches as $match) {
+        $match->setNumParticipants($this->participantsMatchMapper->count($match->getIdOrganizarPartido()));
+      }
 
       $this->view->setVariable("organizedMatches", $organizedMatches);
 

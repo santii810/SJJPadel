@@ -34,7 +34,7 @@
 	"Championship finish date" => "Fecha fin del campeonato",
 	"Register championship" => "Registrar campeonato",
 	"Select categories" => "Seleccionar categorías",
-	"Add categories" => "Añadir categorias",
+	"Add categories" => "Añadir categorías",
 	"Sign up for championship" => "Inscribirse a campeonato",
 	"Sign up" => "Incribirse",
 	"Championship" => "Campeonato",
@@ -94,7 +94,8 @@
 	"Delete User" => "Borrar Usuario",
 	"Delete" => "Eliminar",
 	"Are you sure to eliminate this user?" => "¿Estas seguro de eliminar a este usuario?",
-	"Incorrect result" =>  "Resultados incorrectos"
+	"Incorrect result" =>  "Resultados incorrectos",
+    "Match successfully join." => "Partido organizado correctamente"
 
 
 

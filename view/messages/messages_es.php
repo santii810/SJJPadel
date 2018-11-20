@@ -93,7 +93,8 @@
 	"Edit" => "Editar",
 	"Delete User" => "Borrar Usuario",
 	"Delete" => "Eliminar",
-	"Are you sure to eliminate this user?" => "¿Estas seguro de eliminar a este usuario?"
+	"Are you sure to eliminate this user?" => "¿Estas seguro de eliminar a este usuario?",
+	"Incorrect result" =>  "Resultados incorrectos"
 
 
 

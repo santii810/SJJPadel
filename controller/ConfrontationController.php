@@ -40,7 +40,6 @@ class ConfrontationController extends BaseController {
 			$queryString = "idGrupo=".$_POST['idGrupo'];
 
 			$this->view->redirect("confrontation", "clasification", $queryString );
-
 		}
 
 		$championship = new ChampionshipMapper();

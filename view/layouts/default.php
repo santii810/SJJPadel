@@ -32,7 +32,7 @@ $currentRol = $view->getVariable("currentRol");
 	<?= $view->getFragment("javascript") ?>
 
 	<link rel="stylesheet" href="css/style.css" type="text/css">
-	<link rel="stylesheet" href="css/Footer-with-social-icons.css" type="text/css">
+	
 
 	<!-- provisional (hasta que sepa como meterlo con el viewManager)-->
 

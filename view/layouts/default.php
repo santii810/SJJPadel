@@ -134,6 +134,12 @@ $currentRol = $view->getVariable("currentRol");
 
 							<?php endif ?>
 
+							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+
+								<a class="dropdown-item" href="index.php?controller=confrontationOffer&amp;action=view"><?php echo i18n("Match Offer") ?></a>
+
+							<?php endif ?>
+
 						</div>
 					</li>
 				<?php endif ?>
@@ -187,13 +193,13 @@ $currentRol = $view->getVariable("currentRol");
 
 				<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 			</div>
-		</div> 
+		</div>
 
 		<footer id="myFooter">
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-3 myCols">
-						
+
 					</div>
 				</div>
 				<div class="social-networks">

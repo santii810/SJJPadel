@@ -2,7 +2,7 @@
 	"Users Login" => "Iniciar sesion",
 	"Please enter your login and password" => "Por favor introduce tu usuario y contraseña",
 	"Password here" => "Contraseña aqui",
-	"Register here!" => "Registrate aqui!",   
+	"Register here!" => "Registrate aqui!",
 	"Match successfully organize" => "Partido organizador correctamente",
 	"Organize Match" => "Organizar partido",
 	"View Organized Matches" => "Ver partidos organizados",
@@ -84,9 +84,10 @@
 	"name" => "nombre",
 	"surname" => "apellidos",
 	"gender" => "genero",
-	"Users" => "Usuarios"
+	"Users" => "Usuarios",
+	"Match Offer" => "Ofrecer Partido"
 
-	
+
 
 
 

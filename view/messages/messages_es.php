@@ -95,7 +95,9 @@
 	"Delete" => "Eliminar",
 	"Are you sure to eliminate this user?" => "¿Estas seguro de eliminar a este usuario?",
 	"Incorrect result" =>  "Resultados incorrectos",
-    "Match successfully join." => "Partido organizado correctamente"
+    "Match successfully join." => "Partido organizado correctamente",
+    "You aren't registered in a championship in game" => "No estas inscrito en ningun torneo en juego",
+    "No offers available" => "No hay ofertas disponibles"
 
 
 

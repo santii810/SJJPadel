@@ -59,6 +59,9 @@ class OrganizeMatchController extends BaseController {
     $organizeMatch = new OrganizeMatch();
 
       if (isset($_POST["dateOrganizeMatch"])) { // reaching via HTTP Post...
+        if(time() > strtotime($_POST["dateOrganizeMatch"])){
+          throw new Exception("Fecha actual mayor que la introducida");
+        }
         $organizeMatch->setFecha(date("Y-m-d", strtotime($_POST["dateOrganizeMatch"])));
         $organizeMatch->setHora($_POST["timeOrganizeMatch"]);
 

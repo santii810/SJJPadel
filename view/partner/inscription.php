@@ -31,7 +31,7 @@ $view->setVariable("title", i18n("Sign up for championship") );
 	  <?php } ?>
 
 	</select>
-	<?= isset($errors["login"])?i18n($errors["login"]):"" ?><br>
+		<span class="text-danger"><?= isset($errors["login"])?i18n($errors["login"]):"" ?></span><br>
 	</div> 
 
 	<input type="hidden" name="idCampeonato" value="<?php echo $idCampeonato ?>">

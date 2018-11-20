@@ -56,22 +56,28 @@ class PartnergroupMapper {
 		return $partnergroups;
 	}
 
-/*
-	public function joinPartnerConfrontationOffer($idPareja){
-		$stmt = $this->db->prepare("SELECT
-			P.idPareja as 'parejagrupo.idPareja',
-			P.idGrupo as 'parejagrupo.idGrupo',
-			O.idOfertaEnfrentamiento as 'ofertaenfrentamiento.idOfertaEnfrentamiento',
-			O.idPareja as 'ofertaenfrentamiento.idPareja',
-			O.hora as 'ofertaenfrentamiento.hora',
-			O.fecha as 'ofertaenfrentamiento.fecha',
-			FROM parejagrupo P LEFT OUTER JOIN ofertaenfrentamiento O
-			ON O.idOrganizarPartido = P.idOrganizarPartido
-			WHERE
-			P.idPareja = ? AND P.idGrupo = ¿O.idGrupo? ");
+	public function getIdGrupo($idPareja){
 
-			$stmt->execute(array($id));
-			$match_wt_participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$stmt = $this->db->prepare("SELECT idGrupo FROM parejagrupo WHERE idPareja = ? ");
+		$stmt->execute(array($idPareja));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $toret_db["idGrupo"];
 	}
-	*/
+
+	public function hasGroup($idPareja){
+		$stmt = $this->db->prepare("SELECT COUNT(*) as count FROM parejagrupo WHERE idPareja = ? ");
+		$stmt->execute(array($idPareja));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($toret_db["count"] == 0){
+			return false;
+		}
+		else{
+			return true;
+		}
+
+	}
+
+
 }

@@ -24,6 +24,9 @@ require_once(__DIR__."/../model/ChampionshipMapper.php");
 require_once(__DIR__."/../model/Category.php");
 require_once(__DIR__."/../model/CategoryMapper.php");
 
+require_once(__DIR__."/../model/Partnergroup.php");
+require_once(__DIR__."/../model/PartnergroupMapper.php");
+
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
@@ -83,6 +86,13 @@ class ConfrontationOfferController extends BaseController {
   */
   private $categoryMapper;
 
+  /**
+  * Reference to the PartnergroupMapper to interact
+  * with the database
+  * @var PartnergroupMapper
+  */
+  private $partnerGroupMapper;
+
 
   public function __construct() {
     parent::__construct();
@@ -93,6 +103,7 @@ class ConfrontationOfferController extends BaseController {
     $this->categoryChampionshipMapper = new CategoryChampionshipMapper();
     $this->championshipMapper = new ChampionshipMapper();
     $this->categoryMapper = new CategoryMapper();
+    $this->partnerGroupMapper = new PartnergroupMapper();
   }
 
   public function view(){
@@ -104,31 +115,26 @@ class ConfrontationOfferController extends BaseController {
 
     $partner = $this->partnerMapper->getMyParners($currentUser);
 
+    $category_wt_tournament = array();
+
     if( $partner != null ){
-    //  var_dump($partner);
-      $category_wt_tournament = array();
       foreach( $partner as $partnerCategory ){
         $categoryChampionship =  $this->categoryChampionshipMapper->getChampionshipFromIdCategory( $partnerCategory->getIdCategoryChampionship() );
         $nombreCampeonato = $this->championshipMapper->getNombreCampeonato( $categoryChampionship->getIdChampionship() );
-        if ( $nombreCampeonato != '' ){
+        $idGrupo = $this->partnerGroupMapper->hasGroup( $partnerCategory->getIdPartner() );
+        if ( $nombreCampeonato != '' && $idGrupo ){
           $category = $this->categoryMapper->getCategory( $categoryChampionship->getIdCategory() );
           $sexo = $category->getSexo();
           $nivel = $category->getNivel();
           array_push($category_wt_tournament, [$nombreCampeonato, $sexo, $nivel, $categoryChampionship->getId(),
                                                 $categoryChampionship->getIdChampionship(), $categoryChampionship->getIdCategory(), $partnerCategory->getIdPartner()]);
         }
-      }
-
-      //$this->view->setFlash(sprintf(i18n("Match successfully organize.")));
-
-      //$this->view->redirect("users", "index");
-
-      $this->view->setVariable("category_wt_tournament", $category_wt_tournament);
-
-      $this->view->render("confrontation", "confrontationOffer");
-    }else{
-      echo 'no esta en ninguna pareja';
+      } 
     }
+
+    $this->view->setVariable("category_wt_tournament", $category_wt_tournament);
+
+    $this->view->render("confrontation", "confrontationOffer");
   }
 
   public function select(){
@@ -144,8 +150,22 @@ class ConfrontationOfferController extends BaseController {
     $idCategoria = $_GET["idCategoria"];
     $idPareja = $_GET["idPareja"];
 
-    
+    $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPareja);
 
+    $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
+
+    $posibleOffers = array();
+
+    foreach($confrontationOffers as $offer){
+      if( $idPareja != $offer->getIdPareja() ){
+        if( !$this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo) ){
+          array_push($posibleOffers, $offer);
+        }
+      }
+      
+    }
+
+    $this->view->setVariable("posibleOffers", $posibleOffers);
     $this->view->render("confrontation", "confrontationSelect");
 
   }

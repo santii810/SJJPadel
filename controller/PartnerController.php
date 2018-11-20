@@ -136,7 +136,7 @@ class PartnerController extends BaseController {
 					$errors["login"] = "Tu genero no es compatible con esta categoria";
 				} else if($partnerMapper->existeParejaCategoria($_POST['login'],$objectCategoryChampionship->getId())) {
 					$errors["login"] = "Tu compañero ya esta inscrito en esta categoría";
-				} else if($partnerMapper->existeParejaCategoria($this->currentUser->getLogin())) {
+				} else if($partnerMapper->existeParejaCategoria($this->currentUser->getLogin(),$objectCategoryChampionship->getId())) {
 					$errors["login"] = "Ya estas inscrito en esta categoría";
 				} else {
 					$errors['login'] = "Error";

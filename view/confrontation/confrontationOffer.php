@@ -9,6 +9,10 @@ $view->setVariable("title", i18n("Select championship") );
 
 ?>
 
+<?php if(empty($category_wt_tournament)): ?>
+  <h2><?= i18n("You aren't registered in a championship in game"); ?></h2>
+<?php else: ?>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -47,3 +51,4 @@ $view->setVariable("title", i18n("Select championship") );
   <?php endforeach; ?>
   </tbody>
 </table>
+<?php endif; ?>

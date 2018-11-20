@@ -20,6 +20,22 @@ class ConfrontationOfferMapper {
 		$this->db = PDOConnection::getInstance();
 	}
 
+	public function getConfrontationOffersForGroup($idGrupo){
+		$stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idGrupo=?");
+		$stmt->execute(array($idGrupo));
+		$ofertasEnfrentamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$enfrentamientos_array = array();
+
+		if( $ofertasEnfrentamientos != null){
+			foreach ($ofertasEnfrentamientos as $enfrentamiento) {
+				$enf = new ConfrontationOffer($enfrentamiento["idOfertaEnfrentamiento"],$enfrentamiento["idPareja"], 
+												$enfrentamiento["idGrupo"], $enfrentamiento["hora"], $enfrentamiento["fecha"]);
+				array_push($enfrentamientos_array, $enf);
+			}
+		}
+		return $enfrentamientos_array;
+	}
 
 
 
@@ -31,11 +47,12 @@ class ConfrontationOfferMapper {
 	* @return void
 	*/
 	public function save(ConfrontationOffer $confrontationOffer) {
-		$stmt = $this->db->prepare("INSERT INTO ofertaenfrentamiento (idPareja, fecha, hora)
+		$stmt = $this->db->prepare("INSERT INTO ofertaenfrentamiento (idPareja, idGrupo,fecha, hora)
 												values (?,?,?)");
 		$stmt->execute(array($confrontationOffer->getIdPareja(),
-                $confrontationOffer->getFecha(),
-							 $confrontationOffer->getHora(),
+								$confrontationOffer->getIdGrupo(),
+                				$confrontationOffer->getFecha(),
+							 	$confrontationOffer->getHora(),
 							));
 	}
 

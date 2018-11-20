@@ -27,7 +27,7 @@ $view->setVariable("title", i18n("Sign up for championship") );
 
 				<div class="form-group">
 					<input type="text" class="form-control input-lg" id="login" name="login" aria-describedby="loginHelp" placeholder="<?=i18n("Couple username")?>" value="">
-					<?= isset($errors["login"])?i18n($errors["login"]):"" ?><br>
+					<span class="text-danger"><?= isset($errors["login"])?i18n($errors["login"]):"" ?></span><br>
 				</div>
 				
 

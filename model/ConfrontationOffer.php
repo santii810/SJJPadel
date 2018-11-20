@@ -10,15 +10,18 @@ require_once(__DIR__."/../core/ValidationException.php");
 */
 class ConfrontationOffer {
 
-  private $idOfertaEnfrentamiento;
+  	private $idOfertaEnfrentamiento;
 	private $idPareja;
+	private $idGrupo;
 	private $hora;
-  private $fecha;
+  	private $fecha;
 
-	public function __construct($idOfertaEnfrentamiento=NULL, $idPareja=NULL, $hora=NULL, $fecha=NULL) {
+
+	public function __construct($idOfertaEnfrentamiento=NULL, $idPareja=NULL, $idGrupo=NULL, $hora=NULL, $fecha=NULL) {
     $this->idOfertaEnfrentamiento = $idOfertaEnfrentamiento;
-		$this->idPareja = $idPareja;
-		$this->hora = $hora;
+	$this->idPareja = $idPareja;
+	$this->idGrupo = $idGrupo;
+	$this->hora = $hora;
     $this->fecha = $fecha;
 	}
 
@@ -37,6 +40,15 @@ class ConfrontationOffer {
   public function setIdPareja($idPareja){
     $this->idPareja = $idPareja;
   }
+
+    public function getIdGrupo(){
+    return $this->idGrupo;
+  }
+
+  public function setIdGrupo($idGrupo){
+    $this->idGrupo = $idGrupo;
+  }
+
 
   public function getHora() {
     return $this->hora;

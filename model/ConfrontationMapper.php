@@ -100,4 +100,20 @@ class ConfrontationMapper
         
         return $confrontations;
     }
+
+    public function hadPlayed($idPareja1, $idPareja2, $idGrupo){
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR 
+                                                                                        (idPareja1=? AND idPareja2=?)) AND hora is null");
+        $stmt->execute(array($idGrupo, $idPareja1, $idPareja2, $idPareja2, $idPareja1));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($toret_db["count"] == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+
 }

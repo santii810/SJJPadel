@@ -9,51 +9,51 @@ $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
 $view->setVariable("title", i18n("Enter match results"));
 $cabecera = array(
-    "Id",
-    i18n("Date"),
-    i18n("Hour"),
-    i18n("Couple 1"),
-    i18n("Couple 2"),
-    i18n("Sets couple 1"),
-    i18n("Sets couple 2")
+	"Id",
+	i18n("Date"),
+	i18n("Hour"),
+	i18n("Couple 1"),
+	i18n("Couple 2"),
+	i18n("Sets couple 1"),
+	i18n("Sets couple 2")
 );
 
 ?>
 
 <h3> <?= i18n("Enter match results") ?> </h3>
 <form action="index.php?controller=confrontation&amp;action=setresults"
-	method="POST">
+method="POST">
 
-	<table class="table table-striped">
-		<thead>
+<table class="table table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<?php foreach($cabecera as $valor) { ?>
+				<th scope="col">
+					<?php echo i18n( $valor ); ?>
+				</th>
+			<?php } ?>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach($partidos as $partido) { ?>
+			<input type="hidden" name="idEnfrentamiento[]"
+			value="<?php echo $partido->getIdConfrontation() ?>">
 			<tr>
-      <?php foreach($cabecera as $valor) { ?>
-        <th scope="col">
-          <?php echo i18n( $valor ); ?>
-        </th>
-      <?php } ?>
-    </tr>
-		</thead>
-		<tbody>
-  <?php foreach($partidos as $partido) { ?>
-    <input type="hidden" name="idEnfrentamiento[]"
-				value="<?php echo $partido->getIdConfrontation() ?>">
-			<tr>
 				<td>
-      <?php echo $partido->getIdConfrontation(); ?>
-      </td>
+					<?php echo $partido->getIdConfrontation(); ?>
+				</td>
 				<td>
-      <?php echo $partido->getDate(); ?>
-      </td>
+					<?php echo $partido->getDate(); ?>
+				</td>
 				<td>
-      <?php echo $partido->getTime(); ?>
-      </td>
+					<?php echo $partido->getTime(); ?>
+				</td>
 				<td>
-      <?php echo $parejas[$partido->getIdPartner1()]; ?>
-      </td>
+					<?php echo $parejas[$partido->getIdPartner1()]; ?>
+				</td>
 				<td>
-      <?php echo $parejas[$partido->getIdPartner2()]; ?>
-      </td>
+					<?php echo $parejas[$partido->getIdPartner2()]; ?>
+				</td>
 				<td>
 					<div class="col-xs-3">
 						<input class="form-control" type="number" name="setsPareja1[]">
@@ -65,13 +65,17 @@ $cabecera = array(
 					</div>
 				</td>
 			</tr>
-  <?php } ?>
-  </tbody>
-	</table>
+		<?php } ?>
+	</tbody>
+</table>
 
-	<input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
+<input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
+<p class="text-danger">
+	</span><?= isset($errors["result"])? i18n($errors["result"]) : "" ;?>
+</p>
+<br>
 
-	<button type="submit" class="btn btn-primary" value=""> <?= i18n("Save") ?> </button>
+<button type="submit" class="btn btn-primary" value=""> <?= i18n("Save") ?> </button>
 
 
 </form>

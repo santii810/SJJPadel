@@ -20,7 +20,7 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
 <form action="index.php?controller=confrontation&amp;action=setresults" method="POST">
 
   <table class="table table-striped">
-    <thead>
+    <thead class="thead-dark">
       <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
           <?php echo i18n( $valor ); ?>

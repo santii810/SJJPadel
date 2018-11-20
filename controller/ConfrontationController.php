@@ -182,6 +182,7 @@ class ConfrontationController extends BaseController {
 		if (isset($_REQUEST['idGrupo'])) {
 			$idGrupo = $_REQUEST['idGrupo'];
 		}
+		$errors = array();
 
 		if (isset($_POST["setsPareja1"])) {
 			
@@ -191,7 +192,7 @@ class ConfrontationController extends BaseController {
 					$setsP2 = $_POST['setsPareja2'][$i];
 
 					if ( ( $setsP1 == 3 || $setsP2 ==3 ) && ( $setsP1 <= 3 || $setsP2 <= 3 ) &&
-					   ( ( $setsP1 + $setsP2 ) <= 5 ) && ( $setsP1 != $setsP2 ) ) {
+						( ( $setsP1 + $setsP2 ) <= 5 ) && ( $setsP1 != $setsP2 ) ) {
 
 						if ($setsP1 > $setsP2) {
 							$puntosP1 = 3;
@@ -204,6 +205,8 @@ class ConfrontationController extends BaseController {
 
             			//actualiza los resultados recogidos
 						$confrontationMapper->actualizarResultados($_POST['idEnfrentamiento'][$i],$puntosP1,$puntosP2,$setsP1,$setsP2); 
+					}else{
+						$errors["result"] = "Incorrect result";
 					}
 				}
 			}
@@ -216,7 +219,10 @@ class ConfrontationController extends BaseController {
 		$partidos = $confrontationMapper->getPartidosResultadoNull($idGrupo);
 		
 		//mandamos el valor de variable para que lo recoga la vista
+
 		$this->view->setVariable("partidos",$partidos);
+		
+		$this->view->setVariable("errors",$errors);
 		$this->view->setVariable("idGrupo",$idGrupo);
 		$this->view->setVariable("parejas",$parejas);
 		// render the view (/view/posts/add.php)
@@ -245,10 +251,10 @@ class ConfrontationController extends BaseController {
 
 	public function showConfrontations(){
 		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
-		    $confrontations = $this->confrontationMapper->getPartidos($_POST["idGrupo"]);
-		   		    
-		    $this->view->setVariable("confrontations",$confrontations);
-		    $this->view->render("confrontation", "showConfrontations");
+			$confrontations = $this->confrontationMapper->getPartidos($_POST["idGrupo"]);
+
+			$this->view->setVariable("confrontations",$confrontations);
+			$this->view->render("confrontation", "showConfrontations");
 		}
 		else{
 			$this->view->render("confrontation", "selectGroup");

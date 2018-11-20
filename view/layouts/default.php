@@ -73,8 +73,11 @@ $currentRol = $view->getVariable("currentRol");
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<img class="img-circle icono" src="images/icono.png">
 		<?php if (isset($currentuser)): ?>
+
 			<img class="icono" src="images/<?php echo $currentGender; ?>.png">
+			<span class="username">
 			<?= sprintf(i18n("%s"), $currentuser) ?>
+		</span>
 		<?php endif ?>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

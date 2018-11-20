@@ -12,7 +12,7 @@ $view->setVariable("title", i18n("Select championship") );
 
 ?>
 
-<h3><?= i18n("Selecionar Campeonato")?></h3>
+<h3><?= i18n("Select championship")?></h3>
 <form action="index.php?controller=confrontation&amp;action=showConfrontations" method="POST">
   <div class="container">
     <div class="row justify-content-center">
@@ -30,7 +30,7 @@ $view->setVariable("title", i18n("Select championship") );
         </div> 
 
         <div class="form-group">
-          <label for="idCampeonato" size="1"> <?= i18n("Categoria") ?> </label>
+          <label for="idCampeonato" size="1"> <?= i18n("Category") ?> </label>
           <select class="form-control" name="idCategoria" id="idCategoria">    
           </select>
         </div>

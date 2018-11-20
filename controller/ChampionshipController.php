@@ -3,14 +3,19 @@
 // file: controller/PostController.php
 require_once (__DIR__ . "/../model/Championship.php");
 require_once (__DIR__ . "/../model/ChampionshipMapper.php");
+
 require_once (__DIR__ . "/../model/CategoryChampionship.php");
 require_once (__DIR__ . "/../model/CategoryChampionshipMapper.php");
+
 require_once (__DIR__ . "/../model/User.php");
 require_once (__DIR__ . "/../model/Partner.php");
+
 require_once (__DIR__ . "/../model/Group.php");
 require_once (__DIR__ . "/../model/GroupMapper.php");
+
 require_once (__DIR__ . "/../model/Partnergroup.php");
 require_once (__DIR__ . "/../model/PartnergroupMapper.php");
+
 require_once (__DIR__ . "/../model/Confrontation.php");
 require_once (__DIR__ . "/../model/ConfrontationMapper.php");
 
@@ -100,11 +105,14 @@ class ChampionshipController extends BaseController
 
     public function selectToCalendar()
     {
-        $campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
-        
-        $this->view->setVariable("campeonatos", $campeonatos);
-        $this->view->render("championship", "selectToCalendar");
-    }
+        if (!isset($this->currentUser)) {
+          throw new Exception("Not in session. Check Confrontations requires login");
+      }
+      $campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
+
+      $this->view->setVariable("campeonatos", $campeonatos);
+      $this->view->render("championship", "selectToCalendar");
+  }
 
     /*
      * Genera el calendario de un campeonato.
@@ -114,6 +122,9 @@ class ChampionshipController extends BaseController
      */
     public function generateCalendar()
     {
+        if (!isset($this->currentUser)) {
+      throw new Exception("Not in session. Check Confrontations requires login");
+    }
         $groupHasGenerated = false;
         // Comprobamos que se haya seleccionado un campeonato
         if (isset($_POST["idCampeonato"]) && $_POST["idCampeonato"] != 0) {
@@ -126,8 +137,8 @@ class ChampionshipController extends BaseController
                 if (sizeof($couples) > 7) {
                     $groupHasGenerated = true;
                     $groupIds = $this->createGroups($couples, $categoriaCampeonato);
-                //    $this->asignCouples($couples, $groupIds);
-                //    $this->fillConfrontations($groupIds);
+                    $this->asignCouples($couples, $groupIds);
+                    $this->fillConfrontations($groupIds);
                 }
             }
             
@@ -200,5 +211,5 @@ class ChampionshipController extends BaseController
             
             foreach ($couplesGroup as $couple) {}
         }
-    }
+}
 }

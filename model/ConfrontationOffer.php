@@ -26,7 +26,7 @@ class ConfrontationOffer {
 	}
 
 	public function getIdOfertaEnfrentamiento() {
-		return $this->idOrganizarPartido;
+		return $this->idOfertaEnfrentamiento;
 	}
 
   public function setIdOfertaEnfrentamiento($idOfertaEnfrentamiento) {

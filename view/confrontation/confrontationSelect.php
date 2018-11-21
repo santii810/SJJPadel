@@ -13,13 +13,17 @@ $view->setVariable("title", i18n("Confrontation Select") );
   <h2><?= i18n("No offers available"); ?></h2>
 <?php else: ?>
 
+<div style="margin-bottom:10px;">
+  <a href="index.php?controller=confrontationOffer&amp;action=offer"><button class="button-organize"><?= i18n("Offer a Match"); ?></button></a>
+</div>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
       <th scope="col">
         <?= i18n("Fecha"); ?>
       </th>
-      <th scope="col" colspan="2">
+      <th scope="col">
         <?= i18n("Hour"); ?>
       </th>
       <th scope="col" colspan="2">
@@ -37,13 +41,10 @@ $view->setVariable("title", i18n("Confrontation Select") );
         <?= $offer->getHora(); ?>
       </td>
       <td>
-        <a href="index.php?controller=confrontationOffer&amp;action=select&amp;idCategoriaCampeonato=<?= $category[3] ?>&amp;idCampeonato=<?= $category[4] ?>&amp;idCategoria=<?= $category[5] ?>&amp;idPareja=<?= $category[6] ?>">
-          <i class="fas fa-angle-right"></i>
-        </a>
+        <a href="index.php?controller=confrontationOffer&amp;action=join&amp;idOfertaEnfrentamiento=<?=$offer->getIdOfertaEnfrentamiento(); ?>"><i class="fas fa-plus-circle color-1"></i></a>
       </td>
-    <tr>
+    </tr>
   <?php endforeach; ?>
   </tbody>
 </table>
 <?php endif; ?>
-

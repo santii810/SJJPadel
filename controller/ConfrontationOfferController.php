@@ -129,7 +129,7 @@ class ConfrontationOfferController extends BaseController {
           array_push($category_wt_tournament, [$nombreCampeonato, $sexo, $nivel, $categoryChampionship->getId(),
                                                 $categoryChampionship->getIdChampionship(), $categoryChampionship->getIdCategory(), $partnerCategory->getIdPartner()]);
         }
-      } 
+      }
     }
 
     $this->view->setVariable("category_wt_tournament", $category_wt_tournament);
@@ -162,11 +162,47 @@ class ConfrontationOfferController extends BaseController {
           array_push($posibleOffers, $offer);
         }
       }
-      
+
     }
 
     $this->view->setVariable("posibleOffers", $posibleOffers);
     $this->view->render("confrontation", "confrontationSelect");
+  }
+
+  public function join(){
+    if (!isset($this->currentUser)) {
+      throw new Exception("Not in session. Check Confrontations requires login");
+    }
+    if (! (isset($_GET["idOfertaEnfrentamiento"]) ) ) {
+      throw new Exception("Error in the parameters");
+    }
+    $idOfertaEnfrentamiento = $_GET["idOfertaEnfrentamiento"];
+    $ofertaEnfrentamiento = $this->confrontationOfferMapper->getOffer($idOfertaEnfrentamiento);
+
+    if( isset($_POST["idOfertaEnfrentamiento"]) ) {
+      //Sin hacer
+
+      $this->view->redirect("confrontation", "confrontationOfferJoin");
+    }
+
+
+    $this->view->setVariable("ofertaEnfrentamiento", $ofertaEnfrentamiento);
+    $this->view->render("confrontation", "confrontationOfferJoin");
+
+  }
+
+  public function offer(){
+    if (!isset($this->currentUser)) {
+      throw new Exception("Not in session. Check Confrontations requires login");
+    }
+
+    if(isset($_POST["idOfertaEnfrentamiento"]) ) {
+      //Sin hacer
+
+      $this->view->redirect("confrontation", "confrontationOfferJoin");
+    }
+
+    $this->view->render("confrontation", "confrontationOfferAdd");
 
   }
 }

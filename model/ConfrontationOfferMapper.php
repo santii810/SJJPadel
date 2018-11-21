@@ -29,12 +29,23 @@ class ConfrontationOfferMapper {
 
 		if( $ofertasEnfrentamientos != null){
 			foreach ($ofertasEnfrentamientos as $enfrentamiento) {
-				$enf = new ConfrontationOffer($enfrentamiento["idOfertaEnfrentamiento"],$enfrentamiento["idPareja"], 
+				$enf = new ConfrontationOffer($enfrentamiento["idOfertaEnfrentamiento"],$enfrentamiento["idPareja"],
 												$enfrentamiento["idGrupo"], $enfrentamiento["hora"], $enfrentamiento["fecha"]);
 				array_push($enfrentamientos_array, $enf);
 			}
 		}
 		return $enfrentamientos_array;
+	}
+
+	public function getOffer($idOfertaEnfrentamiento){
+		$stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idOfertaEnfrentamiento=?");
+		$stmt->execute(array($idOfertaEnfrentamiento));
+		$ofertaEnfrentamientos = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($ofertaEnfrentamientos != null){
+			return new ConfrontationOffer($ofertaEnfrentamientos["idOfertaEnfrentamiento"],$ofertaEnfrentamientos["idPareja"],
+											$ofertaEnfrentamientos["idGrupo"], $ofertaEnfrentamientos["hora"], $ofertaEnfrentamientos["fecha"]);
+		}
 	}
 
 

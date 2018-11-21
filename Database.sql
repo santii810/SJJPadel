@@ -250,8 +250,8 @@ CREATE TABLE `ofertaenfrentamiento` (
   `idOfertaEnfrentamiento` int(11) NOT NULL,
   `idPareja` int(11) NOT NULL,
   `idGrupo` int(11) NOT NULL,
-  `hora` varchar(15) NOT NULL,
-  `fecha` varchar(15) NOT NULL
+  `hora` time NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

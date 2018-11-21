@@ -122,7 +122,7 @@ $currentRol = $view->getVariable("currentRol");
 								<a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship"><?php echo i18n("Inscript to championship") ?></a>
 							<?php endif ?>
 
-							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+							<?php if($currentRol == 'd' || $currentRol == 'e'): ?>
 								<a class="dropdown-item" href="index.php?controller=confrontationOffer&amp;action=view"><?php echo i18n("Match Offer") ?></a>
 							<?php endif ?>
 

@@ -71,7 +71,7 @@ class PartnerMapper {
 
 	public function getParejas(){
 		$stmt = $this->db->query("SELECT idPareja,idCapitan,idCompañero
-								  FROM   pareja");
+								  FROM  pareja");
 		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		$toret = array();
@@ -109,6 +109,32 @@ class PartnerMapper {
 			return $partner_array;
 		}
 		return null;
+	}
+
+	public function getIdCapitan($idPareja){
+		$stmt = $this->db->prepare("SELECT idCapitan FROM pareja WHERE idPareja=?");
+		$stmt->execute(array($idPareja));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($toret_db != null ){
+			return $toret_db["idCapitan"];
+		}
+	}
+
+	public function getMembers($idPareja){
+		$stmt = $this->db->prepare("SELECT * FROM pareja WHERE idPareja=?");
+		$stmt->execute(array($idPareja));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$members = array();
+
+		if($toret_db != null){
+			array_push($members, $toret_db["idCapitan"]);
+			array_push($members, $toret_db["idCompañero"]);
+		}
+
+		return $members;
+
 	}
 
 }

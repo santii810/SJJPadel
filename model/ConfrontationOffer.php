@@ -15,14 +15,15 @@ class ConfrontationOffer {
 	private $idGrupo;
 	private $hora;
   	private $fecha;
+    private $pareja;
 
-
-	public function __construct($idOfertaEnfrentamiento=NULL, $idPareja=NULL, $idGrupo=NULL, $hora=NULL, $fecha=NULL) {
+	public function __construct($idOfertaEnfrentamiento=NULL, $idPareja=NULL, $idGrupo=NULL, $hora=NULL, $fecha=NULL, array $pareja=NULL) {
     $this->idOfertaEnfrentamiento = $idOfertaEnfrentamiento;
-	$this->idPareja = $idPareja;
-	$this->idGrupo = $idGrupo;
-	$this->hora = $hora;
+	  $this->idPareja = $idPareja;
+	  $this->idGrupo = $idGrupo;
+	  $this->hora = $hora;
     $this->fecha = $fecha;
+    $this->pareja = $pareja;
 	}
 
 	public function getIdOfertaEnfrentamiento() {
@@ -65,6 +66,14 @@ class ConfrontationOffer {
 	public function setFecha($fecha) {
 		$this->fecha = $fecha;
 	}
+
+  public function getPareja(){
+    return $this->pareja;
+  }
+
+  public function setPareja($pareja){
+    $this->pareja = $pareja;
+  }
 
 	public function checkIsValidForCreate() {
 

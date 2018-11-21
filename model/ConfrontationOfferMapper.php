@@ -48,8 +48,6 @@ class ConfrontationOfferMapper {
 		}
 	}
 
-
-
 	/**
 	* Saves a ConfrontationOffer into the database
 	*
@@ -58,8 +56,8 @@ class ConfrontationOfferMapper {
 	* @return void
 	*/
 	public function save(ConfrontationOffer $confrontationOffer) {
-		$stmt = $this->db->prepare("INSERT INTO ofertaenfrentamiento (idPareja, idGrupo,fecha, hora)
-												values (?,?,?)");
+		$stmt = $this->db->prepare("INSERT INTO ofertaenfrentamiento (idPareja, idGrupo, fecha, hora)
+												values (?,?,?,?)");
 		$stmt->execute(array($confrontationOffer->getIdPareja(),
 								$confrontationOffer->getIdGrupo(),
                 				$confrontationOffer->getFecha(),

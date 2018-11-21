@@ -174,4 +174,18 @@ class ChampionshipMapper {
 			return $toret_db["nombreCampeonato"];
 		}
 	}
+
+	public function validateHour($idChampionship, $fechaOffer){
+		$stmt = $this->db->prepare("SELECT COUNT(*) as count FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= ? AND fechaFinCampeonato >= ? AND ? > curdate()");
+		$stmt->execute(array($idCampeonato, $fechaOffer, $fechaOffer, $fechaOffer));
+		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($toret_db["count"] == 1){
+			return true;
+		}
+		else{
+			return false;
+		}
+
+	}
 }

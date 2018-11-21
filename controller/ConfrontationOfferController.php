@@ -162,9 +162,10 @@ class ConfrontationOfferController extends BaseController {
           array_push($posibleOffers, $offer);
         }
       }
-
     }
 
+    $this->view->setVariable("idCampeonato", $idCampeonato);
+    $this->view->setVariable("idPareja", $idPareja);
     $this->view->setVariable("posibleOffers", $posibleOffers);
     $this->view->render("confrontation", "confrontationSelect");
   }
@@ -173,19 +174,38 @@ class ConfrontationOfferController extends BaseController {
     if (!isset($this->currentUser)) {
       throw new Exception("Not in session. Check Confrontations requires login");
     }
-    if (! (isset($_GET["idOfertaEnfrentamiento"]) ) ) {
+    if (!( isset($_REQUEST["idOfertaEnfrentamiento"]) && isset($_REQUEST["idPareja"]) && isset( $_REQUEST["idParejaOffer"]) ) )  {
       throw new Exception("Error in the parameters");
     }
-    $idOfertaEnfrentamiento = $_GET["idOfertaEnfrentamiento"];
+    $idPareja = $_REQUEST["idPareja"];
+    $idParejaOffer = $_REQUEST["idParejaOffer"];
+    $idOfertaEnfrentamiento = $_REQUEST["idOfertaEnfrentamiento"];
     $ofertaEnfrentamiento = $this->confrontationOfferMapper->getOffer($idOfertaEnfrentamiento);
+    $miembrosPareja = $this->partnerMapper->getMembers($idParejaOffer);
+    $ofertaEnfrentamiento->setPareja($miembrosPareja);
 
     if( isset($_POST["idOfertaEnfrentamiento"]) ) {
-      //Sin hacer
+      $idOfertaEnfrentamiento = $_POST["idOfertaEnfrentamiento"];
+      $idParejaOferta =  $_REQUEST["idParejaOffer"];
+      $idPareja = $_REQUEST["idPareja"];
+      $idCapitan = $this->partnerMapper->getIdCapitan($idPareja);
+      $ofertaEnfrentamiento = $this->confrontationOfferMapper->getOffer($idOfertaEnfrentamiento);
+      var_dump($idParejaOffer);
+      $reservation = new Reservation(null, $idCapitan, $ofertaEnfrentamiento->getFecha(), $ofertaEnfrentamiento->getHora());
+      $this->reservationMapper->makeReservation($reservation);
 
-      $this->view->redirect("confrontation", "confrontationOfferJoin");
+      $idConfrontation = $this->confrontationMapper->getIdConfrontation($idParejaOffer, $idPareja);
+
+      $this->confrontationMapper->actualizarHorario($idConfrontation, $ofertaEnfrentamiento->getFecha(), $ofertaEnfrentamiento->getHora());
+
+      $this->confrontationOfferMapper->delete($ofertaEnfrentamiento->getIdOfertaEnfrentamiento() );
+
+      $this->view->setFlash(sprintf(i18n("Join match successfully.")));
+      $this->view->redirect("confrontationOffer", "view");
     }
 
-
+    $this->view->setVariable("idPareja", $idPareja);
+    $this->view->setVariable("idParejaOffer", $idParejaOffer);
     $this->view->setVariable("ofertaEnfrentamiento", $ofertaEnfrentamiento);
     $this->view->render("confrontation", "confrontationOfferJoin");
 
@@ -195,14 +215,36 @@ class ConfrontationOfferController extends BaseController {
     if (!isset($this->currentUser)) {
       throw new Exception("Not in session. Check Confrontations requires login");
     }
+    /*if(!( isset($_REQUEST["idPareja"]) && isset($_REQUEST["idCampeonato"]) ) ){
+      throw new Exception("ID partner and ID Championship are neccesay");
+    }*/
 
-    if(isset($_POST["idOfertaEnfrentamiento"]) ) {
-      //Sin hacer
+    $idPartner = $_REQUEST["idPareja"];
+    $idChampionship = $_REQUEST["idCampeonato"];
 
-      $this->view->redirect("confrontation", "confrontationOfferJoin");
+    if(isset($_POST["dateOrganizeMatch"]) ) {
+      $fechaOffer = $_POST["dateOrganizeMatch"];
+      //$dateOffer = date("Y-m-d", strtotime($fechaOffer));
+      $horaOffer = $_POST["timeOrganizeMatch"];
+
+      /*if( !($this->championshipMapper->validateHour($idChampionship, $dateOffer)) ){
+        $this->view->setFlash(sprintf(i18n("The date is invalid")));
+        $this->view->redirect("confrontationOffer", "offer", "idPareja=".$idPartner."&idCampeonato=".$idChampionship );
+      }*/
+
+      $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPartner);
+
+      $newConfrontation = new ConfrontationOffer(null, $idPartner, $idGrupo, $horaOffer, $fechaOffer);
+
+      $this->confrontationOfferMapper->save($newConfrontation);
+
+
+      $this->view->setFlash(sprintf(i18n("Set your offer successfully")));
+      $this->view->redirect("confrontationOffer", "view");
     }
 
+    $this->view->setVariable("idPartner", $idPartner);
+    $this->view->setVariable("idChampionship", $idChampionship);
     $this->view->render("confrontation", "confrontationOfferAdd");
-
   }
 }

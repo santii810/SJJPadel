@@ -4,6 +4,9 @@
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
+
+$idParejaOffer = $view->getVariable("idParejaOffer");
+$idPareja = $view->getVariable("idPareja");
 $ofertaEnfrentamiento = $view->getVariable("ofertaEnfrentamiento");
 $view->setVariable("title", "Aceptar oferta enfrentamiento");
 
@@ -27,18 +30,21 @@ $view->setVariable("title", "Aceptar oferta enfrentamiento");
   <tbody>
         <tr>
             <td>
-              <?= $ofertaEnfrentamiento->getIdGrupo(); ?>
+              <?= $ofertaEnfrentamiento->getPareja()[0] ?> -
+              <?= $ofertaEnfrentamiento->getPareja()[1] ?>
             </td>
             <td>
               <?= $ofertaEnfrentamiento->getFecha(); ?>
             </td>
             <td>
-              <?= $ofertaEnfrentamiento->getHora(); ?>
+              <?= substr($ofertaEnfrentamiento->getHora(), 0, 5); ?>
             </td>
         <tr>
   </tbody>
 </table>
   <form action="index.php?controller=confrontationOffer&amp;action=join" method="POST">
-    <input type="hidden" value="<?= $ofertaEnfrentamiento->getIdOfertaEnfrentamiento(); ?>" name="ifOfertaEnfrentamiento" id="ifOfertaEnfrentamiento"/>
+    <input type="hidden" value="<?= $idPareja ?>" name="idPareja" id="idPareja"/>
+      <input type="hidden" value="<?= $idParejaOffer ?>" name="idParejaOffer" id="idParejaOffer"/>
+    <input type="hidden" value="<?= $ofertaEnfrentamiento->getIdOfertaEnfrentamiento(); ?>" name="idOfertaEnfrentamiento" id="idOfertaEnfrentamiento"/>
     <input class="button-organize" type="submit" value="<?= i18n("Join"); ?>"/>
   </form>

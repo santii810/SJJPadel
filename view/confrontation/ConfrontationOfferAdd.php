@@ -1,14 +1,18 @@
 <?php
-//file: view/oragnizeMatch/add.php
 
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
+
+$idPareja = $view->getVariable("idPartner");
+$idCampeonato = $view->getVariable("idChampionship");
 $view->setVariable("title", "Ofrecer Enfrentamiento");
 ?>
 
 <h3>Ofrecer Enfrentamiento</h3>
-<form action="index.php?controller=confrontationOffer&amp;action=add" method="POST">
+<form action="index.php?controller=confrontationOffer&amp;action=offer" method="POST">
+  <input type="hidden" id="idPareja" name="idPareja" value="<?= $idPareja ?>"/>
+  <input type="hidden" id="idCampeonato" name="idCampeonato" value="<?= $idCampeonato ?>"/>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-sm-6 col-xs-12">
@@ -31,7 +35,6 @@ $view->setVariable("title", "Ofrecer Enfrentamiento");
     </select>
     <?= isset($errors["timeEmpty"])?i18n($errors["timeEmpty"]):"" ?></br>
   </div>
-
   <button type="submit" class="btn btn-primary">Crear</button>
 </div></div></div>
 </form>

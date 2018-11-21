@@ -8,9 +8,8 @@ class Reservation {
 	private $idUserReservation;
 	private $dateReservation;
 	private $hourReservation;
-	private $idPista;
 
-        function __construct($idReservation, $idUserReservation, $dateReservation, $hourReservation) {
+        function __construct($idReservation=NULL, $idUserReservation=NULL, $dateReservation=NULL, $hourReservation=NULL) {
             $this->idReservation = $idReservation;
             $this->idUserReservation = $idUserReservation;
             $this->dateReservation = $dateReservation;

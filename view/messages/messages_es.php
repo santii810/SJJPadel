@@ -101,7 +101,10 @@
 	"Offer a Match" => "Ofertar un partido",
 	"a" => "administrador",
 	"e" => "entrenador",
-	"d" => "deportista"
+	"d" => "deportista",
+	"Join match successfully." => "Te has unido al partido exitosamente.",
+	"Set your offer successfully" => "Partido ofrecido exitosamente",
+	"The date is invalid" => "La fecha es invalida"
 
 
 

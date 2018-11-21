@@ -98,7 +98,10 @@
   "Match successfully join." => "Partido organizado correctamente",
   "You arent registered in a championship in game" => "No estas inscrito en ningun torneo en juego",
   "No offers available" => "No hay ofertas disponibles",
-	"Offer a Match" => "Ofertar un partido"
+	"Offer a Match" => "Ofertar un partido",
+	"a" => "administrador",
+	"e" => "entrenador",
+	"d" => "deportista"
 
 
 

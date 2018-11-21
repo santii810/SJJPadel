@@ -7,7 +7,7 @@
 </a>
 
 <a href="index.php?controller=language&amp;action=change&amp;lang=en">
-	<img class="img_idioma_england" src="images/England.png"></img>
+	<img class="img_idioma_england separacion" src="images/England.png"></img>
 </a>
 
 

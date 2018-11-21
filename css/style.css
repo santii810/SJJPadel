@@ -23,6 +23,13 @@ body {
 ul , li {
 	list-style: none;
 }
+
+/*nav*/
+.separacion {
+  margin-right: 7px;
+}
+/*Fin nav*/
+
 /*Login*/
 
 .form-heading { color:#fff; font-size:23px;}

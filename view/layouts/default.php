@@ -77,8 +77,8 @@ $currentRol = $view->getVariable("currentRol");
 
 			<img class="icono" src="images/<?php echo $currentGender; ?>.png">
 			<span class="username">
-			<?= sprintf(i18n("%s"), $currentuser) ?>
-		</span>
+				<?= sprintf(i18n("%s"), $currentuser) ?>
+			</span>
 		<?php endif ?>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,44 +104,35 @@ $currentRol = $view->getVariable("currentRol");
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
+							<!-- Acciones administrador-->
 							<?php if($currentRol == 'beta'): ?>
-
 								<a class="dropdown-item" href="index.php?controller=championship&amp;action=add"><?php echo i18n("Create championship") ?></a>
 							<?php endif ?>
 
+							<?php if($currentRol == 'a'): ?>
+								<a class="dropdown-item" href="index.php?controller=championship&amp;action=selectToCalendar"><?php echo i18n("Generate championship calendar") ?></a>
+							<?php endif ?>
+
+							<?php if($currentRol == 'a'): ?>
+								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select"><?php echo i18n("Manage results") ?></a>
+							<?php endif ?>
+
+							<!-- Acciones jugadores/deportistas -->
 							<?php if($currentRol == 'd' || $currentRol == 'e'): ?>
 								<a class="dropdown-item" href="index.php?controller=partner&amp;action=selectChampionship"><?php echo i18n("Inscript to championship") ?></a>
-
-							<?php endif ?>
-
-							<?php if($currentRol == 'a'): ?>
-
-								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=select"><?php echo i18n("Manage results") ?></a>
-
 							<?php endif ?>
 
 							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
-
-								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectclasification"><?php echo i18n("Show clasification") ?></a>
-
-							<?php endif ?>
-
-							<?php if($currentRol == 'a'): ?>
-
-								<a class="dropdown-item" href="index.php?controller=championship&amp;action=selectToCalendar"><?php echo i18n("Generate championship calendar") ?></a>
-
-							<?php endif ?>
-
-							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
-
-								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectGroup"><?php echo i18n("View confrontations") ?></a>
-
-							<?php endif ?>
-
-							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
-
 								<a class="dropdown-item" href="index.php?controller=confrontationOffer&amp;action=view"><?php echo i18n("Match Offer") ?></a>
+							<?php endif ?>
 
+							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectclasification"><?php echo i18n("Show clasification") ?></a>
+							<?php endif ?>
+
+
+							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectGroup"><?php echo i18n("View confrontations") ?></a>
 							<?php endif ?>
 
 						</div>
@@ -155,13 +146,19 @@ $currentRol = $view->getVariable("currentRol");
 							<?php echo i18n("Match") ?>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<!-- Acciones admin -->
 							<?php if($currentRol == 'a'): ?>
 								<a class="dropdown-item" href="index.php?controller=organizeMatch&amp;action=add"><?= i18n("Organize Match") ?></a>
 							<?php endif ?>
-							<a class="dropdown-item" href="index.php?controller=organizeMatch&amp;action=viewAll"><?= i18n("View Organized Matches") ?></a>
-							<a class="dropdown-item" href="index.php?controller=reservation&amp;action=showAvaliableSchedules"><?= i18n("Reserve court") ?></a>
 
-							<!-- <a class="dropdown-item" href="">Gestionar Resultados</a> -->
+							<!-- Acciones jugadores/deportistas -->
+							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+								<a class="dropdown-item" href="index.php?controller=reservation&amp;action=showAvaliableSchedules"><?= i18n("Reserve court") ?></a>
+							<?php endif ?>
+
+							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+								<a class="dropdown-item" href="index.php?controller=organizeMatch&amp;action=viewAll"><?= i18n("View Organized Matches") ?></a>
+							<?php endif ?>
 						</div>
 					</li>
 

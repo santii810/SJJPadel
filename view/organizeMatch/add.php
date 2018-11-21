@@ -16,7 +16,6 @@ $view->setVariable("title", "Organizar Partido");
     <label for="fechaInicioInscripcion">Fecha</label>
     <input type="date" class="form-control" id="dateOrganizeMatch" name="dateOrganizeMatch" aria-describedby="loginHelp">
     <?= isset($errors["dateIncorrect"])?i18n($errors["dateIncorrect"]):"" ?>
-    <?= isset($errors["emptyDate"]) ? i18n($errors["emptyDate"]):"" ?>
   </div>
 
   <div class="form-group">

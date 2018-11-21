@@ -79,7 +79,7 @@ class OrganizeMatchController extends BaseController {
 
           $this->view->setFlash(sprintf(i18n("Match successfully organize.")));
 
-          $this->view->redirect("users", "index");
+          $this->view->redirect("organizeMatch", "viewAll");
 
         }catch(ValidationException $ex) {
           $errors = $ex->getErrors();

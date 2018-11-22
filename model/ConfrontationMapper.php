@@ -2,21 +2,10 @@
 // file: model/UserMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
-/**
- * Class UserMapper
- *
- * Database interface for User entities
- *
- * @author lipido <lipido@gmail.com>
- */
 class ConfrontationMapper
 {
 
-    /**
-     * Reference to the PDO connection
-     *
-     * @var PDO
-     */
+  
     private $db;
 
     public function __construct()
@@ -24,14 +13,6 @@ class ConfrontationMapper
         $this->db = PDOConnection::getInstance();
     }
 
-    /**
-     * Saves a User into the database
-     *
-     * @param User $user
-     *            The user to be saved
-     * @throws PDOException if a database error occurs
-     * @return void
-     */
     public function save($partnergroup)
     {
         $stmt = $this->db->prepare("INSERT INTO enfrentamiento (idPareja1, idPareja2, idGrupo)
@@ -41,8 +22,6 @@ class ConfrontationMapper
             $partnergroup->getIdPartner2(),
             $partnergroup->getIdGroup()
         ));
-
-        //echo $couplesGroup[$i]->getIdPartner() . " - " . $couplesGroup[$j]->getIdPartner() . "<br>";
     }
 
     public function actualizarResultados($idEnfrentamiento, $puntosPareja1, $puntosPareja2, $setsPareja1, $setsPareja2)

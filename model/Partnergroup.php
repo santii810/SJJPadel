@@ -3,13 +3,7 @@
 
 require_once(__DIR__."/../core/ValidationException.php");
 
-/**
-* Class User
-*
-* Represents a User in the blog
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class PartnerGroup {
 
 	private $idPartner;

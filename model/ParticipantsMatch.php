@@ -3,13 +3,7 @@
 
 require_once(__DIR__."/../core/ValidationException.php");
 
-/**
-* Class OrganizeMatch
-*
-* Represents a OrganizeMatch in the app
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class ParticipantsMatch {
 
 	private $idParticipantesPartido;

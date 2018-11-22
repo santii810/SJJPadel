@@ -3,14 +3,7 @@
 
 require_once(__DIR__."/../core/ValidationException.php");
 
-/**
-* Class Post
-*
-* Represents a Post in the blog. A Post was written by an
-* specific User (author) and contains a list of Comments
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class Championship {
 
 	private $id;

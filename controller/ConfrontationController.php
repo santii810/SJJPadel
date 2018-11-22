@@ -11,13 +11,6 @@ require_once(__DIR__."/../model/Partnergroup.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-/**
-* Class PostsController
-*
-* Controller to make a CRUDL of Posts entities
-*
-* @author lipido <lipido@gmail.com>
-*/
 class ConfrontationController extends BaseController {
 
 	private $confrontationMapper;

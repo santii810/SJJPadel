@@ -8,13 +8,7 @@ require_once(__DIR__."/../model/UserMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 
-/**
-* Class UsersController
-*
-* Controller to login, logout and user registration
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class UsersController extends BaseController {
 
 	/**

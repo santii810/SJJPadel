@@ -3,13 +3,7 @@
 
 require_once(__DIR__."/../core/PDOConnection.php");
 
-/**
-* Class UserMapper
-*
-* Database interface for User entities
-*
-* @author lipido <lipido@gmail.com>
-*/
+
 class ParticipantsMatchMapper {
 
 	/**

@@ -7,13 +7,6 @@ require_once(__DIR__."/../model/Championship.php");
 require_once(__DIR__."/../model/Group.php");
 require_once(__DIR__."/../model/Category.php");
 
-/**
-* Class PostMapper
-*
-* Database interface for Post entities
-*
-* @author lipido <lipido@gmail.com>
-*/
 class ChampionshipMapper {
 
 	/**

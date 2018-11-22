@@ -29,8 +29,9 @@ class ConfrontationOfferMapper {
 
 		if( $ofertasEnfrentamientos != null){
 			foreach ($ofertasEnfrentamientos as $enfrentamiento) {
+				$fecha = new DateTime($enfrentamiento["fecha"]);
 				$enf = new ConfrontationOffer($enfrentamiento["idOfertaEnfrentamiento"],$enfrentamiento["idPareja"],
-												$enfrentamiento["idGrupo"], $enfrentamiento["hora"], $enfrentamiento["fecha"]);
+												$enfrentamiento["idGrupo"], $enfrentamiento["hora"], $fecha->format('d-m-Y'));
 				array_push($enfrentamientos_array, $enf);
 			}
 		}

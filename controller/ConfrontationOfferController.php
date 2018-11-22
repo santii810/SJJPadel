@@ -152,13 +152,16 @@ class ConfrontationOfferController extends BaseController {
 
     $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPareja);
 
-    $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
+    $this->validateMatchs($idGrupo);
 
+    $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
     $posibleOffers = array();
 
     foreach($confrontationOffers as $offer){
       if( $idPareja != $offer->getIdPareja() ){
         if( !$this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo) ){
+          $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
+          $offer->setPareja($miembrosPareja);
           array_push($posibleOffers, $offer);
         }
       }
@@ -215,29 +218,33 @@ class ConfrontationOfferController extends BaseController {
     if (!isset($this->currentUser)) {
       throw new Exception("Not in session. Check Confrontations requires login");
     }
-    /*if(!( isset($_REQUEST["idPareja"]) && isset($_REQUEST["idCampeonato"]) ) ){
+    if(!( isset($_REQUEST["idPareja"]) && isset($_REQUEST["idCampeonato"]) ) ){
       throw new Exception("ID partner and ID Championship are neccesay");
-    }*/
+    }
 
     $idPartner = $_REQUEST["idPareja"];
     $idChampionship = $_REQUEST["idCampeonato"];
 
     if(isset($_POST["dateOrganizeMatch"]) ) {
       $fechaOffer = $_POST["dateOrganizeMatch"];
-      //$dateOffer = date("Y-m-d", strtotime($fechaOffer));
+      $dateOffer = date("Y-m-d", strtotime($fechaOffer));
       $horaOffer = $_POST["timeOrganizeMatch"];
 
-      /*if( !($this->championshipMapper->validateHour($idChampionship, $dateOffer)) ){
+      if( !($this->championshipMapper->validateHour($idChampionship, $dateOffer)) ){
         $this->view->setFlash(sprintf(i18n("The date is invalid")));
         $this->view->redirect("confrontationOffer", "offer", "idPareja=".$idPartner."&idCampeonato=".$idChampionship );
-      }*/
+      }
+
+      if( $this->reservationMapper->getNumReservations($fechaOffer, substr($horaOffer, 0, 5)) ){
+        $this->view->setFlash(sprintf(i18n("Alredy 5 matches for this hour and date")));
+        $this->view->redirect("confrontationOffer", "offer", "idPareja=".$idPartner."&idCampeonato=".$idChampionship );
+      }
 
       $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPartner);
 
       $newConfrontation = new ConfrontationOffer(null, $idPartner, $idGrupo, $horaOffer, $fechaOffer);
 
       $this->confrontationOfferMapper->save($newConfrontation);
-
 
       $this->view->setFlash(sprintf(i18n("Set your offer successfully")));
       $this->view->redirect("confrontationOffer", "view");
@@ -247,4 +254,15 @@ class ConfrontationOfferController extends BaseController {
     $this->view->setVariable("idChampionship", $idChampionship);
     $this->view->render("confrontation", "confrontationOfferAdd");
   }
+
+  public function validateMatchs($idGrupo){
+    $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
+    foreach ($confrontationOffers as $offer) {
+      $numRes = $this->reservationMapper->getNumReservations($offer->getFecha(), substr($offer->getHora(), 0, 5));
+      if( $numRes == 5 ){
+        $this->confrontationOfferMapper->delete($offer->getIdOfertaEnfrentamiento());
+      }
+    }
+  }
+
 }

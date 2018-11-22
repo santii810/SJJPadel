@@ -104,7 +104,13 @@
 	"d" => "deportista",
 	"Join match successfully." => "Te has unido al partido exitosamente.",
 	"Set your offer successfully" => "Partido ofrecido exitosamente",
-	"The date is invalid" => "La fecha es invalida"
+	"The date is invalid" => "La fecha es invalida",
+	"Already 5 matches for this hour and date" => "Ya hay 5 reservas para esa fecha y esa hora",
+	"Confrontation Offerts" => "Ofertas de enfrentamiento",
+	"Create confrontation offer" => "Crear oferta de enfrentamiento",
+	"Accept confrontation offer" => "Aceptar oferta enfrentamiento",
+	"Confrontation Select" => "Selección enfrentamiento",
+	"Partner Members" => "Miembros de la pareja"
 
 
 

@@ -5,7 +5,7 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 
 $category_wt_tournament = $view->getVariable("category_wt_tournament");
-$view->setVariable("title", i18n("Select championship") );
+$view->setVariable("title", i18n("Confrontation Offerts") );
 
 ?>
 

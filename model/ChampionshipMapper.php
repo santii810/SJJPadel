@@ -177,7 +177,7 @@ class ChampionshipMapper {
 
 	public function validateHour($idChampionship, $fechaOffer){
 		$stmt = $this->db->prepare("SELECT COUNT(*) as count FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= ? AND fechaFinCampeonato >= ? AND ? > curdate()");
-		$stmt->execute(array($idCampeonato, $fechaOffer, $fechaOffer, $fechaOffer));
+		$stmt->execute(array($idChampionship, $fechaOffer, $fechaOffer, $fechaOffer));
 		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if($toret_db["count"] == 1){

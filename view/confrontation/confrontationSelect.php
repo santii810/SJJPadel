@@ -21,6 +21,9 @@ $view->setVariable("title", i18n("Confrontation Select") );
   <thead class="thead-dark">
     <tr>
       <th scope="col">
+        <?= i18n("Partner Members"); ?>
+      </th>
+      <th scope="col">
         <?= i18n("Fecha"); ?>
       </th>
       <th scope="col">
@@ -34,6 +37,10 @@ $view->setVariable("title", i18n("Confrontation Select") );
   <tbody>
   <?php foreach ($posibleOffers as $offer): ?>
     <tr>
+      <td>
+        <?= $offer->getPareja()[0] ?> -
+        <?= $offer->getPareja()[1] ?>
+      </td>
       <td>
         <?= $offer->getFecha(); ?>
       </td>

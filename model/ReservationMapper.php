@@ -27,8 +27,7 @@ class ReservationMapper {
 				$reservation["idReserva"],
 				$reservation["idUsuarioReserva"],
 				$reservation["fechaReserva"],
-				$reservation["horaReserva"],
-				$reservation["idPista"]
+				$reservation["horaReserva"]
 			));
 		}
 		return $torretReservations;
@@ -72,17 +71,29 @@ class ReservationMapper {
 		return $torretReservations;
 	}
 
-	public function getReservationId($idUsuarioReserva, $fechaReserva, $horaReserva, $pista){
-		$stmt = $this->db->prepare("SELECT * FROM reserva WHERE idUsuarioReserva=? AND fechaReserva=? AND horaReserva=? AND idPista=?");
+	public function getReservationId($idUsuarioReserva, $fechaReserva, $horaReserva){
+		$stmt = $this->db->prepare("SELECT * FROM reserva WHERE idUsuarioReserva=? AND fechaReserva=? AND horaReserva=?");
 		$stmt->execute(array($idUsuarioReserva,
 													$fechaReserva,
-													$horaReserva,
-													$pista));
+													$horaReserva));
 		$reservation = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if($reservation != null){
 			return $reservation["idReserva"];
 		}
 		return null;
+	}
+
+	public function getReservation($idReservation){
+		$stmt = $this->db->prepare("SELECT * FROM reserva WHERE idReserva = ?");
+		$stmt->execute(array($idReservation));
+		$results = $stmt->fetch(PDO::FETCH_ASSOC);
+		if( $results != null ) {
+			return new Reservation(
+				$results["idReserva"],
+				$results["idUsuarioReserva"],
+				$results["fechaReserva"],
+				$results["horaReserva"]);
+		}
 	}
 }

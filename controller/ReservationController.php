@@ -41,6 +41,15 @@ class ReservationController extends BaseController {
 
 		$reservationMapper->makeReservation($reservation);
 
+		$idReservation = $reservationMapper->getReservationId($_SESSION["currentuser"], $date, $hour);
+
+		$this->view->redirect("reservation", "showInfo", "idReservation=".$idReservation);
+	}
+
+	public function showInfo(){
+		$reservationMapper = new ReservationMapper();
+		$reservation = $reservationMapper->getReservation($_REQUEST["idReservation"]);
+
 		$this->view->setVariable("reservation", $reservation);
 		$this->view->render("reservation", "add");
 	}

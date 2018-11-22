@@ -110,7 +110,8 @@
 	"Create confrontation offer" => "Crear oferta de enfrentamiento",
 	"Accept confrontation offer" => "Aceptar oferta enfrentamiento",
 	"Confrontation Select" => "Selección enfrentamiento",
-	"Partner Members" => "Miembros de la pareja"
+	"Partner Members" => "Miembros de la pareja",
+	"Cannot organize a match for yesterday!" => "No puedes organizar un partido para ayer"
 
 
 

@@ -60,7 +60,8 @@ class OrganizeMatchController extends BaseController {
 
       if (isset($_POST["dateOrganizeMatch"])) { // reaching via HTTP Post...
         if(time() > strtotime($_POST["dateOrganizeMatch"])){
-          throw new Exception("Fecha actual mayor que la introducida");
+          $this->view->setFlash(sprintf(i18n("Cannot organize a match for yesterday!")));
+          $this->view->redirect("organizeMatch", "add");
         }
         $organizeMatch->setFecha(date("Y-m-d", strtotime($_POST["dateOrganizeMatch"])));
         $organizeMatch->setHora($_POST["timeOrganizeMatch"]);
@@ -69,7 +70,8 @@ class OrganizeMatchController extends BaseController {
 
         $numRes = $this->reservationMapper->getNumReservations($organizeMatch->getFecha(), $organizeMatch->getHora());
         if( $numRes == 5 ){
-          throw new Exception(" Alredy five matches for this date");
+          $this->view->setFlash(sprintf(i18n("Alredy 5 matches for this hour and date")));
+          $this->view->redirect("organizeMatch", "add");
         }
 
         try {

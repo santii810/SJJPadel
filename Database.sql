@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2018 a las 01:49:00
+-- Tiempo de generación: 22-11-2018 a las 02:09:46
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -126,16 +126,16 @@ CREATE TABLE `enfrentamiento` (
 INSERT INTO `enfrentamiento` (`idEnfrentamiento`, `idPareja1`, `idPareja2`, `idGrupo`, `fecha`, `hora`, `puntosPareja1`, `puntosPareja2`, `setsPareja1`, `setsPareja2`) VALUES
 (29, 173, 174, 18, '2018-11-20', '10:00:00', 3, 1, 3, 1),
 (30, 173, 175, 18, '2018-11-20', '10:00:00', 3, 1, 3, 1),
-(31, 173, 176, 18, '2018-11-08', '14:00:00', NULL, NULL, NULL, NULL),
-(32, 173, 177, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(33, 173, 178, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(34, 173, 179, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(35, 173, 180, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(36, 174, 175, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(37, 174, 176, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(38, 174, 177, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(39, 174, 178, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(40, 174, 179, 18, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 173, 176, 18, '2018-11-08', '14:00:00', 1, 3, 1, 3),
+(32, 173, 177, 18, '2018-11-10', '10:00:00', 1, 3, 2, 3),
+(33, 173, 178, 18, '2018-11-10', '10:00:00', 1, 3, 0, 3),
+(34, 173, 179, 18, '2018-11-10', '10:00:00', NULL, NULL, NULL, NULL),
+(35, 173, 180, 18, '2018-11-10', '10:00:00', NULL, NULL, NULL, NULL),
+(36, 174, 175, 18, '2018-11-10', '10:00:00', NULL, NULL, NULL, NULL),
+(37, 174, 176, 18, '2018-11-10', '10:00:00', 3, 1, 3, 1),
+(38, 174, 177, 18, '2018-11-10', '10:00:00', 1, 3, 0, 3),
+(39, 174, 178, 18, '2018-11-10', '10:00:00', 1, 3, 2, 3),
+(40, 174, 179, 18, '2018-11-10', '10:00:00', NULL, NULL, NULL, NULL),
 (41, 174, 180, 18, '2018-11-24', '10:00:00', NULL, NULL, NULL, NULL),
 (42, 175, 176, 18, NULL, NULL, NULL, NULL, NULL, NULL),
 (43, 175, 177, 18, NULL, NULL, NULL, NULL, NULL, NULL),

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2018 a las 19:54:46
+-- Tiempo de generación: 22-11-2018 a las 01:49:00
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -136,7 +136,7 @@ INSERT INTO `enfrentamiento` (`idEnfrentamiento`, `idPareja1`, `idPareja2`, `idG
 (38, 174, 177, 18, NULL, NULL, NULL, NULL, NULL, NULL),
 (39, 174, 178, 18, NULL, NULL, NULL, NULL, NULL, NULL),
 (40, 174, 179, 18, NULL, NULL, NULL, NULL, NULL, NULL),
-(41, 174, 180, 18, NULL, NULL, NULL, NULL, NULL, NULL),
+(41, 174, 180, 18, '2018-11-24', '10:00:00', NULL, NULL, NULL, NULL),
 (42, 175, 176, 18, NULL, NULL, NULL, NULL, NULL, NULL),
 (43, 175, 177, 18, NULL, NULL, NULL, NULL, NULL, NULL),
 (44, 175, 178, 18, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -254,6 +254,18 @@ CREATE TABLE `ofertaenfrentamiento` (
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `ofertaenfrentamiento`
+--
+
+INSERT INTO `ofertaenfrentamiento` (`idOfertaEnfrentamiento`, `idPareja`, `idGrupo`, `hora`, `fecha`) VALUES
+(2, 174, 18, '10:00:00', '2018-11-26'),
+(3, 174, 18, '11:30:00', '2018-11-28'),
+(4, 174, 18, '16:00:00', '2018-11-27'),
+(5, 180, 18, '10:00:00', '2018-11-30'),
+(6, 180, 18, '10:00:00', '2018-11-28'),
+(7, 180, 18, '19:00:00', '2018-11-30');
+
 -- --------------------------------------------------------
 
 --
@@ -273,7 +285,7 @@ CREATE TABLE `organizarpartido` (
 INSERT INTO `organizarpartido` (`idOrganizarPartido`, `fecha`, `hora`) VALUES
 (10, '2018-11-29', '10:00:00'),
 (12, '2018-11-30', '10:00:00'),
-(13, '2018-11-29', '11:30:00'),
+(13, '2018-11-26', '11:30:00'),
 (14, '2018-11-29', '19:00:00');
 
 -- --------------------------------------------------------
@@ -294,14 +306,14 @@ CREATE TABLE `pareja` (
 --
 
 INSERT INTO `pareja` (`idPareja`, `idCapitan`, `idCompañero`, `idCategoriaCampeonato`) VALUES
-(133, 'avanelli2p', 'bjankovic1p', 1),
-(134, 'bkeitley1', 'briehmi', 1),
+(133, 'santi', 'julio', 1),
+(134, 'bkeitley1', 'eugenio', 1),
 (135, 'cburkwoodc', 'cdeyenhardtj', 1),
 (136, 'cjost0', 'diannini1r', 1),
 (137, 'dmeeusk', 'eofielly6', 1),
 (138, 'espyvyef', 'bjankovic1p', 1),
 (139, 'gdittyp', 'ggainfortl', 1),
-(140, 'hbremeyer2b', 'hcassea', 1),
+(140, 'hbremeyer2b', 'helena', 1),
 (141, 'hcattersonz', 'hpolglase1q', 1),
 (142, 'hstothere', 'jgrossier2a', 1),
 (143, 'jhanwright0', 'kfirth2q', 1),
@@ -311,45 +323,45 @@ INSERT INTO `pareja` (`idPareja`, `idCapitan`, `idCompañero`, `idCategoriaCampe
 (147, 'santiago', 'julio', 1),
 (148, 'lois', 'floro', 1),
 (149, 'matias', 'cesar', 1),
-(150, 'avanelli2p', 'bjankovic1p', 2),
-(151, 'bkeitley1', 'briehmi', 2),
+(150, 'santi', 'bjankovic1p', 2),
+(151, 'bkeitley1', 'eugenio', 2),
 (152, 'cburkwoodc', 'cdeyenhardtj', 2),
 (153, 'cjost0', 'diannini1r', 2),
 (154, 'dmeeusk', 'eofielly6', 2),
 (155, 'espyvyef', 'bjankovic1p', 2),
 (156, 'gdittyp', 'ggainfortl', 2),
-(157, 'hbremeyer2b', 'hcassea', 2),
+(157, 'hbremeyer2b', 'helena', 2),
 (158, 'hcattersonz', 'hpolglase1q', 2),
 (159, 'hstothere', 'jgrossier2a', 2),
-(160, 'avanelli2p', 'bjankovic1p', 3),
-(161, 'bkeitley1', 'briehmi', 3),
+(160, 'santi', 'bjankovic1p', 3),
+(161, 'bkeitley1', 'eugenio', 3),
 (162, 'cburkwoodc', 'cdeyenhardtj', 3),
 (163, 'cjost0', 'diannini1r', 3),
 (164, 'dmeeusk', 'eofielly6', 3),
 (165, 'espyvyef', 'bjankovic1p', 3),
 (166, 'gdittyp', 'ggainfortl', 3),
-(167, 'hbremeyer2b', 'hcassea', 3),
+(167, 'hbremeyer2b', 'helena', 3),
 (168, 'hcattersonz', 'hpolglase1q', 3),
 (169, 'hstothere', 'jgrossier2a', 3),
 (170, 'jhanwright0', 'kfirth2q', 3),
 (171, 'kloftie5', 'pedro', 3),
 (172, 'kloftie5', 'pedro', 3),
-(173, 'avanelli2p', 'bjankovic1p', 4),
-(174, 'bkeitley1', 'briehmi', 4),
+(173, 'santi', 'bjankovic1p', 4),
+(174, 'bkeitley1', 'eugenio', 4),
 (175, 'cburkwoodc', 'cdeyenhardtj', 4),
 (176, 'cjost0', 'diannini1r', 4),
 (177, 'dmeeusk', 'eofielly6', 4),
 (178, 'espyvyef', 'bjankovic1p', 4),
 (179, 'gdittyp', 'ggainfortl', 4),
-(180, 'hbremeyer2b', 'hcassea', 4),
-(181, 'avanelli2p', 'bjankovic1p', 5),
-(182, 'bkeitley1', 'briehmi', 5),
+(180, 'hbremeyer2b', 'helena', 4),
+(181, 'santi', 'bjankovic1p', 5),
+(182, 'bkeitley1', 'eugenio', 5),
 (183, 'cburkwoodc', 'cdeyenhardtj', 5),
 (184, 'cjost0', 'diannini1r', 5),
 (185, 'dmeeusk', 'eofielly6', 5),
 (186, 'espyvyef', 'bjankovic1p', 5),
 (187, 'gdittyp', 'ggainfortl', 5),
-(188, 'hbremeyer2b', 'hcassea', 5),
+(188, 'hbremeyer2b', 'helena', 5),
 (189, 'hcattersonz', 'hpolglase1q', 5),
 (190, 'hstothere', 'jgrossier2a', 5),
 (191, 'jhanwright0', 'kfirth2q', 5),
@@ -472,7 +484,11 @@ INSERT INTO `reserva` (`idReserva`, `idUsuarioReserva`, `fechaReserva`, `horaRes
 (89, 'admin', '2018-11-26', '14:30'),
 (90, 'admin', '2018-11-26', '14:30'),
 (91, 'admin', '2018-11-26', '19:00'),
-(92, 'admin', '2018-11-26', '11:30');
+(92, 'admin', '2018-11-26', '11:30'),
+(93, 'hbremeyer2b', '2018-11-24', '10:00:00'),
+(94, 'santi', '2018-11-26', '11:30'),
+(95, 'santi', '2018-11-26', '11:30'),
+(96, 'santi', '2018-11-26', '17:30');
 
 -- --------------------------------------------------------
 
@@ -496,10 +512,8 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`login`, `nombre`, `apellidos`, `pass`, `rol`, `genero`) VALUES
 ('aa', 'aa', 'aa', 'aa', 'd', 'masculino'),
 ('admin', 'admin', 'admin', 'admin', 'a', 'masculino'),
-('avanelli2p', 'Audre', 'Vanelli', 'Ajqb8pziF', 'd', 'femenino'),
 ('bjankovic1p', 'Bernarr', 'Jankovic', 'qspW50hGXD', 'd', 'masculino'),
 ('bkeitley1', 'Bernie', 'Keitley', 'jRzXG', 'd', 'femenino'),
-('briehmi', 'Bridie', 'Riehm', '5i6PhIVGn', 'd', 'femenino'),
 ('cburkwoodc', 'Connie', 'Burkwood', 'mNtJnJ9MxGQJ', 'e', 'masculino'),
 ('cdeyenhardtj', 'Cherilyn', 'Deyenhardt', 'Zj4y14k5Q', 'd', 'femenino'),
 ('cesar', 'cesar', 'barco', 'pass', 'd', 'masculino'),
@@ -510,12 +524,13 @@ INSERT INTO `usuario` (`login`, `nombre`, `apellidos`, `pass`, `rol`, `genero`) 
 ('eofielly6', 'Etan', 'O Fielly', 'ahrVtFg', 'd', 'masculino'),
 ('espyvyef', 'Emile', 'Spyvye', 'gnuGNQpzU', 'd', 'masculino'),
 ('esruttond', 'Eachelle', 'Srutton', 'oyl7vLqER8He', 'e', 'femenino'),
+('eugenio', 'Bridie', 'Riehm', 'pass', 'd', 'femenino'),
 ('floro', 'floro', 'ramirez', 'pass', 'd', 'masculino'),
 ('gdittyp', 'Gun', 'Ditty', 'dykiwj23', 'd', 'masculino'),
 ('ggainfortl', 'Ginnifer', 'Gainfort', 'yOkuanm', 'd', 'femenino'),
 ('hbremeyer2b', 'Hope', 'Bremeyer', 'QGO03wlSMqP', 'd', 'femenino'),
-('hcassea', 'Helena', 'Casse', '1SGe6T', 'd', 'femenino'),
 ('hcattersonz', 'Hy', 'Catterson', 'aEWNRX', 'd', 'masculino'),
+('helena', 'Helena', 'Casse', 'pass', 'd', 'femenino'),
 ('hpolglase1q', 'Hanan', 'Polglase', '9cljNljk45z', 'd', 'masculino'),
 ('hstothere', 'Harald', 'Stother', 'hdwu19XJ4', 'd', 'masculino'),
 ('jgrossier2a', 'Jeannette', 'Grossier', 'GEbRo5hK5qT', 'd', 'femenino'),
@@ -537,6 +552,7 @@ INSERT INTO `usuario` (`login`, `nombre`, `apellidos`, `pass`, `rol`, `genero`) 
 ('pedro', 'pedro', 'Gonzalez', 'pass', 'd', 'masculino'),
 ('rghiroldi1s', 'Ring', 'Ghiroldi', 'icpcI6p', 'd', 'masculino'),
 ('rswatridgec', 'Ruttger', 'Swatridge', 'S1tPv8', 'd', 'masculino'),
+('santi', 'Audre', 'Vanelli', 'pass', 'd', 'femenino'),
 ('santiago', 'santiago', 'gomas', 'pass', 'd', 'masculino'),
 ('santiD', 'Santi', 'Rodríguez González', 'rgroot', 'a', 'masculino'),
 ('sbau2m', 'Salaidh', 'Bau', '8SrhxWw3NR', 'd', 'femenino'),
@@ -671,7 +687,7 @@ ALTER TABLE `grupo`
 -- AUTO_INCREMENT de la tabla `ofertaenfrentamiento`
 --
 ALTER TABLE `ofertaenfrentamiento`
-  MODIFY `idOfertaEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idOfertaEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `organizarpartido`
 --
@@ -691,7 +707,7 @@ ALTER TABLE `participantespartido`
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 --
 -- Restricciones para tablas volcadas
 --

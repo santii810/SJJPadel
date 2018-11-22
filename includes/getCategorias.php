@@ -1,6 +1,16 @@
 <?php
+	@session_start();
+
 	require_once("../model/ChampionshipMapper.php");
 	require_once("../model/Category.php");
+
+	$mensaje = '';
+
+	if($_SESSION["__currentlang__"] == "es"){
+		$mensaje = "Selecciona Categoria";
+	} else {
+		$mensaje = "Select Category";
+	}
 
 	$idCampeonato = $_REQUEST['idCampeonato'];
 
@@ -10,7 +20,7 @@
 	
 	$html="";
 
-	$html.= "<option value=''>Selecciona Categoria</option>";
+	$html.= "<option value=''>" . $mensaje . "</option>";
 
 	foreach($categories as $category)
 	{

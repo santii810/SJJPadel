@@ -193,7 +193,6 @@ class ConfrontationOfferController extends BaseController {
       $idPareja = $_REQUEST["idPareja"];
       $idCapitan = $this->partnerMapper->getIdCapitan($idPareja);
       $ofertaEnfrentamiento = $this->confrontationOfferMapper->getOffer($idOfertaEnfrentamiento);
-      var_dump($idParejaOffer);
       $reservation = new Reservation(null, $idCapitan, $ofertaEnfrentamiento->getFecha(), $ofertaEnfrentamiento->getHora());
       $this->reservationMapper->makeReservation($reservation);
 
@@ -235,7 +234,7 @@ class ConfrontationOfferController extends BaseController {
         $this->view->redirect("confrontationOffer", "offer", "idPareja=".$idPartner."&idCampeonato=".$idChampionship );
       }
 
-      if( $this->reservationMapper->getNumReservations($fechaOffer, substr($horaOffer, 0, 5)) ){
+      if( $this->reservationMapper->getNumReservations($fechaOffer, substr($horaOffer, 0, 5)) == 5 ){
         $this->view->setFlash(sprintf(i18n("Alredy 5 matches for this hour and date")));
         $this->view->redirect("confrontationOffer", "offer", "idPareja=".$idPartner."&idCampeonato=".$idChampionship );
       }

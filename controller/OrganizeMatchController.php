@@ -143,8 +143,6 @@ class OrganizeMatchController extends BaseController {
 
           $this->view->setFlash(sprintf(i18n("Match successfully join.")));
 
-
-
           $players = $this->participantsMatchMapper->count($idOrganizeMatch);
 
           if( $players == 4 ){

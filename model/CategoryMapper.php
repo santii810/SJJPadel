@@ -26,6 +26,41 @@ class CategoryMapper
      * @throws PDOException if a database error occurs
      * @return void
      */
+    public function save($category) {
+    $stmt = $this->db->prepare("INSERT INTO categoria (nivel,sexo) 
+                        values (?,?)");
+    $stmt->execute(array( $category->getNivel(),$category->getSexo() ));
+    }
+
+    public function delete($id){
+      $stmt = $this->db->prepare("DELETE FROM categoria where idCategoria=?");
+      $stmt->execute(array($id));
+    }
+
+    public function edit($level,$sex,$id){
+      $stmt = $this->db->prepare("UPDATE categoria set nivel=?, sexo=? where idCategoria =?");
+      $stmt->execute(array($level, $sex, $id));
+    }
+
+    public function getDatos($id){
+    $stmt = $this->db->prepare("SELECT * FROM categoria where idCategoria=?");
+    $stmt->execute(array($id));
+
+    $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $category = null;
+
+    foreach ($toret_db as $datos) {
+      $category = new Category(
+        $datos['idCategoria'],
+        $datos['nivel'],
+        $datos['sexo']
+      );
+    }
+
+    return $category;
+  }
+
     public function esGeneroAceptado($idCategoria, $genero)
     {
         $stmt = $this->db->prepare("SELECT sexo FROM categoria WHERE idCategoria = ? ");
@@ -75,4 +110,14 @@ class CategoryMapper
         return new Category($toret_db["idCategoria"], $toret_db["nivel"], $toret_db["sexo"]);
       }
     }
+
+    public function categoryExists(Category $category) {
+    $stmt = $this->db->prepare("SELECT count(*) FROM categoria where nivel=? AND sexo=?");
+    $stmt->execute(array($category->getNivel(),$category->getSexo()));
+
+    if ($stmt->fetchColumn() > 0) {
+      return true;
+    }
+  }
+
 }

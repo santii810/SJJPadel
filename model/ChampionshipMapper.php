@@ -25,6 +25,11 @@ class ChampionshipMapper {
 		return $this->db->lastInsertId();
 	}
 
+	public function delete($id){
+      $stmt = $this->db->prepare("DELETE FROM campeonato where idCampeonato=?");
+      $stmt->execute(array($id));
+    }
+
 	//prueba objectos
 	public function getCampeonatos(){
 		$stmt = $this->db->query("SELECT *
@@ -106,6 +111,7 @@ class ChampionshipMapper {
 
 	}
 
+	//obtener las categorias de un campeonato
 	public function getCategorias($idCampeonato) {
 		$stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
 			FROM campeonato cam,categoriascampeonato catc, categoria cat
@@ -181,4 +187,28 @@ class ChampionshipMapper {
 		}
 
 	}
+
+	public function getDatos($id) {
+    $stmt = $this->db->prepare("SELECT * FROM campeonato where idCampeonato=?");
+    $stmt->execute(array($id));
+
+    $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $championship = null;
+
+    foreach ($toret_db as $datos) {
+      $championship = new Championship(
+        $datos["idCampeonato"],
+		$datos["fechaInicioInscripcion"],
+		$datos["fechaFinInscripcion"],
+		$datos["fechaInicioCampeonato"],
+		$datos["fechaFinCampeonato"],
+		$datos["nombreCampeonato"]
+      );
+    }
+
+    return $championship;
+  }
+
 }
+

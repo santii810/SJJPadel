@@ -11,6 +11,11 @@ class CategoryChampionshipMapper {
 		$this->db = PDOConnection::getInstance();
 	}
 
+	public function save($categoryChampionship) {
+		$stmt = $this->db->prepare("INSERT INTO categoriascampeonato( idCategoria, idCampeonato ) values (?,?)");
+		$stmt->execute(array( $categoryChampionship->getIdCategory(),$categoryChampionship->getIdChampionship() ) );
+		return $this->db->lastInsertId();
+	}
 
 	function getCategoriesFromChampionship($idChampionship){
 		$stmt = $this->db->prepare("SELECT * FROM categoriascampeonato WHERE idCampeonato = ? ");

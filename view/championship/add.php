@@ -4,6 +4,7 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $championship = $view->getVariable("championship");
+$categories = $view->getVariable("categories");
 $view->setVariable("title", i18n("Create championship"));
 ?>
 
@@ -54,6 +55,16 @@ $view->setVariable("title", i18n("Create championship"));
 						placeholder="" value="">
     <?= isset($errors["fechaFinCampeonato"])?i18n($errors["fechaFinCampeonato"]):"" ?><br>
 				</div>
+
+				<div class="form-group">
+					<label for="categories"><?= i18n("Categories")?></label><br/>
+					<select name="categories[]" multiple>
+					  <?php foreach ($categories as $category) { ?>
+					  	<option value="<?php echo $category->getId() ?>"><?php echo $category->getNivel()."-".$category->getSexo() ?></option>
+					  <?php } ?>
+					</select>
+				</div>
+
 				<button type="submit" class="btn btn-primary" value=""><?= i18n("Register championship")?></button>
 
 			</form>

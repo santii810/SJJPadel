@@ -99,6 +99,14 @@ $currentRol = $view->getVariable("currentRol");
 				<?php if($currentRol == 'a'): ?>
 
 					<li class="nav-item">
+						<a class="nav-link" href="index.php?controller=championship&amp;action=showall"><?= i18n("Championships") ?></a>
+					</li>
+
+				<?php endif ?>
+
+				<?php if($currentRol == 'a'): ?>
+
+					<li class="nav-item">
 						<a class="nav-link" href="index.php?controller=category&amp;action=showall"><?= i18n("Categories") ?></a>
 					</li>
 

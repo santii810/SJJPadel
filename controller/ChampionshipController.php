@@ -13,6 +13,9 @@ require_once (__DIR__ . "/../model/Partner.php");
 require_once (__DIR__ . "/../model/Group.php");
 require_once (__DIR__ . "/../model/GroupMapper.php");
 
+require_once (__DIR__ . "/../model/Category.php");
+require_once (__DIR__ . "/../model/CategoryMapper.php");
+
 require_once (__DIR__ . "/../model/Partnergroup.php");
 require_once (__DIR__ . "/../model/PartnergroupMapper.php");
 
@@ -30,6 +33,8 @@ class ChampionshipController extends BaseController
     private $categoryChampionshipMapper;
 
     private $groupMapper;
+
+    private $categoryMapper;
 
     private $partnerGroupMapper;
 
@@ -51,9 +56,26 @@ class ChampionshipController extends BaseController
         $this->championshipMapper = new ChampionshipMapper();
         $this->categoryChampionshipMapper = new CategoryChampionshipMapper();
         $this->groupMapper = new GroupMapper();
+        $this->categoryMapper = new categoryMapper();
         $this->partnerGroupMapper = new PartnergroupMapper();
         $this->confrontationMapper = new ConfrontationMapper();
     }
+
+    public function showall(){
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. see championship requires admin");
+        }
+
+        $championships = $this->championshipMapper->getCampeonatos();
+
+        // Put the User object visible to the view
+        $this->view->setVariable("championships", $championships);
+
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "showall");
+
+    }
+
 
     public function add()
     {
@@ -63,7 +85,7 @@ class ChampionshipController extends BaseController
         
         $championship = new Championship();
         
-        if (isset($_POST["fechaInicioInscripcion"])) { // reaching via HTTP Post...
+        if ( isset($_POST["fechaInicioInscripcion"]) ) { // reaching via HTTP Post...
                                                        // populate the Post object with data form the form
             $championship->setFechaInicioInscripcion($_POST["fechaInicioInscripcion"]);
             $championship->setFechaFinInscripcion($_POST["fechaFinInscripcion"]);
@@ -71,36 +93,66 @@ class ChampionshipController extends BaseController
             $championship->setFechaFinCampeonato($_POST["fechaFinCampeonato"]);
             $championship->setNombreCampeonato($_POST["nombreCampeonato"]);
             
+            $idCurrentChampionship = -1;
+
             try {
                 // validate Post object
                 $championship->checkIsValidForCreate(); // if it fails, ValidationException
                                                         // save the Post object into the database
-                $this->championshipMapper->save($championship);
+                $idCurrentChampionship = $this->championshipMapper->save($championship);
+
+                for ($i=0; $i < count($_POST['categories']); $i++) { 
+                    $this->categoryChampionshipMapper->save( new CategoryChampionship( NULL ,  $idCurrentChampionship,$_POST['categories'][0] ) );
+                }
                 
-                // POST-REDIRECT-GET
-                // Everything OK, we will redirect the user to the list of posts
-                // We want to see a message after redirection, so we establish
-                // a "flash" message (which is simply a Session variable) to be
-                // get in the view after redirection.
-                $this->view->setFlash(sprintf(i18n("Post \"%s\" successfully added."), $championship->getNombreCampeonato()));
                 
-                // perform the redirection. More or less:
-                // header("Location: index.php?controller=posts&action=index")
-                // die();
-                $this->view->redirect("users", "index");
+                $this->view->setFlash(sprintf(i18n("Championship successfully added."), $championship->getNombreCampeonato()));
+               
+                $this->view->redirect("championship", "showall");
             } catch (ValidationException $ex) {
                 // Get the errors array inside the exepction...
                 $errors = $ex->getErrors();
                 // And put it to the view as "errors" variable
                 $this->view->setVariable("errors", $errors);
             }
+
         }
-        
+        //Devuelve las categorias para insertar en campeonato
+        $categories = $this->categoryMapper->getCategorias();
+
         // Put the Post object visible to the view
         $this->view->setVariable("championship", $championship);
+        $this->view->setVariable("categories", $categories);
         
         // render the view (/view/posts/add.php)
         $this->view->render("championship", "add");
+    }
+
+    public function delete(){
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. delete category requires login");
+        }
+
+        if ( isset($_POST['name_championship']) && isset($_POST['date_start_inscription']) && isset($_POST['date_end_inscription']) && isset($_POST['date_start_championship']) && isset($_POST['date_end_championship'] )) {
+
+            $this->championshipMapper->delete($_POST['id']);
+
+            $this->view->setFlash("successfully delete");
+
+            $this->view->redirect("championship", "showall");
+
+        }
+
+        $championship = $this->championshipMapper->getDatos($_REQUEST['id']);
+        $categories = $this->championshipMapper->getCategorias($_REQUEST['id']);
+
+        // Put the User object visible to the view
+        $this->view->setVariable("championship", $championship);
+        $this->view->setVariable("categories", $categories);
+
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "delete");
+
     }
 
     public function selectToCalendar()

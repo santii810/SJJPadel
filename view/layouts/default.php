@@ -70,7 +70,7 @@ $currentRol = $view->getVariable("currentRol");
 
 </head>
 <body>
-
+	<div class="contenedor">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<img class="img-circle icono" src="images/icono.png">
 		<?php if (isset($currentuser)): ?>
@@ -213,7 +213,7 @@ $currentRol = $view->getVariable("currentRol");
 				<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>
 			</div>
 		</div>
-
+	
 		<footer id="myFooter">
 			<div class="container">
 				<div class="row">
@@ -228,8 +228,8 @@ $currentRol = $view->getVariable("currentRol");
 					<p>© 2018 SJJPadel Company </p>
 				</div>
 			</footer>
-
+</div>
 
 
 		</body>
-		</html>
+</html>

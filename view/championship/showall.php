@@ -6,7 +6,7 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $championships = $view->getVariable("championships");
 $view->setVariable("title", i18n("Championships") );
-$cabecera = array(  "Name Championship", "Date Start Inscription", "Date End Inscription", "Date Start Championship", "Date End Championship" );
+$cabecera = array(  "Name championship", "Date start inscription", "Date end inscription", "Date start championship", "Date end championship" );
 ?>
 
   <h3><?= i18n("Championships"); ?></h3>

@@ -18,7 +18,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Name Championship") ?> 
+            <?php echo i18n("Name championship") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="name_championship" value="<?php echo $championship->getNombreCampeonato() ?>" readonly="readonly">
@@ -27,7 +27,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date Start Inscription") ?> 
+            <?php echo i18n("Date start inscription") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_start_inscription" value="<?php echo $championship->getFechaInicioInscripcion() ?>" readonly="readonly">
@@ -36,7 +36,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date End Inscription") ?> 
+            <?php echo i18n("Date end inscription") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_end_inscription" value="<?php echo $championship->getFechaFinInscripcion() ?>" readonly="readonly">
@@ -45,7 +45,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date Start Championship") ?> 
+            <?php echo i18n("Date start championship") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_start_championship" value="<?php echo $championship->getFechaInicioCampeonato() ?>" readonly="readonly">
@@ -54,7 +54,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date End Championship") ?> 
+            <?php echo i18n("Date end championship") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_end_championship" value="<?php echo $championship->getFechaFinCampeonato() ?>" readonly="readonly">

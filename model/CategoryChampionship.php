@@ -8,7 +8,7 @@ class CategoryChampionship {
 	private $idChampionship;
 	private $idCategory;
 	
-	public function __construct($id,$idChampionship, $idCategory) {
+	public function __construct($id=NULL,$idChampionship=NULL, $idCategory=NULL) {
 		$this->id = $id;
 		$this->idChampionship = $idChampionship;
 		$this->idCategory = $idCategory;

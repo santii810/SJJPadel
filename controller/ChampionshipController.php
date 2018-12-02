@@ -85,7 +85,7 @@ class ChampionshipController extends BaseController
         
         $championship = new Championship();
         
-        if ( isset($_POST["fechaInicioInscripcion"]) ) { // reaching via HTTP Post...
+        if ( isset($_POST["fechaInicioInscripcion"] ) ) { // reaching via HTTP Post...
                                                        // populate the Post object with data form the form
             $championship->setFechaInicioInscripcion($_POST["fechaInicioInscripcion"]);
             $championship->setFechaFinInscripcion($_POST["fechaFinInscripcion"]);
@@ -102,7 +102,7 @@ class ChampionshipController extends BaseController
                 $idCurrentChampionship = $this->championshipMapper->save($championship);
 
                 for ($i=0; $i < count($_POST['categories']); $i++) { 
-                    $this->categoryChampionshipMapper->save( new CategoryChampionship( NULL ,  $idCurrentChampionship,$_POST['categories'][0] ) );
+                    $this->categoryChampionshipMapper->save( new CategoryChampionship( NULL ,  $idCurrentChampionship,$_POST['categories'][$i] ) );
                 }
                 
                 
@@ -152,6 +152,52 @@ class ChampionshipController extends BaseController
 
         // render the view (/view/users/register.php)
         $this->view->render("championship", "delete");
+
+    }
+
+    public function edit(){
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. edit championship requires sesion");
+        }
+
+        $categoriesCurrentChampionship = $this->championshipMapper->getCategorias($_REQUEST['id']);
+
+        if ( isset($_POST["fechaInicioInscripcion"] ) ) {
+
+            $championship = new Championship($_POST['id'],
+                                             $_POST['fechaInicioInscripcion'],
+                                             $_POST['fechaFinInscripcion'],
+                                             $_POST['fechaInicioCampeonato'],
+                                             $_POST['fechaFinCampeonato'],
+                                             $_POST['nombreCampeonato']
+                                            );
+        
+            $this->championshipMapper->edit( $championship );
+
+            //actualizar categorias del campeonato
+            $this->editCategoriesChampionship($categoriesCurrentChampionship, $_POST['categories'], $_POST['id']);
+
+            $this->view->setFlash("successfully modify");
+
+            $this->view->redirect("championship", "showall");
+
+        }
+
+
+        //Devuelve los datos de un campeonato
+        $championship = $this->championshipMapper->getDatos($_REQUEST['id']);
+
+        //Devuelve las categorias para insertar en campeonato
+        $categories = $this->categoryMapper->getCategorias();
+
+        // Put the User object visible to the view
+        $this->view->setVariable("championship", $championship);
+        $this->view->setVariable("categories", $categories);
+
+        $this->view->setVariable("categoriesCurrentChampionship", $categoriesCurrentChampionship);
+
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "edit");
 
     }
 
@@ -263,5 +309,34 @@ class ChampionshipController extends BaseController
             
             foreach ($couplesGroup as $couple) {}
         }
-}
+    }
+
+
+
+    private function editCategoriesChampionship($categoriesCurrentChampionship,$categoriesSeleted,$idChampionship) {
+        $array_id_current = array();
+        //para comparar necesitamos los id en este caso
+        foreach ($categoriesCurrentChampionship as $value) {
+            $array_id_current[] = $value->getId(); 
+        }
+        //Si no se han seleccionado las categorias existentes estas se borran
+        for ($i=0; $i < count($array_id_current); $i++) {
+            if (!in_array( $array_id_current[$i], $categoriesSeleted )) {
+                $this->categoryChampionshipMapper->delete($idChampionship,$array_id_current[$i]);
+            }
+        }
+
+        $categoryChampionship = new CategoryChampionship();
+        $categoryChampionship->setIdChampionship($_POST['id']);
+
+        //Si no estan las categorias añadidas las añade    
+        for ($i=0; $i < count($categoriesSeleted); $i++) { 
+          if (!$this->categoryChampionshipMapper->existsCategory( $idChampionship, $categoriesSeleted[$i] ) ) {
+                $categoryChampionship->setIdCategory($categoriesSeleted[$i]);                    
+                $this->categoryChampionshipMapper->save($categoryChampionship);
+            }
+        }
+
+    }
+
 }

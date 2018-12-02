@@ -30,6 +30,22 @@ class ChampionshipMapper {
       $stmt->execute(array($id));
     }
 
+    public function edit($championship){
+      $stmt = $this->db->prepare("UPDATE campeonato set fechaInicioInscripcion=?,
+      													fechaFinInscripcion=?,
+      													fechaInicioCampeonato=?,
+      													fechaFinCampeonato=?,
+      													nombreCampeonato=?
+      												where idCampeonato =?");
+      $stmt->execute(array($championship->getFechaInicioInscripcion(),
+      					   $championship->getFechaFinInscripcion(),
+      					   $championship->getFechaInicioCampeonato(),
+      					   $championship->getFechaFinCampeonato(),
+      					   $championship->getNombreCampeonato(),
+      					   $championship->getId()
+      					));
+    }
+
 	//prueba objectos
 	public function getCampeonatos(){
 		$stmt = $this->db->query("SELECT *
@@ -135,8 +151,6 @@ class ChampionshipMapper {
 
 		return $categories;
 	}
-
-
 
 	public function getGrupos($idCampeonato,$idCategoria) {
 		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato

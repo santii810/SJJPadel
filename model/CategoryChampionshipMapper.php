@@ -17,6 +17,11 @@ class CategoryChampionshipMapper {
 		return $this->db->lastInsertId();
 	}
 
+	public function delete($idChampionship,$idCategory){
+      $stmt = $this->db->prepare("DELETE FROM categoriascampeonato where idCampeonato=? AND idCategoria=?");
+      $stmt->execute(array($idChampionship,$idCategory));
+    }
+    
 	function getCategoriesFromChampionship($idChampionship){
 		$stmt = $this->db->prepare("SELECT * FROM categoriascampeonato WHERE idCampeonato = ? ");
 		$stmt->execute(array($idChampionship));
@@ -70,5 +75,12 @@ class CategoryChampionshipMapper {
 
 		return new CategoryChampionship($data["idCategoriasCampeonato"], $data["idCampeonato"], $data["idCategoria"]);
 	}
+
+	public function existsCategory( $idChampionship,$idCategory ){
+   		$stmt = $this->db->prepare("SELECT count(*) FROM categoriascampeonato where idCampeonato=? and idCategoria=?");
+		$stmt->execute(array($idChampionship, $idCategory));
+
+		return $stmt->fetchColumn() > 0;
+   }
 
 }

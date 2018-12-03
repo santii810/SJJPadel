@@ -42,10 +42,10 @@ class Category {
 		$errors = array();
 		
 		if (strlen(trim($this->nivel)) == 0 ) {
-			$errors["nivel"] = "nivel in category is mandatory";
+			$errors["nivel"] = "level in category is mandatory";
 		}
 		if (strlen(trim($this->sexo)) == 0 ) {
-			$errors["sexo"] = "sexo in category is mandatory";
+			$errors["sexo"] = "sex in category is mandatory";
 		}
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "Category is not valid");

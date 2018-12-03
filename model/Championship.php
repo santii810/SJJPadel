@@ -76,19 +76,19 @@ class Championship {
 		$errors = array();
 		
 		if (strlen(trim($this->fechaInicioInscripcion)) == 0 ) {
-			$errors["fechaInicioInscripcion"] = "fecha inicio inscripcion is mandatory";
+			$errors["fechaInicioInscripcion"] = "Registration start date is mandatory";
 		}
 		if (strlen(trim($this->fechaFinInscripcion)) == 0 ) {
-			$errors["fechaFinInscripcion"] = "fecha fin inscripcion is mandatory";
+			$errors["fechaFinInscripcion"] = "Registration limit date is mandatory";
 		}
 		if (strlen(trim($this->fechaInicioCampeonato)) == 0 ) {
-			$errors["fechaInicioCampeonato"] = "fecha inicio campeonato is mandatory";
+			$errors["fechaInicioCampeonato"] = "Championship start date is mandatory";
 		}
 		if (strlen(trim($this->fechaFinCampeonato)) == 0 ) {
-			$errors["fechaFinCampeonato"] = "fecha fin campeonato is mandatory";
+			$errors["fechaFinCampeonato"] = "Championship finish date is mandatory";
 		}
 		if (strlen(trim($this->nombreCampeonato)) == 0 ) {
-			$errors["nombreCampeonato"] = "nombre del campeonato is mandatory";
+			$errors["nombreCampeonato"] = "Championship name is mandatory";
 		}
 		if (sizeof($errors) > 0){
 			throw new ValidationException($errors, "Championship is not valid");

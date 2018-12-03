@@ -137,8 +137,17 @@
 	"Not in session. add category requires sesion" => "No estas en sesion, añadir categoria requiere ser administrador",
 	"Category already exists" => "La categoria ya existe",
 	"Category added" => "Categoria añadida",
-	"successfully modify" => "modificado correctamente"
-
+	"successfully modify" => "modificado correctamente",
+	"level in category is mandatory" => "el nivel de categoria es obligatorio",
+	"sex in category is mandatory" => "el sexo de categoria es obligatorio",
+	"Category is not valid" => "La categoria no es valida",
+	"id is mandatory" => "el id es obligatorio",
+	"Registration start date is mandatory" => "Fecha inicio inscripción es obligatoria",
+	"Registration limit date is mandatory" => "Fecha fin inscripción es obligatoria",
+	"Championship start date is mandatory" => "Fecha inicio campeonato es obligatoria",
+	"Championship finish date is mandatory" => "Fecha fin campeonato es obligatoria",
+	"Championship name is mandatory" => "Nombre de campeonato es obligatorio",
+	"Championship is not valid" => "El campeonato no es valido"
 
 
 

@@ -7,7 +7,7 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $usuarios = $view->getVariable("usuarios");
 $view->setVariable("title", "Usuarios");
-$cabecera = array("login","name","surname","rol","gender");
+$cabecera = array("Login","Name","Surname","Rol","Gender");
 ?>
 
   <h3><?= i18n("Users"); ?></h3>

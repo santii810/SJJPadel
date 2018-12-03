@@ -28,6 +28,44 @@ ul , li {
 	list-style: none;
 }
 
+/*tabla eliminatoria*/
+.eliminatoria {
+  white-space: normal;
+  line-height: 100%;
+  font-weight: normal;
+  font-size: normal;
+  font-style: normal;
+  color: -internal-quirk-inherit;
+  text-align: start;
+  font-variant: normal;
+  width: 100%;
+
+}
+
+.eliminatoria thead {
+  background-color: black;
+  color: white;
+}
+
+.eliminatoria tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.eliminatoria tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.eliminatoria td, .eliminatoria th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+/*fin tabla eliminatoria*/
+
 /*nav*/
 .separacion {
   margin-right: 7px;

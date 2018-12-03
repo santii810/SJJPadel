@@ -47,6 +47,148 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
   </tbody>
 </table>
 
+<table cellpadding="0" cellspacing="0" class="eliminatoria">
+  <thead>
+  <tr>
+    <td colspan="2">Cuartos</td>
+    <td colspan="2">Semifinales</td>
+    <td colspan="3">Final</td>
+    <td>Ganador</td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/arriba.gif"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td>Equipo Rnd2</td>
+    <td><img src="images/arriba.gif"></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/abajo.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td>Equipo Rnd3</td>
+    <td><img src="images/arriba.gif"></td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/arriba.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td>Equipo Rnd2</td>
+    <td><img src="images/abajo.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/abajo.gif"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td><img src="images/no.gif"></td>
+    <td>Equipo Ganador</td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/arriba.gif"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td>EquipoRnd2</td>
+    <td><img src="images/arriba.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/abajo.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td>Equipo Rnd3</td>
+    <td><img src="images/abajo.gif"></td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/arriba.gif"></td>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td><img src="images/mid.gif"></td>
+    <td>Equipo Rnd2</td>
+    <td><img src="images/abajo.gif"></td>
+  </tr>
+
+  <tr>
+    <td>Equipo Rnd1</td>
+    <td><img src="images/abajo.gif"></td>
+    <td></td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+
 <input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
 
 </form>

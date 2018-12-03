@@ -78,7 +78,7 @@ $view->setVariable("title", i18n("Edit championship"));
 
 				<input type="hidden" name="id" value="<?php echo $championship->getId() ?>">
 
-				<button type="submit" class="btn btn-primary" value=""><?= i18n("Edit championship")?></button>
+				<button type="submit" class="btn btn-primary" value="<?= i18n("Edit championship")?>"><?= i18n("Edit championship")?></button>
 
 			</form>
 		</div>

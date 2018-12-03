@@ -19,7 +19,7 @@ $view->setVariable("title", i18n("Edit category") );
     <?= isset($errors["nivel"])?i18n($errors["nivel"]):"" ?><br>
   </div>
 
-  <?php if ($category->getSexo() == 'male') { ?>
+  <?php if ($category->getSexo() == 'masculino') { ?>
     <div class="form-group">
     <label for="sex" size="1"> <?= i18n("Sex") ?> </label>
       <select class="form-control" id="sex" name="sex">
@@ -28,7 +28,7 @@ $view->setVariable("title", i18n("Edit category") );
           <option value="femenino"><?php echo i18n("female") ?></option>
       </select>
     </div>
-  <?php } else if ($category->getSexo() == 'female' ) { ?>
+  <?php } else if ($category->getSexo() == 'femenino' ) { ?>
     <div class="form-group">
       <label for="sex" size="1"> <?= i18n("Sex") ?> </label>
       <select class="form-control" id="sex" name="sex">

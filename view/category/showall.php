@@ -6,8 +6,8 @@ $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $categories = $view->getVariable("categories");
-$view->setVariable("title", i18n("Categorias") );
-$cabecera = array( "nivel","sexo" );
+$view->setVariable("title", i18n("Categories") );
+$cabecera = array( "Level","Sex" );
 ?>
 
   <h3><?= i18n("Categories"); ?></h3>

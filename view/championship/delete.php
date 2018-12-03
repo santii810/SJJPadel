@@ -7,18 +7,18 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $championship = $view->getVariable("championship");
 $categories = $view->getVariable("categories");
-$view->setVariable("title", i18n("Delete Championship") );
+$view->setVariable("title", i18n("Delete championship"));
 
 ?>
 
-<h3><?php echo i18n("Delete Championship") ?></h3>
+<h3><?php echo i18n("Delete championship") ?></h3>
   <form action="index.php?controller=championship&amp;action=delete" method="POST">
     <table class="table">
       <thead class="thead-dark">
 
         <tr>
           <th>
-            <?php echo i18n("Name championship") ?> 
+            <?php echo i18n("Championship name") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="name_championship" value="<?php echo $championship->getNombreCampeonato() ?>" readonly="readonly">
@@ -27,7 +27,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date start inscription") ?> 
+            <?php echo i18n("Registration start date") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_start_inscription" value="<?php echo $championship->getFechaInicioInscripcion() ?>" readonly="readonly">
@@ -36,7 +36,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date end inscription") ?> 
+            <?php echo i18n("Registration limit date") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_end_inscription" value="<?php echo $championship->getFechaFinInscripcion() ?>" readonly="readonly">
@@ -45,7 +45,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date start championship") ?> 
+            <?php echo i18n("Championship start date") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_start_championship" value="<?php echo $championship->getFechaInicioCampeonato() ?>" readonly="readonly">
@@ -54,7 +54,7 @@ $view->setVariable("title", i18n("Delete Championship") );
 
         <tr>
           <th>
-            <?php echo i18n("Date end championship") ?> 
+            <?php echo i18n("Championship finish date") ?> 
           </th>
           <td>
             <input type="text" class="form-control" name="date_end_championship" value="<?php echo $championship->getFechaFinCampeonato() ?>" readonly="readonly">
@@ -79,6 +79,6 @@ $view->setVariable("title", i18n("Delete Championship") );
 
     <?= i18n("Are you sure to delete this championship?") ?> <br>
 
-    <button type="submit" class="btn btn-primary" value="<?php echo i18n("Delete") ?>" ><?php echo i18n("Delete") ?></button>
+    <button type="submit" class="btn btn-primary" value="<?php echo i18n("Delete championship") ?>" ><?php echo i18n("Delete championship") ?></button>
   </form>
 

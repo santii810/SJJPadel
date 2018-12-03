@@ -27,7 +27,7 @@ class CategoryController extends BaseController {
 
 	public function showall(){
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. see users requires admin");
+			throw new Exception("Not in session. see categories requires admin");
 		}
 
 		$categories = $this->categoryMapper->getCategorias();
@@ -71,7 +71,7 @@ class CategoryController extends BaseController {
 
 	public function edit(){
 		if (!isset($this->currentUser)) {
-			throw new Exception("Not in session. category requires sesion");
+			throw new Exception("Not in session. edit category requires sesion");
 		}
 
 		if ( isset($_POST['level']) && isset($_POST['sex']) && isset($_POST['id']) ) {
@@ -97,6 +97,9 @@ class CategoryController extends BaseController {
 	}
 
 	public function add(){
+		if (!isset($this->currentUser)) {
+			throw new Exception("Not in session. add category requires sesion");
+		}
 		$category = new Category();
 
 		if (isset($_POST["level"])){ // reaching via HTTP Post...

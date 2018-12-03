@@ -130,7 +130,7 @@ class ChampionshipController extends BaseController
 
     public function delete(){
         if (!isset($this->currentUser)) {
-            throw new Exception("Not in session. delete category requires login");
+            throw new Exception("Not in session. delete championship requires admin");
         }
 
         if ( isset($_POST['name_championship']) && isset($_POST['date_start_inscription']) && isset($_POST['date_end_inscription']) && isset($_POST['date_start_championship']) && isset($_POST['date_end_championship'] )) {

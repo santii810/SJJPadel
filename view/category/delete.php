@@ -39,6 +39,6 @@ $view->setVariable("title", i18n("Delete Category") );
 
     <?= i18n("Are you sure to delete this category?") ?> <br>
 
-    <button type="submit" class="btn btn-primary" value="<?php echo i18n("Delete") ?>" ><?php echo i18n("Delete") ?></button>
+    <button type="submit" class="btn btn-primary" value="<?php echo i18n("Delete Category") ?>" ><?php echo i18n("Delete Category") ?></button>
   </form>
 

@@ -19,7 +19,7 @@ $view->setVariable("title", i18n("Create championship"));
 				<div class="form-group">
 					<label for="nombreCampeonato"><?= i18n("Championship name")?></label> <input
 						type="text" class="form-control" id="nombreCampeonato"
-						name="nombreCampeonato" placeholder="Enter name"
+						name="nombreCampeonato" placeholder="Enter name championship"
 						value="<?= $championship->getNombreCampeonato() ?>">
     <?= isset($errors["nombreCampeonato"])?i18n($errors["nombreCampeonato"]):"" ?><br>
 				</div>

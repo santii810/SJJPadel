@@ -111,7 +111,34 @@
 	"Accept confrontation offer" => "Aceptar oferta enfrentamiento",
 	"Confrontation Select" => "Selección enfrentamiento",
 	"Partner Members" => "Miembros de la pareja",
-	"Cannot organize a match for yesterday!" => "No puedes organizar un partido para ayer"
+	"Cannot organize a match for yesterday!" => "No puedes organizar un partido para ayer",
+	"Add category" => "Añadir categoria",
+	"Level" => "Nivel",
+	"Sex" => "Sexo",
+	"Delete Category" => "Borrar categoria",
+	"Are you sure to delete this category?" => "Estas seguro de borrar esta categoria?",
+	"Edit category" => "Editar categoria",
+	"mixed" => "mixto",
+	"Categories" => "Categorias",
+	"Create championship" => "Crear campeonato",
+	"Championship name" => "Nombre campeonato",
+	"Enter name championship" => "Inserta nombre del campeonato",
+	"Delete championship" => "Borrar campeonato",
+	"Championships" => "Campeonatos",
+	"Edit championship" => "Editar campeonato",
+	"Are you sure to delete this championship?" => "¿Estas seguro de eliminar este campeonato?",
+	"Not in session. see championship requires admin" => "No estas en sesion, ver campeonatos requiere ser administrador",
+	"Not in session. Adding Championship requires admin" => "No estas en sesion, añadir campeonatos requiere ser administrador",
+	"Championship successfully added." => "Campeonato añadido correctamente.",
+	"Not in session. delete championship requires admin" => "No estas en sesion, borrar campeonato requiere administrador",
+	"Not in session. see categories requires admin" => "No estas en sesion, ver categorias requiere administrador",
+	"Not in session. delete category requires login" => "No estas en sesion, borrar categoria requiere ser administrador",
+	"Not in session. edit category requires sesion" => "No estas en sesion, editar categoria requiere ser administrador",
+	"Not in session. add category requires sesion" => "No estas en sesion, añadir categoria requiere ser administrador",
+	"Category already exists" => "La categoria ya existe",
+	"Category added" => "Categoria añadida",
+	"successfully modify" => "modificado correctamente"
+
 
 
 

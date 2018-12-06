@@ -1,0 +1,2 @@
+ALTER TABLE `campeonato` ADD `Fase` ENUM('Inscripcion', 'Grupos', 'Eliminatoria') NOT NULL AFTER `nombreCampeonato`;
+ALTER TABLE `enfrentamiento` ADD `Fase` ENUM('Grupos', 'Cuartos', 'Semifinal', 'Final') NOT NULL AFTER `idGrupo`;

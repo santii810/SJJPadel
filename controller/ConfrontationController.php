@@ -126,10 +126,18 @@ class ConfrontationController extends BaseController {
 		//todos los partidos sin los resultados
 		//$partidos = $confrontationMapper->getPartidosResultadoNull($idGrupo);
 		
+		$cuartos = $confrontationMapper->getPartidosCuartos($idGrupo);
+		$semifinal = $confrontationMapper->getPartidosSemifinal($idGrupo);
+		$final = $confrontationMapper->getPartidosFinal($idGrupo);
+
 		//mandamos el valor de variable para que lo recoga la vista
 		$this->view->setVariable("clasificacion",array_reverse($array_clasificacion));
 		$this->view->setVariable("idGrupo",$idGrupo);
 		$this->view->setVariable("parejas",$parejas);
+
+		$this->view->setVariable("cuartos",$cuartos);
+		$this->view->setVariable("semifinal",$semifinal);
+		$this->view->setVariable("final",$final);
 		// render the view (/view/posts/add.php)
 		$this->view->render("confrontation", "clasification");
 
@@ -144,7 +152,7 @@ class ConfrontationController extends BaseController {
 			
 			//$queryString = "idCampeonato=".$_POST['idCampeonato']."&idCategoria=".$_POST['idCategoria']."&idGrupo=".$_POST['idGrupo'];
 			
-			$queryString = "idGrupo=".$_POST['idGrupo'];
+			$queryString = "idGrupo=".$_POST['idGrupo']."&fase=".$_POST['fase'];
 
 			$this->view->redirect("confrontation", "setresults", $queryString );
 
@@ -170,9 +178,11 @@ class ConfrontationController extends BaseController {
 		}
 		$confrontationMapper = new confrontationMapper();
 		$idGrupo = '';
+		$fase = '';
 
 		if (isset($_REQUEST['idGrupo'])) {
 			$idGrupo = $_REQUEST['idGrupo'];
+			$fase = $_REQUEST['fase'];
 		}
 		$errors = array();
 
@@ -200,6 +210,8 @@ class ConfrontationController extends BaseController {
 					}else{
 						$errors["result"] = "Incorrect result";
 					}
+				} else {//Si se mandan los sets vacios, borra los puntos y los sets
+					$confrontationMapper->actualizarResultados($_POST['idEnfrentamiento'][$i],NULL,NULL,NULL,NULL); 
 				}
 			}
 
@@ -208,7 +220,7 @@ class ConfrontationController extends BaseController {
 		$parejas = $partnerMapper->getParejas();
 		
 		//todos los partidos sin los resultados
-		$partidos = $confrontationMapper->getPartidosResultadoNull($idGrupo);
+		$partidos = $confrontationMapper->getPartidosResultadoNull($idGrupo,$fase);
 		
 		//mandamos el valor de variable para que lo recoga la vista
 
@@ -216,6 +228,7 @@ class ConfrontationController extends BaseController {
 		
 		$this->view->setVariable("errors",$errors);
 		$this->view->setVariable("idGrupo",$idGrupo);
+		$this->view->setVariable("fase",$fase);
 		$this->view->setVariable("parejas",$parejas);
 		// render the view (/view/posts/add.php)
 		$this->view->render("confrontation", "setresults");

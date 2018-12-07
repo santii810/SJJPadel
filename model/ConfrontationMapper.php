@@ -36,18 +36,18 @@ class ConfrontationMapper
         ));
     }
 
-    public function getPartidosResultadoNull($idGrupo)
+    public function getPartidosResultadoNull($idGrupo,$fase)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
-                                   puntosPareja1 is null AND
-                                   puntosPareja2 is null AND
-                                   setsPareja1 is null AND
-                                   setsPareja2 is null AND
                                    fecha is not null AND
                                    hora is not null AND
-                                   idGrupo = ? ");
+                                   idGrupo = ? AND
+                                   fase = ?
+                                   ORDER BY setsPareja1 " 
+                                    );
         $stmt->execute(array(
-            $idGrupo
+            $idGrupo,
+            $fase
         ));
 
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -55,7 +55,17 @@ class ConfrontationMapper
         $confrontations = array();
 
         foreach ($toret_db as $confrontation) {
-            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
+            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"],
+                                                          $confrontation["idPareja1"],
+                                                          $confrontation["idPareja2"],
+                                                          $confrontation["idGrupo"],
+                                                          $confrontation['fase'],
+                                                          $confrontation["fecha"],
+                                                          $confrontation["hora"],
+                                                          $confrontation["puntosPareja1"],
+                                                          $confrontation["puntosPareja2"],
+                                                          $confrontation["setsPareja1"],
+                                                          $confrontation["setsPareja2"]));
         }
 
         return $confrontations;
@@ -64,7 +74,8 @@ class ConfrontationMapper
     public function getPartidos($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
-                                   idGrupo = ? ");
+                                   idGrupo = ? AND
+                                   fase = 'Grupos' ");
         $stmt->execute(array(
             $idGrupo
         ));
@@ -74,11 +85,112 @@ class ConfrontationMapper
         $confrontations = array();
 
         foreach ($toret_db as $confrontation) {
-            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
+            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"],
+                                                          $confrontation["idPareja1"],
+                                                          $confrontation["idPareja2"],
+                                                          $confrontation["idGrupo"],
+                                                          $confrontation['fase'],
+                                                          $confrontation["fecha"],
+                                                          $confrontation["hora"],
+                                                          $confrontation["puntosPareja1"],
+                                                          $confrontation["puntosPareja2"],
+                                                          $confrontation["setsPareja1"],
+                                                          $confrontation["setsPareja2"]));
         }
 
         return $confrontations;
     }
+
+    public function getPartidosCuartos($idGrupo)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
+                                   idGrupo = ? AND
+                                   fase = 'Cuartos' ");
+        $stmt->execute(array(
+            $idGrupo
+        ));
+
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $confrontations = array();
+
+        foreach ($toret_db as $confrontation) {
+            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"],
+                                                          $confrontation["idPareja1"],
+                                                          $confrontation["idPareja2"],
+                                                          $confrontation["idGrupo"],
+                                                          $confrontation['fase'],
+                                                          $confrontation["fecha"],
+                                                          $confrontation["hora"],
+                                                          $confrontation["puntosPareja1"],
+                                                          $confrontation["puntosPareja2"],
+                                                          $confrontation["setsPareja1"],
+                                                          $confrontation["setsPareja2"]));
+        }
+
+        return $confrontations;
+    }
+
+    public function getPartidosSemifinal($idGrupo)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
+                                   idGrupo = ? AND
+                                   fase = 'Semifinal' ");
+        $stmt->execute(array(
+            $idGrupo
+        ));
+
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $confrontations = array();
+
+        foreach ($toret_db as $confrontation) {
+            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"],
+                                                          $confrontation["idPareja1"],
+                                                          $confrontation["idPareja2"],
+                                                          $confrontation["idGrupo"],
+                                                          $confrontation['fase'],
+                                                          $confrontation["fecha"],
+                                                          $confrontation["hora"],
+                                                          $confrontation["puntosPareja1"],
+                                                          $confrontation["puntosPareja2"],
+                                                          $confrontation["setsPareja1"],
+                                                          $confrontation["setsPareja2"]));
+        }
+
+        return $confrontations;
+    }
+
+    public function getPartidosFinal($idGrupo)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
+                                   idGrupo = ? AND
+                                   fase = 'Final' ");
+        $stmt->execute(array(
+            $idGrupo
+        ));
+
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $confrontations = array();
+
+        foreach ($toret_db as $confrontation) {
+            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"],
+                                                          $confrontation["idPareja1"],
+                                                          $confrontation["idPareja2"],
+                                                          $confrontation["idGrupo"],
+                                                          $confrontation['fase'],
+                                                          $confrontation["fecha"],
+                                                          $confrontation["hora"],
+                                                          $confrontation["puntosPareja1"],
+                                                          $confrontation["puntosPareja2"],
+                                                          $confrontation["setsPareja1"],
+                                                          $confrontation["setsPareja2"]));
+        }
+
+        return $confrontations;
+    }
+
 
     public function hadPlayed($idPareja1, $idPareja2, $idGrupo){
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR

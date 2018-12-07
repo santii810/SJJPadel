@@ -10,6 +10,10 @@ $clasificacion = $view->getVariable("clasificacion");
 $idGrupo = $view->getVariable("idGrupo");
 $parejas = $view->getVariable("parejas");
 
+$cuartos = $view->getVariable("cuartos");
+$semifinal = $view->getVariable("semifinal");
+$final = $view->getVariable("final");
+
 $view->setVariable("title", i18n("Clasification") );
 $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Total sets"));
 
@@ -50,16 +54,16 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
 <table cellpadding="0" cellspacing="0" class="eliminatoria">
   <thead>
   <tr>
-    <td colspan="2">Cuartos</td>
-    <td colspan="2">Semifinales</td>
-    <td colspan="3">Final</td>
-    <td>Ganador</td>
+    <td colspan="2"><?= i18n("Quarter finals") ?></td>
+    <td colspan="2"><?= i18n("Semifinal") ?></td>
+    <td colspan="3"><?= i18n("Final") ?></td>
+    <td><?= i18n("Champion") ?></td>
   </tr>
   </thead>
 
   <tbody>
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[0])) echo $parejas[$cuartos[0]->getIdPartner1()] . " " . $cuartos[0]->getSetsPartner1() ?></td>
     <td><img src="images/arriba.gif"></td>
     <td></td>
     <td></td>
@@ -69,13 +73,13 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
   <tr>
     <td></td>
     <td><img src="images/mid.gif"></td>
-    <td>Equipo Rnd2</td>
+    <td><?php if(!empty($semifinal[0])) echo $parejas[$semifinal[0]->getIdPartner1()] . " " . $semifinal[0]->getSetsPartner1()?></td>
     <td><img src="images/arriba.gif"></td>
     <td></td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[0])) echo $parejas[$cuartos[0]->getIdPartner2()] . " " . $cuartos[0]->getSetsPartner2()?></td>
     <td><img src="images/abajo.gif"></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
@@ -87,12 +91,12 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
     <td></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
-    <td>Equipo Rnd3</td>
+    <td><?php if(!empty($final[0])) echo $parejas[$final[0]->getIdPartner1()] . " " . $final[0]->getSetsPartner1() ?></td>
     <td><img src="images/arriba.gif"></td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[1])) echo $parejas[$cuartos[1]->getIdPartner1()] . " " . $cuartos[1]->getSetsPartner1() ?></td>
     <td><img src="images/arriba.gif"></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
@@ -103,14 +107,14 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
   <tr>
     <td></td>
     <td><img src="images/mid.gif"></td>
-    <td>Equipo Rnd2</td>
+    <td><?php if(!empty($semifinal[0])) echo $parejas[$semifinal[0]->getIdPartner2()] . " " . $semifinal[0]->getSetsPartner2() ?></td>
     <td><img src="images/abajo.gif"></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[1])) echo $parejas[$cuartos[1]->getIdPartner2()] . " " . $cuartos[1]->getSetsPartner2() ?></td>
     <td><img src="images/abajo.gif"></td>
     <td></td>
     <td></td>
@@ -126,11 +130,21 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
     <td></td>
     <td><img src="images/mid.gif"></td>
     <td><img src="images/no.gif"></td>
-    <td>Equipo Ganador</td>
+    <td>
+      <?php
+      if(!empty($final[0])){
+        if ( $final[0]->getSetsPartner1() > $final[0]->getSetsPartner2() ) {
+          echo $parejas[$final[0]->getIdPartner1()];
+        } else {
+          echo $parejas[$final[0]->getIdPartner1()];
+        }
+      }
+      ?>
+    </td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[2])) echo $parejas[$cuartos[2]->getIdPartner1()] . " " . $cuartos[2]->getSetsPartner1() ?></td>
     <td><img src="images/arriba.gif"></td>
     <td></td>
     <td></td>
@@ -141,14 +155,14 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
   <tr>
     <td></td>
     <td><img src="images/mid.gif"></td>
-    <td>EquipoRnd2</td>
+    <td><?php if(!empty($semifinal[1])) echo $parejas[$semifinal[1]->getIdPartner1()] . " " . $semifinal[1]->getSetsPartner1() ?></td>
     <td><img src="images/arriba.gif"></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[2])) echo $parejas[$cuartos[2]->getIdPartner2()] . " " . $cuartos[2]->getSetsPartner2() ?></td>
     <td><img src="images/abajo.gif"></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
@@ -161,12 +175,12 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
     <td></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
-    <td>Equipo Rnd3</td>
+    <td><?php if(!empty($final[0])) echo $parejas[$final[0]->getIdPartner2()] . " " . $final[0]->getSetsPartner2() ?></td>
     <td><img src="images/abajo.gif"></td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[3])) echo $parejas[$cuartos[3]->getIdPartner1()] . " " . $cuartos[3]->getSetsPartner1() ?></td>
     <td><img src="images/arriba.gif"></td>
     <td></td>
     <td><img src="images/mid.gif"></td>
@@ -176,12 +190,12 @@ $cabecera = array(i18n("Position"),i18n("Couple"),i18n("Total points"),i18n("Tot
   <tr>
     <td></td>
     <td><img src="images/mid.gif"></td>
-    <td>Equipo Rnd2</td>
+    <td><?php if(!empty($semifinal[0])) echo $parejas[$semifinal[1]->getIdPartner2()] . " " . $semifinal[1]->getSetsPartner2() ?></td>
     <td><img src="images/abajo.gif"></td>
   </tr>
 
   <tr>
-    <td>Equipo Rnd1</td>
+    <td><?php if(!empty($cuartos[3])) echo $parejas[$cuartos[3]->getIdPartner2()] . " " . $cuartos[3]->getSetsPartner2() ?></td>
     <td><img src="images/abajo.gif"></td>
     <td></td>
     <td></td>

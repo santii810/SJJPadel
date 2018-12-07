@@ -147,7 +147,11 @@
 	"Championship start date is mandatory" => "Fecha inicio campeonato es obligatoria",
 	"Championship finish date is mandatory" => "Fecha fin campeonato es obligatoria",
 	"Championship name is mandatory" => "Nombre de campeonato es obligatorio",
-	"Championship is not valid" => "El campeonato no es valido"
+	"Championship is not valid" => "El campeonato no es valido",
+	"Points couple 1" => "Puntos pareja 1",
+	"Points couple 2" => "Puntos pareja 2",
+	"Quarter finals" => "Cuartos de final",
+	"Champion" => "Campeon"
 
 
 

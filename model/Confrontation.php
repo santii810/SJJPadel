@@ -9,6 +9,7 @@ class Confrontation {
 	private $idPartner1;
 	private $idPartner2;
 	private $idGroup;
+	private $phase;
 	private $date;
 	private $time;
 	private $pointsPartner1;
@@ -16,11 +17,12 @@ class Confrontation {
 	private $setsPartner1;
 	private $setsPartner2;
 	
-	public function __construct($idConfrontation=NULL,$idPartner1=NULL,$idPartner2=NULL,$idGroup=NULL,$date=NULL,$time=NULL,$pointsPartner1=NULL,$pointsPartner2=NULL,$setsPartner1=NULL,$setsPartner2=NULL) {
+	public function __construct($idConfrontation=NULL,$idPartner1=NULL,$idPartner2=NULL,$idGroup=NULL,$phase=NULL,$date=NULL,$time=NULL,$pointsPartner1=NULL,$pointsPartner2=NULL,$setsPartner1=NULL,$setsPartner2=NULL) {
 		$this->idConfrontation = $idConfrontation;
 		$this->idPartner1 = $idPartner1;
 		$this->idPartner2 = $idPartner2;
 		$this->idGroup = $idGroup;
+		$this->phase = $phase;
 		$this->date = $date;
 		$this->time = $time;
 		$this->pointsPartner1 = $pointsPartner1;
@@ -55,6 +57,14 @@ class Confrontation {
 
 	public function setIdGroup($id) {
 		$this->idGroup = $id;
+	}
+
+	public function getPhase() {
+		return $this->phase;
+	}
+
+	public function setPhase($id) {
+		$this->phase = $phase;
 	}
 
 	public function getDate() {

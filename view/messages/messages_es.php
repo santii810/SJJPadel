@@ -151,7 +151,8 @@
 	"Points couple 1" => "Puntos pareja 1",
 	"Points couple 2" => "Puntos pareja 2",
 	"Quarter finals" => "Cuartos de final",
-	"Champion" => "Campeon"
+	"Champion" => "Campeon",
+	"Can not edit, the championship is not in this phase" => "No se puede editar resultados en esta fase, el campeonato no esta en esta fase."
 
 
 

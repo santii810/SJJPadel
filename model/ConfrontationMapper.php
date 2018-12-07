@@ -75,7 +75,9 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
                                    idGrupo = ? AND
-                                   fase = 'Grupos' ");
+                                   fase = 'Grupos' 
+                                   ORDER BY idPareja1,idPareja2
+                                   ");
         $stmt->execute(array(
             $idGrupo
         ));
@@ -105,7 +107,9 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
                                    idGrupo = ? AND
-                                   fase = 'Cuartos' ");
+                                   fase = 'Cuartos' 
+                                   ORDER BY idPareja1,idPareja2
+                                   ");
         $stmt->execute(array(
             $idGrupo
         ));
@@ -135,7 +139,9 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
                                    idGrupo = ? AND
-                                   fase = 'Semifinal' ");
+                                   fase = 'Semifinal' 
+                                   ORDER BY idPareja1,idPareja2
+                                   ");
         $stmt->execute(array(
             $idGrupo
         ));
@@ -165,7 +171,9 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
                                    idGrupo = ? AND
-                                   fase = 'Final' ");
+                                   fase = 'Final' 
+                                   ORDER BY idPareja1,idPareja2
+                                   ");
         $stmt->execute(array(
             $idGrupo
         ));
@@ -220,6 +228,5 @@ class ConfrontationMapper
       $stmt = $this->db->prepare("UPDATE enfrentamiento set fecha=?, hora=? where idEnfrentamiento=?");
       $stmt->execute(array($fecha, $hora, $idEnfrentamiento));
     }
-
 
 }

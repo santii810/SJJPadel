@@ -148,13 +148,20 @@ class ConfrontationController extends BaseController {
 			throw new Exception("Not in session. select Championship requires login");
 		}
 
-		if (isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"])) {
+		if ( isset($_POST["idCategoria"]) && isset($_POST["idCampeonato"]) && isset($_POST["idGrupo"]) ) {
 			
 			//$queryString = "idCampeonato=".$_POST['idCampeonato']."&idCategoria=".$_POST['idCategoria']."&idGrupo=".$_POST['idGrupo'];
 			
-			$queryString = "idGrupo=".$_POST['idGrupo']."&fase=".$_POST['fase'];
+			$championshipMapper = new championshipMapper();
 
-			$this->view->redirect("confrontation", "setresults", $queryString );
+			if($championshipMapper->checkPhase($_POST["idCampeonato"],$_POST["idGrupo"])){
+				$queryString = "idGrupo=".$_POST['idGrupo']."&fase=".$_POST['fase'];
+				$this->view->redirect("confrontation", "setresults", $queryString );
+			} else {
+				echo i18n($errors['editable'] = "Can not edit, the championship is not in this phase");
+			}
+
+			
 
 		}
 
@@ -185,8 +192,9 @@ class ConfrontationController extends BaseController {
 			$fase = $_REQUEST['fase'];
 		}
 		$errors = array();
+		$editable = false;
 
-		if (isset($_POST["setsPareja1"])) {
+		if (isset( $_POST["setsPareja1"]) ) {
 			
 			for ($i=0; $i < count($_POST['idEnfrentamiento']); $i++) { 
 				if($_POST['setsPareja1'][$i] != '' && $_POST['setsPareja2'][$i] != ''){

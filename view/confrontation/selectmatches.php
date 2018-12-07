@@ -11,6 +11,9 @@ $view->setVariable("title", i18n("Select championship") );
 ?>
 
 <h3><?= i18n("Select championship") ?></h3>
+<?php if (isset($errors['editable'])) {
+  echo $errors['editable'];
+} ?>
 <form action="index.php?controller=confrontation&amp;action=select" method="POST">
   <div class="container">
     <div class="row justify-content-center">

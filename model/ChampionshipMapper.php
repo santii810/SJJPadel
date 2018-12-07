@@ -224,5 +224,16 @@ class ChampionshipMapper {
     return $championship;
   }
 
+  public function checkPhase($idCampeonato,$fase){
+        $stmt = $this->db->prepare("SELECT count(*) FROM campeonato where idCampeonato=? and fase=?");
+		$stmt->execute(array($idCampeonato, $fase));
+
+		if ($stmt->fetchColumn() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+    }
+
 }
 

@@ -154,7 +154,7 @@ class ConfrontationController extends BaseController {
 			
 			$championshipMapper = new championshipMapper();
 
-			if($championshipMapper->checkPhase($_POST["idCampeonato"],$_POST["idGrupo"])){
+			if($championshipMapper->checkPhase($_POST["idCampeonato"],$_POST["fase"])){
 				$queryString = "idGrupo=".$_POST['idGrupo']."&fase=".$_POST['fase'];
 				$this->view->redirect("confrontation", "setresults", $queryString );
 			} else {

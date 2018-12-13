@@ -117,6 +117,7 @@ class ChampionshipController extends BaseController
             }
 
         }
+        
         //Devuelve las categorias para insertar en campeonato
         $categories = $this->categoryMapper->getCategorias();
 

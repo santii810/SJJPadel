@@ -151,6 +151,14 @@ $currentRol = $view->getVariable("currentRol");
 								<a class="dropdown-item" href="index.php?controller=confrontation&amp;action=selectGroup"><?php echo i18n("View confrontations") ?></a>
 							<?php endif ?>
 
+							<?php if($currentRol == 'd' || $currentRol == 'a' || $currentRol == 'e'): ?>
+								<a class="dropdown-item" href="index.php?controller=championship&amp;action=showallInscriptionCurrentUser"><?php echo i18n("View yours Inscriptions") ?></a>
+							<?php endif ?>
+
+							<?php if($currentRol == 'a'): ?>
+								<a class="dropdown-item" href="index.php?controller=championship&amp;action=showallInscriptionAllUsers"><?php echo i18n("View Inscriptions all users") ?></a>
+							<?php endif ?>
+
 						</div>
 					</li>
 				<?php endif ?>

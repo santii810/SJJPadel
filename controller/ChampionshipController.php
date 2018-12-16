@@ -22,6 +22,9 @@ require_once (__DIR__ . "/../model/PartnergroupMapper.php");
 require_once (__DIR__ . "/../model/Confrontation.php");
 require_once (__DIR__ . "/../model/ConfrontationMapper.php");
 
+require_once (__DIR__ . "/../model/InscriptionUserChampionship.php");
+require_once (__DIR__ . "/../model/InscriptionUserChampionshipMapper.php");
+
 require_once (__DIR__ . "/../core/ViewManager.php");
 require_once (__DIR__ . "/../controller/BaseController.php");
 
@@ -59,6 +62,7 @@ class ChampionshipController extends BaseController
         $this->categoryMapper = new categoryMapper();
         $this->partnerGroupMapper = new PartnergroupMapper();
         $this->confrontationMapper = new ConfrontationMapper();
+        $this->inscriptionUserChampionshipMapper = new InscriptionUserChampionshipMapper();
     }
 
     public function showall(){
@@ -337,6 +341,63 @@ class ChampionshipController extends BaseController
                 $this->categoryChampionshipMapper->save($categoryChampionship);
             }
         }
+
+    }
+
+    /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
+    public function showallInscriptionCurrentUser() {
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. see inscription championship requires admin");
+        }
+
+        $championships = $this->inscriptionUserChampionshipMapper->getInscriptionsCurrentUserInChampionship($this->currentUser->getLogin());
+
+        // Put the User object visible to the view
+        $this->view->setVariable("championships", $championships);
+
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "showallInscriptionCurrentUser");
+
+    }
+
+    public function deleteInscription(){
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. delete Inscription requires login");
+        }
+
+        if ( isset($_POST['idCaptain']) && isset($_POST['idFellow']) && isset($_POST['level']) && isset($_POST['sex']) && isset($_POST['championship_name'] )) {
+
+            $this->inscriptionUserChampionshipMapper->delete($_POST['id']);
+
+            $this->view->setFlash("successfully delete");
+
+            $this->view->redirect("championship", "showallInscriptionCurrentUser");
+
+        }
+
+        $inscription = $this->inscriptionUserChampionshipMapper->getDatos($_REQUEST['id']);
+
+        // Put the User object visible to the view
+        $this->view->setVariable("inscription", $inscription);
+
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "deleteInscription");
+
+    }
+
+    /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
+    public function showallInscriptionAllUsers() {
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. see inscription championship requires admin");
+        }
+
+        $championships = $this->inscriptionUserChampionshipMapper->getAllInscriptionsInChampionship();
+
+        // Put the User object visible to the view
+        $this->view->setVariable("championships", $championships);
+
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "showallInscriptionAllUsers");
 
     }
 

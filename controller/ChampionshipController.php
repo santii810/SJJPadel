@@ -347,7 +347,7 @@ class ChampionshipController extends BaseController
     /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
     public function showallInscriptionCurrentUser() {
         if (!isset($this->currentUser)) {
-            throw new Exception("Not in session. see inscription championship requires admin");
+            throw new Exception("Not in session. see inscription championship requires login");
         }
 
         $championships = $this->inscriptionUserChampionshipMapper->getInscriptionsCurrentUserInChampionship($this->currentUser->getLogin());
@@ -360,6 +360,7 @@ class ChampionshipController extends BaseController
 
     }
 
+    /* Borra la inscripcion a un campeonato */
     public function deleteInscription(){
         if (!isset($this->currentUser)) {
             throw new Exception("Not in session. delete Inscription requires login");
@@ -385,10 +386,10 @@ class ChampionshipController extends BaseController
 
     }
 
-    /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
+    /* Muestra los campeonatos que estan inscritos los usuarios */
     public function showallInscriptionAllUsers() {
         if (!isset($this->currentUser)) {
-            throw new Exception("Not in session. see inscription championship requires admin");
+            throw new Exception("Not in session. see users inscriptions in championship requires admin");
         }
 
         $championships = $this->inscriptionUserChampionshipMapper->getAllInscriptionsInChampionship();

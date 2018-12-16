@@ -152,7 +152,22 @@
 	"Points couple 2" => "Puntos pareja 2",
 	"Quarter finals" => "Cuartos de final",
 	"Champion" => "Campeon",
-	"Can not edit, the championship is not in this phase" => "No se puede editar resultados en esta fase, el campeonato no esta en esta fase."
+	"Can not edit, the championship is not in this phase" => "No se puede editar resultados en esta fase, el campeonato no esta en esta fase.",
+
+	"Not in session. see inscription championship requires login" => "No estas en sesion, para ver inscription requiere estar logeado",
+	"Not in session. delete Inscription requires login" => "No estas en sesion, para borrar inscription requiere login",
+	"Not in session. see users inscriptions in championship requires admin" => "No estas en sesion, para ver las inscripciones de los usuarios requiere ser admin",
+	"Delete inscription" => "Borrar inscripción",
+	"Captain" => "Capitan",
+	"Fellow" => "Compañero",
+	"Name championship" => "Nombre campeonato",
+	"Inscriptions users" => "Incripciones usuarios",
+	"My inscriptions" => "Mis inscripciones",
+	"View Inscriptions all users" => "Ver todas las inscripciones del los usuarios",
+	"View yours Inscriptions" => "Ver mis inscripciones",
+	"Are you sure to delete this inscription?" => "Estas seguro de eliminar esta inscripcion"
+
+
 
 
 

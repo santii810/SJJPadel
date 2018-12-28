@@ -61,7 +61,8 @@ class ChampionshipMapper {
 				$championship["fechaFinInscripcion"],
 				$championship["fechaInicioCampeonato"],
 				$championship["fechaFinCampeonato"],
-				$championship["nombreCampeonato"]));
+				$championship["nombreCampeonato"],
+				$championship["fase"]));
 		}
 		return $championships;
 	}

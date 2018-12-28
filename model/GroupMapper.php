@@ -78,4 +78,24 @@ class GroupMapper {
 		}
 	}
 
+/**
+ * Retorna todos los grupos asociados a un campeonato
+ */
+public function getGroupsFromChampionship($idChampionship){
+
+	$stmt = $this->db->prepare("SELECT * FROM grupo	WHERE idCampeonato = ?");
+	$stmt->execute(array($idChampionship));
+	$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+	if($toret_db != null) {
+		return new Group(
+			$toret_db["idGrupo"],
+			$toret_db["idCategoria"],
+			$toret_db["idCampeonato"],
+			$toret_db["nombreGrupo"]);
+	} else {
+		return NULL;
+	}
+}
+
 }

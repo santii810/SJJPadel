@@ -17,14 +17,17 @@ class Championship {
 	private $fechaFinCampeonato;
 
 	private $nombreCampeonato;
+
+	private $fase;
 	
-	public function __construct($id=NULL,$fechaInicioInscripcion=NULL, $fechaFinInscripcion=NULL,$fechaInicioCampeonato=NULL,$fechaFinCampeonato=NULL,$nombreCampeonato=NULL) {
+	public function __construct($id=NULL,$fechaInicioInscripcion=NULL, $fechaFinInscripcion=NULL,$fechaInicioCampeonato=NULL,$fechaFinCampeonato=NULL,$nombreCampeonato=NULL, $fase=NULL) {
 		$this->id = $id;
 		$this->fechaInicioInscripcion = $fechaInicioInscripcion;
 		$this->fechaFinInscripcion = $fechaFinInscripcion;
 		$this->fechaInicioCampeonato = $fechaInicioCampeonato;
 		$this->fechaFinCampeonato = $fechaFinCampeonato;
 		$this->nombreCampeonato = $nombreCampeonato;
+		$this->fase = $fase;
 
 	}
 
@@ -70,6 +73,14 @@ class Championship {
 
 	public function setNombreCampeonato($nombre) {
 		$this->nombreCampeonato = $nombre;
+	}
+
+	public function getFase() {
+		return $this->fase;
+	}
+
+	public function setFase($fase) {
+		$this->fase = $fase;
 	}
 
 	public function checkIsValidForCreate() {

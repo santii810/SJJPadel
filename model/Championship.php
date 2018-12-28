@@ -133,4 +133,34 @@ class Championship {
 			throw new ValidationException($errors, "Championship is not valid");
 		}
 	}
+
+/**
+ * Retorna true en caso de que se deban generar enfrentamientos y false en caso de que aun no sea posible
+ */
+public function needGenerateCalendar(){
+	//Si está en fase de incripcion  y se ha acabado el plazo de incripcion se puede avanzar
+	if($this->fase == "Inscripcion"  && strtotime($this->getFechaFinInscripcion()) < strtotime(date("Y-m-d"))) {
+		return true;
+	}
+	else if($this->fase == "Final"){
+		return false;
+	}
+	else{
+		$confrontationMapper = new ConfrontationMapper();
+		$groupMapper = new GroupMapper();
+
+		$groups = $groupMapper->getGroupsFromChampionship($this->id);
+		foreach ($groups as $group) {
+			//si algun enfrentamiento NO tiene resultado retorno false
+			if(!$confrontationMapper->hasAllConfrontationsResult($group->getIdGroup())){
+				return false;
+			}
+		}	
+		//Si ningun grupo tiene entrentamientos pendientes se puede avanzar de ronda
+		return true;	
+	} 
+	
+
+	return false;
+}
 }

@@ -85,17 +85,17 @@ public function getGroupsFromChampionship($idChampionship){
 
 	$stmt = $this->db->prepare("SELECT * FROM grupo	WHERE idCampeonato = ?");
 	$stmt->execute(array($idChampionship));
-	$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-	if($toret_db != null) {
-		return new Group(
-			$toret_db["idGrupo"],
-			$toret_db["idCategoria"],
-			$toret_db["idCampeonato"],
-			$toret_db["nombreGrupo"]);
-	} else {
-		return NULL;
+	$groups = array();
+	foreach ($toret_db as $group) {
+		array_push($groups, new Group(
+			$group["idGrupo"],
+			$group["idCategoria"],
+			$group["idCampeonato"],
+			$group["nombreGrupo"]));
 	}
+	return $groups;
 }
 
 }

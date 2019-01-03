@@ -1,20 +1,19 @@
 <?php
-	require_once("../model/ChampionshipMapper.php");
-	require_once("../model/Group.php");
+require_once ("../model/ChampionshipMapper.php");
+require_once ("../model/Group.php");
 
-	$idCampeonato = $_REQUEST['idCampeonato'];
-	$idCategoria = $_REQUEST['idCategoria'];
+$idCampeonato = $_REQUEST['idCampeonato'];
+$idCategoria = $_REQUEST['idCategoria'];
 
-	$championshipMapper = new ChampionshipMapper();
+$championshipMapper = new ChampionshipMapper();
 
-	$groups = $championshipMapper->getGrupos($idCampeonato,$idCategoria);
+$groups = $championshipMapper->getGrupos($idCampeonato, $idCategoria);
 
-	$html="";
+$html = "";
 
-	foreach($groups as $group)
-	{
-		$html.= "<option value='".$group->getIdGroup()."'>".$group->getGroupName()."</option>";
-	}
-	
-	echo $html;
+foreach ($groups as $group) {
+    $html .= "<option value='" . $group->getIdGroup() . "'>" . $group->getGroupName() . "</option>";
+}
+
+echo $html;
 ?>

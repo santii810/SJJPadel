@@ -1,24 +1,29 @@
 <?php
-//file: view/users/register.php
-
-require_once(__DIR__."/../../core/ViewManager.php");
+// file: view/users/register.php
+require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $usuarios = $view->getVariable("usuarios");
 $view->setVariable("title", "Usuarios");
-$cabecera = array("Login","Name","Surname","Rol","Gender");
+$cabecera = array(
+    "Login",
+    "Name",
+    "Surname",
+    "Rol",
+    "Gender"
+);
 ?>
 
-  <h3><?= i18n("Users"); ?></h3>
-  
-  <a href="index.php?controller=users&amp;action=add">
-    <img src="images/addUser.png" class="img-fluid" alt="Responsive image">
-  </a>
+<h3><?= i18n("Users"); ?></h3>
 
-  <table class="table">
-  <thead class="thead-dark">
-    <tr>
+<a href="index.php?controller=users&amp;action=add"> <img
+	src="images/addUser.png" class="img-fluid" alt="Responsive image">
+</a>
+
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
       <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
           <?php echo i18n($valor); ?>
@@ -27,36 +32,41 @@ $cabecera = array("Login","Name","Surname","Rol","Gender");
       <th scope="col" colspan="2">
         <?= i18n("Options"); ?>
       </th>
-    </tr>
-  </thead>
-  <tbody>
+		</tr>
+	</thead>
+	<tbody>
       <?php foreach($usuarios as $user) { ?>
         <tr>
-            <td>
+			<td>
               <?php echo $user->getLogin() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $user->getUsername() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $user->getSurname() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo i18n($user->getRol()) ; ?>
             </td>
-            <td>
+			<td>
               <?php echo i18n($user->getGender()) ; ?>
             </td>
-          <td>
-            <a href="index.php?controller=users&amp;action=edit&amp;login=<?php echo $user->getLogin() ?>">
-              <img src="images/editar.png" class="img-fluid" alt="Responsive image">
-            </a>
-            <a href="index.php?controller=users&amp;action=delete&amp;login=<?php echo $user->getLogin() ?>">
-              <img src="images/eliminar.png" class="img-fluid" alt="Responsive image">
-            </a>
-          </td>
-        <tr>  
+			<td><a
+				href="index.php?controller=users&amp;action=edit&amp;login=<?php echo $user->getLogin() ?>">
+					<img src="images/editar.png" class="img-fluid"
+					alt="Responsive image">
+			</a> <a
+				href="index.php?controller=users&amp;action=delete&amp;login=<?php echo $user->getLogin() ?>">
+					<img src="images/eliminar.png" class="img-fluid"
+					alt="Responsive image">
+			</a></td>
+		
+		
+		<tr>  
       <?php } ?>
-  </tbody>
+  
+	
+	</tbody>
 </table>
 

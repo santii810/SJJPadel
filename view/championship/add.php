@@ -17,8 +17,8 @@ $view->setVariable("title", i18n("Create championship"));
 				<br> <br>
 
 				<div class="form-group">
-					<label for="nombreCampeonato"><?= i18n("Championship name")?></label> <input
-						type="text" class="form-control" id="nombreCampeonato"
+					<label for="nombreCampeonato"><?= i18n("Championship name")?></label>
+					<input type="text" class="form-control" id="nombreCampeonato"
 						name="nombreCampeonato" placeholder="Enter name championship"
 						value="<?= $championship->getNombreCampeonato() ?>">
     <?= isset($errors["nombreCampeonato"])?i18n($errors["nombreCampeonato"]):"" ?><br>
@@ -33,8 +33,8 @@ $view->setVariable("title", i18n("Create championship"));
 				</div>
 
 				<div class="form-group">
-					<label for="fechaFinInscripcion"><?= i18n("Registration limit date")?></label> <input
-						type="date" class="form-control" id="fechaFinInscripcion"
+					<label for="fechaFinInscripcion"><?= i18n("Registration limit date")?></label>
+					<input type="date" class="form-control" id="fechaFinInscripcion"
 						name="fechaFinInscripcion" aria-describedby="loginHelp"
 						placeholder="" value="">
     <?= isset($errors["fechaFinInscripcion"])?i18n($errors["fechaFinInscripcion"]):"" ?><br>
@@ -49,16 +49,16 @@ $view->setVariable("title", i18n("Create championship"));
 				</div>
 
 				<div class="form-group">
-					<label for="fechaFinCampeonato"><?= i18n("Championship finish date")?></label> <input
-						type="date" class="form-control" id="fechaFinCampeonato"
+					<label for="fechaFinCampeonato"><?= i18n("Championship finish date")?></label>
+					<input type="date" class="form-control" id="fechaFinCampeonato"
 						name="fechaFinCampeonato" aria-describedby="loginHelp"
 						placeholder="" value="">
     <?= isset($errors["fechaFinCampeonato"])?i18n($errors["fechaFinCampeonato"]):"" ?><br>
 				</div>
 
 				<div class="form-group">
-					<label for="categories"><?= i18n("Categories")?></label><br/>
-					<select name="categories[]" multiple>
+					<label for="categories"><?= i18n("Categories")?></label><br /> <select
+						name="categories[]" multiple>
 					  <?php foreach ($categories as $category) { ?>
 					  	<option value="<?php echo $category->getId() ?>"><?php echo $category->getNivel()."-".$category->getSexo() ?></option>
 					  <?php } ?>

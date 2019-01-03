@@ -1,63 +1,75 @@
 <?php
 // file: model/User.php
+require_once (__DIR__ . "/../core/ValidationException.php");
 
-require_once(__DIR__."/../core/ValidationException.php");
+class Group
+{
 
-class Group {
+    private $idGroup;
 
-	private $idGroup;
-	private $idCategory;	
-	private $idChampionship;
-	private $groupName;
-	
-	public function __construct($idGroup=NULL,$idCategory=NULL,$idChampionship=NULL,$groupName=NULL) {
-		$this->idGroup = $idGroup;
-		$this->idCategory = $idCategory;
-		$this->idChampionship = $idChampionship;
-		$this->groupName = $groupName;
-	}
+    private $idCategory;
 
-	public function getIdGroup() {
-		return $this->idGroup;
-	}
+    private $idChampionship;
 
-	public function getIdCategory() {
-		return $this->idCategory;
-	}
+    private $groupName;
 
-	public function setIdCategory($id) {
-		$this->idCategory = $id;
-	}
+    public function __construct($idGroup = NULL, $idCategory = NULL, $idChampionship = NULL, $groupName = NULL)
+    {
+        $this->idGroup = $idGroup;
+        $this->idCategory = $idCategory;
+        $this->idChampionship = $idChampionship;
+        $this->groupName = $groupName;
+    }
 
-	public function getIdChampionship() {
-		return $this->idChampionship ;
-	}
+    public function getIdGroup()
+    {
+        return $this->idGroup;
+    }
 
-	public function setIdChampionship($id) {
-		$this->idChampionship = $id;
-	}
+    public function getIdCategory()
+    {
+        return $this->idCategory;
+    }
 
-	public function getGroupName() {
-		return $this->groupName;
-	}
+    public function setIdCategory($id)
+    {
+        $this->idCategory = $id;
+    }
 
-	public function setGroupName($name) {
-		$this->groupName = $name;
-	}
+    public function getIdChampionship()
+    {
+        return $this->idChampionship;
+    }
 
-	public function checkIsValidForRegister() {
-		$errors = array();
-		if (strlen(trim($this->idCategory)) == 0 ) {
-			$errors["idCategory"] = "idCategory is mandatory";
-		}
-		if (strlen(trim($this->idChampionship)) == 0 ) {
-			$errors["idChampionship"] = "idChampionship is mandatory";
-		}
-		if (strlen(trim($this->groupName)) == 0 ) {
-			$errors["groupName"] = "groupName is mandatory";
-		}
-		if (sizeof($errors)>0){
-			throw new ValidationException($errors, "group is not valid");
-		}
-	}
+    public function setIdChampionship($id)
+    {
+        $this->idChampionship = $id;
+    }
+
+    public function getGroupName()
+    {
+        return $this->groupName;
+    }
+
+    public function setGroupName($name)
+    {
+        $this->groupName = $name;
+    }
+
+    public function checkIsValidForRegister()
+    {
+        $errors = array();
+        if (strlen(trim($this->idCategory)) == 0) {
+            $errors["idCategory"] = "idCategory is mandatory";
+        }
+        if (strlen(trim($this->idChampionship)) == 0) {
+            $errors["idChampionship"] = "idChampionship is mandatory";
+        }
+        if (strlen(trim($this->groupName)) == 0) {
+            $errors["groupName"] = "groupName is mandatory";
+        }
+        if (sizeof($errors) > 0) {
+            throw new ValidationException($errors, "group is not valid");
+        }
+    }
 }

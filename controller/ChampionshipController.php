@@ -65,21 +65,20 @@ class ChampionshipController extends BaseController
         $this->inscriptionUserChampionshipMapper = new InscriptionUserChampionshipMapper();
     }
 
-    public function showall(){
-        if (!isset($this->currentUser)) {
+    public function showall()
+    {
+        if (! isset($this->currentUser)) {
             throw new Exception("Not in session. see championship requires admin");
         }
-
+        
         $championships = $this->championshipMapper->getCampeonatos();
-
+        
         // Put the User object visible to the view
         $this->view->setVariable("championships", $championships);
-
+        
         // render the view (/view/users/register.php)
         $this->view->render("championship", "showall");
-
     }
-
 
     public function add()
     {
@@ -89,7 +88,7 @@ class ChampionshipController extends BaseController
         
         $championship = new Championship();
         
-        if ( isset($_POST["fechaInicioInscripcion"] ) ) { // reaching via HTTP Post...
+        if (isset($_POST["fechaInicioInscripcion"])) { // reaching via HTTP Post...
                                                        // populate the Post object with data form the form
             $championship->setFechaInicioInscripcion($_POST["fechaInicioInscripcion"]);
             $championship->setFechaFinInscripcion($_POST["fechaFinInscripcion"]);
@@ -97,21 +96,20 @@ class ChampionshipController extends BaseController
             $championship->setFechaFinCampeonato($_POST["fechaFinCampeonato"]);
             $championship->setNombreCampeonato($_POST["nombreCampeonato"]);
             
-            $idCurrentChampionship = -1;
-
+            $idCurrentChampionship = - 1;
+            
             try {
                 // validate Post object
                 $championship->checkIsValidForCreate(); // if it fails, ValidationException
                                                         // save the Post object into the database
                 $idCurrentChampionship = $this->championshipMapper->save($championship);
-
-                for ($i=0; $i < count($_POST['categories']); $i++) { 
-                    $this->categoryChampionshipMapper->save( new CategoryChampionship( NULL ,  $idCurrentChampionship,$_POST['categories'][$i] ) );
+                
+                for ($i = 0; $i < count($_POST['categories']); $i ++) {
+                    $this->categoryChampionshipMapper->save(new CategoryChampionship(NULL, $idCurrentChampionship, $_POST['categories'][$i]));
                 }
                 
-                
                 $this->view->setFlash(sprintf(i18n("Championship successfully added."), $championship->getNombreCampeonato()));
-               
+                
                 $this->view->redirect("championship", "showall");
             } catch (ValidationException $ex) {
                 // Get the errors array inside the exepction...
@@ -119,12 +117,11 @@ class ChampionshipController extends BaseController
                 // And put it to the view as "errors" variable
                 $this->view->setVariable("errors", $errors);
             }
-
         }
         
-        //Devuelve las categorias para insertar en campeonato
+        // Devuelve las categorias para insertar en campeonato
         $categories = $this->categoryMapper->getCategorias();
-
+        
         // Put the Post object visible to the view
         $this->view->setVariable("championship", $championship);
         $this->view->setVariable("categories", $categories);
@@ -133,89 +130,80 @@ class ChampionshipController extends BaseController
         $this->view->render("championship", "add");
     }
 
-    public function delete(){
-        if (!isset($this->currentUser)) {
+    public function delete()
+    {
+        if (! isset($this->currentUser)) {
             throw new Exception("Not in session. delete championship requires admin");
         }
-
-        if ( isset($_POST['name_championship']) && isset($_POST['date_start_inscription']) && isset($_POST['date_end_inscription']) && isset($_POST['date_start_championship']) && isset($_POST['date_end_championship'] )) {
-
+        
+        if (isset($_POST['name_championship']) && isset($_POST['date_start_inscription']) && isset($_POST['date_end_inscription']) && isset($_POST['date_start_championship']) && isset($_POST['date_end_championship'])) {
+            
             $this->championshipMapper->delete($_POST['id']);
-
+            
             $this->view->setFlash("successfully delete");
-
+            
             $this->view->redirect("championship", "showall");
-
         }
-
+        
         $championship = $this->championshipMapper->getDatos($_REQUEST['id']);
         $categories = $this->championshipMapper->getCategorias($_REQUEST['id']);
-
+        
         // Put the User object visible to the view
         $this->view->setVariable("championship", $championship);
         $this->view->setVariable("categories", $categories);
-
+        
         // render the view (/view/users/register.php)
         $this->view->render("championship", "delete");
-
     }
 
-    public function edit(){
-        if (!isset($this->currentUser)) {
+    public function edit()
+    {
+        if (! isset($this->currentUser)) {
             throw new Exception("Not in session. edit championship requires sesion");
         }
-
-        $categoriesCurrentChampionship = $this->championshipMapper->getCategorias($_REQUEST['id']);
-
-        if ( isset($_POST["fechaInicioInscripcion"] ) ) {
-
-            $championship = new Championship($_POST['id'],
-                                             $_POST['fechaInicioInscripcion'],
-                                             $_POST['fechaFinInscripcion'],
-                                             $_POST['fechaInicioCampeonato'],
-                                             $_POST['fechaFinCampeonato'],
-                                             $_POST['nombreCampeonato']
-                                            );
         
-            $this->championshipMapper->edit( $championship );
-
-            //actualizar categorias del campeonato
+        $categoriesCurrentChampionship = $this->championshipMapper->getCategorias($_REQUEST['id']);
+        
+        if (isset($_POST["fechaInicioInscripcion"])) {
+            
+            $championship = new Championship($_POST['id'], $_POST['fechaInicioInscripcion'], $_POST['fechaFinInscripcion'], $_POST['fechaInicioCampeonato'], $_POST['fechaFinCampeonato'], $_POST['nombreCampeonato']);
+            
+            $this->championshipMapper->edit($championship);
+            
+            // actualizar categorias del campeonato
             $this->editCategoriesChampionship($categoriesCurrentChampionship, $_POST['categories'], $_POST['id']);
-
+            
             $this->view->setFlash("successfully modify");
-
+            
             $this->view->redirect("championship", "showall");
-
         }
-
-
-        //Devuelve los datos de un campeonato
+        
+        // Devuelve los datos de un campeonato
         $championship = $this->championshipMapper->getDatos($_REQUEST['id']);
-
-        //Devuelve las categorias para insertar en campeonato
+        
+        // Devuelve las categorias para insertar en campeonato
         $categories = $this->categoryMapper->getCategorias();
-
+        
         // Put the User object visible to the view
         $this->view->setVariable("championship", $championship);
         $this->view->setVariable("categories", $categories);
-
+        
         $this->view->setVariable("categoriesCurrentChampionship", $categoriesCurrentChampionship);
-
+        
         // render the view (/view/users/register.php)
         $this->view->render("championship", "edit");
-
     }
 
     public function selectToCalendar()
     {
-        if (!isset($this->currentUser)) {
-          throw new Exception("Not in session. Check Confrontations requires login");
-      }
-      $campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
-
-      $this->view->setVariable("campeonatos", $campeonatos);
-      $this->view->render("championship", "selectToCalendar");
-  }
+        if (! isset($this->currentUser)) {
+            throw new Exception("Not in session. Check Confrontations requires login");
+        }
+        $campeonatos = $this->championshipMapper->getCampeonatosToGenerateGroups();
+        
+        $this->view->setVariable("campeonatos", $campeonatos);
+        $this->view->render("championship", "selectToCalendar");
+    }
 
     /*
      * Genera el calendario de un campeonato.
@@ -225,9 +213,32 @@ class ChampionshipController extends BaseController
      */
     public function generateCalendar()
     {
-        if (!isset($this->currentUser)) {
-      throw new Exception("Not in session. Check Confrontations requires login");
+        // $championshipMapper = new ChampionshipMapper();
+        if (! isset($this->currentUser)) {
+            throw new Exception("Not in session. Check Confrontations requires login");
+        }
+        if (isset($_REQUEST["id"]) && $this->championshipMapper->getCampeonato($_REQUEST["id"])->needGenerateCalendar()) {
+            $idCampenato = $_REQUEST["id"];
+            echo $idCampenato;
+        }
+        // $this->generateGroups($idCampeonato, $categoriasCampeonato, $groupHasGenerated, $couples, $groupIds);
     }
+
+    /**
+     *
+     * @param
+     *            idCampeonato
+     * @param
+     *            categoriasCampeonato
+     * @param
+     *            groupHasGenerated
+     * @param
+     *            couples
+     * @param
+     *            groupIds
+     */
+    private function generateGroups($idCampeonato, $categoriasCampeonato, $groupHasGenerated, $couples, $groupIds)
+    {
         $groupHasGenerated = false;
         // Comprobamos que se haya seleccionado un campeonato
         if (isset($_POST["idCampeonato"]) && $_POST["idCampeonato"] != 0) {
@@ -248,9 +259,8 @@ class ChampionshipController extends BaseController
             if ($groupHasGenerated) {
                 $this->view->setVariable("messageToShow", i18n("Properly generated calendar."));
                 $this->view->setVariable("showButton", true);
-                
-            } else{
-                $this->view->setVariable("messageToShow", i18n("There are not enough athletes register to create a group."));                
+            } else {
+                $this->view->setVariable("messageToShow", i18n("There are not enough athletes register to create a group."));
             }
             $this->view->render("championship", "calendarGenerated");
         } else {
@@ -316,90 +326,86 @@ class ChampionshipController extends BaseController
         }
     }
 
-
-
-    private function editCategoriesChampionship($categoriesCurrentChampionship,$categoriesSeleted,$idChampionship) {
+    private function editCategoriesChampionship($categoriesCurrentChampionship, $categoriesSeleted, $idChampionship)
+    {
         $array_id_current = array();
-        //para comparar necesitamos los id en este caso
+        // para comparar necesitamos los id en este caso
         foreach ($categoriesCurrentChampionship as $value) {
-            $array_id_current[] = $value->getId(); 
+            $array_id_current[] = $value->getId();
         }
-        //Si no se han seleccionado las categorias existentes estas se borran
-        for ($i=0; $i < count($array_id_current); $i++) {
-            if (!in_array( $array_id_current[$i], $categoriesSeleted )) {
-                $this->categoryChampionshipMapper->delete($idChampionship,$array_id_current[$i]);
+        // Si no se han seleccionado las categorias existentes estas se borran
+        for ($i = 0; $i < count($array_id_current); $i ++) {
+            if (! in_array($array_id_current[$i], $categoriesSeleted)) {
+                $this->categoryChampionshipMapper->delete($idChampionship, $array_id_current[$i]);
             }
         }
-
+        
         $categoryChampionship = new CategoryChampionship();
         $categoryChampionship->setIdChampionship($_POST['id']);
-
-        //Si no estan las categorias añadidas las añade    
-        for ($i=0; $i < count($categoriesSeleted); $i++) { 
-          if (!$this->categoryChampionshipMapper->existsCategory( $idChampionship, $categoriesSeleted[$i] ) ) {
-                $categoryChampionship->setIdCategory($categoriesSeleted[$i]);                    
+        
+        // Si no estan las categorias añadidas las añade
+        for ($i = 0; $i < count($categoriesSeleted); $i ++) {
+            if (! $this->categoryChampionshipMapper->existsCategory($idChampionship, $categoriesSeleted[$i])) {
+                $categoryChampionship->setIdCategory($categoriesSeleted[$i]);
                 $this->categoryChampionshipMapper->save($categoryChampionship);
             }
         }
-
     }
 
     /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
-    public function showallInscriptionCurrentUser() {
-        if (!isset($this->currentUser)) {
+    public function showallInscriptionCurrentUser()
+    {
+        if (! isset($this->currentUser)) {
             throw new Exception("Not in session. see inscription championship requires login");
         }
-
+        
         $championships = $this->inscriptionUserChampionshipMapper->getInscriptionsCurrentUserInChampionship($this->currentUser->getLogin());
-
+        
         // Put the User object visible to the view
         $this->view->setVariable("championships", $championships);
-
+        
         // render the view (/view/users/register.php)
         $this->view->render("championship", "showallInscriptionCurrentUser");
-
     }
 
     /* Borra la inscripcion a un campeonato */
-    public function deleteInscription(){
-        if (!isset($this->currentUser)) {
+    public function deleteInscription()
+    {
+        if (! isset($this->currentUser)) {
             throw new Exception("Not in session. delete Inscription requires login");
         }
-
-        if ( isset($_POST['idCaptain']) && isset($_POST['idFellow']) && isset($_POST['level']) && isset($_POST['sex']) && isset($_POST['championship_name'] )) {
-
+        
+        if (isset($_POST['idCaptain']) && isset($_POST['idFellow']) && isset($_POST['level']) && isset($_POST['sex']) && isset($_POST['championship_name'])) {
+            
             $this->inscriptionUserChampionshipMapper->delete($_POST['id']);
-
+            
             $this->view->setFlash("successfully delete");
-
+            
             $this->view->redirect("championship", "showallInscriptionCurrentUser");
-
         }
-
+        
         $inscription = $this->inscriptionUserChampionshipMapper->getDatos($_REQUEST['id']);
-
+        
         // Put the User object visible to the view
         $this->view->setVariable("inscription", $inscription);
-
+        
         // render the view (/view/users/register.php)
         $this->view->render("championship", "deleteInscription");
-
     }
 
     /* Muestra los campeonatos que estan inscritos los usuarios */
-    public function showallInscriptionAllUsers() {
-        if (!isset($this->currentUser)) {
+    public function showallInscriptionAllUsers()
+    {
+        if (! isset($this->currentUser)) {
             throw new Exception("Not in session. see users inscriptions in championship requires admin");
         }
-
+        
         $championships = $this->inscriptionUserChampionshipMapper->getAllInscriptionsInChampionship();
-
+        
         // Put the User object visible to the view
         $this->view->setVariable("championships", $championships);
-
+        
         // render the view (/view/users/register.php)
         $this->view->render("championship", "showallInscriptionAllUsers");
-
     }
-
 }

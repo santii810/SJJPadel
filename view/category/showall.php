@@ -1,24 +1,26 @@
 <?php
-//file: view/users/register.php
-
-require_once(__DIR__."/../../core/ViewManager.php");
+// file: view/users/register.php
+require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $categories = $view->getVariable("categories");
-$view->setVariable("title", i18n("Categories") );
-$cabecera = array( "Level","Sex" );
+$view->setVariable("title", i18n("Categories"));
+$cabecera = array(
+    "Level",
+    "Sex"
+);
 ?>
 
-  <h3><?= i18n("Categories"); ?></h3>
-  
-  <a href="index.php?controller=category&amp;action=add">
-    <img src="images/addCategory.png" class="img-fluid" alt="Responsive image">
-  </a>
+<h3><?= i18n("Categories"); ?></h3>
 
-  <table class="table">
-  <thead class="thead-dark">
-    <tr>
+<a href="index.php?controller=category&amp;action=add"> <img
+	src="images/addCategory.png" class="img-fluid" alt="Responsive image">
+</a>
+
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
       <?php foreach($cabecera as $valor) { ?>
         <th scope="col">
           <?php echo i18n($valor); ?>
@@ -27,27 +29,32 @@ $cabecera = array( "Level","Sex" );
       <th scope="col" colspan="2">
         <?= i18n("Options"); ?>
       </th>
-    </tr>
-  </thead>
-  <tbody>
+		</tr>
+	</thead>
+	<tbody>
       <?php foreach( $categories as $category ) { ?>
         <tr>
-            <td>
+			<td>
               <?php echo $category->getNivel() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $category->getSexo() ; ?>
             </td>
-          <td>
-            <a href="index.php?controller=category&amp;action=edit&amp;id=<?php echo $category->getId() ?>">
-              <img src="images/editShowall.png" class="img-fluid" alt="Responsive image">
-            </a>
-            <a href="index.php?controller=category&amp;action=delete&amp;id=<?php echo $category->getId() ?>">
-              <img src="images/deleteShowall.png" class="img-fluid" alt="Responsive image">
-            </a>
-          </td>
-        <tr>  
+			<td><a
+				href="index.php?controller=category&amp;action=edit&amp;id=<?php echo $category->getId() ?>">
+					<img src="images/editShowall.png" class="img-fluid"
+					alt="Responsive image">
+			</a> <a
+				href="index.php?controller=category&amp;action=delete&amp;id=<?php echo $category->getId() ?>">
+					<img src="images/deleteShowall.png" class="img-fluid"
+					alt="Responsive image">
+			</a></td>
+		
+		
+		<tr>  
       <?php } ?>
-  </tbody>
+  
+	
+	</tbody>
 </table>
 

@@ -19,8 +19,8 @@ $view->setVariable("title", i18n("Edit championship"));
 				<br> <br>
 
 				<div class="form-group">
-					<label for="nombreCampeonato"><?= i18n("Championship name")?></label> <input
-						type="text" class="form-control" id="nombreCampeonato"
+					<label for="nombreCampeonato"><?= i18n("Championship name")?></label>
+					<input type="text" class="form-control" id="nombreCampeonato"
 						name="nombreCampeonato" placeholder="Enter name"
 						value="<?= $championship->getNombreCampeonato() ?>">
     <?= isset($errors["nombreCampeonato"])?i18n($errors["nombreCampeonato"]):"" ?><br>
@@ -30,15 +30,17 @@ $view->setVariable("title", i18n("Edit championship"));
 					<label for="fechaInicioInscripcion"><?= i18n("Registration start date")?></label>
 					<input type="date" class="form-control" id="fechaInicioInscripcion"
 						name="fechaInicioInscripcion" aria-describedby="loginHelp"
-						placeholder="" value="<?= $championship->getFechaInicioInscripcion() ?>" required>
+						placeholder=""
+						value="<?= $championship->getFechaInicioInscripcion() ?>" required>
     <?= isset($errors["fechaInicioInscripcion"])?i18n($errors["fechaInicioInscripcion"]):"" ?><br>
 				</div>
 
 				<div class="form-group">
-					<label for="fechaFinInscripcion"><?= i18n("Registration limit date")?></label> <input
-						type="date" class="form-control" id="fechaFinInscripcion"
+					<label for="fechaFinInscripcion"><?= i18n("Registration limit date")?></label>
+					<input type="date" class="form-control" id="fechaFinInscripcion"
 						name="fechaFinInscripcion" aria-describedby="loginHelp"
-						placeholder="" value="<?= $championship->getFechaFinInscripcion() ?>">
+						placeholder=""
+						value="<?= $championship->getFechaFinInscripcion() ?>">
     <?= isset($errors["fechaFinInscripcion"])?i18n($errors["fechaFinInscripcion"]):"" ?><br>
 				</div>
 
@@ -46,26 +48,29 @@ $view->setVariable("title", i18n("Edit championship"));
 					<label for="fechaInicioCampeonato"><?= i18n("Championship start date")?></label>
 					<input type="date" class="form-control" id="fechaInicioCampeonato"
 						name="fechaInicioCampeonato" aria-describedby="loginHelp"
-						placeholder="" value="<?= $championship->getFechaInicioCampeonato() ?>">
+						placeholder=""
+						value="<?= $championship->getFechaInicioCampeonato() ?>">
     <?= isset($errors["fechaInicioCampeonato"])?i18n($errors["fechaInicioCampeonato"]):"" ?><br>
 				</div>
 
 				<div class="form-group">
-					<label for="fechaFinCampeonato"><?= i18n("Championship finish date")?></label> <input
-						type="date" class="form-control" id="fechaFinCampeonato"
+					<label for="fechaFinCampeonato"><?= i18n("Championship finish date")?></label>
+					<input type="date" class="form-control" id="fechaFinCampeonato"
 						name="fechaFinCampeonato" aria-describedby="loginHelp"
-						placeholder="" value="<?= $championship->getFechaFinCampeonato() ?>">
+						placeholder=""
+						value="<?= $championship->getFechaFinCampeonato() ?>">
     <?= isset($errors["fechaFinCampeonato"])?i18n($errors["fechaFinCampeonato"]):"" ?><br>
 				</div>
 
 				<div class="form-group">
-					<label for="categories"><?= i18n("Categories")?></label><br/>
-					<select name="categories[]" multiple>
+					<label for="categories"><?= i18n("Categories")?></label><br /> <select
+						name="categories[]" multiple>
 					  <?php foreach ($categories as $category) { ?>
 					  	<!-- Si la categoria del campeonato coincide con la categoria la deja seleccionada -->
 					  	<?php if (in_array( $category, $categoriesCurrentChampionship )) { ?>
 							
-						<option selected="selected" value="<?php echo $category->getId() ?>"><?php echo $category->getNivel()."-".$category->getSexo() ?></option>
+						<option selected="selected"
+							value="<?php echo $category->getId() ?>"><?php echo $category->getNivel()."-".$category->getSexo() ?></option>
 						
 						<?php } else { ?>
 					  	
@@ -76,9 +81,11 @@ $view->setVariable("title", i18n("Edit championship"));
 					</select>
 				</div>
 
-				<input type="hidden" name="id" value="<?php echo $championship->getId() ?>">
+				<input type="hidden" name="id"
+					value="<?php echo $championship->getId() ?>">
 
-				<button type="submit" class="btn btn-primary" value="<?= i18n("Edit championship")?>"><?= i18n("Edit championship")?></button>
+				<button type="submit" class="btn btn-primary"
+					value="<?= i18n("Edit championship")?>"><?= i18n("Edit championship")?></button>
 
 			</form>
 		</div>

@@ -1,7 +1,6 @@
 <?php
-//file: view/posts/index.php
-
-require_once(__DIR__."/../../core/ViewManager.php");
+// file: view/posts/index.php
+require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $currentuser = $view->getVariable("currentusername");

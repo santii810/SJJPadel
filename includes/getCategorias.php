@@ -1,31 +1,30 @@
 <?php
-	@session_start();
+@session_start();
 
-	require_once("../model/ChampionshipMapper.php");
-	require_once("../model/Category.php");
+require_once ("../model/ChampionshipMapper.php");
+require_once ("../model/Category.php");
 
-	$mensaje = '';
+$mensaje = '';
 
-	if($_SESSION["__currentlang__"] == "es"){
-		$mensaje = "Selecciona Categoria";
-	} else {
-		$mensaje = "Select Category";
-	}
+if ($_SESSION["__currentlang__"] == "es") {
+    $mensaje = "Selecciona Categoria";
+} else {
+    $mensaje = "Select Category";
+}
 
-	$idCampeonato = $_REQUEST['idCampeonato'];
+$idCampeonato = $_REQUEST['idCampeonato'];
 
-	$championshipMapper = new ChampionshipMapper();
+$championshipMapper = new ChampionshipMapper();
 
-	$categories = $championshipMapper->getCategorias($idCampeonato);
-	
-	$html="";
+$categories = $championshipMapper->getCategorias($idCampeonato);
 
-	$html.= "<option value=''>" . $mensaje . "</option>";
+$html = "";
 
-	foreach($categories as $category)
-	{
-		$html.= "<option value='".$category->getId()."'>".$category->getNivel()."-".$category->getSexo()."</option>";
-	}
-	
-	echo $html;
+$html .= "<option value=''>" . $mensaje . "</option>";
+
+foreach ($categories as $category) {
+    $html .= "<option value='" . $category->getId() . "'>" . $category->getNivel() . "-" . $category->getSexo() . "</option>";
+}
+
+echo $html;
 ?>

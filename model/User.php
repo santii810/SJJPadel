@@ -1,101 +1,115 @@
 <?php
 // file: model/User.php
+require_once (__DIR__ . "/../core/ValidationException.php");
 
-require_once(__DIR__."/../core/ValidationException.php");
+class User
+{
 
-class User {
+    private $login;
 
-	private $login;
-	private $username;	
-	private $surname;
-	private $pass;
-	private $rol;
-	private $gender;
-	
-	public function __construct($login=NULL,$username=NULL,$surname=NULL,$pass=NULL,$rol=NULL,$gender=NULL) {
-		$this->login = $login;
-		$this->username = $username;
-		$this->surname = $surname;
-		$this->pass = $pass;
-		$this->rol = $rol;
-		$this->gender = $gender;
-	}
+    private $username;
 
-	public function getLogin() {
-		return $this->login;
-	}
+    private $surname;
 
-	public function setLogin($login) {
-		$this->login = $login;
-	}
+    private $pass;
 
-	public function getUsername() {
-		return $this->username;
-	}
+    private $rol;
 
-	public function setUsername($username) {
-		$this->username = $username;
-	}
+    private $gender;
 
-	public function getSurname() {
-		return $this->surname;
-	}
+    public function __construct($login = NULL, $username = NULL, $surname = NULL, $pass = NULL, $rol = NULL, $gender = NULL)
+    {
+        $this->login = $login;
+        $this->username = $username;
+        $this->surname = $surname;
+        $this->pass = $pass;
+        $this->rol = $rol;
+        $this->gender = $gender;
+    }
 
-	public function setSurname($surname) {
-		$this->surname = $surname;
-	}
+    public function getLogin()
+    {
+        return $this->login;
+    }
 
-	public function getPass() {
-		return $this->pass;
-	}
-	
-	public function setPass($pass) {
-		$this->pass = $pass;
-	}
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
 
-	public function getRol() {
-		return $this->rol;
-	}
+    public function getUsername()
+    {
+        return $this->username;
+    }
 
-	public function setRol($rol) {
-		$this->rol = $rol;
-	}
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
 
-	public function getGender() {
-		return $this->gender;
-	}
+    public function getSurname()
+    {
+        return $this->surname;
+    }
 
-	public function setGender($gender) {
-		$this->gender = $gender;
-	}
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
 
-	public function checkIsValidForRegister() {
-		$errors = array();
-		if (strlen($this->login) < 3) {
-			$errors["login"] = "login must be at least 3 characters length";
+    public function getPass()
+    {
+        return $this->pass;
+    }
 
-		}
-		if (strlen($this->username) < 3) {
-			$errors["username"] = "Username must be at least 3 characters length";
+    public function setPass($pass)
+    {
+        $this->pass = $pass;
+    }
 
-		}
-		if (strlen($this->surname) < 3) {
-			$errors["surname"] = "Surname must be at least 3 characters length";
+    public function getRol()
+    {
+        return $this->rol;
+    }
 
-		}
-		if (strlen($this->pass) < 3) {
-			$errors["pass"] = "Password must be at least 3 characters length";
-		}
-		if (strlen($this->rol) < 1) {
-			$errors["rol"] = "Rol must be at least 1 characters length";
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+    }
 
-		}
-		if (strlen($this->gender) < 1) {
-			$errors["gender"] = "Gender must be at least 1 characters length";
+    public function getGender()
+    {
+        return $this->gender;
+    }
 
-		}
-		if (sizeof($errors)>0){
-			throw new ValidationException($errors, "user is not valid");
-		}
-	}
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
+
+    public function checkIsValidForRegister()
+    {
+        $errors = array();
+        if (strlen($this->login) < 3) {
+            $errors["login"] = "login must be at least 3 characters length";
+        }
+        if (strlen($this->username) < 3) {
+            $errors["username"] = "Username must be at least 3 characters length";
+        }
+        if (strlen($this->surname) < 3) {
+            $errors["surname"] = "Surname must be at least 3 characters length";
+        }
+        if (strlen($this->pass) < 3) {
+            $errors["pass"] = "Password must be at least 3 characters length";
+        }
+        if (strlen($this->rol) < 1) {
+            $errors["rol"] = "Rol must be at least 1 characters length";
+        }
+        if (strlen($this->gender) < 1) {
+            $errors["gender"] = "Gender must be at least 1 characters length";
+        }
+        if (sizeof($errors) > 0) {
+            throw new ValidationException($errors, "user is not valid");
+        }
+    }
 }

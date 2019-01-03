@@ -1,51 +1,63 @@
 <?php
 // file: model/Reservation.php
+require_once (__DIR__ . "/../core/ValidationException.php");
 
-require_once(__DIR__."/../core/ValidationException.php");
+class Reservation
+{
 
-class Reservation {
-	private $idReservation;
-	private $idUserReservation;
-	private $dateReservation;
-	private $hourReservation;
+    private $idReservation;
 
-        function __construct($idReservation=NULL, $idUserReservation=NULL, $dateReservation=NULL, $hourReservation=NULL) {
-            $this->idReservation = $idReservation;
-            $this->idUserReservation = $idUserReservation;
-            $this->dateReservation = $dateReservation;
-            $this->hourReservation = $hourReservation;
-        }
+    private $idUserReservation;
 
-        function getIdReservation() {
-            return $this->idReservation;
-        }
+    private $dateReservation;
 
-        function getIdUserReservation() {
-            return $this->idUserReservation;
-        }
+    private $hourReservation;
 
-        function getDateReservation() {
-            return $this->dateReservation;
-        }
+    function __construct($idReservation = NULL, $idUserReservation = NULL, $dateReservation = NULL, $hourReservation = NULL)
+    {
+        $this->idReservation = $idReservation;
+        $this->idUserReservation = $idUserReservation;
+        $this->dateReservation = $dateReservation;
+        $this->hourReservation = $hourReservation;
+    }
 
-        function getHourReservation() {
-            return $this->hourReservation;
-        }
+    function getIdReservation()
+    {
+        return $this->idReservation;
+    }
 
-        function setIdReservation($idReservation) {
-            $this->idReservation = $idReservation;
-        }
+    function getIdUserReservation()
+    {
+        return $this->idUserReservation;
+    }
 
-        function setIdUserReservation($idUserReservation) {
-            $this->idUserReservation = $idUserReservation;
-        }
+    function getDateReservation()
+    {
+        return $this->dateReservation;
+    }
 
-        function setDateReservation($dateReservation) {
-            $this->dateReservation = $dateReservation;
-        }
+    function getHourReservation()
+    {
+        return $this->hourReservation;
+    }
 
-        function setHourReservation($hourReservation) {
-            $this->hourReservation = $hourReservation;
-        }
+    function setIdReservation($idReservation)
+    {
+        $this->idReservation = $idReservation;
+    }
 
+    function setIdUserReservation($idUserReservation)
+    {
+        $this->idUserReservation = $idUserReservation;
+    }
+
+    function setDateReservation($dateReservation)
+    {
+        $this->dateReservation = $dateReservation;
+    }
+
+    function setHourReservation($hourReservation)
+    {
+        $this->hourReservation = $hourReservation;
+    }
 }

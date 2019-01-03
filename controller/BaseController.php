@@ -1,11 +1,10 @@
 <?php
-//file: controller/BaseController.php
+// file: controller/BaseController.php
+require_once (__DIR__ . "/../core/ViewManager.php");
+require_once (__DIR__ . "/../core/I18n.php");
 
-require_once(__DIR__."/../core/ViewManager.php");
-require_once(__DIR__."/../core/I18n.php");
-
-require_once(__DIR__."/../model/User.php");
-require_once(__DIR__."/../model/UserMapper.php");
+require_once (__DIR__ . "/../model/User.php");
+require_once (__DIR__ . "/../model/UserMapper.php");
 
 /**
  * Class BaseController
@@ -17,41 +16,44 @@ require_once(__DIR__."/../model/UserMapper.php");
  *
  * @author lipido <lipido@gmail.com>
  */
-class BaseController {
+class BaseController
+{
 
-	/**
-	 * The view manager instance
-	 * @var ViewManager
-	 */
-	protected $view;
+    /**
+     * The view manager instance
+     *
+     * @var ViewManager
+     */
+    protected $view;
 
-	/**
-	 * The current user instance
-	 * @var User
-	 */
-	protected $currentUser;
+    /**
+     * The current user instance
+     *
+     * @var User
+     */
+    protected $currentUser;
 
-	public function __construct() {
-
-		$this->view = ViewManager::getInstance();
-
-		// get the current user and put it to the view
-		if (session_status() == PHP_SESSION_NONE) {
-			session_start();
-		}
-
-		if(isset($_SESSION["currentuser"])) {
-			$userMapper = new UserMapper();
-			$datosUser = $userMapper->getDatos($_SESSION["currentuser"]);
-
-			//new User($_SESSION["currentuser"],$nombre,$apellidos,$pass,$rol,$genero);			
-			//Tiene todos los datos del usuario logeado
-			$this->currentUser = $datosUser;
-
-			//add current user to the view, since some views require it
-			$this->view->setVariable("currentusername",$this->currentUser->getLogin());
-			$this->view->setVariable("currentGender",$this->currentUser->getGender());
-			$this->view->setVariable("currentRol",$this->currentUser->getRol());
-		}
-	}
+    public function __construct()
+    {
+        $this->view = ViewManager::getInstance();
+        
+        // get the current user and put it to the view
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if (isset($_SESSION["currentuser"])) {
+            $userMapper = new UserMapper();
+            $datosUser = $userMapper->getDatos($_SESSION["currentuser"]);
+            
+            // new User($_SESSION["currentuser"],$nombre,$apellidos,$pass,$rol,$genero);
+            // Tiene todos los datos del usuario logeado
+            $this->currentUser = $datosUser;
+            
+            // add current user to the view, since some views require it
+            $this->view->setVariable("currentusername", $this->currentUser->getLogin());
+            $this->view->setVariable("currentGender", $this->currentUser->getGender());
+            $this->view->setVariable("currentRol", $this->currentUser->getRol());
+        }
+    }
 }

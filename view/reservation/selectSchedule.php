@@ -68,21 +68,21 @@ function getNumReservations($date, $hour, $reservations)
 	<div class="container">
       <?php
     
-$date = time();
+    $date = time();
     for ($i = 0; $i < 7; $i ++) {
         ?>
         <div class="row">
 			<div class="col-xl-12">
             <?php
         
-echo "<br><h3>" . date('d-m-Y', $date) . "</h3>";
+        echo "<br><h3>" . date('d-m-Y', $date) . "</h3>";
         ?>
           </div>
 		</div>
 		<div class="row">
           <?php
         
-foreach ($hours as $hour) {
+        foreach ($hours as $hour) {
             $numReservas = getNumReservations($date, $hour, $reservations);
             ?>
             <div class="col-sm-3 col-6">

@@ -10,36 +10,36 @@ $fase = $view->getVariable("fase");
 $parejas = $view->getVariable("parejas");
 $view->setVariable("title", i18n("Enter match results"));
 $cabecera = array(
-	i18n("Date"),
-	i18n("Hour"),
-	i18n("Couple 1"),
-	i18n("Couple 2"),
-	i18n("Points couple 1"),
-	i18n("Points couple 2"),
-	i18n("Sets couple 1"),
-	i18n("Sets couple 2")
+    i18n("Date"),
+    i18n("Hour"),
+    i18n("Couple 1"),
+    i18n("Couple 2"),
+    i18n("Points couple 1"),
+    i18n("Points couple 2"),
+    i18n("Sets couple 1"),
+    i18n("Sets couple 2")
 );
 
 ?>
 
 <h3> <?= i18n("Enter match results") ?> </h3>
 <form action="index.php?controller=confrontation&amp;action=setresults"
-method="POST">
+	method="POST">
 
-<table class="table table-striped">
-	<thead class="thead-dark">
-		<tr>
+	<table class="table table-striped">
+		<thead class="thead-dark">
+			<tr>
 			<?php foreach($cabecera as $valor) { ?>
 				<th scope="col">
 					<?php echo i18n( $valor ); ?>
 				</th>
 			<?php } ?>
 		</tr>
-	</thead>
-	<tbody>
+		</thead>
+		<tbody>
 		<?php foreach($partidos as $partido) { ?>
 			<input type="hidden" name="idEnfrentamiento[]"
-			value="<?php echo $partido->getIdConfrontation() ?>">
+				value="<?php echo $partido->getIdConfrontation() ?>">
 			<tr>
 				<td>
 					<?php echo $partido->getDate(); ?>
@@ -61,28 +61,30 @@ method="POST">
 				</td>
 				<td>
 					<div class="col-xs-3">
-						<input class="form-control" type="number" name="setsPareja1[]" value="<?= $partido->getSetsPartner1() ?>" >
+						<input class="form-control" type="number" name="setsPareja1[]"
+							value="<?= $partido->getSetsPartner1() ?>">
 					</div>
 				</td>
 				<td>
 					<div class="col-xs-3">
-						<input class="form-control" type="number" name="setsPareja2[]" value="<?= $partido->getSetsPartner2() ?>" >
+						<input class="form-control" type="number" name="setsPareja2[]"
+							value="<?= $partido->getSetsPartner2() ?>">
 					</div>
 				</td>
 			</tr>
 		<?php } ?>
 	</tbody>
-</table>
+	</table>
 
-<input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>">
-<input type="hidden" name="fase" value="<?php echo $fase ?>">
+	<input type="hidden" name="idGrupo" value="<?php echo $idGrupo ?>"> <input
+		type="hidden" name="fase" value="<?php echo $fase ?>">
 
-<p class="text-danger">
-	</span><?= isset($errors["result"])? i18n($errors["result"]) : "" ;?>
+	<p class="text-danger">
+		</span><?= isset($errors["result"])? i18n($errors["result"]) : "" ;?>
 </p>
-<br>
+	<br>
 
-<button type="submit" class="btn btn-primary" value=""> <?= i18n("Save") ?> </button>
+	<button type="submit" class="btn btn-primary" value=""> <?= i18n("Save") ?> </button>
 
 
 </form>

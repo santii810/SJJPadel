@@ -1,240 +1,255 @@
 <?php
 // file: model/PostMapper.php
-require_once(__DIR__."/../core/PDOConnection.php");
+require_once (__DIR__ . "/../core/PDOConnection.php");
 
-require_once(__DIR__."/../model/User.php");
-require_once(__DIR__."/../model/Championship.php");
-require_once(__DIR__."/../model/Group.php");
-require_once(__DIR__."/../model/Category.php");
+require_once (__DIR__ . "/../model/User.php");
+require_once (__DIR__ . "/../model/Championship.php");
+require_once (__DIR__ . "/../model/Group.php");
+require_once (__DIR__ . "/../model/Category.php");
 
-class ChampionshipMapper {
+class ChampionshipMapper
+{
 
-	/**
-	* Reference to the PDO connection
-	* @var PDO
-	*/
-	private $db;
+    /**
+     * Reference to the PDO connection
+     *
+     * @var PDO
+     */
+    private $db;
 
-	public function __construct() {
-		$this->db = PDOConnection::getInstance();
-	}
-
-	public function save($championship) {
-		$stmt = $this->db->prepare("INSERT INTO campeonato(fechaInicioInscripcion, fechaFinInscripcion, fechaInicioCampeonato, fechaFinCampeonato, nombreCampeonato) values (?,?,?,?,?)");
-		$stmt->execute(array($championship->getFechaInicioInscripcion(), $championship->getFechaFinInscripcion(),$championship->getFechaInicioCampeonato(),$championship->getFechaFinCampeonato(), $championship->getNombreCampeonato()));
-		return $this->db->lastInsertId();
-	}
-
-	public function delete($id){
-      $stmt = $this->db->prepare("DELETE FROM campeonato where idCampeonato=?");
-      $stmt->execute(array($id));
+    public function __construct()
+    {
+        $this->db = PDOConnection::getInstance();
     }
 
-    public function edit($championship){
-      $stmt = $this->db->prepare("UPDATE campeonato set fechaInicioInscripcion=?,
+    public function save($championship)
+    {
+        $stmt = $this->db->prepare("INSERT INTO campeonato(fechaInicioInscripcion, fechaFinInscripcion, fechaInicioCampeonato, fechaFinCampeonato, nombreCampeonato) values (?,?,?,?,?)");
+        $stmt->execute(array(
+            $championship->getFechaInicioInscripcion(),
+            $championship->getFechaFinInscripcion(),
+            $championship->getFechaInicioCampeonato(),
+            $championship->getFechaFinCampeonato(),
+            $championship->getNombreCampeonato()
+        ));
+        return $this->db->lastInsertId();
+    }
+
+    public function delete($id)
+    {
+        $stmt = $this->db->prepare("DELETE FROM campeonato where idCampeonato=?");
+        $stmt->execute(array(
+            $id
+        ));
+    }
+
+    public function edit($championship)
+    {
+        $stmt = $this->db->prepare("UPDATE campeonato set fechaInicioInscripcion=?,
       													fechaFinInscripcion=?,
       													fechaInicioCampeonato=?,
       													fechaFinCampeonato=?,
       													nombreCampeonato=?
       												where idCampeonato =?");
-      $stmt->execute(array($championship->getFechaInicioInscripcion(),
-      					   $championship->getFechaFinInscripcion(),
-      					   $championship->getFechaInicioCampeonato(),
-      					   $championship->getFechaFinCampeonato(),
-      					   $championship->getNombreCampeonato(),
-      					   $championship->getId()
-      					));
+        $stmt->execute(array(
+            $championship->getFechaInicioInscripcion(),
+            $championship->getFechaFinInscripcion(),
+            $championship->getFechaInicioCampeonato(),
+            $championship->getFechaFinCampeonato(),
+            $championship->getNombreCampeonato(),
+            $championship->getId()
+        ));
     }
 
-	//prueba objectos
-	public function getCampeonatos(){
-		$stmt = $this->db->query("SELECT *
+    /**
+     * Obtiene los datos de un campeonato
+     *
+     * @param int $idCampeonato
+     *            identificador del campeonato
+     * @return Championship Objeto con todos los datos del campeonato
+     */
+    public function getCampeonato($idCampeonato)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM campeonato WHERE idCampeonato = ?");
+        $stmt->execute(array(
+            $idCampeonato
+        ));
+        $championship = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($championship != null) {
+            return new Championship($championship["idCampeonato"], $championship["fechaInicioInscripcion"], $championship["fechaFinInscripcion"], $championship["fechaInicioCampeonato"], $championship["fechaFinCampeonato"], $championship["nombreCampeonato"], $championship["fase"]);
+        }
+    }
+
+    // prueba objectos
+    public function getCampeonatos()
+    {
+        $stmt = $this->db->query("SELECT *
 			FROM campeonato");
-		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $championships = array();
+        
+        foreach ($toret_db as $championship) {
+            array_push($championships, new Championship($championship["idCampeonato"], $championship["fechaInicioInscripcion"], $championship["fechaFinInscripcion"], $championship["fechaInicioCampeonato"], $championship["fechaFinCampeonato"], $championship["nombreCampeonato"], $championship["fase"]));
+        }
+        return $championships;
+    }
 
-		$championships = array();
+    // Retorna campeonatos ya en curso
+    public function getCampeonatosInProgress()
+    {
+        $stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioCampeonato < curdate()");
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $championships = array();
+        
+        foreach ($toret_db as $championship) {
+            array_push($championships, new Championship($championship["idCampeonato"], $championship["fechaInicioInscripcion"], $championship["fechaFinInscripcion"], $championship["fechaInicioCampeonato"], $championship["fechaFinCampeonato"], $championship["nombreCampeonato"]));
+        }
+        return $championships;
+    }
 
-		foreach ($toret_db as $championship) {
-			array_push($championships, new Championship(
-				$championship["idCampeonato"],
-				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"],
-				$championship["fechaInicioCampeonato"],
-				$championship["fechaFinCampeonato"],
-				$championship["nombreCampeonato"],
-				$championship["fase"]));
-		}
-		return $championships;
-	}
+    // devuelve una lista de campeonatos con la fecha de incripcion finalziada y que no tengan grupos ya creados
+    public function getCampeonatosToGenerateGroups()
+    {
+        $stmt = $this->db->query("SELECT * FROM campeonato where fechaFinInscripcion <= curdate() and (Select count(idCampeonato) from grupo where campeonato.idCampeonato = grupo.idCampeonato ) = 0");
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $championships = array();
+        
+        foreach ($toret_db as $championship) {
+            array_push($championships, new Championship($championship["idCampeonato"], $championship["fechaInicioInscripcion"], $championship["fechaFinInscripcion"], $championship["fechaInicioCampeonato"], $championship["fechaFinCampeonato"], $championship["nombreCampeonato"]));
+        }
+        
+        return $championships;
+    }
 
-	//Retorna campeonatos ya en curso
-	public function getCampeonatosInProgress(){
-		$stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioCampeonato < curdate()");
-		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // prueba objectos
+    public function getCampeonatosParaIncripcion()
+    {
+        $stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioInscripcion <= curdate() and fechaFinInscripcion >= curdate()");
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $championships = array();
+        
+        foreach ($toret_db as $championship) {
+            array_push($championships, new Championship($championship["idCampeonato"], $championship["fechaInicioInscripcion"], $championship["fechaFinInscripcion"], $championship["fechaInicioCampeonato"], $championship["fechaFinCampeonato"], $championship["nombreCampeonato"]));
+        }
+        
+        return $championships;
+    }
 
-		$championships = array();
-
-		foreach ($toret_db as $championship) {
-			array_push($championships, new Championship(
-				$championship["idCampeonato"],
-				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"],
-				$championship["fechaInicioCampeonato"],
-				$championship["fechaFinCampeonato"],
-				$championship["nombreCampeonato"]));
-		}
-		return $championships;
-	}
-
-	// devuelve una lista de campeonatos con la fecha de incripcion finalziada y que no tengan grupos ya creados
-	public function getCampeonatosToGenerateGroups(){
-		$stmt = $this->db->query("SELECT * FROM campeonato where fechaFinInscripcion <= curdate() and (Select count(idCampeonato) from grupo where campeonato.idCampeonato = grupo.idCampeonato ) = 0");
-		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		$championships = array();
-
-		foreach ($toret_db as $championship) {
-			array_push($championships, new Championship(
-				$championship["idCampeonato"],
-				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"],
-				$championship["fechaInicioCampeonato"],
-				$championship["fechaFinCampeonato"],
-				$championship["nombreCampeonato"]));
-		}
-
-		return $championships;
-
-	}
-
-		//prueba objectos
-	public function getCampeonatosParaIncripcion(){
-		$stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioInscripcion <= curdate() and fechaFinInscripcion >= curdate()");
-		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		$championships = array();
-
-		foreach ($toret_db as $championship) {
-			array_push($championships, new Championship(
-				$championship["idCampeonato"],
-				$championship["fechaInicioInscripcion"],
-				$championship["fechaFinInscripcion"],
-				$championship["fechaInicioCampeonato"],
-				$championship["fechaFinCampeonato"],
-				$championship["nombreCampeonato"]));
-		}
-
-		return $championships;
-
-	}
-
-	//obtener las categorias de un campeonato
-	public function getCategorias($idCampeonato) {
-		$stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
+    // obtener las categorias de un campeonato
+    public function getCategorias($idCampeonato)
+    {
+        $stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
 			FROM campeonato cam,categoriascampeonato catc, categoria cat
 			WHERE cam.idCampeonato = catc.idCampeonato AND
 			catc.idCategoria = cat.idCategoria AND
 			cam.idCampeonato = ?
 			ORDER BY idCategoria");
-		$stmt->execute(array($idCampeonato));
+        $stmt->execute(array(
+            $idCampeonato
+        ));
+        
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $categories = array();
+        
+        foreach ($toret_db as $category) {
+            array_push($categories, new Category($category["idCategoria"], $category["nivel"], $category["sexo"]));
+        }
+        
+        return $categories;
+    }
 
-		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		$categories = array();
-
-		foreach ($toret_db as $category) {
-			array_push($categories, new Category(
-				$category["idCategoria"],
-				$category["nivel"],
-				$category["sexo"]
-			));
-		}
-
-		return $categories;
-	}
-
-	public function getGrupos($idCampeonato,$idCategoria) {
-		$stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato
+    public function getGrupos($idCampeonato, $idCategoria)
+    {
+        $stmt = $this->db->prepare("SELECT g.idGrupo,g.nombreGrupo,g.idCategoria,g.idCampeonato
 			FROM campeonato cam,grupo g,categoria c
 			WHERE cam.idCampeonato = g.idCampeonato AND
 			c.idCategoria = g.idCategoria AND
 			cam.idCampeonato = ? AND
 			c.idCategoria = ? ");
-		$stmt->execute(array($idCampeonato,$idCategoria));
-
-		$toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-		$groups = array();
-
-		foreach ($toret_db as $group) {
-			array_push($groups, new Group(
-				$group["idGrupo"],
-				$group["idCategoria"],
-				$group["idCampeonato"],
-				$group["nombreGrupo"]
-			));
-		}
-
-		return $groups;
-	}
-
-
-	public function getNombreCampeonato($idCampeonato){
-		$stmt = $this->db->prepare("SELECT nombreCampeonato FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= curdate() AND fechaFinCampeonato >= curdate()");
-		$stmt->execute(array($idCampeonato));
-		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($toret_db != null ){
-			return $toret_db["nombreCampeonato"];
-		}
-	}
-
-	public function validateHour($idChampionship, $fechaOffer){
-		$stmt = $this->db->prepare("SELECT COUNT(*) as count FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= ? AND fechaFinCampeonato >= ? AND ? > curdate()");
-		$stmt->execute(array($idChampionship, $fechaOffer, $fechaOffer, $fechaOffer));
-		$toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-
-		if($toret_db["count"] == 1){
-			return true;
-		}
-		else{
-			return false;
-		}
-
-	}
-
-	public function getDatos($id) {
-    $stmt = $this->db->prepare("SELECT * FROM campeonato where idCampeonato=?");
-    $stmt->execute(array($id));
-
-    $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $championship = null;
-
-    foreach ($toret_db as $datos) {
-      $championship = new Championship(
-        $datos["idCampeonato"],
-		$datos["fechaInicioInscripcion"],
-		$datos["fechaFinInscripcion"],
-		$datos["fechaInicioCampeonato"],
-		$datos["fechaFinCampeonato"],
-		$datos["nombreCampeonato"]
-      );
+        $stmt->execute(array(
+            $idCampeonato,
+            $idCategoria
+        ));
+        
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $groups = array();
+        
+        foreach ($toret_db as $group) {
+            array_push($groups, new Group($group["idGrupo"], $group["idCategoria"], $group["idCampeonato"], $group["nombreGrupo"]));
+        }
+        
+        return $groups;
     }
 
-    return $championship;
-  }
+    public function getNombreCampeonato($idCampeonato)
+    {
+        $stmt = $this->db->prepare("SELECT nombreCampeonato FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= curdate() AND fechaFinCampeonato >= curdate()");
+        $stmt->execute(array(
+            $idCampeonato
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($toret_db != null) {
+            return $toret_db["nombreCampeonato"];
+        }
+    }
 
-  public function checkPhase($idCampeonato,$fase){
+    public function validateHour($idChampionship, $fechaOffer)
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= ? AND fechaFinCampeonato >= ? AND ? > curdate()");
+        $stmt->execute(array(
+            $idChampionship,
+            $fechaOffer,
+            $fechaOffer,
+            $fechaOffer
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($toret_db["count"] == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getDatos($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM campeonato where idCampeonato=?");
+        $stmt->execute(array(
+            $id
+        ));
+        
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $championship = null;
+        
+        foreach ($toret_db as $datos) {
+            $championship = new Championship($datos["idCampeonato"], $datos["fechaInicioInscripcion"], $datos["fechaFinInscripcion"], $datos["fechaInicioCampeonato"], $datos["fechaFinCampeonato"], $datos["nombreCampeonato"]);
+        }
+        
+        return $championship;
+    }
+
+    public function checkPhase($idCampeonato, $fase)
+    {
         $stmt = $this->db->prepare("SELECT count(*) FROM campeonato where idCampeonato=? and fase=?");
-		$stmt->execute(array($idCampeonato, $fase));
-
-		if ($stmt->fetchColumn() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+        $stmt->execute(array(
+            $idCampeonato,
+            $fase
+        ));
+        
+        if ($stmt->fetchColumn() > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }
 

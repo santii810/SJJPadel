@@ -1,20 +1,25 @@
 <?php
-
-require_once(__DIR__."/../../core/ViewManager.php");
+require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $errors = $view->getVariable("errors");
 $championships = $view->getVariable("championships");
 
-$view->setVariable("title", i18n("Inscriptions users") );
-$cabecera = array(  "Captain", "Fellow", "Level", "Sex", "Name championship" );
+$view->setVariable("title", i18n("Inscriptions users"));
+$cabecera = array(
+    "Captain",
+    "Fellow",
+    "Level",
+    "Sex",
+    "Name championship"
+);
 ?>
 
-  <h3><?= i18n("Inscriptions users"); ?></h3>
+<h3><?= i18n("Inscriptions users"); ?></h3>
 
-  <table class="table">
-  <thead class="thead-dark">
-    <tr>
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
       <?php foreach( $cabecera as $valor ) { ?>
         <th scope="col">
           <?php echo i18n( $valor ); ?>
@@ -23,27 +28,27 @@ $cabecera = array(  "Captain", "Fellow", "Level", "Sex", "Name championship" );
       
     </tr>
 
-  </thead>
-  <tbody>
+	</thead>
+	<tbody>
       <?php foreach( $championships as $championship ) {  ?>
         <tr>
-            
-            <td>
+
+			<td>
               <?php echo $championship->getIdCaptain() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $championship->getIdFellow() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $championship->getLevel() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $championship->getSex() ; ?>
             </td>
-            <td>
+			<td>
               <?php echo $championship->getNameChampionship() ; ?>
             </td>
-        </tr>  
+		</tr>  
       <?php } ?>
   </tbody>
 </table>

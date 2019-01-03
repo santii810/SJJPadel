@@ -16,6 +16,9 @@ require_once (__DIR__ . "/../model/GroupMapper.php");
 require_once (__DIR__ . "/../model/Category.php");
 require_once (__DIR__ . "/../model/CategoryMapper.php");
 
+require_once (__DIR__ . "/../model/Partner.php");
+require_once (__DIR__ . "/../model/PartnerMapper.php");
+
 require_once (__DIR__ . "/../model/Partnergroup.php");
 require_once (__DIR__ . "/../model/PartnergroupMapper.php");
 
@@ -207,6 +210,63 @@ class ChampionshipController extends BaseController
         $this->view->render("championship", "selectToCalendar");
     }
 
+    /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
+    public function showallInscriptionCurrentUser()
+    {
+        if (! isset($this->currentUser)) {
+            throw new Exception("Not in session. see inscription championship requires login");
+        }
+        
+        $championships = $this->inscriptionUserChampionshipMapper->getInscriptionsCurrentUserInChampionship($this->currentUser->getLogin());
+        
+        // Put the User object visible to the view
+        $this->view->setVariable("championships", $championships);
+        
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "showallInscriptionCurrentUser");
+    }
+
+    /* Borra la inscripcion a un campeonato */
+    public function deleteInscription()
+    {
+        if (! isset($this->currentUser)) {
+            throw new Exception("Not in session. delete Inscription requires login");
+        }
+        
+        if (isset($_POST['idCaptain']) && isset($_POST['idFellow']) && isset($_POST['level']) && isset($_POST['sex']) && isset($_POST['championship_name'])) {
+            
+            $this->inscriptionUserChampionshipMapper->delete($_POST['id']);
+            
+            $this->view->setFlash("successfully delete");
+            
+            $this->view->redirect("championship", "showallInscriptionCurrentUser");
+        }
+        
+        $inscription = $this->inscriptionUserChampionshipMapper->getDatos($_REQUEST['id']);
+        
+        // Put the User object visible to the view
+        $this->view->setVariable("inscription", $inscription);
+        
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "deleteInscription");
+    }
+
+    /* Muestra los campeonatos que estan inscritos los usuarios */
+    public function showallInscriptionAllUsers()
+    {
+        if (! isset($this->currentUser)) {
+            throw new Exception("Not in session. see users inscriptions in championship requires admin");
+        }
+        
+        $championships = $this->inscriptionUserChampionshipMapper->getAllInscriptionsInChampionship();
+        
+        // Put the User object visible to the view
+        $this->view->setVariable("championships", $championships);
+        
+        // render the view (/view/users/register.php)
+        $this->view->render("championship", "showallInscriptionAllUsers");
+    }
+
     /*
      * Genera el calendario de un campeonato.
      * Recorre el conjunto de categorias de los campeonatos.
@@ -220,30 +280,39 @@ class ChampionshipController extends BaseController
             throw new Exception("Not in session. Check Confrontations requires login");
         }
         if (isset($_REQUEST["id"])) {
-            $campenato = $this->championshipMapper->getCampeonato($_REQUEST["id"]);
-            if ($campenato->needGenerateCalendar()) {
-                
-                switch ($campenato->getFase()) {
+            $campeonato = $this->championshipMapper->getCampeonato($_REQUEST["id"]);
+            // TODO quitar esa condicion
+            if ($campeonato->needGenerateCalendar() || 1) {
+                switch ($campeonato->getFase()) {
                     case Fase::INSCRIPCION:
                         // Si está en fase de inscripcion se crean los grupos
-                        $groupHasGenerated = $this->generateGroups($campenato);
+                        $groupHasGenerated = $this->generateGroups($campeonato);
                         if ($groupHasGenerated)
-                            $this->championshipMapper->updateFase($campenato->getId(), Fase::GRUPOS);
+                            $this->championshipMapper->updateFase($campeonato->getId(), Fase::GRUPOS);
                         // TODO añadir mensaje de retorno
                         break;
                     case Fase::GRUPOS:
                         // Se crean los cuartos
-                        //TODO gestionar fase
+                        $grupos = $this->groupMapper->getGroupsFromChampionship($campeonato->getId());
+                        $this->crearEnfrentamientosCuartos($grupos);
+                        $this->championshipMapper->updateFase($campeonato->getId(), Fase::CUARTOS);
+                        // TODO añadir mensaje de retorno
                         break;
                     case Fase::CUARTOS:
-                        // Se crean las semifinales
-                        //TODO gestionar fase
+                        $grupos = $this->groupMapper->getGroupsFromChampionship($campeonato->getId());
+                        $this->crearEnfrentamientosSemifinal($grupos);
+                        $this->championshipMapper->updateFase($campeonato->getId(), Fase::SEMIFINAL);
+                        // TODO añadir mensaje de retorno
                         break;
                     case Fase::SEMIFINAL:
-                        // se crea la final
-                        //TODO gestionar fase
+                        $grupos = $this->groupMapper->getGroupsFromChampionship($campeonato->getId());
+                        $this->crearEnfrentamientoFinal($grupos);
+                        $this->championshipMapper->updateFase($campeonato->getId(), Fase::FINAL);
+                        // TODO añadir mensaje de retorno
                         break;
                 }
+            } else {
+                throw new Exception(i18n("Cannot generate groups from this championship"));
             }
         }
         $this->view->redirect("championship", "showall");
@@ -356,60 +425,131 @@ class ChampionshipController extends BaseController
         }
     }
 
-    /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
-    public function showallInscriptionCurrentUser()
+    /**
+     * Calcula la clasificacion de un grupo
+     *
+     * @param int $idGrupo
+     *            id del grupo a calcular
+     * @return int[] id de las 8 parejas clasificadas, ordenadas de mejor clasificada a peor clasificada.
+     */
+    private function groupWinners($idGrupo)
     {
-        if (! isset($this->currentUser)) {
-            throw new Exception("Not in session. see inscription championship requires login");
+        $confrontationMapper = new confrontationMapper();
+        // Recoge todos los id de las parejas que estan en el grupo seleccionado
+        $partnergroupMapper = new PartnergroupMapper();
+        $idParejas = $partnergroupMapper->getIdParejasGrupo($idGrupo);
+        $array_idParejas = array();
+        
+        foreach ($idParejas as $id) {
+            $array_idParejas[] = $id->getIdPartner();
         }
         
-        $championships = $this->inscriptionUserChampionshipMapper->getInscriptionsCurrentUserInChampionship($this->currentUser->getLogin());
+        $partnerMapper = new PartnerMapper();
+        $partidos = $confrontationMapper->getPartidos($idGrupo);
         
-        // Put the User object visible to the view
-        $this->view->setVariable("championships", $championships);
+        $array_partidos = array();
         
-        // render the view (/view/users/register.php)
-        $this->view->render("championship", "showallInscriptionCurrentUser");
+        // array multidimensional
+        foreach ($partidos as $partido) {
+            $array_partidos[] = array(
+                $partido->getIdPartner1(), // 0
+                $partido->getIdPartner2(), // 1
+                $partido->getPointsPartner1(), // 2
+                $partido->getPointsPartner2(), // 3
+                $partido->getSetsPartner1(), // 4
+                $partido->getSetsPartner2() // 5
+            );
+        }
+        
+        // array que contendra la clasificacion
+        $array_clasificacion = array();
+        $puntos = 0;
+        $sets = 0;
+        
+        // recorrido por los valores de puntos y sets de cada pareja
+        for ($i = 0; $i < count($array_idParejas); $i ++) {
+            for ($j = 0; $j < count($array_partidos); $j ++) {
+                if ($array_idParejas[$i] == $array_partidos[$j][0]) {
+                    $puntos += $array_partidos[$j][2];
+                    $sets += $array_partidos[$j][4];
+                } else if ($array_idParejas[$i] == $array_partidos[$j][1]) {
+                    $puntos += $array_partidos[$j][3];
+                    $sets += $array_partidos[$j][5];
+                }
+            }
+            $array_clasificacion[] = array(
+                $array_idParejas[$i],
+                $puntos,
+                $sets
+            );
+            $puntos = 0;
+            $sets = 0;
+        }
+        
+        // ordenacion por puntos y sets
+        $orden_puntos = array();
+        $orden_sets = array();
+        
+        foreach ($array_clasificacion as $clave => $datos) {
+            $orden_puntos[$clave] = $datos[1];
+            $orden_sets[$clave] = $datos[2];
+        }
+        array_multisort($orden_puntos, $orden_sets, SORT_ASC, $array_clasificacion);
+        
+        $array_clasificacion = array_reverse($array_clasificacion);
+        
+        $array_winners = array();
+        
+        for ($i = 0; $i < 8; $i ++) {
+            $array_winners[$i] = $array_clasificacion[$i][0];
+        }
+        
+        // mandamos el valor de variable para que lo recoga la vista
+        return $array_winners;
     }
 
-    /* Borra la inscripcion a un campeonato */
-    public function deleteInscription()
+    private function crearEnfrentamientosCuartos($grupos)
     {
-        if (! isset($this->currentUser)) {
-            throw new Exception("Not in session. delete Inscription requires login");
+        foreach ($grupos as $grupo) {
+            $ganadores = $this->groupWinners($grupo->getIdGroup());
+            $enfrentamiento = new Confrontation(NULL, $ganadores[0], $ganadores[7], $grupo->getIdGroup(), Fase::CUARTOS);
+            $this->confrontationMapper->save($enfrentamiento);
+            $enfrentamiento = new Confrontation(NULL, $ganadores[1], $ganadores[6], $grupo->getIdGroup(), Fase::CUARTOS);
+            $this->confrontationMapper->save($enfrentamiento);
+            $enfrentamiento = new Confrontation(NULL, $ganadores[2], $ganadores[5], $grupo->getIdGroup(), Fase::CUARTOS);
+            $this->confrontationMapper->save($enfrentamiento);
+            $enfrentamiento = new Confrontation(NULL, $ganadores[3], $ganadores[4], $grupo->getIdGroup(), Fase::CUARTOS);
+            $this->confrontationMapper->save($enfrentamiento);
         }
-        
-        if (isset($_POST['idCaptain']) && isset($_POST['idFellow']) && isset($_POST['level']) && isset($_POST['sex']) && isset($_POST['championship_name'])) {
-            
-            $this->inscriptionUserChampionshipMapper->delete($_POST['id']);
-            
-            $this->view->setFlash("successfully delete");
-            
-            $this->view->redirect("championship", "showallInscriptionCurrentUser");
-        }
-        
-        $inscription = $this->inscriptionUserChampionshipMapper->getDatos($_REQUEST['id']);
-        
-        // Put the User object visible to the view
-        $this->view->setVariable("inscription", $inscription);
-        
-        // render the view (/view/users/register.php)
-        $this->view->render("championship", "deleteInscription");
     }
 
-    /* Muestra los campeonatos que estan inscritos los usuarios */
-    public function showallInscriptionAllUsers()
+    private function crearEnfrentamientosSemifinal($grupos)
     {
-        if (! isset($this->currentUser)) {
-            throw new Exception("Not in session. see users inscriptions in championship requires admin");
+        foreach ($grupos as $grupo) {
+            $partidos = $this->confrontationMapper->getPartidosPorFase($grupo->getIdGroup(), Fase::CUARTOS);
+            $ganadores = array();
+            foreach ($partidos as $partido) {
+                $partido->getPointsPartner1() > $partido->getPointsPartner2() ? array_push($ganadores, $partido->getIdPartner1()) : array_push($ganadores, $partido->getIdPartner2());
+            }
+            
+            $enfrentamiento = new Confrontation(NULL, $ganadores[0], $ganadores[1], $grupo->getIdGroup(), Fase::SEMIFINAL);
+            $this->confrontationMapper->save($enfrentamiento);
+            $enfrentamiento = new Confrontation(NULL, $ganadores[2], $ganadores[3], $grupo->getIdGroup(), Fase::SEMIFINAL);
+            $this->confrontationMapper->save($enfrentamiento);
         }
-        
-        $championships = $this->inscriptionUserChampionshipMapper->getAllInscriptionsInChampionship();
-        
-        // Put the User object visible to the view
-        $this->view->setVariable("championships", $championships);
-        
-        // render the view (/view/users/register.php)
-        $this->view->render("championship", "showallInscriptionAllUsers");
+    }
+
+    private function crearEnfrentamientoFinal($grupos)
+    {
+        foreach ($grupos as $grupo) {
+            $partidos = $this->confrontationMapper->getPartidosPorFase($grupo->getIdGroup(), Fase::SEMIFINAL);
+            $ganadores = array();
+            foreach ($partidos as $partido) {
+                $partido->getPointsPartner1() > $partido->getPointsPartner2() ? array_push($ganadores, $partido->getIdPartner1()) : array_push($ganadores, $partido->getIdPartner2());
+            }
+            
+            $enfrentamiento = new Confrontation(NULL, $ganadores[0], $ganadores[1], $grupo->getIdGroup(), Fase::FINAL);
+            $this->confrontationMapper->save($enfrentamiento);
+        }
     }
 }

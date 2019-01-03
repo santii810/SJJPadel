@@ -28,6 +28,8 @@ require_once (__DIR__ . "/../model/InscriptionUserChampionshipMapper.php");
 require_once (__DIR__ . "/../core/ViewManager.php");
 require_once (__DIR__ . "/../controller/BaseController.php");
 
+require_once (__DIR__ . "/../model/Fase.php");
+
 class ChampionshipController extends BaseController
 {
 
@@ -217,54 +219,51 @@ class ChampionshipController extends BaseController
         if (! isset($this->currentUser)) {
             throw new Exception("Not in session. Check Confrontations requires login");
         }
-        if (isset($_REQUEST["id"]) && $this->championshipMapper->getCampeonato($_REQUEST["id"])->needGenerateCalendar()) {
-            $idCampenato = $_REQUEST["id"];
-            echo $idCampenato;
+        if (isset($_REQUEST["id"])) {
+            $campenato = $this->championshipMapper->getCampeonato($_REQUEST["id"]);
+            if ($campenato->needGenerateCalendar()) {
+                switch ($campenato->getFase()) {
+                    case Fase::INSCRIPCION:
+                        // Si está en fase de inscripcion se crean los grupos
+                        $this->generateGroups($campenato);
+                        break;
+                    case Fase::GRUPOS:
+                        // Se crean los cuartos
+                        
+                        break;
+                    case Fase::CUARTOS:
+                        // Se crean las semifinales
+                        break;
+                    case Fase::SEMIFINAL:
+                        // se crea la final
+                        break;
+                }
+                
+                // TODO set return message
+            }
         }
-        // $this->generateGroups($idCampeonato, $categoriasCampeonato, $groupHasGenerated, $couples, $groupIds);
+        $this->view->redirect("championship", "showall");
     }
 
     /**
+     * Genera los grupos necesarios para un campeonato
      *
      * @param
-     *            idCampeonato
-     * @param
-     *            categoriasCampeonato
-     * @param
-     *            groupHasGenerated
-     * @param
-     *            couples
-     * @param
-     *            groupIds
+     *            campeonato Campeonato a generar
      */
-    private function generateGroups($idCampeonato, $categoriasCampeonato, $groupHasGenerated, $couples, $groupIds)
+    private function generateGroups($campeonato)
     {
         $groupHasGenerated = false;
-        // Comprobamos que se haya seleccionado un campeonato
-        if (isset($_POST["idCampeonato"]) && $_POST["idCampeonato"] != 0) {
-            $idCampeonato = $_POST["idCampeonato"];
-            unset($_POST["idCampeonato"]);
-            $categoriasCampeonato = $this->categoryChampionshipMapper->getCategoriesFromChampionship($idCampeonato);
-            
-            foreach ($categoriasCampeonato as $categoriaCampeonato) {
-                $couples = $this->categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
-                if (sizeof($couples) > 7) {
-                    $groupHasGenerated = true;
-                    $groupIds = $this->createGroups($couples, $categoriaCampeonato);
-                    $this->asignCouples($couples, $groupIds);
-                    $this->fillConfrontations($groupIds);
-                }
+        $categoriasCampeonato = $this->categoryChampionshipMapper->getCategoriesFromChampionship($campeonato->getId());
+        
+        foreach ($categoriasCampeonato as $categoriaCampeonato) {
+            $couples = $this->categoryChampionshipMapper->getCouples($categoriaCampeonato->getId());
+            if (sizeof($couples) > 7) {
+                $groupHasGenerated = true;
+                $groupIds = $this->createGroups($couples, $categoriaCampeonato);
+                $this->asignCouples($couples, $groupIds);
+                $this->fillConfrontations($groupIds);
             }
-            
-            if ($groupHasGenerated) {
-                $this->view->setVariable("messageToShow", i18n("Properly generated calendar."));
-                $this->view->setVariable("showButton", true);
-            } else {
-                $this->view->setVariable("messageToShow", i18n("There are not enough athletes register to create a group."));
-            }
-            $this->view->render("championship", "calendarGenerated");
-        } else {
-            $this->view->render("championship", "selectToCalendar");
         }
     }
 

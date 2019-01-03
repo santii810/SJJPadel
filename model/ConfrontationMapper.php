@@ -12,14 +12,22 @@ class ConfrontationMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+     * Inserta en la tabla enfrentamientos los id de pareja1, pareja2 y grupo del parametro enviado
+     *
+     * @param Confrontation $partnergroup
+     *            enfrentamiento a registrar
+     */
     public function save($partnergroup)
     {
-        $stmt = $this->db->prepare("INSERT INTO enfrentamiento (idPareja1, idPareja2, idGrupo)
-      values (?,?,?)");
+        $stmt = $this->db->prepare("INSERT INTO enfrentamiento (idPareja1, idPareja2, idGrupo, fase)
+      values (?,?,?,?)");
         $stmt->execute(array(
             $partnergroup->getIdPartner1(),
             $partnergroup->getIdPartner2(),
-            $partnergroup->getIdGroup()
+            $partnergroup->getIdGroup(),
+            $partnergroup->getPhase()
+            
         ));
     }
 
@@ -63,11 +71,33 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
      idGrupo = ? AND
-     fase = 'Grupos' 
+     fase = 'Grupos'
      ORDER BY idPareja1,idPareja2
      ");
         $stmt->execute(array(
             $idGrupo
+        ));
+        
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $confrontations = array();
+        
+        foreach ($toret_db as $confrontation) {
+            array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
+        }
+        
+        return $confrontations;
+    }
+
+    public function getPartidosPorFase($idGrupo, $fase)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
+     idGrupo = ? AND
+     fase = ?
+     ORDER BY idPareja1,idPareja2
+     ");
+        $stmt->execute(array(
+            $idGrupo, $fase
         ));
         
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -222,24 +222,28 @@ class ChampionshipController extends BaseController
         if (isset($_REQUEST["id"])) {
             $campenato = $this->championshipMapper->getCampeonato($_REQUEST["id"]);
             if ($campenato->needGenerateCalendar()) {
+                
                 switch ($campenato->getFase()) {
                     case Fase::INSCRIPCION:
                         // Si está en fase de inscripcion se crean los grupos
-                        $this->generateGroups($campenato);
+                        $groupHasGenerated = $this->generateGroups($campenato);
+                        if ($groupHasGenerated)
+                            $this->championshipMapper->updateFase($campenato->getId(), Fase::GRUPOS);
+                        // TODO añadir mensaje de retorno
                         break;
                     case Fase::GRUPOS:
                         // Se crean los cuartos
-                        
+                        //TODO gestionar fase
                         break;
                     case Fase::CUARTOS:
                         // Se crean las semifinales
+                        //TODO gestionar fase
                         break;
                     case Fase::SEMIFINAL:
                         // se crea la final
+                        //TODO gestionar fase
                         break;
                 }
-                
-                // TODO set return message
             }
         }
         $this->view->redirect("championship", "showall");
@@ -265,6 +269,7 @@ class ChampionshipController extends BaseController
                 $this->fillConfrontations($groupIds);
             }
         }
+        return $groupHasGenerated;
     }
 
     /**

@@ -96,6 +96,23 @@ class ChampionshipMapper
         return $championships;
     }
 
+    /**
+     * Actualiza el campeonato indicado a la fase indicada
+     *
+     * @param Championship $idChampionship
+     *            campeonato a actualizar
+     * @param string $fase
+     *            nueva fase
+     */
+    public function updateFase($idChampionship, $fase)
+    {
+        $stmt = $this->db->prepare("UPDATE campeonato set fase=? where idCampeonato =?");
+        $stmt->execute(array(
+            $fase,
+            $idChampionship
+        ));
+    }
+
     // Retorna campeonatos ya en curso
     public function getCampeonatosInProgress()
     {

@@ -204,7 +204,6 @@ class ConfrontationMapper
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
         
-        echo $toret_db["num"];
         return ($toret_db != null && $toret_db["num"] == 0);
     }
 }

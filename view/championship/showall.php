@@ -63,8 +63,11 @@ $cabecera = array(
 						src="images/deleteCampeonato.png" class="img-fluid"
 						alt="Responsive image">
 					</a>
-					<!-- Muestra el icono para generar calendario solo si es posible -->
-            <?php if($championship->needGenerateCalendar()): ?>
+					
+            <?php
+        // Muestra el icono para generar calendario solo si es posible
+        if ($championship->needGenerateCalendar()) :
+            ?>
               <a
 						href="index.php?controller=championship&amp;action=generateCalendar&amp;id=<?php echo $championship->getId() ?>">
 						<img src="images/calendar64.png" class="img-fluid"

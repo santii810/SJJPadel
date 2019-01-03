@@ -145,11 +145,6 @@ $currentRol = $view->getVariable("currentRol");
 
 							<?php if($currentRol == 'a'): ?>
 								<a class="dropdown-item"
-								href="index.php?controller=championship&amp;action=selectToCalendar"><?php echo i18n("Generate championship calendar") ?></a>
-							<?php endif ?>
-
-							<?php if($currentRol == 'a'): ?>
-								<a class="dropdown-item"
 								href="index.php?controller=confrontation&amp;action=select"><?php echo i18n("Manage results") ?></a>
 							<?php endif ?>
 
@@ -215,11 +210,15 @@ $currentRol = $view->getVariable("currentRol");
 						</div></li>
 
 				<?php endif ?>
-
 				
+					<li class="nav-item"><a class="dropdown-item"
+						href="index.php?controller=statistics&amp;action=viewAll">
+						<?= i18n("Statistics") ?></a></li>
 
 
-			</ul>
+
+
+				</ul>
 
 			</div>
 			<li class="nav-item">

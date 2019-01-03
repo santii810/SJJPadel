@@ -31,6 +31,12 @@ class CategoryChampionshipMapper
         ));
     }
 
+    /**
+     * Obtiene las categorias de un tederminado campeonato
+     *
+     * @param int $idChampionship
+     * @return Category[] categorias asociadas al campeonato
+     */
     function getCategoriesFromChampionship($idChampionship)
     {
         $stmt = $this->db->prepare("SELECT * FROM categoriascampeonato WHERE idCampeonato = ? ");
@@ -46,7 +52,12 @@ class CategoryChampionshipMapper
         return $toret;
     }
 
-    // Obtiene todas las parejas apuntadas a esa categoria
+ 
+    /**
+     * Obtiene todas las parejas apuntadas a esa categoria
+     * @param int $idCategoryChampionship
+     * @return Partner[] parejas de la categoria
+     */
     function getCouples($idCategoryChampionship)
     {
         $stmt = $this->db->prepare("SELECT * FROM pareja WHERE idCategoriaCampeonato = ? ");

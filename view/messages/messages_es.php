@@ -1,5 +1,4 @@
 <?php
-
 $i18n_messages = array(
     "Users Login" => "Iniciar sesion",
     "Please enter your login and password" => "Por favor introduce tu usuario y contraseña",
@@ -167,6 +166,8 @@ $i18n_messages = array(
     "My inscriptions" => "Mis inscripciones",
     "View Inscriptions all users" => "Ver todas las inscripciones del los usuarios",
     "View yours Inscriptions" => "Ver mis inscripciones",
-    "Are you sure to delete this inscription?" => "Estas seguro de eliminar esta inscripcion"
+    "Are you sure to delete this inscription?" => "Estas seguro de eliminar esta inscripcion",
+    "Statistics" => "Estadísticas",
+    "Cannot generate groups from this championship" => "No es posible generar grupos para este campeonato"
 
 )?>

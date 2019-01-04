@@ -19,14 +19,13 @@ class StatisticsController extends BaseController
 
     public function viewAll()
     {
-        $statistics = array();       
+        $statistics = array();
         
-        
-        
+        $reservationDayStatistics = $this->reservationMapper->getReservationDayStatistics();
+        $reservationHourStatistics = $this->reservationMapper->getReservationHourStatistics();
+        $reservationComingStatistics = $this->reservationMapper->getReservationComingStatistics();
         
         $this->view->setVariable("statistics", $statistics);
         $this->view->render("statistics", "viewAll");
     }
-
-   
 }

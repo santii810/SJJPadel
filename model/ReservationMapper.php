@@ -102,4 +102,62 @@ class ReservationMapper
             return new Reservation($results["idReserva"], $results["idUsuarioReserva"], $results["fechaReserva"], $results["horaReserva"]);
         }
     }
+
+    public function getReservationDayStatistics()
+    {
+        $stmt = $this->db->prepare("SELECT count(idReserva) as num, dayofweek(fechaReserva) as day FROM reserva group by DAYOFWEEK(fechaReserva)");
+        $stmt->execute();
+        
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $torretReservations = array();
+        
+        foreach ($results as $result) {
+            array_push($torretReservations, array(
+                "day" => $result["day"],
+                "num" => $result["num"]
+            ));
+        }
+        return $torretReservations;
+    }
+
+    public function getReservationHourStatistics()
+    {
+        $stmt = $this->db->prepare("SELECT count(idReserva) as num, horaReserva FROM reserva group by horaReserva");
+        $stmt->execute();
+        
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $torretReservations = array();
+        
+        foreach ($results as $result) {
+            array_push($torretReservations, array(
+                "hour" => $result["horaReserva"],
+                "num" => $result["num"]
+            ));
+        }
+        return $torretReservations;
+    }
+
+    public function getReservationComingStatistics()
+    {
+        $stmt = $this->db->prepare("SELECT count(idReserva) as num, horaReserva, fechaReserva 
+                    FROM reserva
+                    group by horaReserva, fechaReserva 
+                    having fechaReserva >= curdate() AND fechaReserva < curdate()+7");
+        $stmt->execute();
+        
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $torretReservations = array();
+        
+        foreach ($results as $result) {
+            array_push($torretReservations, array(
+                "hour" => $result["horaReserva"],
+                "date" => $result["fechaReserva"],
+                "num" => $result["num"]
+            ));
+        }
+        return $torretReservations;
+    }
 }

@@ -36,6 +36,8 @@ $currentRol = $view->getVariable("currentRol");
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="fusioncharts/js/fusioncharts.js"></script>
+
 
 
 
@@ -209,11 +211,34 @@ $currentRol = $view->getVariable("currentRol");
 							<?php endif ?>
 						</div></li>
 
+
+
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+						href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+							<?php echo i18n("Statistics") ?>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<!-- Acciones admin -->
+
+							<a class="dropdown-item"
+								href="index.php?controller=statistics&amp;action=generalStatistics">
+						<?= i18n("General statistics") ?></a> 
+						
+						
+						<a class="dropdown-item"
+								href="index.php?controller=statistics&amp;action=reservationStatistics">
+						<?= i18n("Reservation statistics") ?></a>
+
+
+						</div></li>
 				<?php endif ?>
 				
-					<li class="nav-item"><a class="dropdown-item"
-						href="index.php?controller=statistics&amp;action=viewAll">
-						<?= i18n("Statistics") ?></a></li>
+				
+				
+				
+				
+				
 
 
 
@@ -228,12 +253,12 @@ $currentRol = $view->getVariable("currentRol");
 			<?php if (isset($currentuser)): ?>
 				<a href="index.php?controller=users&amp;action=logout"> <img
 					src="images/salir.png" class="rounded icono"
-					alt="ImÃ¡genes responsive">
+					alt="Imágenes responsive">
 			</a>
 				<?php else: ?>
 					<a href="index.php?controller=users&amp;action=login"> <img
 					src="images/entrar.png" class="rounded icono"
-					alt="ImÃ¡genes responsive">
+					alt="Imágenes responsive">
 			</a>
 				<?php endif ?>
 			</li>
@@ -258,7 +283,7 @@ $currentRol = $view->getVariable("currentRol");
 				</div>
 				<div class="social-networks"></div>
 				<div class="footer-copyright">
-					<p>Â© 2018 SJJPadel Company</p>
+					<p>© 2018 SJJPadel Company</p>
 				</div>
 		
 		</footer>

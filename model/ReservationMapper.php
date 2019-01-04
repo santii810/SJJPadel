@@ -111,11 +111,20 @@ class ReservationMapper
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         $torretReservations = array();
+        $days = array(
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+        );
         
         foreach ($results as $result) {
             array_push($torretReservations, array(
-                "day" => $result["day"],
-                "num" => $result["num"]
+                "left" => $days[$result["day"] - 1],
+                "rigth" => $result["num"]
             ));
         }
         return $torretReservations;
@@ -132,8 +141,8 @@ class ReservationMapper
         
         foreach ($results as $result) {
             array_push($torretReservations, array(
-                "hour" => $result["horaReserva"],
-                "num" => $result["num"]
+                "left" => $result["horaReserva"],
+                "rigth" => $result["num"]
             ));
         }
         return $torretReservations;
@@ -153,9 +162,8 @@ class ReservationMapper
         
         foreach ($results as $result) {
             array_push($torretReservations, array(
-                "hour" => $result["horaReserva"],
-                "date" => $result["fechaReserva"],
-                "num" => $result["num"]
+                "left" => $result["fechaReserva"]. " - " .$result["horaReserva"],
+                "rigth" => $result["num"]
             ));
         }
         return $torretReservations;

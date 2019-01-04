@@ -168,6 +168,16 @@ $i18n_messages = array(
     "View yours Inscriptions" => "Ver mis inscripciones",
     "Are you sure to delete this inscription?" => "Estas seguro de eliminar esta inscripcion",
     "Statistics" => "Estadísticas",
-    "Cannot generate groups from this championship" => "No es posible generar grupos para este campeonato"
-
+    "Cannot generate groups from this championship" => "No es posible generar grupos para este campeonato",
+    "Monday" => "Lunes",
+    "Tuesday" => "Martes",
+    "Wednesday" => "Miercoles",
+    "Thursday" => "Jueves",
+    "Friday" => "Viernes",
+    "Saturday" => "Sábado",
+    "Sunday" => "Domingo",
+    "Reservations per week day" => "Reservas por dia de la semana",
+    "Reservations per time" => "Reservas por hora",
+    "Reservations coming days" => "Reservas los proximos dias",
+    "Reservation statistics" => "Estadísticas de reservas"
 )?>

@@ -17,15 +17,33 @@ class StatisticsController extends BaseController
         $this->reservationMapper = new ReservationMapper();
     }
 
-    public function viewAll()
+    public function reservationStatistics()
     {
         $statistics = array();
+        $titles = array(
+            "Reservations coming days",
+            "Reservations per week day",
+            "Reservations per time"
+        );
         
         $reservationDayStatistics = $this->reservationMapper->getReservationDayStatistics();
         $reservationHourStatistics = $this->reservationMapper->getReservationHourStatistics();
         $reservationComingStatistics = $this->reservationMapper->getReservationComingStatistics();
         
+        array_push($statistics, $reservationComingStatistics);
+        array_push($statistics, $reservationDayStatistics);
+        array_push($statistics, $reservationHourStatistics);
+        
         $this->view->setVariable("statistics", $statistics);
-        $this->view->render("statistics", "viewAll");
+        $this->view->setVariable("titles", $titles);
+        $this->view->render("statistics", "reservationStats");
+    }
+    
+    public function generalStatistics(){
+        
+        
+        
+        $this->view->render("statistics", "generalStatistics");
+        
     }
 }

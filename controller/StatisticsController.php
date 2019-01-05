@@ -155,7 +155,7 @@ class StatisticsController extends BaseController
         ));
         if ($totalVictories + $totalDefeats > 0) {
             array_push($championshipStatistics, array(
-                "left" => "Victory Rate",
+                "left" => "Victory rate",
                 "rigth" => round(($totalVictories / ($totalVictories + $totalDefeats) * 100),2) . "%"
             ));
         }
@@ -164,7 +164,7 @@ class StatisticsController extends BaseController
             "rigth" => $usualCouple
         ));
         array_push($championshipStatistics, array(
-            "left" => "Best position",
+            "left" => "Best clasification",
             "rigth" => $bestPosition
         ));
         

@@ -183,7 +183,13 @@ $i18n_messages = array(
     "Personal statistics" => "Estadísticas personales",
     "Championship statistics" => "Estadísticas de campeonato",
     "Couples per championship" => "Parejas apuntadas por campeonato",
-    "Couples per category" => "Parejas apuntadas por categoría"
+    "Couples per category" => "Parejas apuntadas por categoría",
+    "Total matches" => "Número total de partidos",
+    "Total victories" => "Número total de victorias",
+    "Total defeats" => "Número total de derrotas",
+    "Victory rate" => "Ratio de victoria",
+    "Usual couple" => "Pareja mas habitual",
+    "Best clasification" => "Mejor clasificación",
   
     
 )?>

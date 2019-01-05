@@ -223,13 +223,16 @@ $currentRol = $view->getVariable("currentRol");
 
 							<a class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=championshipStatistics">
-						<?= i18n("Championship statistics") ?></a> <a class="dropdown-item"
+						<?= i18n("Championship statistics") ?></a> <a
+								class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=reservationStatistics">
 						<?= i18n("Reservation statistics") ?></a> 
-						
+													
+						<?php if($currentRol == 'd' || $currentRol == 'e'): ?>
 						<a class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=personalStatistics">
 						<?= i18n("Personal statistics") ?></a>
+						<?php endif ?>
 
 
 						</div></li>

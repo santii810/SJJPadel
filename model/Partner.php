@@ -13,6 +13,10 @@ class Partner
 
     private $idCategoryChampionship;
 
+    private $victories;
+
+    private $defeats;
+
     public function __construct($idPartner = NULL, $idCaptain = NULL, $idFellow = NULL, $idCategoryChampionship = NULL)
     {
         $this->idPartner = $idPartner;
@@ -54,6 +58,39 @@ class Partner
     public function setIdCategoryChampionship($id)
     {
         $this->idCategoryChampionship = $id;
+    }
+
+    public function getVictories()
+    {
+        return $this->victories;
+    }
+
+    public function getDefeats()
+    {
+        return $this->defeats;
+    }
+
+    public function setVictories($victories)
+    {
+        $this->victories = $victories;
+    }
+
+    public function setDefeats($defeats)
+    {
+        $this->defeats = $defeats;
+    }
+
+    public function getVictoryRate()
+    {
+        if ($this->getTotalMatches() > 0)
+            return $this->victories / $this->getTotalMatches();
+        else
+            return "-";
+    }
+
+    public function getTotalMatches()
+    {
+        return $this->defeats + $this->victories;
     }
 
     public function checkIsValidForRegister()

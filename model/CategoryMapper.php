@@ -151,7 +151,7 @@ class CategoryMapper
         
         foreach ($results as $result) {
             array_push($torret, array(
-                "left" => $result["sexo"]. " - " . $result["nivel"],
+                "left" => $result["sexo"] . " - " . $result["nivel"],
                 "rigth" => $result["num"]
             ));
         }

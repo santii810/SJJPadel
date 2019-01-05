@@ -184,5 +184,6 @@ $i18n_messages = array(
     "Championship statistics" => "Estadísticas de campeonato",
     "Couples per championship" => "Parejas apuntadas por campeonato",
     "Couples per category" => "Parejas apuntadas por categoría"
+  
     
 )?>

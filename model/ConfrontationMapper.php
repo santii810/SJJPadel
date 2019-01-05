@@ -27,7 +27,7 @@ class ConfrontationMapper
             $partnergroup->getIdPartner2(),
             $partnergroup->getIdGroup(),
             $partnergroup->getPhase()
-            
+        
         ));
     }
 
@@ -97,7 +97,8 @@ class ConfrontationMapper
      ORDER BY idPareja1,idPareja2
      ");
         $stmt->execute(array(
-            $idGrupo, $fase
+            $idGrupo,
+            $fase
         ));
         
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -235,5 +236,82 @@ class ConfrontationMapper
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
         
         return ($toret_db != null && $toret_db["num"] == 0);
+    }
+
+    public function countLocalVictories($idPareja)
+    {
+        $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 > puntosPareja2 and idPareja1 = ?");
+        $stmt->execute(array(
+            $idPareja
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($toret_db != null) {
+            return $toret_db["num"];
+        }
+    }
+
+    public function countVisitantVictories($idPareja)
+    {
+        $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 < puntosPareja2 and idPareja2 = ?");
+        $stmt->execute(array(
+            $idPareja
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($toret_db != null) {
+            return $toret_db["num"];
+        }
+    }
+
+    public function countLocalDefeats($idPareja)
+    {
+        $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 > puntosPareja2 and idPareja2 = ?");
+        $stmt->execute(array(
+            $idPareja
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($toret_db != null) {
+            return $toret_db["num"];
+        }
+    }
+
+    public function countVisitantDefeats($idPareja)
+    {
+        $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 < puntosPareja2 and idPareja1 = ?");
+        $stmt->execute(array(
+            $idPareja
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($toret_db != null) {
+            return $toret_db["num"];
+        }
+    }
+
+    public function getBestResult($idPareja)
+    {
+        $stmt = $this->db->prepare("select idPareja1, idPareja2, fase,setsPareja1,setsPareja2
+                        from enfrentamiento where idPareja1=? or idPareja2=? 
+                        group by fase order by fase desc limit 1;");
+        $stmt->execute(array(
+            $idPareja,
+            $idPareja
+        ));
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        
+//         var_dump($toret_db["fase"]);
+        
+        
+        if ($toret_db != null) {
+            if ($toret_db["fase"] == "Final") {
+                if ($toret_db["idPareja1"] == $idPareja && $toret_db["setsPareja1"] > $toret_db["setsPareja2"] || $toret_db["idPareja2"] == $idPareja && $toret_db["setsPareja1"] < $toret_db["setsPareja2"])
+                    return "Campeón";
+            }
+            
+            return $toret_db["fase"];
+        }
     }
 }

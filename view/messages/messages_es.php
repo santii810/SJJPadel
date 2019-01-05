@@ -179,5 +179,10 @@ $i18n_messages = array(
     "Reservations per week day" => "Reservas por dia de la semana",
     "Reservations per time" => "Reservas por hora",
     "Reservations coming days" => "Reservas los proximos dias",
-    "Reservation statistics" => "Estadísticas de reservas"
+    "Reservation statistics" => "Estadísticas de reservas",
+    "Personal statistics" => "Estadísticas personales",
+    "Championship statistics" => "Estadísticas de campeonato",
+    "Couples per championship" => "Parejas apuntadas por campeonato",
+    "Couples per category" => "Parejas apuntadas por categoría"
+    
 )?>

@@ -268,5 +268,27 @@ class ChampionshipMapper
             return false;
         }
     }
+    
+
+    public function getCouplesPerChampionship()
+    {        
+        $stmt = $this->db->prepare("select count(idPareja) as num, ca.nombreCampeonato as name 
+            FROM pareja p, categoriasCampeonato c , campeonato ca 
+            WHERE p.idCategoriaCampeonato = c.idCategoriasCampeonato AND c.idCampeonato = ca.idCampeonato 
+            GROUP BY c.idCampeonato");
+        $stmt->execute();
+        
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $torret = array();
+        
+        foreach ($results as $result) {
+            array_push($torret, array(
+                "left" => $result["name"],
+                "rigth" => $result["num"]
+            ));
+        }
+        return $torret;
+    }
 }
 

@@ -222,13 +222,14 @@ $currentRol = $view->getVariable("currentRol");
 							<!-- Acciones admin -->
 
 							<a class="dropdown-item"
-								href="index.php?controller=statistics&amp;action=generalStatistics">
-						<?= i18n("General statistics") ?></a> 
-						
+								href="index.php?controller=statistics&amp;action=championshipStatistics">
+						<?= i18n("Championship statistics") ?></a> <a class="dropdown-item"
+								href="index.php?controller=statistics&amp;action=reservationStatistics">
+						<?= i18n("Reservation statistics") ?></a> 
 						
 						<a class="dropdown-item"
-								href="index.php?controller=statistics&amp;action=reservationStatistics">
-						<?= i18n("Reservation statistics") ?></a>
+								href="index.php?controller=statistics&amp;action=personalStatistics">
+						<?= i18n("Personal statistics") ?></a>
 
 
 						</div></li>
@@ -253,12 +254,12 @@ $currentRol = $view->getVariable("currentRol");
 			<?php if (isset($currentuser)): ?>
 				<a href="index.php?controller=users&amp;action=logout"> <img
 					src="images/salir.png" class="rounded icono"
-					alt="Imágenes responsive">
+					alt="Imï¿½genes responsive">
 			</a>
 				<?php else: ?>
 					<a href="index.php?controller=users&amp;action=login"> <img
 					src="images/entrar.png" class="rounded icono"
-					alt="Imágenes responsive">
+					alt="Imï¿½genes responsive">
 			</a>
 				<?php endif ?>
 			</li>
@@ -283,7 +284,7 @@ $currentRol = $view->getVariable("currentRol");
 				</div>
 				<div class="social-networks"></div>
 				<div class="footer-copyright">
-					<p>© 2018 SJJPadel Company</p>
+					<p>ï¿½ 2018 SJJPadel Company</p>
 				</div>
 		
 		</footer>

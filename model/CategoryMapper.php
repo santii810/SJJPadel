@@ -136,4 +136,25 @@ class CategoryMapper
             return true;
         }
     }
+
+    public function getCouplesPerCategory()
+    {
+        $stmt = $this->db->prepare("SELECT count(idPareja) as num,  sexo, nivel
+                                FROM pareja p, categoriasCampeonato c , categoria ca 
+                                WHERE p.idCategoriaCampeonato = c.idCategoriasCampeonato AND c.idCategoria = ca.idCategoria 
+                                GROUP BY c.idCategoria");
+        $stmt->execute();
+        
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        $torret = array();
+        
+        foreach ($results as $result) {
+            array_push($torret, array(
+                "left" => $result["sexo"]. " - " . $result["nivel"],
+                "rigth" => $result["num"]
+            ));
+        }
+        return $torret;
+    }
 }

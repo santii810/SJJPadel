@@ -5,11 +5,12 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $statistics = $view->getVariable("statistics");
 $titles = $view->getVariable("titles");
+$pageTitle = $view->getVariable("title");
 $view->setVariable("title", i18n("Statistics"));
 $currentRol = $view->getVariable("currentRol");
 ?>
 
-<h3><?= i18n("Reservation statistics"); ?></h3>
+<h3><?= i18n($pageTitle); ?></h3>
 <?php for ($i=0;$i< sizeof($titles);$i++):?>
 <table class="table">
 

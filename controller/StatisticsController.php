@@ -58,9 +58,10 @@ class StatisticsController extends BaseController
         array_push($statistics, $reservationDayStatistics);
         array_push($statistics, $reservationHourStatistics);
         
+        $this->view->setVariable("title", "Reservation statistics");
         $this->view->setVariable("statistics", $statistics);
         $this->view->setVariable("titles", $titles);
-        $this->view->render("statistics", "reservationStats");
+        $this->view->render("statistics", "show");
     }
 
     public function championshipStatistics()
@@ -73,9 +74,10 @@ class StatisticsController extends BaseController
         array_push($statistics, $this->championshipMapper->getCouplesPerChampionship());
         array_push($statistics, $this->categoryMapper->getCouplesPerCategory());
         
+        $this->view->setVariable("title", "Championship statistics");
         $this->view->setVariable("statistics", $statistics);
         $this->view->setVariable("titles", $titles);
-        $this->view->render("statistics", "championshipStatistics");
+        $this->view->render("statistics", "show");
     }
 
     public function personalStatistics()
@@ -179,6 +181,6 @@ class StatisticsController extends BaseController
         $this->view->setVariable("title", "Personal statistics");
         $this->view->setVariable("statistics", $statistics);
         $this->view->setVariable("titles", $titles);
-        $this->view->render("statistics", "personalStatistics");
+        $this->view->render("statistics", "show");
     }
 }

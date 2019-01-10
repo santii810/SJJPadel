@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-12-2018 a las 19:57:12
--- Versión del servidor: 10.1.19-MariaDB
--- Versión de PHP: 7.0.13
+-- Tiempo de generación: 10-01-2019 a las 19:50:52
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -432,6 +434,21 @@ INSERT INTO `participantespartido` (`idParticipantesPartido`, `idOrganizarPartid
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `partidoorganizado`
+--
+
+CREATE TABLE `partidoorganizado` (
+  `idPartidoOrganizado` int(11) NOT NULL,
+  `idReserva` int(11) NOT NULL,
+  `login1` varchar(20) NOT NULL,
+  `login2` varchar(20) NOT NULL,
+  `login3` varchar(20) NOT NULL,
+  `login4` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `reserva`
 --
 
@@ -642,6 +659,17 @@ ALTER TABLE `participantespartido`
   ADD KEY `FK_Usuario_idx` (`loginUsuario`);
 
 --
+-- Indices de la tabla `partidoorganizado`
+--
+ALTER TABLE `partidoorganizado`
+  ADD PRIMARY KEY (`idPartidoOrganizado`),
+  ADD KEY `idReserva` (`idReserva`),
+  ADD KEY `login1` (`login1`),
+  ADD KEY `login2` (`login2`),
+  ADD KEY `login3` (`login3`),
+  ADD KEY `login4` (`login4`);
+
+--
 -- Indices de la tabla `reserva`
 --
 ALTER TABLE `reserva`
@@ -663,51 +691,67 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `campeonato`
   MODIFY `idCampeonato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT de la tabla `categoriascampeonato`
 --
 ALTER TABLE `categoriascampeonato`
   MODIFY `idCategoriasCampeonato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT de la tabla `enfrentamiento`
 --
 ALTER TABLE `enfrentamiento`
   MODIFY `idEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
+
 --
 -- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
   MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
 --
 -- AUTO_INCREMENT de la tabla `ofertaenfrentamiento`
 --
 ALTER TABLE `ofertaenfrentamiento`
   MODIFY `idOfertaEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT de la tabla `organizarpartido`
 --
 ALTER TABLE `organizarpartido`
   MODIFY `idOrganizarPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT de la tabla `pareja`
 --
 ALTER TABLE `pareja`
   MODIFY `idPareja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+
 --
 -- AUTO_INCREMENT de la tabla `participantespartido`
 --
 ALTER TABLE `participantespartido`
   MODIFY `idParticipantesPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT de la tabla `partidoorganizado`
+--
+ALTER TABLE `partidoorganizado`
+  MODIFY `idPartidoOrganizado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
   MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -763,10 +807,21 @@ ALTER TABLE `participantespartido`
   ADD CONSTRAINT `FK_Participantes_Usuario` FOREIGN KEY (`loginUsuario`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `partidoorganizado`
+--
+ALTER TABLE `partidoorganizado`
+  ADD CONSTRAINT `partidoorganizado_ibfk_1` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `partidoorganizado_ibfk_2` FOREIGN KEY (`login1`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `partidoorganizado_ibfk_3` FOREIGN KEY (`login2`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `partidoorganizado_ibfk_4` FOREIGN KEY (`login3`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `partidoorganizado_ibfk_5` FOREIGN KEY (`login4`) REFERENCES `usuario` (`login`);
+
+--
 -- Filtros para la tabla `reserva`
 --
 ALTER TABLE `reserva`
   ADD CONSTRAINT `FK_Reserva_Usuario` FOREIGN KEY (`idUsuarioReserva`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

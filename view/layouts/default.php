@@ -226,8 +226,8 @@ $currentRol = $view->getVariable("currentRol");
 						<?= i18n("Championship statistics") ?></a> <a
 								class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=reservationStatistics">
-						<?= i18n("Reservation statistics") ?></a> 
-													
+						<?= i18n("Reservation statistics") ?></a>
+
 						<?php if($currentRol == 'd' || $currentRol == 'e'): ?>
 						<a class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=personalStatistics">
@@ -237,12 +237,35 @@ $currentRol = $view->getVariable("currentRol");
 
 						</div></li>
 				<?php endif ?>
-				
-				
-				
-				
-				
-				
+
+				<?php if($currentRol == 'd' || $currentRol == 'e'): ?>
+					<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
+						href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+							<?php echo i18n("Schedule") ?>
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<!-- Acciones admin -->
+
+							<a class="dropdown-item"
+									href="index.php?controller=schedule&amp;action=viewChampionshipMatches">
+									<?= i18n("Championship Matches") ?></a>
+
+							<a class="dropdown-item"
+									href="index.php?controller=schedule&amp;action=viewReservations">
+									<?= i18n("Reservations") ?></a>
+
+							<a class="dropdown-item"
+									href="index.php?controller=schedule&amp;action=viewOrganizedMatches">
+									<?= i18n("Organized Matches") ?></a>
+
+						</div>
+					</li>
+				<?php endif ?>
+
+
+
+
 
 
 
@@ -289,7 +312,7 @@ $currentRol = $view->getVariable("currentRol");
 				<div class="footer-copyright">
 					<p>� 2018 SJJPadel Company</p>
 				</div>
-		
+
 		</footer>
 	</div>
 

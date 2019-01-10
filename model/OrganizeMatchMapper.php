@@ -1,5 +1,5 @@
 <?php
-// file: model/UserMapper.php
+// file: model/OrganizeMatchMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
 class OrganizeMatchMapper
@@ -42,7 +42,7 @@ class OrganizeMatchMapper
             $idOrganizarPartido
         ));
         $match_sql = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($match_sql != null) {
             $match = new OrganizeMatch($match_sql["idOrganizarPartido"], $match_sql["fecha"], $match_sql["hora"]);
             return $match;
@@ -60,17 +60,17 @@ class OrganizeMatchMapper
     {
         $stmt = $this->db->query("SELECT * FROM organizarpartido ORDER BY fecha, hora");
         $organizedMatches = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $organizedMatchesArray = array();
-        
+
         foreach ($organizedMatches as $match) {
             $fecha = new DateTime($match["fecha"]);
-            
+
             $organizedMatch = new OrganizeMatch(null, $fecha->format('d-m-Y'), substr($match["hora"], 0, 5));
             $organizedMatch->setIdOrganizarPartido($match["idOrganizarPartido"]);
             array_push($organizedMatchesArray, $organizedMatch);
         }
-        
+
         return $organizedMatchesArray;
     }
 
@@ -81,7 +81,7 @@ class OrganizeMatchMapper
             $id
         ));
         $match = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         if ($match != null) {
             return true;
         } else {
@@ -101,25 +101,25 @@ class OrganizeMatchMapper
 			ON O.idOrganizarPartido = P.idOrganizarPartido
 			WHERE
 			O.idOrganizarPartido=? ");
-        
+
         $stmt->execute(array(
             $id
         ));
         $match_wt_participants = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         if (sizeof($match_wt_participants) > 0) {
-            
+
             $organizeMatch = new OrganizeMatch($id, $match_wt_participants[0]["organizarpartido.fecha"], substr($match_wt_participants[0]["organizarpartido.hora"], 0, 5));
-            
+
             $participants_array = array();
-            
+
             if ($match_wt_participants[0]["organizarpartido.idOrganizarPartido"] != null) {
                 foreach ($match_wt_participants as $participant) {
                     array_push($participants_array, $participant["participantespartido.loginUsuario"]);
                 }
             }
             $organizeMatch->setParticipants($participants_array);
-            
+
             return $organizeMatch;
         } else {
             return NULL;

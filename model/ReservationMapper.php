@@ -20,11 +20,11 @@ class ReservationMapper
         // SELECT count(fechaReserva), fechaReserva, horaReserva FROM reserva WHERE fechaReserva BETWEEN curdate() AND curdate()+7 group by fechaReserva, horaReserva
         $stmt = $this->db->prepare("SELECT * FROM reserva WHERE fechaReserva BETWEEN CURDATE() AND CURDATE() + 7 ORDER BY fechaReserva, horaReserva");
         $stmt->execute();
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $torretReservations = array();
-        
+
         foreach ($toret_db as $reservation) {
             array_push($torretReservations, new Reservation($reservation["idReserva"], $reservation["idUsuarioReserva"], $reservation["fechaReserva"], $reservation["horaReserva"]));
         }
@@ -49,9 +49,9 @@ class ReservationMapper
             $date,
             $hour
         ));
-        
+
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         $lastPista = $result["numPistas"];
         return $lastPista;
     }
@@ -60,11 +60,11 @@ class ReservationMapper
     {
         $stmt = $this->db->prepare("SELECT count(fechaReserva) as numReservas, fechaReserva, horaReserva FROM reserva WHERE fechaReserva BETWEEN curdate() AND curdate()+7 group by fechaReserva, horaReserva");
         $stmt->execute();
-        
+
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $torretReservations = array();
-        
+
         foreach ($results as $result) {
             array_push($torretReservations, array(
                 "fecha" => $result["fechaReserva"],
@@ -84,7 +84,7 @@ class ReservationMapper
             $horaReserva
         ));
         $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($reservation != null) {
             return $reservation["idReserva"];
         }
@@ -107,9 +107,9 @@ class ReservationMapper
     {
         $stmt = $this->db->prepare("SELECT count(idReserva) as num, dayofweek(fechaReserva) as day FROM reserva group by DAYOFWEEK(fechaReserva)");
         $stmt->execute();
-        
+
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $torretReservations = array();
         $days = array(
             "Monday",
@@ -120,7 +120,7 @@ class ReservationMapper
             "Saturday",
             "Sunday"
         );
-        
+
         foreach ($results as $result) {
             array_push($torretReservations, array(
                 "left" => $days[$result["day"] - 1],
@@ -134,11 +134,11 @@ class ReservationMapper
     {
         $stmt = $this->db->prepare("SELECT count(idReserva) as num, horaReserva FROM reserva group by horaReserva");
         $stmt->execute();
-        
+
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $torretReservations = array();
-        
+
         foreach ($results as $result) {
             array_push($torretReservations, array(
                 "left" => $result["horaReserva"],
@@ -150,16 +150,16 @@ class ReservationMapper
 
     public function getReservationComingStatistics()
     {
-        $stmt = $this->db->prepare("SELECT count(idReserva) as num, horaReserva, fechaReserva 
-                    FROM reserva
-                    group by horaReserva, fechaReserva 
-                    having fechaReserva >= curdate() AND fechaReserva < curdate()+7");
-        $stmt->execute();
-        
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+      $stmt = $this->db->prepare("SELECT count(idReserva) as num, horaReserva, fechaReserva
+                  FROM reserva
+                  group by horaReserva, fechaReserva
+                  having fechaReserva >= curdate() AND fechaReserva < curdate()+7");
+      $stmt->execute();
+
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         $torretReservations = array();
-        
+
         foreach ($results as $result) {
             array_push($torretReservations, array(
                 "left" => $result["fechaReserva"]. " - " .$result["horaReserva"],
@@ -167,5 +167,18 @@ class ReservationMapper
             ));
         }
         return $torretReservations;
+    }
+
+    public function getUserReservations($login){
+      $stmt = $this->db->prepare("SELECT * FROM reserva WHERE idUsuarioReserva = ? AND fechaReserva >= CURDATE()");
+      $stmt->execute(array( $login ));
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $torretReservations = array();
+
+      foreach ($results as $result) {
+          array_push($torretReservations, new Reservation($result["idReserva"], $result["idUsuarioReserva"], $result["fechaReserva"], $result["horaReserva"]));
+      }
+      return $torretReservations;
     }
 }

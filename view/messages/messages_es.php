@@ -154,7 +154,7 @@ $i18n_messages = array(
     "Quarter finals" => "Cuartos de final",
     "Champion" => "Campeon",
     "Can not edit, the championship is not in this phase" => "No se puede editar resultados en esta fase, el campeonato no esta en esta fase.",
-    
+
     "Not in session. see inscription championship requires login" => "No estas en sesion, para ver inscription requiere estar logeado",
     "Not in session. delete Inscription requires login" => "No estas en sesion, para borrar inscription requiere login",
     "Not in session. see users inscriptions in championship requires admin" => "No estas en sesion, para ver las inscripciones de los usuarios requiere ser admin",
@@ -190,6 +190,12 @@ $i18n_messages = array(
     "Victory rate" => "Ratio de victoria",
     "Usual couple" => "Pareja mas habitual",
     "Best clasification" => "Mejor clasificación",
-  
-    
+    "Schedule" => "Agenda",
+    "Championship Matches" => "Partidos de campeonato",
+    "Reservations" => "Reservas",
+    "Organized Matches" => "Partidos Organizados",
+    "Not have reservations" => "No tienes reservas",
+    "View My Reservations" => "Ver mis reservas"
+
+
 )?>

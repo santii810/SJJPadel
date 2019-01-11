@@ -33,6 +33,9 @@ require_once (__DIR__ . "/../controller/BaseController.php");
 
 require_once (__DIR__ . "/../model/Fase.php");
 
+/**
+ * Controlador de campeonatos
+ */
 class ChampionshipController extends BaseController
 {
 
@@ -70,6 +73,11 @@ class ChampionshipController extends BaseController
         $this->inscriptionUserChampionshipMapper = new InscriptionUserChampionshipMapper();
     }
 
+    /**
+     * Lleva a la vista de ver campeonatos
+     *
+     * @throws Exception
+     */
     public function showall()
     {
         if (! isset($this->currentUser)) {
@@ -84,7 +92,10 @@ class ChampionshipController extends BaseController
         // render the view (/view/users/register.php)
         $this->view->render("championship", "showall");
     }
-
+/**
+ * Inserta un campeonato
+ * @throws Exception Realizar acciones de campeonato requise ser admin
+ */
     public function add()
     {
         if (! isset($this->currentUser) && $this->currentRol == 'a') {
@@ -134,7 +145,10 @@ class ChampionshipController extends BaseController
         // render the view (/view/posts/add.php)
         $this->view->render("championship", "add");
     }
-
+/**
+ * Elimina un campeonato
+ * @throws Exception Realizar acciones de campeonato requise ser admin
+ */
     public function delete()
     {
         if (! isset($this->currentUser)) {
@@ -160,7 +174,10 @@ class ChampionshipController extends BaseController
         // render the view (/view/users/register.php)
         $this->view->render("championship", "delete");
     }
-
+/**
+ * Lleva a la vista de editar un capeonato
+ * @throws Exception Realizar acciones de campeonato requise ser admin
+ */
     public function edit()
     {
         if (! isset($this->currentUser)) {
@@ -198,7 +215,10 @@ class ChampionshipController extends BaseController
         // render the view (/view/users/register.php)
         $this->view->render("championship", "edit");
     }
-
+/**
+ * Obtiene todos los champeonatos para los que se necesita generar grupos
+ * @throws Exception Realizar acciones de campeonato requise ser admin
+ */
     public function selectToCalendar()
     {
         if (! isset($this->currentUser)) {
@@ -210,7 +230,10 @@ class ChampionshipController extends BaseController
         $this->view->render("championship", "selectToCalendar");
     }
 
-    /* Muestra los campeonatos que esta inscrito el usuario que esta logeado */
+    /**
+     * Muestra los campeonatos que esta inscrito el usuario que esta logeado
+     * @throws Exception Realizar acciones de campeonato requise ser admin
+     */
     public function showallInscriptionCurrentUser()
     {
         if (! isset($this->currentUser)) {
@@ -226,7 +249,10 @@ class ChampionshipController extends BaseController
         $this->view->render("championship", "showallInscriptionCurrentUser");
     }
 
-    /* Borra la inscripcion a un campeonato */
+    /**
+     * Borra la inscripcion a un campeonato
+     * @throws Exception Realizar acciones de campeonato requise ser admin
+     */
     public function deleteInscription()
     {
         if (! isset($this->currentUser)) {
@@ -251,7 +277,11 @@ class ChampionshipController extends BaseController
         $this->view->render("championship", "deleteInscription");
     }
 
-    /* Muestra los campeonatos que estan inscritos los usuarios */
+
+    /**
+     * Muestra los campeonatos que estan inscritos los usuarios
+     * @throws Exception Realizar acciones de campeonato requise ser admin
+     */
     public function showallInscriptionAllUsers()
     {
         if (! isset($this->currentUser)) {
@@ -383,7 +413,10 @@ class ChampionshipController extends BaseController
         }
         return $groupIds;
     }
-
+/**
+ * Rellena la tabla enfrentamientos generando todos los enfrentamientos necesarios
+ * @param int $groupIds id de los grupos a rellenar
+ */
     private function fillConfrontations($groupIds)
     {
         foreach ($groupIds as $idGrupo) {
@@ -398,7 +431,12 @@ class ChampionshipController extends BaseController
             foreach ($couplesGroup as $couple) {}
         }
     }
-
+/**
+ * Modifica las categorias asociadas a un campeonato
+ * @param Category[] $categoriesCurrentChampionship categorias del campeonato
+ * @param Category[] $categoriesSeleted
+ * @param int $idChampionship
+ */
     private function editCategoriesChampionship($categoriesCurrentChampionship, $categoriesSeleted, $idChampionship)
     {
         $array_id_current = array();
@@ -507,7 +545,10 @@ class ChampionshipController extends BaseController
         // mandamos el valor de variable para que lo recoga la vista
         return $array_winners;
     }
-
+/**
+ * Guarda los enfrentamientos de la fase de cuartos
+ * @param Group[] $grupos
+ */
     private function crearEnfrentamientosCuartos($grupos)
     {
         foreach ($grupos as $grupo) {
@@ -522,7 +563,10 @@ class ChampionshipController extends BaseController
             $this->confrontationMapper->save($enfrentamiento);
         }
     }
-
+    /**
+     * Guarda los enfrentamientos de la fase de semifinal
+     * @param Group[] $grupos
+     */
     private function crearEnfrentamientosSemifinal($grupos)
     {
         foreach ($grupos as $grupo) {
@@ -538,7 +582,10 @@ class ChampionshipController extends BaseController
             $this->confrontationMapper->save($enfrentamiento);
         }
     }
-
+    /**
+     * Guarda el enfrentamiento de la final
+     *      * @param Group[] $grupos
+     */
     private function crearEnfrentamientoFinal($grupos)
     {
         foreach ($grupos as $grupo) {

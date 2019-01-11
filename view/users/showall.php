@@ -21,7 +21,7 @@ $cabecera = array(
 	src="images/addUser.png" class="img-fluid" alt="Responsive image">
 </a>
 
-<table class="table">
+<table class="table table-responsive">
 	<thead class="thead-dark">
 		<tr>
       <?php foreach($cabecera as $valor) { ?>

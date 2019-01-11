@@ -20,7 +20,7 @@ $cabecera = array(
 	src="images/addCampeonato.png" class="img-fluid" alt="Responsive image" />
 </a>
 
-<table class="table">
+<table class="table table-responsive">
 	<thead class="thead-dark">
 		<tr>
       <?php foreach( $cabecera as $valor ) { ?>
@@ -28,7 +28,7 @@ $cabecera = array(
           <?php echo i18n( $valor ); ?>
         </th>
       <?php } ?>
-      <th scope="col" colspan="2">
+      <th scope="col" colspan="3">
         <?= i18n("Options"); ?>
       </th>
 		</tr>
@@ -52,30 +52,34 @@ $cabecera = array(
           <?php echo $championship->getFechaFinCampeonato() ; ?>
         </td>
 			<td>
-				<div class="cointainer">
-					<a
-						href="index.php?controller=championship&amp;action=edit&amp;id=<?php echo $championship->getId() ?>"
-						class="h-25 d-inline-block"> <img src="images/editCampeonato.png"
-						class="img-fluid" alt="Responsive image">
-					</a> <a
-						href="index.php?controller=championship&amp;action=delete&amp;id=<?php echo $championship->getId() ?>"
-						class="h-25 d-inline-block"> <img
-						src="images/deleteCampeonato.png" class="img-fluid"
+	
+          <a
+						href="index.php?controller=championship&amp;action=edit&amp;id=<?php echo $championship->getId() ?>">
+            <img src="images/editCampeonato.png"
+						class="mx-auto d-block" alt="Responsive image">
+					</a>
+      </td>
+      <td>
+           <a
+						href="index.php?controller=championship&amp;action=delete&amp;id=<?php echo $championship->getId() ?>"> 
+            <img src="images/deleteCampeonato.png" class="mx-auto d-block"
 						alt="Responsive image">
 					</a>
-					
+			</td>
+      <td>
             <?php
         // Muestra el icono para generar calendario solo si es posible
         if ($championship->needGenerateCalendar()) :
             ?>
               <a
 						href="index.php?controller=championship&amp;action=generateCalendar&amp;id=<?php echo $championship->getId() ?>">
-						<img src="images/calendar64.png" class="img-fluid"
+						<img src="images/calendar64.png" class="mx-auto d-block"
 						alt="Responsive image">
 					</a>
+      
             <?php endif;?>
 
-          </div>
+          
 			</td>
 		</tr>  
     <?php } ?>

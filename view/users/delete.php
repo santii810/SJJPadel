@@ -54,7 +54,7 @@ $cabecera = array(
 					<th>
             <?php echo i18n("Gender") ?> 
         </th>
-					<td><input type="text" class="form-control" name="rol"
+					<td><input type="text" class="form-control" name="genero"
 						value="<?php echo i18n($datos->getGender()) ?>"></td>
 				</tr>
 			</thead>

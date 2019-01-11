@@ -148,7 +148,6 @@ class UsersController extends BaseController
             
             $this->view->redirect("users", "showall");
             
-            exit();
         }
         
         $datos = $userMapper->getDatos($_REQUEST['login']);

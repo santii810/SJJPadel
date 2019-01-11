@@ -11,10 +11,8 @@ class CategoryController extends BaseController
 {
 
     /**
-     * Reference to the UserMapper to interact
-     * with the database
-     *
-     * @var UserMapper
+     * Controlador de categorías
+     * CategoryMapper $categoryMapper objeto para Mapeado de la base de datos
      */
     private $categoryMapper;
 
@@ -25,6 +23,11 @@ class CategoryController extends BaseController
         $this->categoryMapper = new CategoryMapper();
     }
 
+    /**
+     * Muestra la vista con todas las categorías
+     *
+     * @throws Exception Para ver esta vista es necesario ser administrador
+     */
     public function showall()
     {
         if (! isset($this->currentUser)) {
@@ -40,10 +43,15 @@ class CategoryController extends BaseController
         $this->view->render("category", "showall");
     }
 
+    /**
+     * Borra una categoría
+     *
+     * @throws Exception Para borrar categorias es necesario ser administrador
+     */
     public function delete()
     {
         if (! isset($this->currentUser)) {
-            throw new Exception("Not in session. delete category requires login");
+            throw new Exception("Not in session. delete category requires admin");
         }
         
         $userMapper = new UserMapper();
@@ -58,14 +66,16 @@ class CategoryController extends BaseController
         }
         
         $category = $this->categoryMapper->getDatos($_REQUEST['id']);
-        
-        // Put the User object visible to the view
         $this->view->setVariable("category", $category);
-        
-        // render the view (/view/users/register.php)
         $this->view->render("category", "delete");
     }
 
+    /**
+     * Muestra la vista de ediccion de categorías.
+     * Si la peticion proviene de esa vista se modifica la categoria con los datos aportados
+     *
+     * @throws Exception Para ver esta vista es necesario ser administrador
+     */
     public function edit()
     {
         if (! isset($this->currentUser)) {
@@ -90,6 +100,11 @@ class CategoryController extends BaseController
         $this->view->render("category", "edit");
     }
 
+    /**
+     * Inserta una nueva categoría
+     *
+     * @throws Exception Para insertar una categoria es necesario ser administrador
+     */
     public function add()
     {
         if (! isset($this->currentUser)) {
@@ -98,7 +113,7 @@ class CategoryController extends BaseController
         $category = new Category();
         
         if (isset($_POST["level"])) { // reaching via HTTP Post...
-                                     
+                                      
             // populate the User object with data form the form
             $category->setNivel($_POST["level"]);
             $category->setSexo($_POST["sex"]);

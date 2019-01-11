@@ -11,6 +11,9 @@ require_once (__DIR__ . "/../model/ParticipantsMatchMapper.php");
 require_once (__DIR__ . "/../model/Reservation.php");
 require_once (__DIR__ . "/../model/ReservationMapper.php");
 
+require_once (__DIR__ . "/../model/OrganizedMatch.php");
+require_once (__DIR__ . "/../model/OrganizedMatchMapper.php");
+
 require_once (__DIR__ . "/../controller/BaseController.php");
 
 /**
@@ -45,12 +48,15 @@ class OrganizeMatchController extends BaseController
      */
     private $reservationMapper;
 
+    private $organizedMatchMapper;
+
     public function __construct()
     {
         parent::__construct();
         $this->organizeMatchMapper = new OrganizeMatchMapper();
         $this->participantsMatchMapper = new ParticipantsMatchMapper();
         $this->reservationMapper = new ReservationMapper();
+        $this->organizedMatchMapper = new OrganizedMatchMapper();
     }
 
     public function add()
@@ -58,9 +64,9 @@ class OrganizeMatchController extends BaseController
         if (! isset($this->currentUser) && $this->currentRol == 'a') {
             throw new Exception("Not in session. Organize a match requires admin");
         }
-        
+
         $organizeMatch = new OrganizeMatch();
-        
+
         if (isset($_POST["dateOrganizeMatch"])) { // reaching via HTTP Post...
             if (time() > strtotime($_POST["dateOrganizeMatch"])) {
                 $this->view->setFlash(sprintf(i18n("Cannot organize a match for yesterday!")));
@@ -68,29 +74,29 @@ class OrganizeMatchController extends BaseController
             }
             $organizeMatch->setFecha(date("Y-m-d", strtotime($_POST["dateOrganizeMatch"])));
             $organizeMatch->setHora($_POST["timeOrganizeMatch"]);
-            
+
             $numRes = $this->reservationMapper->getNumReservations($organizeMatch->getFecha(), $organizeMatch->getHora());
             if ($numRes == 5) {
                 $this->view->setFlash(sprintf(i18n("Alredy 5 matches for this hour and date")));
                 $this->view->redirect("organizeMatch", "add");
             }
-            
+
             try {
                 $organizeMatch->checkIsValidForCreate();
-                
+
                 $this->organizeMatchMapper->save($organizeMatch);
-                
+
                 $this->view->setFlash(sprintf(i18n("Match successfully organize.")));
-                
+
                 $this->view->redirect("organizeMatch", "viewAll");
             } catch (ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);
             }
         }
-        
+
         $this->view->setVariable("organizeMatch", $organizeMatch);
-        
+
         $this->view->render("organizeMatch", "add");
     }
 
@@ -99,16 +105,16 @@ class OrganizeMatchController extends BaseController
         if (! isset($this->currentUser)) {
             throw new Exception("Not in session. You must be logged");
         }
-        
+
         $this->validateAllOrganizeMatches();
-        
+
         $organizedMatches = $this->organizeMatchMapper->findAll();
         foreach ($organizedMatches as $match) {
             $match->setNumParticipants($this->participantsMatchMapper->count($match->getIdOrganizarPartido()));
         }
-        
+
         $this->view->setVariable("organizedMatches", $organizedMatches);
-        
+
         $this->view->render("organizeMatch", "view");
     }
 
@@ -121,38 +127,41 @@ class OrganizeMatchController extends BaseController
             throw new Exception("ID is mandatory");
         }
         $idOrganizeMatch = $_REQUEST["idOrganizeMatch"];
-        
+
         if (isset($_POST["idOrganizeMatch"])) {
-            
+
             if (! ($this->organizeMatchMapper->exist($_POST["idOrganizeMatch"]))) {
                 throw new Exception("Incorrect ID");
             }
-            
+
             $play = $this->participantsMatchMapper->play($idOrganizeMatch, $_SESSION["currentuser"]);
-            
+
             if ($play) {
                 throw new Exception("User alredy play");
             }
-            
+
             $participant = new ParticipantsMatch(null, $_POST["idOrganizeMatch"], $_SESSION["currentuser"]);
-            
+
             try {
-                
+
                 $participant->checkIsValidForCreate();
-                
+
                 $this->participantsMatchMapper->save($participant); // Error 4 insercion
-                
+
                 $this->view->setFlash(sprintf(i18n("Match successfully join.")));
-                
+
                 $players = $this->participantsMatchMapper->count($idOrganizeMatch);
-                
+
                 if ($players == 4) {
                     $organizeMatch = $this->organizeMatchMapper->find($idOrganizeMatch);
                     if ($organizeMatch != null) {
                         $numRes = $this->reservationMapper->getNumReservations($organizeMatch->getFecha(), $organizeMatch->getHora());
                         if ($numRes != 5) {
                             $reservation = new Reservation(null, "admin", $organizeMatch->getFecha(), $organizeMatch->getHora());
-                            $this->reservationMapper->makeReservation($reservation);
+                            $id = $this->reservationMapper->saveWithReturn($reservation);
+                            $participantsMatchGet = $this->participantsMatchMapper->getParticipants($idOrganizeMatch);
+                            $this->organizedMatchMapper->save(new OrganizedMatch(null, $id, $participantsMatchGet[0], $participantsMatchGet[1],
+                                $participantsMatchGet[2], $participantsMatchGet[3]));
                             $this->organizeMatchMapper->delete($idOrganizeMatch);
                         } else {
                             throw new Exception(" Alredy five matches for this date");
@@ -161,21 +170,21 @@ class OrganizeMatchController extends BaseController
                         throw new Exception(" Organize match not found");
                     }
                 }
-                
+
                 $this->view->redirect("users", "index");
             } catch (ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);
             }
         }
-        
+
         $joinMatch = $this->organizeMatchMapper->findMatchWithParticipants($idOrganizeMatch);
         $play = $this->participantsMatchMapper->play($idOrganizeMatch, $_SESSION["currentuser"]);
-        
+
         $this->view->setVariable("play", $play);
-        
+
         $this->view->setVariable("joinMatch", $joinMatch);
-        
+
         $this->view->render("organizeMatch", "join");
     }
 
@@ -187,31 +196,31 @@ class OrganizeMatchController extends BaseController
         if (! isset($_REQUEST["idOrganizeMatch"])) {
             throw new Exception("ID is mandatory");
         }
-        
+
         $idOrganizeMatch = $_REQUEST["idOrganizeMatch"];
-        
+
         if (isset($_POST["idOrganizeMatch"])) {
-            
+
             if (! ($this->organizeMatchMapper->exist($_POST["idOrganizeMatch"]))) {
                 throw new Exception("Incorrect ID");
             }
-            
+
             try {
                 $this->organizeMatchMapper->delete($_POST["idOrganizeMatch"]);
-                
+
                 $this->view->setFlash(sprintf(i18n("Match successfully delete.")));
-                
+
                 $this->view->redirect("users", "index");
             } catch (ValidationException $ex) {
                 $errors = $ex->getErrors();
                 $this->view->setVariable("errors", $errors);
             }
         }
-        
+
         $deleteMatch = $this->organizeMatchMapper->findMatchWithParticipants($idOrganizeMatch);
-        
+
         $this->view->setVariable("deleteMatch", $deleteMatch);
-        
+
         $this->view->render("organizeMatch", "delete");
     }
 
@@ -220,19 +229,19 @@ class OrganizeMatchController extends BaseController
         if (! isset($this->currentUser) && $this->currentRol == 'a') {
             throw new Exception("Not in session. Delete a match requires admin");
         }
-        
+
         if (isset($_POST["idOrganizeMatch"])) {
-            
+
             if (! ($this->organizeMatchMapper->exist($_POST["idOrganizeMatch"]))) {
                 throw new Exception("Incorrect ID");
             }
-            
+
             try {
-                
+
                 $this->participantsMatchMapper->cancel($_POST["idOrganizeMatch"], $_SESSION["currentuser"]);
-                
+
                 $this->view->setFlash(sprintf(i18n("Cancel successfully.")));
-                
+
                 $this->view->redirect("users", "index");
             } catch (ValidationException $ex) {
                 $errors = $ex->getErrors();

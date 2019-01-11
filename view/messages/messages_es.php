@@ -96,7 +96,7 @@ $i18n_messages = array(
     "Delete" => "Eliminar",
     "Are you sure to eliminate this user?" => "¿Estas seguro de eliminar a este usuario?",
     "Incorrect result" => "Resultados incorrectos",
-    "Match successfully join." => "Partido organizado correctamente",
+    "Match successfully join." => "Te has unido al partido",
     "You arent registered in a championship in game" => "No estas inscrito en ningun torneo en juego",
     "No offers available" => "No hay ofertas disponibles",
     "Offer a Match" => "Ofertar un partido",
@@ -195,7 +195,11 @@ $i18n_messages = array(
     "Reservations" => "Reservas",
     "Organized Matches" => "Partidos Organizados",
     "Not have reservations" => "No tienes reservas",
-    "View My Reservations" => "Ver mis reservas"
-
+    "View My Reservations" => "Ver mis reservas",
+    "See participation in organized matches" => "Ver participación partidos organizados",
+    "Not participate in a organnized match" => "No participas en ningún partido organizado",
+    "Cancel successfully." => "Cancelado",
+    "See participation in championship matches" => "Ver participacion en partidos de campeonato",
+    "Not participate in a championship match" => "No participas en ningún partido de campeonato"
 
 )?>

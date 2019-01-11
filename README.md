@@ -8,14 +8,12 @@ Estas cifras destacan un mercado emergente donde las soluciones propuestas por l
 
 
 ------------------------------------------------------------
-&trade; 
 ## SETUP
 La ejecucion de la aplicacion requiese la creacion de la base de datos alojada en el repositorio.
 >mysql -u root -p
   
 >source Database.sql
-  
-              
+
 Además se necesita un usuario para acceder a la base de datos
 > GRANT ALL PRIVILEGES ON sjjpadel.* TO abp@localhost IDENTIFIED BY 'abp';
 

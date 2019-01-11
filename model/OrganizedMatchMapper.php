@@ -37,6 +37,12 @@ class OrganizedMatchMapper
       ));
   }
 
+  /**
+  * Retrieves all the user participate organize matches
+  *
+  * @throws PDOException if a database error occurs
+  * @return mixed Array of OrganizedMatch instances
+  */
   public function getUserMatches($login){
     $stmt = $this->db->prepare("SELECT * FROM partidoorganizado WHERE login1=? OR login2=? OR login3=? OR login4=?");
     $stmt->execute(array(

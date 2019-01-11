@@ -20,10 +20,36 @@ require_once (__DIR__ . "/../controller/BaseController.php");
 
 class ScheduleController extends BaseController
 {
-
+  /**
+   * Reference to the UserMapper to interact
+   * with the database
+   *
+   * @var UserMapper
+   */
   private $userMapper;
+
+  /**
+   * Reference to the OrganizedMatchMapper to interact
+   * with the database
+   *
+   * @var OrganizedMatchMapper
+   */
   private $organizedMatchMapper;
+
+  /**
+   * Reference to the ConfrontationMapper to interact
+   * with the database
+   *
+   * @var ConfrontationMapper
+   */
   private $confrontationMapper;
+
+  /**
+   * Reference to the ReservationMapper to interact
+   * with the database
+   *
+   * @var ReservationMapper
+   */
   private $reservationMapper;
 
   public function __construct()
@@ -36,6 +62,13 @@ class ScheduleController extends BaseController
       $this->partnerMapper = new PartnerMapper();
   }
 
+  /**
+	* Action to list championshit matches of a user
+	*
+	* Loads all the championshit matches of a user from the database.
+	* No HTTP parameters are needed.
+	*
+	*/
   public function viewChampionshipMatches()
   {
       if (!isset($this->currentUser)) {
@@ -62,6 +95,13 @@ class ScheduleController extends BaseController
       $this->view->render("schedule", "viewChampionshipMatches");
   }
 
+  /**
+	* Action to list reservations of a user
+	*
+	* Loads all the reservations of a user from the database.
+	* No HTTP parameters are needed.
+	*
+	*/
   public function viewReservations()
   {
       if (!isset($this->currentUser)) {
@@ -80,6 +120,13 @@ class ScheduleController extends BaseController
       $this->view->render("schedule", "viewReservations");
   }
 
+  /**
+  * Action to list participate organized matches of a user
+  *
+  * Loads all the participate organized matches of a user from the database.
+  * No HTTP parameters are needed.
+  *
+  */
   public function viewOrganizedMatches()
   {
       if (!isset($this->currentUser)) {

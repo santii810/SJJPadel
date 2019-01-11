@@ -48,6 +48,12 @@ class OrganizeMatchController extends BaseController
      */
     private $reservationMapper;
 
+    /**
+     * Reference to the OrganizedMatchMapper to interact
+     * with the database
+     *
+     * @var OrganizedMatchMapper
+     */
     private $organizedMatchMapper;
 
     public function __construct()

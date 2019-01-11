@@ -21,6 +21,12 @@ class ConfrontationOfferMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+  	* Retrieves all the offers of a group given its idGrupo
+  	*
+  	* @throws PDOException if a database error occurs
+  	* @return mixed Array of ConfrontationOffer instances
+  	*/
     public function getConfrontationOffersForGroup($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idGrupo=?");
@@ -28,9 +34,9 @@ class ConfrontationOfferMapper
             $idGrupo
         ));
         $ofertasEnfrentamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $enfrentamientos_array = array();
-        
+
         if ($ofertasEnfrentamientos != null) {
             foreach ($ofertasEnfrentamientos as $enfrentamiento) {
                 $fecha = new DateTime($enfrentamiento["fecha"]);
@@ -41,6 +47,12 @@ class ConfrontationOfferMapper
         return $enfrentamientos_array;
     }
 
+    /**
+    * Retrieves a ConfrontationOffer given its idOfertaEnfrentamiento
+    *
+    * @throws PDOException if a database error occurs
+    * @return  ConfrontationOffer instance
+    */
     public function getOffer($idOfertaEnfrentamiento)
     {
         $stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idOfertaEnfrentamiento=?");
@@ -48,7 +60,7 @@ class ConfrontationOfferMapper
             $idOfertaEnfrentamiento
         ));
         $ofertaEnfrentamientos = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($ofertaEnfrentamientos != null) {
             return new ConfrontationOffer($ofertaEnfrentamientos["idOfertaEnfrentamiento"], $ofertaEnfrentamientos["idPareja"], $ofertaEnfrentamientos["idGrupo"], $ofertaEnfrentamientos["hora"], $ofertaEnfrentamientos["fecha"]);
         }

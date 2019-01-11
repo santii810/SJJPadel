@@ -25,7 +25,7 @@ class ParticipantsMatchMapper
             $userLogin
         ));
         $play = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         if ($play != null) {
             $play = true;
         } else {
@@ -59,7 +59,7 @@ class ParticipantsMatchMapper
             $idOrganizeMatch
         ));
         $count = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         return $count["count"];
     }
 
@@ -75,5 +75,22 @@ class ParticipantsMatchMapper
             $idOrganizeMatch,
             $userLogin
         ));
+    }
+
+
+    public function getParticipants($idOrganizeMatch){
+      $stmt = $this->db->prepare("SELECT * FROM participantespartido WHERE idOrganizarPartido =?");
+      $stmt->execute(array(
+          $idOrganizeMatch
+      ));
+      $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $array_participantes = array();
+
+      foreach($toret_db as $to){
+        array_push($array_participantes, $to["loginUsuario"]);
+      }
+
+      return $array_participantes;
     }
 }

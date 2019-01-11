@@ -150,7 +150,7 @@ class Confrontation
     public function checkIsValidForRegister()
     {
         $errors = array();
-        
+
         if (sizeof($errors) > 0) {
             throw new ValidationException($errors, "confrontation is not valid");
         }

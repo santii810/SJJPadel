@@ -27,7 +27,7 @@ class ConfrontationMapper
             $partnergroup->getIdPartner2(),
             $partnergroup->getIdGroup(),
             $partnergroup->getPhase()
-        
+
         ));
     }
 
@@ -55,15 +55,15 @@ class ConfrontationMapper
             $idGrupo,
             $fase
         ));
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $confrontations = array();
-        
+
         foreach ($toret_db as $confrontation) {
             array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
         }
-        
+
         return $confrontations;
     }
 
@@ -77,15 +77,15 @@ class ConfrontationMapper
         $stmt->execute(array(
             $idGrupo
         ));
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $confrontations = array();
-        
+
         foreach ($toret_db as $confrontation) {
             array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
         }
-        
+
         return $confrontations;
     }
 
@@ -100,15 +100,15 @@ class ConfrontationMapper
             $idGrupo,
             $fase
         ));
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $confrontations = array();
-        
+
         foreach ($toret_db as $confrontation) {
             array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
         }
-        
+
         return $confrontations;
     }
 
@@ -116,21 +116,21 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
      idGrupo = ? AND
-     fase = 'Cuartos' 
+     fase = 'Cuartos'
      ORDER BY idPareja1,idPareja2
      ");
         $stmt->execute(array(
             $idGrupo
         ));
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $confrontations = array();
-        
+
         foreach ($toret_db as $confrontation) {
             array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
         }
-        
+
         return $confrontations;
     }
 
@@ -138,21 +138,21 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
      idGrupo = ? AND
-     fase = 'Semifinal' 
+     fase = 'Semifinal'
      ORDER BY idPareja1,idPareja2
      ");
         $stmt->execute(array(
             $idGrupo
         ));
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $confrontations = array();
-        
+
         foreach ($toret_db as $confrontation) {
             array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
         }
-        
+
         return $confrontations;
     }
 
@@ -160,21 +160,21 @@ class ConfrontationMapper
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
      idGrupo = ? AND
-     fase = 'Final' 
+     fase = 'Final'
      ORDER BY idPareja1,idPareja2
      ");
         $stmt->execute(array(
             $idGrupo
         ));
-        
+
         $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
+
         $confrontations = array();
-        
+
         foreach ($toret_db as $confrontation) {
             array_push($confrontations, new Confrontation($confrontation["idEnfrentamiento"], $confrontation["idPareja1"], $confrontation["idPareja2"], $confrontation["idGrupo"], $confrontation['fase'], $confrontation["fecha"], $confrontation["hora"], $confrontation["puntosPareja1"], $confrontation["puntosPareja2"], $confrontation["setsPareja1"], $confrontation["setsPareja2"]));
         }
-        
+
         return $confrontations;
     }
 
@@ -190,7 +190,7 @@ class ConfrontationMapper
             $idPareja1
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($toret_db["count"] == 0) {
             return true;
         } else {
@@ -208,7 +208,7 @@ class ConfrontationMapper
             $idPareja
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($toret_db != null) {
             return $toret_db["idEnfrentamiento"];
         }
@@ -234,7 +234,7 @@ class ConfrontationMapper
             $idGroup
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         return ($toret_db != null && $toret_db["num"] == 0);
     }
 
@@ -245,7 +245,7 @@ class ConfrontationMapper
             $idPareja
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($toret_db != null) {
             return $toret_db["num"];
         }
@@ -258,7 +258,7 @@ class ConfrontationMapper
             $idPareja
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($toret_db != null) {
             return $toret_db["num"];
         }
@@ -271,7 +271,7 @@ class ConfrontationMapper
             $idPareja
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($toret_db != null) {
             return $toret_db["num"];
         }
@@ -284,7 +284,7 @@ class ConfrontationMapper
             $idPareja
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($toret_db != null) {
             return $toret_db["num"];
         }
@@ -293,25 +293,61 @@ class ConfrontationMapper
     public function getBestResult($idPareja)
     {
         $stmt = $this->db->prepare("select idPareja1, idPareja2, fase,setsPareja1,setsPareja2
-                        from enfrentamiento where idPareja1=? or idPareja2=? 
+                        from enfrentamiento where idPareja1=? or idPareja2=?
                         group by fase order by fase desc limit 1;");
         $stmt->execute(array(
             $idPareja,
             $idPareja
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-        
+
+
 //         var_dump($toret_db["fase"]);
-        
-        
+
+
         if ($toret_db != null) {
             if ($toret_db["fase"] == "Final") {
                 if ($toret_db["idPareja1"] == $idPareja && $toret_db["setsPareja1"] > $toret_db["setsPareja2"] || $toret_db["idPareja2"] == $idPareja && $toret_db["setsPareja1"] < $toret_db["setsPareja2"])
                     return "Campeón";
             }
-            
+
             return $toret_db["fase"];
         }
     }
+
+    public function getConfrontationMatches($idPareja){
+      $stmt = $this->db->prepare("SELECT
+        E.idEnfrentamiento as 'e.idEnfrentamiento',
+        E.idPareja1 as 'e.idPareja1',
+        E.idPareja2 as 'e.idPareja2',
+        E.idGrupo as 'e.idGrupo',
+        E.fase as 'e.fase',
+        E.fecha as 'e.fecha',
+        E.hora as 'e.hora'
+        FROM enfrentamiento E LEFT OUTER JOIN pareja P
+        ON E.idPareja1 = P.idPareja AND E.idPareja2 = P.idPareja
+        WHERE
+        (E.idPareja1=? OR E.idPareja2=?) AND E.fecha IS NOT NULL AND E.hora IS NOT NULL AND E.fecha >= CURDATE()");
+
+      $stmt->execute(array( $idPareja, $idPareja ));
+      $championship_matches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $championshipM = array();
+
+      foreach($championship_matches as $championshipMatch){
+        array_push($championshipM, new Confrontation($championshipMatch["e.idEnfrentamiento"],
+                                                      $championshipMatch["e.idPareja1"],
+                                                      $championshipMatch["e.idPareja2"],
+                                                      $championshipMatch["e.idGrupo"],
+                                                      $championshipMatch["e.fase"],
+                                                      $championshipMatch["e.fecha"],
+                                                      $championshipMatch["e.hora"],
+                                                      null,
+                                                      null,
+                                                      null,
+                                                      null));
+      }
+      return $championshipM;
+    }
+
 }

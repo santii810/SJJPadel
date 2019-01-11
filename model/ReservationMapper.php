@@ -177,8 +177,20 @@ class ReservationMapper
       $torretReservations = array();
 
       foreach ($results as $result) {
-          array_push($torretReservations, new Reservation($result["idReserva"], $result["idUsuarioReserva"], $result["fechaReserva"], $result["horaReserva"]));
+          $fecha = new DateTime($result["fechaReserva"]);
+          array_push($torretReservations, new Reservation($result["idReserva"], $result["idUsuarioReserva"], $fecha->format('d-m-Y'), $result["horaReserva"]));
       }
       return $torretReservations;
+    }
+
+    public function saveWithReturn($reservation)
+    {
+        $stmt = $this->db->prepare("INSERT INTO reserva (idUsuarioReserva, fechaReserva, horaReserva) values (?,?,?)");
+        $stmt->execute(array(
+            $reservation->getIdUserReservation(),
+            $reservation->getDateReservation(),
+            $reservation->getHourReservation()
+        ));
+        return $this->db->lastInsertId();
     }
 }

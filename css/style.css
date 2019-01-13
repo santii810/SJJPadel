@@ -1,19 +1,20 @@
-@
-keyframes backgroundflash { 75% {
-	opacity: 1.0
-}
+/**
+* Fichero css Style
+*
+* Define el diseño de todas las paginas de la aplicación web
+* 
+*
+*/
+@keyframes backgroundflash { 
+	75% {
+		opacity: 1.0;
+	}
 
-100%
-{
-opacity
-:
-0
-.0
-;
- 
-display
-:none
-}
+	100%
+	{
+		opacity:0.0;
+		display:none;
+	}
 }
 #flash {
 	background-color: black;

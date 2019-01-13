@@ -7,20 +7,30 @@ require_once (__DIR__ . "/../model/Championship.php");
 require_once (__DIR__ . "/../model/Group.php");
 require_once (__DIR__ . "/../model/Category.php");
 
+/**
+* Clase ChampionshipMapper
+*
+* Interfaz de base de datos para entidades ChampionshipMapper
+* 
+*
+*/
+
 class ChampionshipMapper
 {
 
-    /**
-     * Reference to the PDO connection
-     *
-     * @var PDO
-     */
     private $db;
 
     public function __construct()
     {
         $this->db = PDOConnection::getInstance();
     }
+
+    /**
+     * Guarda un campeonato 
+     *
+     * @param $Championship
+     * @return void
+     */
 
     public function save($championship)
     {
@@ -35,6 +45,13 @@ class ChampionshipMapper
         return $this->db->lastInsertId();
     }
 
+    /**
+     * Elimina un campeonato 
+     *
+     * @param $id
+     * @return void
+     */
+
     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM campeonato where idCampeonato=?");
@@ -42,6 +59,13 @@ class ChampionshipMapper
             $id
         ));
     }
+
+    /**
+     * Edita un campeonato 
+     *
+     * @param $Championship
+     * @return void
+     */
 
     public function edit($championship)
     {
@@ -81,7 +105,12 @@ class ChampionshipMapper
         }
     }
 
-    // prueba objectos
+    /**
+     * Devuelve todos los campeonatos
+     *
+     * 
+     * @return mixed Championship
+     */
     public function getCampeonatos()
     {
         $stmt = $this->db->query("SELECT *
@@ -113,7 +142,12 @@ class ChampionshipMapper
         ));
     }
 
-    // Retorna campeonatos ya en curso
+    /**
+     * Devuelve campeonatos en curso
+     *
+     *
+     * @return void
+     */
     public function getCampeonatosInProgress()
     {
         $stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioCampeonato < curdate()");
@@ -127,7 +161,14 @@ class ChampionshipMapper
         return $championships;
     }
 
-    // devuelve una lista de campeonatos con la fecha de incripcion finalziada y que no tengan grupos ya creados
+    /**
+     * devuelve una lista de campeonatos con la fecha de incripcion finalizada y que no tengan grupos ya creados
+     *
+     * 
+     * @return mixed Championship
+     */
+
+    
     public function getCampeonatosToGenerateGroups()
     {
         $stmt = $this->db->query("SELECT * FROM campeonato where fechaFinInscripcion <= curdate() and (Select count(idCampeonato) from grupo where campeonato.idCampeonato = grupo.idCampeonato ) = 0");
@@ -142,7 +183,14 @@ class ChampionshipMapper
         return $championships;
     }
 
-    // prueba objectos
+    
+    /**
+     * devuelve una lista de campeonatos con la fecha de incripcion finalziada y que no tengan grupos ya creados
+     *
+     * 
+     * @return mixed Championship
+     */
+
     public function getCampeonatosParaIncripcion()
     {
         $stmt = $this->db->query("SELECT * FROM campeonato where fechaInicioInscripcion <= curdate() and fechaFinInscripcion >= curdate()");
@@ -157,7 +205,13 @@ class ChampionshipMapper
         return $championships;
     }
 
-    // obtener las categorias de un campeonato
+    /**
+     * devuelve las categorias de un campeonato
+     *
+     * @param $idCampeonato
+     * @return mixed Categories
+     */
+
     public function getCategorias($idCampeonato)
     {
         $stmt = $this->db->prepare("SELECT cam.nombreCampeonato,cat.nivel,cat.sexo,catc.idCategoria,cam.idCampeonato,catc.idCategoriasCampeonato
@@ -180,6 +234,14 @@ class ChampionshipMapper
         
         return $categories;
     }
+
+    /**
+     * devuelve los grupos relacionados con una categoria de un campeonato
+     *
+     * @param $idCampeonato,$idCategoria
+     * @return mixed groups
+     */
+
 
     public function getGrupos($idCampeonato, $idCategoria)
     {
@@ -205,6 +267,13 @@ class ChampionshipMapper
         return $groups;
     }
 
+    /**
+     * devuelve el nombre de un campeonato
+     *
+     * @param $idCampeonato
+     * @return string
+     */
+
     public function getNombreCampeonato($idCampeonato)
     {
         $stmt = $this->db->prepare("SELECT nombreCampeonato FROM campeonato WHERE idCampeonato = ? AND fechaInicioCampeonato <= curdate() AND fechaFinCampeonato >= curdate()");
@@ -217,6 +286,13 @@ class ChampionshipMapper
             return $toret_db["nombreCampeonato"];
         }
     }
+
+    /**
+     * valida la fecha de finalización con la actual
+     *
+     * @param $idCampeonato,$idCategoria
+     * @return boolean
+     */
 
     public function validateHour($idChampionship, $fechaOffer)
     {
@@ -236,6 +312,13 @@ class ChampionshipMapper
         }
     }
 
+    /**
+     * devuelve los datos de un campeonato
+     *
+     * @param $id
+     * @return Championship
+     */
+
     public function getDatos($id)
     {
         $stmt = $this->db->prepare("SELECT * FROM campeonato where idCampeonato=?");
@@ -254,6 +337,13 @@ class ChampionshipMapper
         return $championship;
     }
 
+    /**
+     * Comprueba si el campeonato esta en una fase determinada
+     *
+     * @param $idCampeonato,$fase
+     * @return boolean
+     */
+
     public function checkPhase($idCampeonato, $fase)
     {
         $stmt = $this->db->prepare("SELECT count(*) FROM campeonato where idCampeonato=? and fase=?");
@@ -269,6 +359,12 @@ class ChampionshipMapper
         }
     }
     
+    /**
+     * devuelve las parejas que estan en un campeonato
+     *
+     * 
+     * @return mixed 
+     */
 
     public function getCouplesPerChampionship()
     {        

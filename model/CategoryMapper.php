@@ -2,14 +2,18 @@
 // file: model/UserMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase CategoryMapper
+*
+* Interfaz de base de datos para entidades CategoryMapper
+* 
+*
+*/
+
 class CategoryMapper
 {
 
-    /**
-     * Reference to the PDO connection
-     *
-     * @var PDO
-     */
+    
     private $db;
 
     public function __construct()
@@ -18,11 +22,11 @@ class CategoryMapper
     }
 
     /**
-     * Saves a User into the database
+     * Guarda categoria
      *
-     * @param User $user
-     *            The user to be saved
-     * @throws PDOException if a database error occurs
+     * @param Category $category
+     *            
+     * @throws PDOException si falla base de datos
      * @return void
      */
     public function save($category)
@@ -35,6 +39,15 @@ class CategoryMapper
         ));
     }
 
+    /**
+     * elimina categoria
+     *
+     * @param $id
+     *            
+     * @throws PDOException si falla base de datos
+     * @return void
+     */
+
     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM categoria where idCategoria=?");
@@ -42,6 +55,15 @@ class CategoryMapper
             $id
         ));
     }
+
+    /**
+     * Edita categoria
+     *
+     * @param $level,$sex,$id
+     *            
+     * @throws PDOException si falla base de datos
+     * @return void
+     */
 
     public function edit($level, $sex, $id)
     {
@@ -52,6 +74,15 @@ class CategoryMapper
             $id
         ));
     }
+
+    /**
+     * Devuelve datos de una categoria
+     *
+     * @param $id
+     *            
+     * @throws PDOException si falla base de datos
+     * @return Category
+     */
 
     public function getDatos($id)
     {
@@ -70,6 +101,15 @@ class CategoryMapper
         
         return $category;
     }
+
+    /**
+     * Comprueba el genero de la categoria con el del usuario
+     *
+     * @param $idCategoria,$genero
+     *            
+     * @throws PDOException si falla base de datos
+     * @return boolean
+     */
 
     public function esGeneroAceptado($idCategoria, $genero)
     {
@@ -95,6 +135,15 @@ class CategoryMapper
         }
     }
 
+    /**
+     * Guarda categoria
+     *
+     * 
+     *            
+     * @throws PDOException si falla base de datos
+     * @return mixed of Category
+     */
+
     public function getCategorias()
     {
         $stmt = $this->db->prepare("SELECT * FROM categoria");
@@ -111,6 +160,15 @@ class CategoryMapper
         return $categoriesToret;
     }
 
+    /**
+     * Devuelve categoria
+     *
+     * @param $IdCategory
+     *            
+     * @throws PDOException si falla base de datos
+     * @return Category
+     */
+
     public function getCategory($idCategory)
     {
         $stmt = $this->db->prepare("SELECT * FROM categoria WHERE idCategoria = ?");
@@ -124,6 +182,15 @@ class CategoryMapper
         }
     }
 
+    /**
+     * Comprueba si la categoria existe
+     *
+     * @param Category $category
+     *            
+     * @throws PDOException si falla base de datos
+     * @return boolean
+     */
+
     public function categoryExists(Category $category)
     {
         $stmt = $this->db->prepare("SELECT count(*) FROM categoria where nivel=? AND sexo=?");
@@ -136,6 +203,15 @@ class CategoryMapper
             return true;
         }
     }
+
+    /**
+     * Devuelve las parejas de una categoria pertenecientes a un campeonato
+     *
+     * @param Category $category
+     *            
+     * @throws PDOException si falla base de datos
+     * @return mixed
+     */
 
     public function getCouplesPerCategory()
     {

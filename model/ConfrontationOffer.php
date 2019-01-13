@@ -8,17 +8,40 @@ require_once (__DIR__ . "/../core/ValidationException.php");
  */
 class ConfrontationOffer
 {
-
+    /**
+    * Id de oferta enfrentamiento
+    * @var int
+    */
     private $idOfertaEnfrentamiento;
 
+    /**
+    * Id de la pareja
+    * @var int
+    */
     private $idPareja;
 
+    /**
+    * Id del grupo
+    * @var int
+    */
     private $idGrupo;
 
+    /**
+    * hora de la oferta enfrentamiento
+    * @var string
+    */
     private $hora;
 
+    /**
+    * fecha de la oferta enfrentamiento
+    * @var string
+    */
     private $fecha;
 
+    /**
+    * parejas de la oferta enfrentamiento
+    * @var mixed
+    */
     private $pareja;
 
     public function __construct($idOfertaEnfrentamiento = NULL, $idPareja = NULL, $idGrupo = NULL, $hora = NULL, $fecha = NULL, array $pareja = NULL)
@@ -91,6 +114,15 @@ class ConfrontationOffer
         $this->pareja = $pareja;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForCreate()
     {
         $errors = array();

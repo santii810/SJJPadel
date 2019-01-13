@@ -2,12 +2,35 @@
 // file: model/Post.php
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase Category
+*
+* Representa las categorias de un campeonato
+* Contiene los atributos del objecto categoria
+* 
+*
+*/
+
 class Category
 {
+    /**
+    * Id de la categoria
+    * @var int
+    */
 
     private $id;
 
+    /**
+    * Nivel de la categoria
+    * @var string
+    */
+
     private $nivel;
+
+    /**
+    * Sexo de la categoria
+    * @var string
+    */
 
     private $sexo;
 
@@ -18,30 +41,70 @@ class Category
         $this->sexo = $sexo;
     }
 
+    /**
+    * Devuelve id de la categoria
+    *
+    * @return int
+    */
+
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+    * Devuelve el nivel de la categoria
+    *
+    * @return string
+    */
 
     public function getNivel()
     {
         return $this->nivel;
     }
 
+    /**
+    * Cambia valor del nivel
+    *
+    * @return void
+    */
+
     public function setNivel($nivel)
     {
         $this->nivel = $nivel;
     }
+
+    /**
+    * Devuelve el sexo de la categoria
+    *
+    * @return string
+    */
 
     public function getSexo()
     {
         return $this->sexo;
     }
 
+    /**
+    * Cambia valor del sexo
+    *
+    * @return void
+    */
+
     public function setSexo($sexo)
     {
         $this->sexo = $sexo;
     }
+
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
 
     public function checkIsValidForCreate()
     {
@@ -59,12 +122,12 @@ class Category
     }
 
     /**
-     * Checks if the current instance is valid
-     * for being updated in the database.
+     * Comprueba si la instancia actual es válida
+     * Por estar actualizado en la base de datos.
      *
-     * @throws ValidationException if the instance is
-     *         not valid
-     *        
+     * @throws ValidationException si la instancia es
+     *         no es válido
+     *
      * @return void
      */
     public function checkIsValidForUpdate()

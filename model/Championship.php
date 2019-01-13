@@ -2,20 +2,65 @@
 // file: model/Post.php
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase Championship
+*
+* Representa los campeonatos
+* Contiene los atributos del objecto campeonato
+* 
+* 
+*
+*/
+
 class Championship
 {
 
+    /**
+    * Id del campeonato
+    * @var int
+    */
+
     private $id;
+
+    /**
+    * fecha inicio inscripción
+    * @var date
+    */
 
     private $fechaInicioInscripcion;
 
+    /**
+    * fecha fin inscripción
+    * @var date
+    */
+
     private $fechaFinInscripcion;
+
+    /**
+    * fecha inicio campeonato
+    * @var date
+    */
 
     private $fechaInicioCampeonato;
 
+    /**
+    * fecha fin campeonato
+    * @var date
+    */
+
     private $fechaFinCampeonato;
 
+    /**
+    * nombre del campeonato
+    * @var string
+    */
+
     private $nombreCampeonato;
+
+    /**
+    * fase del campeonato
+    * @var string
+    */
 
     private $fase;
 
@@ -30,60 +75,133 @@ class Championship
         $this->fase = $fase;
     }
 
+    /**
+    * Devuelve el Id del campeonato
+    *
+    * @return id
+    */
+
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+    * Devuelve la fecha de inicio de inscripción
+    *
+    * @return date
+    */
 
     public function getFechaInicioInscripcion()
     {
         return $this->fechaInicioInscripcion;
     }
 
+    /**
+    * Cambia valor de la fecha inicio inscripción
+    *
+    * @return void
+    */
+
     public function setFechaInicioInscripcion($fecha)
     {
         $this->fechaInicioInscripcion = $fecha;
     }
+
+    /**
+    * Devuelve la fecha de fin de inscripción
+    *
+    * @return date
+    */
 
     public function getFechaFinInscripcion()
     {
         return $this->fechaFinInscripcion;
     }
 
+    /**
+    * Cambia valor de la fecha fin inscripción
+    *
+    * @return void
+    */
+
     public function setFechaFinInscripcion($fecha)
     {
         $this->fechaFinInscripcion = $fecha;
     }
+
+    /**
+    * Devuelve la fecha de inicio del campeonato
+    *
+    * @return date
+    */
 
     public function getFechaInicioCampeonato()
     {
         return $this->fechaInicioCampeonato;
     }
 
+    /**
+    * Cambia valor de la fecha inicio campeonato
+    *
+    * @return void
+    */
+
     public function setFechaInicioCampeonato($fecha)
     {
         $this->fechaInicioCampeonato = $fecha;
     }
+
+    /**
+    * Devuelve la fecha de fin del campeonato
+    *
+    * @return date
+    */
 
     public function getFechaFinCampeonato()
     {
         return $this->fechaFinCampeonato;
     }
 
+    /**
+    * Cambia valor de la fecha fin campeonato
+    *
+    * @return void
+    */
+
+
     public function setFechaFinCampeonato($fecha)
     {
         $this->fechaFinCampeonato = $fecha;
     }
+
+    /**
+    * Devuelve el nombre del campeonato
+    *
+    * @return string
+    */
 
     public function getNombreCampeonato()
     {
         return $this->nombreCampeonato;
     }
 
+    /**
+    * Cambia valor del nombre del campeonato
+    *
+    * @return void
+    */
+
     public function setNombreCampeonato($nombre)
     {
         $this->nombreCampeonato = $nombre;
     }
+
+    /**
+    * Devuelve la fase del campeonato
+    *
+    * @return string
+    */
 
     public function getFase()
     {
@@ -94,6 +212,16 @@ class Championship
     {
         $this->fase = $fase;
     }
+
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
 
     public function checkIsValidForCreate()
     {
@@ -120,12 +248,12 @@ class Championship
     }
 
     /**
-     * Checks if the current instance is valid
-     * for being updated in the database.
+     * Comprueba si la instancia actual es válida
+     * Por estar actualizado en la base de datos.
      *
-     * @throws ValidationException if the instance is
-     *         not valid
-     *        
+     * @throws ValidationException si la instancia es
+     *         no es válido
+     *
      * @return void
      */
     public function checkIsValidForUpdate()
@@ -150,6 +278,7 @@ class Championship
 
     /**
      * Retorna true en caso de que se deban generar enfrentamientos y false en caso de que aun no sea posible
+     * @return boolean
      */
     public function needGenerateCalendar()
     {

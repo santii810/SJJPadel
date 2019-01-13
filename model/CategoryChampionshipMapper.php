@@ -2,6 +2,14 @@
 require_once (__DIR__ . "/../core/PDOConnection.php");
 require_once (__DIR__ . "/../model/CategoryChampionship.php");
 
+/**
+* Clase CategoryChampionshipMapper
+*
+* Interfaz de base de datos para entidades CategoryChampionshipMapper
+* 
+*
+*/
+
 class CategoryChampionshipMapper
 {
 
@@ -12,6 +20,13 @@ class CategoryChampionshipMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+     * Guarda un categoryChampionship 
+     *
+     * @param int $categoryChampionship
+     * @return void
+     */
+
     public function save($categoryChampionship)
     {
         $stmt = $this->db->prepare("INSERT INTO categoriascampeonato( idCategoria, idCampeonato ) values (?,?)");
@@ -21,6 +36,13 @@ class CategoryChampionshipMapper
         ));
         return $this->db->lastInsertId();
     }
+
+    /**
+     * Borra un categoryChampionship 
+     *
+     * @param int $categoryChampionship
+     * @return void
+     */
 
     public function delete($idChampionship, $idCategory)
     {
@@ -74,6 +96,13 @@ class CategoryChampionshipMapper
         return $toret;
     }
 
+    /**
+     * Devuelve todos los categoyChampionship de un campeonato
+     *
+     * @param CategoryChampionship $categoryChampionship
+     * @return CategoryChampionship[]
+     */
+
     function getCategoryFromChampionship($idChampionship, $idCategory)
     {
         $stmt = $this->db->prepare("SELECT * FROM categoriascampeonato
@@ -92,6 +121,13 @@ class CategoryChampionshipMapper
             return NULL;
         }
     }
+
+    /**
+     * Devuelve campeonato asociado a idCategoryChampionship
+     *
+     * @param CategoryChampionship $categoryChampionship
+     * @return CategoryChampionship[]
+     */
 
     public function getChampionshipFromIdCategory($idCategoriaCampeonato)
     {

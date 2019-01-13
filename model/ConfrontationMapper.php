@@ -2,6 +2,14 @@
 // file: model/UserMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase ConfrontationMapper
+*
+* Interfaz de base de datos para entidades ConfrontationMapper
+* 
+*
+*/
+
 class ConfrontationMapper
 {
 
@@ -15,8 +23,9 @@ class ConfrontationMapper
     /**
      * Inserta en la tabla enfrentamientos los id de pareja1, pareja2 y grupo del parametro enviado
      *
-     * @param Confrontation $partnergroup
+     * @param $partnergroup
      *            enfrentamiento a registrar
+     * @return void
      */
     public function save($partnergroup)
     {
@@ -31,6 +40,12 @@ class ConfrontationMapper
         ));
     }
 
+    /**
+     * Actualiza los resultados
+     *
+     * @param $idEnfrentamiento, $puntosPareja1, $puntosPareja2, $setsPareja1, $setsPareja2
+     * @return void
+     */
     public function actualizarResultados($idEnfrentamiento, $puntosPareja1, $puntosPareja2, $setsPareja1, $setsPareja2)
     {
         $stmt = $this->db->prepare("UPDATE enfrentamiento set puntosPareja1=?, puntosPareja2=?, setsPareja1=?, setsPareja2=? where idEnfrentamiento=?");
@@ -43,6 +58,12 @@ class ConfrontationMapper
         ));
     }
 
+    /**
+     * Devuelve los enfrentamientos de un grupo,colocando primero los nulos
+     *
+     * @param $idGrupo, $fase
+     * @return void
+     */
     public function getPartidosResultadoNull($idGrupo, $fase)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
@@ -67,6 +88,12 @@ class ConfrontationMapper
         return $confrontations;
     }
 
+    /**
+     * Devuelve los partidos de un grupo
+     *
+     * @param $idGrupo
+     * @return void
+     */
     public function getPartidos($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
@@ -89,6 +116,12 @@ class ConfrontationMapper
         return $confrontations;
     }
 
+    /**
+     * Devuelve los partidos de fase de grupos
+     *
+     * @param $idGrupo, $fase
+     * @return void
+     */
     public function getPartidosPorFase($idGrupo, $fase)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
@@ -112,6 +145,12 @@ class ConfrontationMapper
         return $confrontations;
     }
 
+    /**
+     * Devuelve los partidos de fase de cuartos
+     *
+     * @param $idGrupo
+     * @return void
+     */
     public function getPartidosCuartos($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
@@ -134,6 +173,12 @@ class ConfrontationMapper
         return $confrontations;
     }
 
+    /**
+     * Devuelve los partidos de fase de semifinales
+     *
+     * @param $idGrupo
+     * @return void
+     */
     public function getPartidosSemifinal($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
@@ -156,6 +201,12 @@ class ConfrontationMapper
         return $confrontations;
     }
 
+    /**
+     * Devuelve los partidos de fase final
+     *
+     * @param $idGrupo
+     * @return void
+     */
     public function getPartidosFinal($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE
@@ -178,6 +229,12 @@ class ConfrontationMapper
         return $confrontations;
     }
 
+    /**
+     * Comprueba si han jugado ya una pareja
+     *
+     * @param $idPareja1, $idPareja2, $idGrupo
+     * @return boolean
+     */
     public function hadPlayed($idPareja1, $idPareja2, $idGrupo)
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR
@@ -198,6 +255,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Devuelve el id del enfrentamiento
+     *
+     * @param $idPareja1, $idPareja2, $idGrupo
+     * @return id
+     */
     public function getIdConfrontation($idPareja, $idParejaOffer)
     {
         $stmt = $this->db->prepare("SELECT idEnfrentamiento FROM enfrentamiento WHERE (( idPareja1=? AND idPareja2=?) OR (idPareja1=? AND idPareja2=?))");
@@ -214,6 +277,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Actualiza horarios
+     *
+     * @param $idEnfrentamiento, $fecha, $hora
+     * @return void
+     */
     public function actualizarHorario($idEnfrentamiento, $fecha, $hora)
     {
         $stmt = $this->db->prepare("UPDATE enfrentamiento set fecha=?, hora=? where idEnfrentamiento=?");
@@ -225,7 +294,10 @@ class ConfrontationMapper
     }
 
     /**
-     * Devuelve true si todos los enfrentamientos de un grupo tienen resultado guardado en la base de datos y false en caso contrario
+     * Devuelve true si todos los enfrentamientos de un grupo tienen resultado guardado en la base de datos y false en caso
+     * contrario
+     * @param $idGroup
+     * @return int
      */
     public function hasAllConfrontationsResult($idGroup)
     {
@@ -238,6 +310,12 @@ class ConfrontationMapper
         return ($toret_db != null && $toret_db["num"] == 0);
     }
 
+    /**
+     * Cuenta las victorias locales de una pareja
+     *
+     * @param $idPareja
+     * @return int
+     */
     public function countLocalVictories($idPareja)
     {
         $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 > puntosPareja2 and idPareja1 = ?");
@@ -251,6 +329,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Cuenta las victorias Visitantes de una pareja
+     *
+     * @param $idPareja
+     * @return int
+     */
     public function countVisitantVictories($idPareja)
     {
         $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 < puntosPareja2 and idPareja2 = ?");
@@ -264,6 +348,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Cuenta las derrotas locales de una pareja
+     *
+     * @param $idPareja
+     * @return int
+     */
     public function countLocalDefeats($idPareja)
     {
         $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 > puntosPareja2 and idPareja2 = ?");
@@ -277,6 +367,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Cuenta las derrotas siendo visitantes de una pareja
+     *
+     * @param $idPareja
+     * @return int
+     */
     public function countVisitantDefeats($idPareja)
     {
         $stmt = $this->db->prepare("SELECT count(idEnfrentamiento) as num FROM enfrentamiento where puntosPareja1 < puntosPareja2 and idPareja1 = ?");
@@ -290,6 +386,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Devuelve el mejor resultado obtenido
+     *
+     * @param $idPareja
+     * @return string
+     */
     public function getBestResult($idPareja)
     {
         $stmt = $this->db->prepare("select idPareja1, idPareja2, fase,setsPareja1,setsPareja2
@@ -302,9 +404,6 @@ class ConfrontationMapper
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
-//         var_dump($toret_db["fase"]);
-
-
         if ($toret_db != null) {
             if ($toret_db["fase"] == "Final") {
                 if ($toret_db["idPareja1"] == $idPareja && $toret_db["setsPareja1"] > $toret_db["setsPareja2"] || $toret_db["idPareja2"] == $idPareja && $toret_db["setsPareja1"] < $toret_db["setsPareja2"])
@@ -315,6 +414,12 @@ class ConfrontationMapper
         }
     }
 
+    /**
+     * Devuelve los enfrentamientos de una pareja
+     *
+     * @param $idPareja
+     * @return mixed Confrontation
+     */
     public function getConfrontationMatches($idPareja){
       $stmt = $this->db->prepare("SELECT
         E.idEnfrentamiento as 'e.idEnfrentamiento',

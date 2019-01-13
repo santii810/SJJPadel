@@ -3,18 +3,17 @@
 // file: /core/I18n.php
 
 /**
- * Class I18n
+ * Clase I18n
  *
- * This class implements a helper class for Internationalization (I18n).
- * Basically this Singleton class manages a set of translation files
- * (located in /view/messages/language_[lang].php) and provides a
- * translation function: i18n(string)
- * You can also change the current language with the setLanguage function.
- * The last selected language is saved in the user session so it is the
- * language retrieved each time this class is instantiated.
- * In addition this file creates a global function, i18n(), as a shortcut
- * to the function.
- *
+ * Esta clase implementa una clase auxiliar para la internacionalización (I18n).
+ * Básicamente, esta clase Singleton administra un conjunto de archivos de traducción.
+ * (ubicado en /view/messages/language_[lang◆.php) y proporciona un
+ * función de traducción: i18n (cadena)
+ * También puede cambiar el idioma actual con la función setLanguage.
+ * El último idioma seleccionado se guarda en la sesión del usuario por lo que es el
+ * idioma recuperado cada vez que se crea una instancia de esta clase.
+ * Además, este archivo crea una función global, i18n (), como acceso directo
+ * a la función.
  * @author lipido <lipido@gmail.com>
  */
 class I18n
@@ -40,10 +39,10 @@ class I18n
     }
 
     /**
-     * Sets the language (and keeps it in the user session)
+     * Establece el idioma (y lo mantiene en la sesión de usuario)
      *
      * @param string $language
-     *            The language to be set. For example: "en"
+     *            
      * @return void
      */
     public function setLanguage($language)
@@ -57,11 +56,11 @@ class I18n
     }
 
     /**
-     * Finds the current language translation of a given key
+     * Encuentra la traducción actual de una clave dada.
      *
      * @param string $key
-     *            The key to tranlate
-     * @return string The translation of the given key
+     *            La clave para traducir
+     * @return string La traducción de la clave dada.
      */
     public function i18n($key)
     {
@@ -76,9 +75,9 @@ class I18n
     private static $i18n_singleton = null;
 
     /**
-     * Gets the singleton instance of this class
+     * Obtiene la instancia singleton de esta clase.
      *
-     * @return I18n The singleton instance
+     * @return I18n instancia singelton
      */
     public static function getInstance()
     {
@@ -89,9 +88,9 @@ class I18n
     }
 
     /**
-     * Gets all the messages in the current language
+     * Obtiene todos los mensajes en el idioma actual.
      *
-     * @return mixed Array of translations
+     * @return Arrray de traducciones
      */
     public function getAllMessages()
     {
@@ -100,12 +99,12 @@ class I18n
 }
 
 /**
- * Shortcut global i18n function for
- * the @link I18n::i18n()
+ * Función i18n global de acceso directo para
+ * @link I18n::i18n()
  *
  * @param string $key
- *            The key to translate
- * @return string The translation of the given key
+ *            La clave para traducir
+ * @return string La traducción de la clave dada.
  */
 function i18n($key)
 {

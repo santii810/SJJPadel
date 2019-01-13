@@ -3,38 +3,38 @@
 // file: /core/ViewManager.php
 
 /**
- * Class ViewManager
+ * Clase ViewManager
  *
- * This class implements the glue between the controller
- * and the view.
+ * Esta clase implementa el pegamento entre el controlador.
+ * y la vista.
  *
- * This class is a singleton. You should use getInstance()
- * to get the view manager instance.
+ * Esta clase es un singleton. Deberías usar getInstance ()
+ * para obtener la instancia del gestor de vista.
  *
- * The main responsibilities are:
+ * Las principales responsabilidades son:
  *
- * 1.Save variables from the controller and make them available
- * for views. This includes "flash" variables, which are
- * variables kept in session that are removed just after
- * they are retrieved. Use methods like setVariable, getVariable and
+ * 1. Guardar las variables desde el controlador y ponerlas a disposición
+ * para las vistas. Esto incluye variables "flash", que son
+ * variables guardadas en sesión que se eliminan justo después
+ * Se recuperan. Utilice métodos como setVariable, getVariable y
  * setFlash.
  *
- * 2.Render views. This basically performs an 'include' of the view
- * file, but with more MVC-oriented parameters
- * (controller name and view name).
+ * 2.Render vistas. Esto básicamente realiza una 'inclusión' de la vista
+ * archivo, pero con más parámetros orientados a MVC
+ * (nombre del controlador y nombre de la vista).
  *
- * 3.Layout (or templating) system. Based on PHP output buffers
- * (ob_ functions). Once the view manager is initialized,
- * the output buffer is enabled. By default, all contents that are
- * generated inside your views will be saved in a DEFAULT_FRAGMENT.
- * The DEFAULT_FRAGMENT is normally used as the "main" content of
- * the resulting layout. However, you can generate contents for
- * other fragments that will go into the layout. For example, inside
- * your views, you have to call moveToFragment(fragmentName) before
- * generating content for a desired fragment. This fragment normally
- * will be after retrieved by the layout (via calls to getFragment).
- * Typical fragments are 'css', 'javascript', so you can specify
- * additional css and javascripts from your specific views.
+ * 3.Layout (o plantillas) del sistema. Basado en buffers de salida PHP
+ * (funciones ob_). Una vez que se inicializa el gestor de vistas,
+ * El búfer de salida está habilitado. Por defecto, todos los contenidos que están
+ * generado dentro de sus vistas se guardará en un DEFAULT_FRAGMENT.
+ * El DEFAULT_FRAGMENT se usa normalmente como el contenido "principal" de
+ * El diseño resultante. Sin embargo, puedes generar contenidos para
+ * Otros fragmentos que entrarán en el diseño. Por ejemplo, dentro
+ * sus vistas, debe llamar a moveToFragment (fragmentName) antes
+ * Generación de contenido para un fragmento deseado. Este fragmento normalmente
+ * se recuperará después del diseño (mediante llamadas a getFragment).
+ * Los fragmentos típicos son 'css', 'javascript', por lo que puede especificar
+ * css y javascripts adicionales desde sus vistas específicas.
  *
  * @author lipido <lipido@gmail.com>
  */
@@ -42,36 +42,36 @@ class ViewManager
 {
 
     /**
-     * key for the default fragment
+     * clave para el fragmento por defecto
      *
      * @var string
      */
     const DEFAULT_FRAGMENT = "__default__";
 
     /**
-     * Buffered contents accumulted per each fragment
+     * Contenidos amortiguados acumulados por cada fragmento.
      *
      * @var mixed
      */
     private $fragmentContents = array();
 
     /**
-     * Values of view variables
+     * Valores de las variables de vista.
      *
      * @var mixed
      */
     private $variables = array();
 
     /**
-     * The current fragment name where output is being
-     * accumulated
+     * El nombre del fragmento actual donde se está produciendo la salida.
+     * acumulado
      *
      * @var string
      */
     private $currentFragment = self::DEFAULT_FRAGMENT;
 
     /**
-     * The name of the layout to be used in renderLayout
+     * El nombre del diseño que se utilizará en renderLayout
      *
      * @var string
      */
@@ -87,43 +87,43 @@ class ViewManager
 
     // / BUFFER MANAGEMENT
     /**
-     * Saves the contents of the output buffer into
-     * the current fragment.
-     * Cleans the ouput buffer
+     * Guarda el contenido del buffer de salida en
+     * El fragmento actual.
+     * Limpia el búfer de salida
      *
      * @return void
      */
     private function saveCurrentFragment()
     {
-        // save current fragment
+        
         $this->fragmentContents[$this->currentFragment] .= ob_get_contents();
-        // clean output buffer
+       
         ob_clean();
     }
 
     /**
-     * Changes the current fragment where output is accumulating
+     * Cambia el fragmento actual donde se está acumulando la salida.
      *
-     * The current output is saved before changing.
-     * The subsequent outputs will be accumulted in the specified
-     * fragment.
+     * La salida de corriente se guarda antes de cambiar.
+     * Las salidas posteriores se acumularán en la especificada.
+     * fragmento.
      *
      * @param string $name
-     *            The name of the fragment to move to
+     *            El nombre del fragmento para mover a
      * @return void
      */
     public function moveToFragment($name)
     {
-        // save the current fragment contents
+        
         $this->saveCurrentFragment();
         $this->currentFragment = $name;
     }
 
     /**
-     * Changes to the default fragment.
+     * Cambios en el fragmento por defecto.
      *
-     * The current output is saved before changing.
-     * The subsequent outputs will be accumulated in the default fragment
+     * La salida de corriente se guarda antes de cambiar.
+     * Las salidas posteriores se acumularán en el fragmento por defecto.
      *
      * @return void
      */
@@ -133,14 +133,14 @@ class ViewManager
     }
 
     /**
-     * Gets the contents occumulated in an specified fragment
+     * Obtiene los contenidos en un fragmento especificado.
      *
      * @param string $fragment
-     *            The fragment to retrieve the contents from
+     *            El fragmento para recuperar los contenidos de.
      * @param string $default
-     *            The default content if the $fragment does
-     *            not exist
-     * @return string The fragment contents
+     *            El contenido por defecto si el fragmento $ hace
+     *            no existe
+     * @return string Los contenidos del fragmento.
      */
     public function getFragment($fragment, $default = "")
     {
@@ -150,26 +150,26 @@ class ViewManager
         return $this->fragmentContents[$fragment];
     }
 
-    // / VARIABLES MANAGEMENT
+    // / GESTION DE VARIABLES
     
     /**
-     * Establishes a variable for the view
+     * Establece una variable para la vista.
      *
-     * Variables could be also kept in session (via $flash parameter)
+     * Las variables también podrían mantenerse en sesión (a través del parámetro $ flash)
      *
      * @param string $varname
-     *            The name of the variable
+     *            El nombre de la variable
      * @param Object $value
-     *            The value of the variable
+     *            El valor de la variable.
      * @param boolean $flash
-     *            If the variable value shoud be kept
-     *            in session
+     *            Si el valor variable debe ser mantenido
+     *            en sesión
      */
     public function setVariable($varname, $value, $flash = false)
     {
         $this->variables[$varname] = $value;
         if ($flash == true) {
-            // a flash variable, will be stored in session_start
+            
             if (! isset($_SESSION["viewmanager__flasharray__"])) {
                 $_SESSION["viewmanager__flasharray__"][$varname] = $value;
                 print_r($_SESSION["viewmanager__flasharray__"]);
@@ -180,17 +180,17 @@ class ViewManager
     }
 
     /**
-     * Retrieves a previously established variable.
+     * Recupera una variable previamente establecida.
      *
-     * If the variable is a flash variable, it removes it
-     * from the session after being retrieved
+     * Si la variable es una variable flash, la elimina
+     * de la sesión después de ser recuperado
      *
      * @param string $varname
-     *            The name of the variable
-     * @param $default Object
-     *            value of the variable to return
-     *            if the variable does not exists
-     * @return Object value of the variable
+     *            El nombre de la variable
+     * @param $default Objecto
+     *            Valor de la variable a devolver.
+     * si la variable no existe
+     * @return Valor del objeto de la variable.
      */
     public function getVariable($varname, $default = NULL)
     {
@@ -206,13 +206,13 @@ class ViewManager
     }
 
     /**
-     * Establishes a flash message
+     * Establece un mensaje flash.
      *
-     * Flash messages are useful to pass text from one page to other
-     * via HTTP redirects, sinde they are kept in session.
+     * Los mensajes flash son útiles para pasar texto de una página a otra.
+     * A través de redirecciones HTTP, sinde se mantienen en sesión.
      *
      * @param string $flashMessage
-     *            The message to save into session
+     *            El mensaje para guardar en sesión.
      * @return void
      */
     public function setFlash($flashMessage)
@@ -221,22 +221,22 @@ class ViewManager
     }
 
     /**
-     * Retrieves the flash message (and pops it)
+     * Recupera el mensaje flash (y lo saca)
      *
-     * @return string The flash message
+     * @return cadena el mensaje flash
      */
     public function popFlash()
     {
         return $this->getVariable("__flashmessage__", "");
     }
 
-    // / RENDERING
+    // / REPRESENTACIÓN
     
     /**
-     * Sets the layout to be used when renderLayout will be called
+     * Establece el diseño que se utilizará cuando se llamará renderLayout
      *
      * @param string $layout
-     *            The layout to use
+     *            El diseño a utilizar.
      * @return void
      */
     public function setLayout($layout)
@@ -245,20 +245,20 @@ class ViewManager
     }
 
     /**
-     * Renders an specified view of a specified controller
+     * Representa una vista específica de un controlador específico
      *
-     * If the $controller=mycontroller and $view=myview, the
-     * selected php file will be: view/mycontroller/myview.php
+     * Si el $ controller = mycontroller y $ view = myview, el
+     * el archivo php seleccionado será: view / mycontroller / myview.php
      *
-     * It uses the the selected layout (via setLayout)
-     * or the default layout if it was not specified before
-     * calling the setLayout method
+     * Utiliza el diseño seleccionado (a través de setLayout)
+     * o el diseño predeterminado si no se ha especificado antes
+     * llamando al método setLayout
      *
      * @param string $controller
-     *            Name of the controller (in URL format
-     *            e.g: "posts")
+     *            Nombre del controlador (en formato URL
+     *            e.j: "posts")
      * @param string $viewname
-     *            Name of the view
+     *            Nombre de la vista
      * @return void
      */
     public function render($controller, $viewname)
@@ -268,15 +268,15 @@ class ViewManager
     }
 
     /**
-     * Sends an HTTP 302 redirection to a given action
-     * inside a controller
+     * Envía una redirección HTTP 302 a una acción dada
+     * dentro de un controlador
      *
      * @param string $controller
-     *            The name of the controller
+     *            El nombre del controlador
      * @param string $action
-     *            The name of the action
+     *            El nombre de la acción
      * @param string $queryString
-     *            An optional query string
+     *            Una cadena de consulta opcional
      * @return void
      */
     public function redirect($controller, $action, $queryString = NULL)
@@ -287,12 +287,12 @@ class ViewManager
     }
 
     /**
-     * Sends an HTTP 302 redirection to the refererring page, which
-     * is the page where the user was, just before making the current
-     * request.
+     * Envía una redirección HTTP 302 a la página de referencia, que
+     * es la página donde estaba el usuario, justo antes de hacer el actual
+     * solicitud.
      *
      * @param string $queryString
-     *            An optional query string
+     *            Una cadena de consulta opcional
      * @return void
      */
     public function redirectToReferer($queryString = NULL)
@@ -302,30 +302,25 @@ class ViewManager
     }
 
     /**
-     * Renders the layout
+     * Representa el diseño.
      *
-     * It basically includes the /view/layouts/[layout].php.
-     * Normally, inside the layout file, there will be calls to
-     * retrieve fragment contents, especially the default fragment
-     * contents.
+     * Básicamente incluye el /view/layouts/[layout◆.php.
+     * Normalmente, dentro del archivo de diseño, habrá llamadas a
+     * recuperar contenido del fragmento, especialmente el fragmento predeterminado
+     * contenidos.
      */
     private function renderLayout()
     {
-        // move to layout fragment so
-        // all previously generated output contents
-        // were saved in the $this->fragmentContents
-        // array
+        
         $this->moveToFragment("layout");
         
-        // draw the layout. Inside the layout we use this
-        // view manager to retrieve previously generated contents,
-        // specially the DEFAULT_FRAGMENT (the main content)
+        
         include (__DIR__ . "/../view/layouts/" . $this->layout . ".php");
         
         ob_flush();
     }
 
-    // singleton
+    
     private static $viewmanager_singleton = NULL;
 
     public static function getInstance()
@@ -337,7 +332,5 @@ class ViewManager
     }
 }
 
-// force the first instantiation of the ViewManager
-// since the buffered output will be needed including
-// those cases where neither the controller nor the view get the instance of the viewmanager
+
 ViewManager::getInstance();

@@ -3,20 +3,19 @@
 // file: core/ValidationException.php
 
 /**
- * Class ValidationException
+ * Clase ValidationException
  *
- * A simple Exception including an array of errors
- * useful for form validation.
- * The errors array contains validation errors, normally
- * indexed by form named parameters.
- *
+ * Una excepción simple que incluye una serie de errores.
+ * Útil para la validación de formularios.
+ * La matriz de errores contiene errores de validación, normalmente
+ * indexado por formulario denominado parámetros.
  * @author lipido <lipido@gmail.com>
  */
 class ValidationException extends Exception
 {
 
     /**
-     * Array of errors
+     * Array de erroress
      *
      * @var mixed
      */
@@ -29,9 +28,9 @@ class ValidationException extends Exception
     }
 
     /**
-     * Gets the validation errors
+     * Obtiene los errores de validación.
      *
-     * @return mixed The validation errors
+     * @return mixed Los errores de validación.
      */
     public function getErrors()
     {

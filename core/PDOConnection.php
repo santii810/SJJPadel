@@ -1,6 +1,13 @@
 <?php
 
 // file: /core/PDOConnection.php
+
+/**
+ * Clase I18n
+ *
+ *  Clase que implementa conexión con la base de datos
+ */
+
 class PDOConnection
 {
 

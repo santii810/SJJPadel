@@ -1,4 +1,11 @@
 <?php
+/**
+* Script php getCategorias
+*
+* Script que devuelve un seleccionable con las categorias del campeonato
+* 
+*
+*/
 @session_start();
 
 require_once ("../model/ChampionshipMapper.php");

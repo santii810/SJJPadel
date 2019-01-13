@@ -1,4 +1,11 @@
 <?php
+/**
+* Script php getGrupos
+*
+* Script que devuelve un seleccionable con los grupos del campeonato
+* 
+*
+*/
 require_once ("../model/ChampionshipMapper.php");
 require_once ("../model/Group.php");
 

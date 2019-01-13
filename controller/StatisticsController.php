@@ -17,16 +17,58 @@ require_once (__DIR__ . "/../model/CategoryMapper.php");
 require_once (__DIR__ . "/../core/ViewManager.php");
 require_once (__DIR__ . "/../controller/BaseController.php");
 
+/**
+ * Clase StatisticsController
+ *
+ * Controlador para ofrecer estadisticas de reservas,personales,
+ * y campeonato
+ */
+
 class StatisticsController extends BaseController
 {
 
+    /**
+     * Referencia partnerMapper que interaciona con
+     * la base de datos
+     *
+     * @var PartnerMapper
+     */
+
     private $reservationMapper;
+
+    /**
+     * Referencia ChampionshipMapper que interaciona con
+     * la base de datos
+     *
+     * @var ChampionshipMapper
+     */
 
     private $championshipMapper;
 
+    /**
+     * Referencia CategoryMapper que interaciona con
+     * la base de datos
+     *
+     * @var CategoryMapper
+     */
+
     private $categoryMapper;
 
+    /**
+     * Referencia ConfrontationMapper que interaciona con
+     * la base de datos
+     *
+     * @var ConfrontationMapper
+     */
+
     private $confrontationMapper;
+
+    /**
+     * Referencia PartnerMapper que interaciona con
+     * la base de datos
+     *
+     * @var PartnerMapper
+     */
 
     private $partnerMapper;
 

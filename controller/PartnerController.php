@@ -16,8 +16,23 @@ require_once (__DIR__ . "/../model/UserMapper.php");
 require_once (__DIR__ . "/../core/ViewManager.php");
 require_once (__DIR__ . "/../controller/BaseController.php");
 
+/**
+* Clase PartnerController
+*
+* Controlador para realizar la inscripción a un 
+* campeonato
+*
+*/
+
 class PartnerController extends BaseController
 {
+
+    /**
+     * Referencia partnerMapper interaciona con
+     * la base de datos
+     *
+     * @var partnerMapper
+     */
 
     private $partnerMapper;
 
@@ -27,6 +42,17 @@ class PartnerController extends BaseController
         
         $this->partnerMapper = new PartnerMapper();
     }
+
+    /**
+    * Acción que muestra la selección de un campeonato y la pareja elegida
+    *
+    * Muestra un formulario al usuario para que inserte el login de la pareja
+    * registrada y un seleccionable con los campeonatos existentes.
+    * 
+    *
+    * @return void
+    * @throws Exception Para seleccionar grupos de campeonatos es necesario estar logeado
+    */
 
     public function selectChampionship()
     {
@@ -64,6 +90,17 @@ class PartnerController extends BaseController
         // render the view (/view/posts/add.php)
         $this->view->render("partner", "selectChampionship");
     }
+
+    /**
+    * Acción que muestra las categorias del campeonato seleccionado
+    *
+    * Muestra un formulario al usuario para que seleccione la categoria
+    * del campeonato escogido previamente.
+    * 
+    *
+    * @return void
+    * @throws Exception Para inscribirse en campeonatos es necesario estar logeado
+    */
 
     public function inscription()
     {

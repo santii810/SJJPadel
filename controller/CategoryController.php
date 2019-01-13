@@ -7,6 +7,16 @@ require_once (__DIR__ . "/../model/CategoryMapper.php");
 
 require_once (__DIR__ . "/../controller/BaseController.php");
 
+/**
+* Clase CategoryController
+*
+* Controlador para realizar las operaciones de añadir,ver,eliminar y modificar
+* categorias(CRUD)
+* 
+* 
+*
+*/
+
 class CategoryController extends BaseController
 {
 

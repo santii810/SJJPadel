@@ -34,22 +34,77 @@ require_once (__DIR__ . "/../controller/BaseController.php");
 require_once (__DIR__ . "/../model/Fase.php");
 
 /**
- * Controlador de campeonatos
- */
+* Clase ChampionshipController
+*
+* Controlador para realizar las operaciones de añadir,ver,eliminar y modificar
+* campeonatos(CRUD), generar calendario campeonato, ver inscripciones de los usuarios,
+* ver las inscripciones de un usuario en concreto
+* 
+*
+*/
+
 class ChampionshipController extends BaseController
 {
+    /**
+     * Referencia championshipMapper que interaciona con
+     * la base de datos
+     *
+     * @var champioshipMapper
+     */
 
     private $championshipMapper;
 
+    /**
+     * Referencia categoryChampionshipMapper que interaciona con
+     * la base de datos
+     *
+     * @var categoryChampionshipMapper
+     */
+
     private $categoryChampionshipMapper;
+
+    /**
+     * Referencia groupMapper que interaciona con
+     * la base de datos
+     *
+     * @var groupMapper
+     */
 
     private $groupMapper;
 
+    /**
+     * Referencia categoryMapper que interaciona con
+     * la base de datos
+     *
+     * @var categoryMapper
+     */
+
     private $categoryMapper;
+
+    /**
+     * Referencia partnerGroupMapper que interaciona con
+     * la base de datos
+     *
+     * @var partnerGroupMapper
+     */
 
     private $partnerGroupMapper;
 
+    /**
+     * Referencia confrontationMapper que interaciona con
+     * la base de datos
+     *
+     * @var confrontationMapper
+     */    
+
     private $confrontationMapper;
+
+    /**
+     * Array de nombres de grupos
+     * 
+     *
+     * @var groupNames
+     */
 
     private $groupNames = array(
         "Grupo A",
@@ -584,7 +639,7 @@ class ChampionshipController extends BaseController
     }
     /**
      * Guarda el enfrentamiento de la final
-     *      * @param Group[] $grupos
+     * @param Group[] $grupos
      */
     private function crearEnfrentamientoFinal($grupos)
     {

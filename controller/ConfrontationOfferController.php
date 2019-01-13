@@ -29,72 +29,72 @@ require_once (__DIR__ . "/../model/PartnergroupMapper.php");
 require_once (__DIR__ . "/../controller/BaseController.php");
 
 /**
- * Class ConfrontationOfferController
+ * Clase ConfrontationOfferController
  *
- * Controller to offer a match and join to a tournament match
+ * Controlador para ofrecer un partido y unirse a un torneo
  */
 class ConfrontationOfferController extends BaseController
 {
 
     /**
-     * Reference to the ConfrontationOfferMapper to interact
-     * with the database
+     * Referencia ConfrontationOfferMapper que interaciona con
+     * la base de datos
      *
      * @var ConfrontationOfferMapper
      */
     private $confrontationOfferMapper;
 
     /**
-     * Reference to the ConfrontationMapper to interact
-     * with the database
+     * Referencia ConfrontationMapper que interaciona con
+     * la base de datos
      *
      * @var ConfrontationMapper
      */
     private $confrontationMapper;
 
     /**
-     * Reference to the ReservationMapper to interact
-     * with the database
+     * Referencia reservationMapper que interaciona con
+     * la base de datos
      *
      * @var ReservationMapper
      */
     private $reservationMapper;
 
     /**
-     * Reference to the PartnerMapper to interact
-     * with the database
+     * Referencia partnerMapper que interaciona con
+     * la base de datos
      *
      * @var PartnerMapper
      */
     private $partnerMapper;
 
     /**
-     * Reference to the CategoryChampionshipMapper to interact
-     * with the database
+     * Referencia CategoryChampionshipMapper que interaciona con
+     * la base de datos
      *
      * @var CategoryChampionshipMapper
      */
     private $categoryChampionshipMapper;
 
     /**
-     * Reference to the ChampionshipMapper to interact
-     * with the database
+     * Referencia ChampionshipMapper que interaciona con
+     * la base de datos
      *
      * @var ChampionshipMapper
      */
     private $championshipMapper;
 
     /**
-     * Reference to the CategoryMapper to interact
-     * with the database
+     * Referencia CategoryMapper que interaciona con
+     * la base de datos
      *
      * @var CategoryMapper
      */
     private $categoryMapper;
 
     /**
-     * Reference to the PartnergroupMapper to interact
-     * with the database
+     * Referencia PartnerGroupMapper que interaciona con
+     * la base de datos
      *
      * @var PartnergroupMapper
      */
@@ -113,6 +113,7 @@ class ConfrontationOfferController extends BaseController
         $this->partnerGroupMapper = new PartnergroupMapper();
     }
 
+   
     public function view()
     {
         if (! isset($this->currentUser)) {

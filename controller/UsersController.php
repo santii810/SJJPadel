@@ -7,15 +7,25 @@ require_once (__DIR__ . "/../model/UserMapper.php");
 
 require_once (__DIR__ . "/../controller/BaseController.php");
 
+/**
+* Clase UsersController
+*
+* Controlador para realizar las operaciones de altas,bajas,modificaciones y
+* consulta (CRUD)
+* 
+*
+*/
+
 class UsersController extends BaseController
 {
 
     /**
-     * Reference to the UserMapper to interact
-     * with the database
+     * Referencia UserMapper interaciona con
+     * la base de datos
      *
      * @var UserMapper
      */
+
     private $userMapper;
 
     public function __construct()
@@ -25,6 +35,14 @@ class UsersController extends BaseController
         $this->userMapper = new UserMapper();
     }
 
+    /**
+    * Acción que muestra la página inicial 
+    *
+    * Muestra un mensaje de bienvenida al usuario
+    *
+    * @return void
+    */
+
     public function index()
     {
         // put the array containing Post object to the view
@@ -33,6 +51,15 @@ class UsersController extends BaseController
         // render the view (/view/posts/index.php)
         $this->view->render("users", "start");
     }
+
+    /**
+    * Acción que muestra el formulario de logeo
+    *
+    * Muestra un formulario de logeo al usuario en el que se inserta
+    * el nick del usuario y su contraseña
+    * 
+    * @return void
+    */
 
     public function login()
     {
@@ -60,6 +87,15 @@ class UsersController extends BaseController
             $this->view->redirect("users", "index");
         }
     }
+
+    /**
+    * Acción que muestra el formulario de registro
+    *
+    * Muestra un formulario de registro al usuario en el que se insertan
+    * el nick,nombre,apellidos,contraseña y genero
+    * 
+    * @return void
+    */
 
     public function register()
     {
@@ -115,6 +151,16 @@ class UsersController extends BaseController
         $this->view->render("users", "register");
     }
 
+    /**
+    * Acción que muestra a todos los usuarios registrados
+    *
+    * Muestra una tabla con todos usuarios registrados en el sistema
+    * 
+    * 
+    * @return void
+    * @throws Exception Para mostrar usuarios es necesario ser administrador
+    */
+
     public function showall()
     {
         if (! isset($this->currentUser)) {
@@ -131,6 +177,16 @@ class UsersController extends BaseController
         // render the view (/view/users/register.php)
         $this->view->render("users", "showall");
     }
+
+    /**
+    * Acción que borra a un usuario registrado
+    *
+    * Muestra al usuario seleccionado con sus datos y con la opción de borrado
+    * 
+    * 
+    * @return void
+    * @throws Exception Para borrar usuarios es necesario ser administrador
+    */
 
     public function delete()
     {
@@ -159,6 +215,16 @@ class UsersController extends BaseController
         $this->view->render("users", "delete");
     }
 
+    /**
+    * Acción que edita a un usuario registrado
+    *
+    * Muestra al usuario seleccionado con sus datos y la posibilidad
+    * de modificarlos
+    * 
+    * @return void
+    * @throws Exception Para editar usuarios necesario ser administrador
+    */
+
     public function edit()
     {
         if (! isset($this->currentUser)) {
@@ -184,6 +250,15 @@ class UsersController extends BaseController
         // render the view (/view/users/register.php)
         $this->view->render("users", "edit");
     }
+
+    /**
+    * Acción que muestra el formulario de añadir un usuario
+    *
+    * Muestra un formulario para añadir un usuario en el que se insertan
+    * el nick,nombre,apellidos,contraseña y genero
+    * 
+    * @return void
+    */
 
     public function add()
     {
@@ -238,6 +313,16 @@ class UsersController extends BaseController
         // render the view (/view/users/register.php)
         $this->view->render("users", "add");
     }
+
+    /**
+    * Acción que borra la sesión actual de un usuario
+    *
+    * Elimina la sesión del actual usuario logeado devolviendolo
+    * a la vista de logeo
+    * 
+    * 
+    * @return void
+    */
 
     public function logout()
     {

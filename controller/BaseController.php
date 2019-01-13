@@ -7,12 +7,12 @@ require_once (__DIR__ . "/../model/User.php");
 require_once (__DIR__ . "/../model/UserMapper.php");
 
 /**
- * Class BaseController
+ * Clase BaseController
  *
- * Implements a basic super constructor for
- * the controllers in the Blog App.
- * Basically, it provides some protected
- * attributes and view variables.
+ * Implementa un super constructor básico para
+ * Los controladores en la aplicación de blog.
+ * Básicamente, proporciona algo de protección.
+ * Atributos y variables de vista.
  *
  * @author lipido <lipido@gmail.com>
  */
@@ -20,14 +20,14 @@ class BaseController
 {
 
     /**
-     * The view manager instance
+     * Instancia view manager
      *
      * @var ViewManager
      */
     protected $view;
 
     /**
-     * The current user instance
+     * instancia usuario actual
      *
      * @var User
      */

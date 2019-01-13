@@ -3,12 +3,11 @@
 require_once (__DIR__ . "/../core/I18n.php");
 
 /**
- * Class LanguageController
+ * Clase LanguageController
  *
- * Controller to manage the session language.
- * Allows you to change the current language
- * by establishing it in the I18n singleton instance
- *
+ * Controlador para gestionar el idioma de la sesión.
+ * Le permite cambiar el idioma actual
+ * estableciéndolo en la instancia de I18n singleton
  * @author lipido <lipido@gmail.com>
  */
 class LanguageController
@@ -17,12 +16,8 @@ class LanguageController
     const LANGUAGE_SETTING = "__language__";
 
     /**
-     * Action to change the current language
+     * Acción para cambiar la lengua actual
      *
-     * The expected HTTP parameters are:
-     * <ul>
-     * <li>lang: lange to change to (via HTTP GET)</li>
-     * </ul>
      *
      * @return void
      */
@@ -42,11 +37,11 @@ class LanguageController
     }
 
     /**
-     * Action get a Javascript script with a ji18n(key) function
+     * La acción obtiene un script de Javascript con una función ji18n (clave)
      *
-     * This is useful to translate strings inside your javascript (.js) files
-     * You have to include a <script src="index.php?controller=languages&action=i18njs">
-     * </script> tag before all your scripts (in the layout, for example).
+     * Esto es útil para traducir cadenas dentro de sus archivos javascript (.js)
+     * Tienes que incluir un <script src = "index.php? Controller = languages ​​& action = i18njs">
+     * </script> etiqueta antes de todos sus scripts (en el diseño, por ejemplo).
      *
      * @return void
      */

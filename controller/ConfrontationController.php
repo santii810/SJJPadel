@@ -11,8 +11,24 @@ require_once (__DIR__ . "/../model/Partnergroup.php");
 require_once (__DIR__ . "/../core/ViewManager.php");
 require_once (__DIR__ . "/../controller/BaseController.php");
 
+/**
+* Clase ConfrontationController
+*
+* Controlador para realizar las operaciones de insertar resultados
+* y ver clasificación de un grupo de un determinado campeonato.
+* 
+*
+*/
+
 class ConfrontationController extends BaseController
 {
+
+    /**
+     * Referencia partnerMapper interaciona con
+     * la base de datos
+     *
+     * @var confrontationMapper
+     */
 
     private $confrontationMapper;
 
@@ -22,6 +38,17 @@ class ConfrontationController extends BaseController
         
         $this->confrontationMapper = new ConfrontationMapper();
     }
+
+    /**
+    * Acción que permite la selección de un campeonato,grupo y categoria
+    *
+    * Muestra un formulario al usuario para que seleccione el grupo de una categoria
+    * perteneciente a un determinado campeonato.
+    * 
+    *
+    * @return void
+    * @throws Exception Para seleccionar campeonato es necesario estar logeado
+    */
 
     public function selectClasification()
     {
@@ -48,6 +75,18 @@ class ConfrontationController extends BaseController
         // render the view (/view/posts/add.php)
         $this->view->render("confrontation", "selectclasification");
     }
+
+    /**
+    * Acción que permite ver la clasificación de un grupo.
+    *
+    * Muestra una tabla con la clasificación concreta de un grupo
+    * perteneciente al campeonato seleccionado previamente ordenada 
+    * por los puntos conseguidos por cada participante.
+    * 
+    *
+    * @return void
+    * @throws Exception Para ver clasificación es necesario estar logeado
+    */
 
     public function clasification()
     {
@@ -143,6 +182,17 @@ class ConfrontationController extends BaseController
         $this->view->render("confrontation", "clasification");
     }
 
+    /**
+    * Acción que permite la selección de un campeonato,grupo y categoria
+    *
+    * Muestra un formulario al usuario para que seleccione el grupo de una categoria
+    * perteneciente a un determinado campeonato.
+    * 
+    *
+    * @return void
+    * @throws Exception Para seleccionar grupo de un campeonato es necesario ser administrador
+    */
+
     public function select()
     {
         if (! isset($this->currentUser) && ($this->currentRol == 'a')) {
@@ -173,6 +223,17 @@ class ConfrontationController extends BaseController
         // render the view (/view/posts/add.php)
         $this->view->render("confrontation", "selectmatches");
     }
+
+    /**
+    * Acción que permite la vista,modificación,borrado y insercción de resultados
+    *
+    * Muestra un formulario al usuario con los enfrentamientos permitiendo la edicción,
+    * insercción,visualización y borrado de los sets de cada enfrentamiento.
+    * 
+    *
+    * @return void
+    * @throws Exception Para modificar,editar,ver y eliminar resultados es necesario ser administrador
+    */
 
     public function setresults()
     {
@@ -235,6 +296,17 @@ class ConfrontationController extends BaseController
         $this->view->render("confrontation", "setresults");
     }
 
+    /**
+    * Acción que permite la selección de un campeonato,grupo y categoria
+    *
+    * Muestra un formulario al usuario para que seleccione el grupo de una categoria
+    * perteneciente a un determinado campeonato.
+    * 
+    *
+    * @return void
+    * @throws Exception Para seleccionar un grupo de un campeonato es necesario estar logeado
+    */
+
     public function selectGroup()
     {
         if (! isset($this->currentUser) && ($this->currentRol == 'a' || $this->currentRol == 'e' || $this->currentRol == 'd')) {
@@ -251,6 +323,16 @@ class ConfrontationController extends BaseController
         // render the view (/view/posts/add.php)
         $this->view->render("confrontation", "selectGroup");
     }
+
+    /**
+    * Acción que permite ver los enfrentamientos de un grupo
+    *
+    * Muestra una tabla con la información de los enfrentamientos
+    * de un grupo de la categoria y campeonato seleccionado previamente
+    * 
+    *
+    * @return void
+    */
 
     public function showConfrontations()
     {

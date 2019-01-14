@@ -2,15 +2,39 @@
 // file: model/Reservation.php
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase Reservation
+*
+* Representa las reservas de pista
+* Contiene los atributos del objecto Reserva
+* 
+*
+*/
 class Reservation
 {
 
+    /**
+    * Id de la reserva
+    * @var int
+    */
     private $idReservation;
 
+    /**
+    * Id del usuario que reserva
+    * @var int
+    */
     private $idUserReservation;
 
+    /**
+    * fecha de la reserva
+    * @var date
+    */
     private $dateReservation;
 
+    /**
+    * hora de la reserva de la reserva
+    * @var string
+    */
     private $hourReservation;
 
     function __construct($idReservation = NULL, $idUserReservation = NULL, $dateReservation = NULL, $hourReservation = NULL)

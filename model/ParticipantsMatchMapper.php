@@ -1,12 +1,19 @@
 <?php
-// file: model/UserMapper.php
+
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase ParticipantsMatchMapper
+*
+* Interfaz de base de datos para entidades ParticipantsMatchMapper
+* 
+*
+*/
 class ParticipantsMatchMapper
 {
 
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -17,6 +24,12 @@ class ParticipantsMatchMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+     * Comprueba si estan todos los participantes para el partido 
+     *
+     * @param $idOrganizeMatch, $userLogin
+     * @return boolean
+     */
     public function play($idOrganizeMatch, $userLogin)
     {
         $stmt = $this->db->prepare("SELECT * FROM participantespartido WHERE idOrganizarPartido =? AND loginUsuario=?");
@@ -35,11 +48,9 @@ class ParticipantsMatchMapper
     }
 
     /**
-     * Saves a OrganizeMatch into the database
+     * Guarda un participante en el partido organizado 
      *
-     * @param ParticipantsMatch $paticipantMatch
-     *            The participant to be saved
-     * @throws PDOException if a database error occurs
+     * @param $paticipantMatch
      * @return void
      */
     public function save(ParticipantsMatch $paticipantMatch)
@@ -52,6 +63,12 @@ class ParticipantsMatchMapper
         ));
     }
 
+    /**
+     * Cuenta los participantes de un partido 
+     *
+     * @param $idOrganizeMatch
+     * @return int
+     */
     public function count($idOrganizeMatch)
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM participantespartido WHERE idOrganizarPartido =?");
@@ -64,9 +81,10 @@ class ParticipantsMatchMapper
     }
 
     /**
-     * Delete an organize Match
+     * Cancela la inscripción a un partido organizado
      *
-     * @throws PDOException if a database error occurs
+     * @param $idOrganizeMatch, $userLogin
+     * @return void
      */
     public function cancel($idOrganizeMatch, $userLogin)
     {
@@ -77,7 +95,12 @@ class ParticipantsMatchMapper
         ));
     }
 
-
+    /**
+     * Devuelve los participantes de un partido organizado
+     *
+     * @param $idOrganizeMatch
+     * @return mixed participantes
+     */
     public function getParticipants($idOrganizeMatch){
       $stmt = $this->db->prepare("SELECT * FROM participantespartido WHERE idOrganizarPartido =?");
       $stmt->execute(array(

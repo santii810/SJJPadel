@@ -12,7 +12,11 @@ require_once (__DIR__ . "/../core/PDOConnection.php");
 
 class ConfrontationMapper
 {
-
+    /**
+     * Referencia a conexión PDO
+     *
+     * @var PDO
+     */
     private $db;
 
     public function __construct()

@@ -2,19 +2,51 @@
 // file: model/User.php
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+
+/**
+* Clase Category
+*
+* Representa a los usuarios del sistema
+* Contiene los atributos del objecto usuario
+* 
+*
+*/
 class User
 {
-
+    /**
+    * Id del usuario
+    * @var int
+    */
     private $login;
 
+    /**
+    * Nombre del usuario
+    * @var string
+    */
     private $username;
 
+    /**
+    * Apellidos del usuario
+    * @var string
+    */
     private $surname;
 
+    /**
+    * Contraseña del usuario
+    * @var string
+    */
     private $pass;
 
+    /**
+    * Rol del usuario
+    * @var string
+    */
     private $rol;
 
+    /**
+    * Genero del usuario
+    * @var string
+    */
     private $gender;
 
     public function __construct($login = NULL, $username = NULL, $surname = NULL, $pass = NULL, $rol = NULL, $gender = NULL)
@@ -87,6 +119,15 @@ class User
         $this->gender = $gender;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForRegister()
     {
         $errors = array();

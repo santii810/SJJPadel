@@ -1,14 +1,34 @@
 <?php
-// file: model/User.php
+
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase ParticipantsMatch
+*
+* Representa los participanted de un partido
+* Contiene los atributos del objecto participantes
+* 
+*
+*/
 class ParticipantsMatch
 {
 
+    /**
+    * Id de los participantes
+    * @var int
+    */
     private $idParticipantesPartido;
 
+    /**
+    * Id del partido organizado
+    * @var int
+    */
     private $idOrganizarPartido;
 
+    /**
+    * login del usuario 
+    * @var int
+    */
     private $loginUsuario;
 
     public function __construct($idParticipantesPartido = NULL, $idOrganizarPartido = NULL, $loginUsuario = NULL)
@@ -48,6 +68,15 @@ class ParticipantsMatch
         $this->loginUsuario = $loginUsuario;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForCreate()
     {
         $errors = array();

@@ -1,12 +1,27 @@
 <?php
-// file: model/User.php
+
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase PartnerGroup
+*
+* Representa la pareja de un grupo
+* Contiene los atributos del objecto PartnerGroup
+* 
+*
+*/
 class PartnerGroup
 {
-
+    /**
+    * Id de la pareja
+    * @var int
+    */
     private $idPartner;
 
+    /**
+    * Id del grupo
+    * @var int
+    */
     private $idGroup;
 
     public function __construct($idPartner = NULL, $idGroup = NULL)
@@ -35,6 +50,15 @@ class PartnerGroup
         $this->idGroup = $id;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForRegister()
     {
         $errors = array();

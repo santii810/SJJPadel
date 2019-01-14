@@ -1,20 +1,51 @@
 <?php
-// file: model/User.php
+
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase Partner
+*
+* Representa una pareja de un campeonato
+* Contiene los atributos del objecto pareja
+* 
+*
+*/
 class Partner
 {
-
+    /**
+    * Id de la pareja
+    * @var int
+    */
     private $idPartner;
 
+    /**
+    * Id del capitan
+    * @var int
+    */
     private $idCaptain;
 
+    /**
+    * Id del compañero
+    * @var int
+    */
     private $idFellow;
 
+    /**
+    * Id de la categoria relacionada a un campeonato
+    * @var int
+    */
     private $idCategoryChampionship;
 
+    /**
+    * victorias de la pareja
+    * @var int
+    */
     private $victories;
 
+    /**
+    * derrotas de la pareja
+    * @var int
+    */
     private $defeats;
 
     public function __construct($idPartner = NULL, $idCaptain = NULL, $idFellow = NULL, $idCategoryChampionship = NULL)
@@ -93,6 +124,15 @@ class Partner
         return $this->defeats + $this->victories;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForRegister()
     {
         $errors = array();

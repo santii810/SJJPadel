@@ -1,18 +1,46 @@
 <?php
-// file: model/User.php
+
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+
+/**
+* Clase OrganizeMatch
+*
+* Representa los partidos organizados
+* Contiene los atributos del objecto OrganizeMatch
+* 
+*
+*/
 class OrganizeMatch
 {
-
+    /**
+    * Id del partido organizado
+    * @var int
+    */
     private $idOrganizarPartido;
 
+    /**
+    * fecha del partido organizado
+    * @var date
+    */
     private $fecha;
 
+    /**
+    * hora del partido organizado
+    * @var string
+    */
     private $hora;
 
+    /**
+    * participantes del partido organizado
+    * @var mixed
+    */
     private $participants;
 
+    /**
+    * número participantes del partido organizado
+    * @var int
+    */
     private $numParticipants;
 
     public function __construct($idOrganizeMatch = NULL, $fecha = NULL, $hora = NULL, array $participants = NULL, $numParticipants = NULL)
@@ -74,6 +102,15 @@ class OrganizeMatch
         $this->numParticipants = $numParticipants;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForCreate()
     {
         $fecha_actual = new DateTime(date('Y-m-d'));

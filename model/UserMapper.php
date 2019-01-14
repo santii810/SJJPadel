@@ -2,11 +2,18 @@
 // file: model/UserMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase UserMapper
+*
+* Interfaz de base de datos para entidades UserMapper
+* 
+*
+*/
 class UserMapper
 {
 
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -18,11 +25,9 @@ class UserMapper
     }
 
     /**
-     * Saves a User into the database
+     * Guarda un usuario 
      *
-     * @param User $user
-     *            The user to be saved
-     * @throws PDOException if a database error occurs
+     * @param $user
      * @return void
      */
     public function save($user)
@@ -40,11 +45,10 @@ class UserMapper
     }
 
     /**
-     * Checks if a given username is already in the database
+     * Elimina un usuario 
      *
-     * @param string $username
-     *            the username to check
-     * @return boolean true if the username exists, false otherwise
+     * @param $login
+     * @return void
      */
     public function borrar($login)
     {
@@ -54,6 +58,12 @@ class UserMapper
         ));
     }
 
+    /**
+     * Edita un usuario 
+     *
+     * @param $login, $nombre, $apellidos, $pass, $rol, $genero
+     * @return void
+     */
     public function editar($login, $nombre, $apellidos, $pass, $rol, $genero)
     {
         $stmt = $this->db->prepare("UPDATE usuario set nombre=?, apellidos=?, pass=?, rol=?, genero=? where login=?");
@@ -67,6 +77,12 @@ class UserMapper
         ));
     }
 
+    /**
+     * Comprueba si existe un usuario 
+     *
+     * @param $login
+     * @return boolean
+     */
     public function loginExists($login)
     {
         $stmt = $this->db->prepare("SELECT count(login) FROM usuario where login=?");
@@ -80,13 +96,10 @@ class UserMapper
     }
 
     /**
-     * Checks if a given pair of username/password exists in the database
+     * Comprueba si el usuario es valido
      *
-     * @param string $username
-     *            the username
-     * @param string $passwd
-     *            the password
-     * @return boolean true the username/passwrod exists, false otherwise.
+     * @param $login, $pass
+     * @return boolean
      */
     public function isValidUser($login, $pass)
     {
@@ -101,6 +114,12 @@ class UserMapper
         }
     }
 
+    /**
+     * Devuelve los datos de un usuario 
+     *
+     * @param $login
+     * @return User
+     */
     public function getDatos($login)
     {
         $stmt = $this->db->prepare("SELECT * FROM usuario where login=?");
@@ -119,6 +138,12 @@ class UserMapper
         return $user;
     }
 
+    /**
+     * Devuelve todos los usuarios 
+     *
+     * 
+     * @return mixed User
+     */
     public function getUsuarios()
     {
         $stmt = $this->db->query("SELECT *

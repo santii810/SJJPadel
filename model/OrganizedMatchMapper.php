@@ -2,13 +2,20 @@
 // file: model/OrganizedMatchMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase OrganizedMatchMapper
+*
+* Interfaz de base de datos para entidades OrganizedMatchMapper
+* 
+*
+*/
 class OrganizedMatchMapper
 {
   /**
-   * Reference to the PDO connection
-   *
-   * @var PDO
-   */
+     * Referencia a conexión PDO
+     *
+     * @var PDO
+     */
   private $db;
 
   public function __construct()
@@ -17,11 +24,9 @@ class OrganizedMatchMapper
   }
 
   /**
-   * Saves a OrganizedMatch into the database
+   * Guarda un partido organizado 
    *
-   * @param OrganizedMatch $organizedMarch
-   *            The match to be saved
-   * @throws PDOException if a database error occurs
+   * @param $organizedMatch
    * @return void
    */
   public function save(OrganizedMatch $organizedMatch)
@@ -38,11 +43,11 @@ class OrganizedMatchMapper
   }
 
   /**
-  * Retrieves all the user participate organize matches
-  *
-  * @throws PDOException if a database error occurs
-  * @return mixed Array of OrganizedMatch instances
-  */
+   * Devuelve los partidos organizados de un usuario
+   *
+   * @param $login
+   * @return mixed OrganizedMatch
+   */
   public function getUserMatches($login){
     $stmt = $this->db->prepare("SELECT * FROM partidoorganizado WHERE login1=? OR login2=? OR login3=? OR login4=?");
     $stmt->execute(array(
@@ -65,9 +70,10 @@ class OrganizedMatchMapper
 
 
   /**
-   * Delete an organizedMatch
+   * Elimina un partido organizado 
    *
-   * @throws PDOException if a database error occurs
+   * @param $idPartidoOrganizado
+   * @return void
    */
   public function delete($idPartidoOrganizado)
   {

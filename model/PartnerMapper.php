@@ -1,15 +1,22 @@
 <?php
-// file: model/PostMapper.php
+
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
 require_once (__DIR__ . "/../model/User.php");
 require_once (__DIR__ . "/../model/Partner.php");
 
+/**
+* Clase PartnerMapper
+*
+* Interfaz de base de datos para entidades PartnerMapper
+* 
+*
+*/
 class PartnerMapper
 {
 
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -20,6 +27,12 @@ class PartnerMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+     * Guarda una pareja 
+     *
+     * @param $partner
+     * @return void
+     */
     public function save($partner)
     {
         $stmt = $this->db->prepare("INSERT INTO pareja(idCapitan,idCompañero,idCategoriaCampeonato) values (?,?,?)");
@@ -31,6 +44,12 @@ class PartnerMapper
         return $this->db->lastInsertId();
     }
 
+    /**
+     * Comprueba si existe una pareja en una categoria 
+     *
+     * @param $login, $idCategoriaCampeonato
+     * @return boolean
+     */
     public function existeParejaCategoria($login, $idCategoriaCampeonato)
     {
         $stmt = $this->db->prepare("SELECT * FROM pareja
@@ -50,6 +69,12 @@ class PartnerMapper
         }
     }
 
+    /**
+     * Devuelve los datos de una pareja 
+     *
+     * @param $idCapitan, $idCompañero, $idCategoria
+     * @return Partner
+     */
     public function devolverPareja($idCapitan, $idCompañero, $idCategoria)
     {
         $stmt = $this->db->prepare("SELECT * FROM pareja
@@ -73,6 +98,12 @@ class PartnerMapper
         return $pareja;
     }
 
+    /**
+     * Devuelve todas las parejas
+     *
+     * 
+     * @return mixed parejas
+     */
     public function getParejas()
     {
         $stmt = $this->db->query("SELECT idPareja,idCapitan,idCompañero
@@ -89,6 +120,12 @@ class PartnerMapper
         return $toret;
     }
 
+    /**
+     * Devuelve los nombres de la pareja 
+     *
+     * @param $idPartner
+     * @return string
+     */
     public function getPartnerNames($idPartner)
     {
         $stmt = $this->db->prepare("SELECT concat(idCapitan,\" - \", idCompañero) as names FROM `pareja` WHERE idPareja = ?");
@@ -101,6 +138,12 @@ class PartnerMapper
         return $toret_db["names"];
     }
 
+    /**
+     * Devuelve las parejas de un usuario 
+     *
+     * @param $user
+     * @return mixed Partner
+     */
     public function getMyParners($user)
     {
         $stmt = $this->db->prepare("SELECT * FROM `pareja` WHERE  idCapitan = ? || idCompañero = ?");
@@ -122,6 +165,12 @@ class PartnerMapper
         return null;
     }
 
+    /**
+     * Devuelve el id del capitan de la pareja 
+     *
+     * @param $idPareja
+     * @return int
+     */
     public function getIdCapitan($idPareja)
     {
         $stmt = $this->db->prepare("SELECT idCapitan FROM pareja WHERE idPareja=?");
@@ -135,6 +184,12 @@ class PartnerMapper
         }
     }
 
+    /**
+     * Devuelve los miembros de una pareja 
+     *
+     * @param $idPareja
+     * @return mixed members
+     */
     public function getMembers($idPareja)
     {
         $stmt = $this->db->prepare("SELECT * FROM pareja WHERE idPareja=?");

@@ -1,10 +1,21 @@
 <?php
-// file: model/UserMapper.php
+
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase PartnerGroupMapper
+*
+* Interfaz de base de datos para entidades PartnerGroupMapper
+* 
+*
+*/
 class PartnergroupMapper
 {
-
+    /**
+     * Referencia a conexión PDO
+     *
+     * @var PDO
+     */
     private $db;
 
     public function __construct()
@@ -12,6 +23,12 @@ class PartnergroupMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+     * Guarda una relación de una pareja a un grupo 
+     *
+     * @param $partnergroup
+     * @return void
+     */
     public function save($partnergroup)
     {
         $stmt = $this->db->prepare("INSERT INTO parejagrupo (idPareja,idGrupo)
@@ -22,6 +39,12 @@ class PartnergroupMapper
         ));
     }
 
+    /**
+     * Devuelve las parejas pertenecientes a un grupo 
+     *
+     * @param $idGrupo
+     * @return mixed PartnerGroups
+     */
     public function getIdParejasGrupo($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM parejagrupo WHERE idGrupo = ? ");
@@ -40,6 +63,12 @@ class PartnergroupMapper
         return $partnergroups;
     }
 
+    /**
+     * Devuelve el id del grupo al que pertenece una pareja 
+     *
+     * @param $idPareja
+     * @return int
+     */
     public function getIdGrupo($idPareja)
     {
         $stmt = $this->db->prepare("SELECT idGrupo FROM parejagrupo WHERE idPareja = ? ");
@@ -51,6 +80,12 @@ class PartnergroupMapper
         return $toret_db["idGrupo"];
     }
 
+    /**
+     * Comprueba si una pareja tiene grupo 
+     *
+     * @param $idPareja
+     * @return boolean
+     */
     public function hasGroup($idPareja)
     {
         $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM parejagrupo WHERE idPareja = ? ");

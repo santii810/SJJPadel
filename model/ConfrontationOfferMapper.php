@@ -2,15 +2,17 @@
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
 /**
- * Class ConfrontationOfferMapper
- *
- * Database interface for ConfrontationOffer entities
- */
+* Clase ConfrontationOfferMapper
+*
+* Interfaz de base de datos para entidades ConfrontationOfferMapper
+* 
+*
+*/
 class ConfrontationOfferMapper
 {
 
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -22,11 +24,11 @@ class ConfrontationOfferMapper
     }
 
     /**
-  	* Retrieves all the offers of a group given its idGrupo
-  	*
-  	* @throws PDOException if a database error occurs
-  	* @return mixed Array of ConfrontationOffer instances
-  	*/
+     * Obtiene las ofertas de enfrentamiento por grupo 
+     *
+     * @param $idGrupo
+     * @return mixed ConfrontationOffer
+     */
     public function getConfrontationOffersForGroup($idGrupo)
     {
         $stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idGrupo=?");
@@ -48,11 +50,11 @@ class ConfrontationOfferMapper
     }
 
     /**
-    * Retrieves a ConfrontationOffer given its idOfertaEnfrentamiento
-    *
-    * @throws PDOException if a database error occurs
-    * @return  ConfrontationOffer instance
-    */
+     * Devuelve una oferta enfrentamiento
+     *
+     * @param $idOfertaEnfrentamiento
+     * @return ConfrontationOffer
+     */
     public function getOffer($idOfertaEnfrentamiento)
     {
         $stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idOfertaEnfrentamiento=?");
@@ -67,11 +69,9 @@ class ConfrontationOfferMapper
     }
 
     /**
-     * Saves a ConfrontationOffer into the database
+     * Guarda una oferta de enfrentamiento
      *
-     * @param ConfrontationOffer $confrontationOffer
-     *            The match offer to be saved
-     * @throws PDOException if a database error occurs
+     * @param $confrontationOffer
      * @return void
      */
     public function save(ConfrontationOffer $confrontationOffer)
@@ -87,9 +87,10 @@ class ConfrontationOfferMapper
     }
 
     /**
-     * Delete a ConfrontationOffer
+     * Elimina una oferta de enfrentamiento
      *
-     * @throws PDOException if a database error occurs
+     * @param $idOfertaEnfrentamiento
+     * @return void
      */
     public function delete($idOfertaEnfrentamiento)
     {

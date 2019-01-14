@@ -1,19 +1,50 @@
 <?php
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* InscriptionUserChampionship
+*
+* Representa la inscripcion de un campeonato
+* Contiene los atributos de una inscripción
+* 
+*
+*/
 class InscriptionUserChampionship
 {
-
+    /**
+    * Id de la pareja
+    * @var int
+    */
     private $idPartner;
 
+    /**
+    * Id del capitan
+    * @var int
+    */
     private $idCaptain;
 
+    /**
+    * Id del compañero
+    * @var int
+    */
     private $idFellow;
 
+    /**
+    * Nivel categoria
+    * @var string
+    */
     private $level;
 
+    /**
+    * Sexo de la categoria
+    * @var string
+    */
     private $sex;
 
+    /**
+    * Nombre del campeonato
+    * @var string
+    */
     private $nameChampionship;
 
     public function __construct($idPartner = NULL, $idCaptain = NULL, $idFellow = NULL, $level = NULL, $sex = NULL, $nameChampionship = NULL)
@@ -86,6 +117,15 @@ class InscriptionUserChampionship
         return $this->nameChampionship;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForCreate()
     {
         $errors = array();
@@ -116,12 +156,12 @@ class InscriptionUserChampionship
     }
 
     /**
-     * Checks if the current instance is valid
-     * for being updated in the database.
+     * Comprueba si la instancia actual es válida
+     * Por estar actualizado en la base de datos.
      *
-     * @throws ValidationException if the instance is
-     *         not valid
-     *        
+     * @throws ValidationException si la instancia es
+     *         no es válido
+     *
      * @return void
      */
     public function checkIsValidForUpdate()

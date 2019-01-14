@@ -2,11 +2,19 @@
 // file: model/OrganizeMatchMapper.php
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+
+/**
+* Clase OrganizeMatchMapper
+*
+* Interfaz de base de datos para entidades OrganizeMatchMapper
+* 
+*
+*/
 class OrganizeMatchMapper
 {
 
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -18,11 +26,9 @@ class OrganizeMatchMapper
     }
 
     /**
-     * Saves a OrganizeMatch into the database
+     * Guarda un partido organizado
      *
-     * @param OrganizeMatch $organizeMarch
-     *            The match to be saved
-     * @throws PDOException if a database error occurs
+     * @param int $categoryChampionship
      * @return void
      */
     public function save(OrganizeMatch $organizeMatch)
@@ -35,6 +41,12 @@ class OrganizeMatchMapper
         ));
     }
 
+    /**
+     * Busca un partido organizado 
+     *
+     * @param $idOrganizarPartido
+     * @return OrganizeMatch
+     */
     public function find($idOrganizarPartido)
     {
         $stmt = $this->db->prepare("SELECT * FROM organizarpartido WHERE idOrganizarPartido =?");
@@ -51,10 +63,10 @@ class OrganizeMatchMapper
     }
 
     /**
-     * Find all the matches organized by an admin
+     * Busca los partidos organizados por el administrador 
      *
-     * @throws PDOException if a database error occurs
-     * @return Array $organizedMatchesArray
+     * 
+     * @return mixed OrganizeMatch
      */
     public function findAll()
     {
@@ -74,6 +86,12 @@ class OrganizeMatchMapper
         return $organizedMatchesArray;
     }
 
+    /**
+     * Comprueba si existe el id de un partido organizado 
+     *
+     * @param $id
+     * @return boolean
+     */
     public function exist($id)
     {
         $stmt = $this->db->prepare("SELECT * FROM organizarpartido WHERE idOrganizarPartido =?");
@@ -89,6 +107,12 @@ class OrganizeMatchMapper
         }
     }
 
+    /**
+     * Busca un partidos organizados con participantes 
+     *
+     * @param $id
+     * @return OrganizeMatch
+     */
     public function findMatchWithParticipants($id)
     {
         $stmt = $this->db->prepare("SELECT
@@ -127,9 +151,10 @@ class OrganizeMatchMapper
     }
 
     /**
-     * Delete an organize Match
+     * Borra un partido organizado 
      *
-     * @throws PDOException if a database error occurs
+     * @param $idOrganizarPartido
+     * @return void
      */
     public function delete($idOrganizarPartido)
     {

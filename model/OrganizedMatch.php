@@ -2,19 +2,50 @@
 // file: model/OrganizedMatch.php
 require_once (__DIR__ . "/../core/ValidationException.php");
 
+/**
+* Clase OrganizedMatch
+*
+* Representa los partidos organizados
+* Contiene los atributos del objecto OrganizedMatch
+* 
+*
+*/
 class OrganizedMatch
 {
-
+    /**
+    * Id del partido organizado
+    * @var int
+    */
       private $idPartidoOrganizado;
 
+    /**
+    * Id de la reserva
+    * @var int
+    */
       private $idReserva;
 
+    /**
+    * Login usuario 1
+    * @var string
+    */
       private $login1;
 
+    /**
+    * Login usuario 2
+    * @var string
+    */
       private $login2;
 
+    /**
+    * Login usuario 3
+    * @var string
+    */
       private $login3;
 
+    /**
+    * Login usuario 4
+    * @var string
+    */
       private $login4;
 
       public function __construct($idPartidoOrganizado = NULL, $idReserva = NULL, $login1 = NULL, $login2 = NULL, $login3 = NULL, $login4 = NULL)

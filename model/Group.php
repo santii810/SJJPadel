@@ -1,16 +1,39 @@
 <?php
-// file: model/User.php
+
 require_once (__DIR__ . "/../core/ValidationException.php");
+
+/**
+* Clase Fase
+*
+* Representa los grupos de una categoria
+* Contiene los atributos del objecto grupo
+*
+*/
 
 class Group
 {
-
+    /**
+    * Id del grupo
+    * @var int
+    */
     private $idGroup;
 
+    /**
+    * Id de la categoria
+    * @var int
+    */
     private $idCategory;
 
+    /**
+    * Id del campeonato
+    * @var int
+    */
     private $idChampionship;
 
+    /**
+    * Nombre del grupo
+    * @var string
+    */
     private $groupName;
 
     public function __construct($idGroup = NULL, $idCategory = NULL, $idChampionship = NULL, $groupName = NULL)
@@ -56,6 +79,15 @@ class Group
         $this->groupName = $name;
     }
 
+    /**
+    * Comprueba si la instancia actual es válida
+    * Por estar actualizado en la base de datos.
+    *
+    * @throws ValidationException si la instancia es
+    * no es válido
+    *
+    * @return void
+    */
     public function checkIsValidForRegister()
     {
         $errors = array();

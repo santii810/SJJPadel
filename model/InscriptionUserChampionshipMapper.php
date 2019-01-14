@@ -1,14 +1,21 @@
 <?php
-// file: model/PostMapper.php
+
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
 require_once (__DIR__ . "/../model/InscriptionUserChampionship.php");
 
+
+/**
+* Clase InscriptionUserChampionshipMapper
+*
+* Interfaz de base de datos para entidades InscriptionUserChampionshipMapper
+* 
+*
+*/
 class InscriptionUserChampionshipMapper
 {
-
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -19,6 +26,13 @@ class InscriptionUserChampionshipMapper
         $this->db = PDOConnection::getInstance();
     }
 
+    /**
+     * Elimina una inscripción a un campeonato 
+     *
+     * @param $id
+     * @return void
+     */
+
     public function delete($id)
     {
         $stmt = $this->db->prepare("DELETE FROM pareja where idpareja=?");
@@ -26,6 +40,13 @@ class InscriptionUserChampionshipMapper
             $id
         ));
     }
+
+    /**
+     * Devuelve los datos de una inscripción a un campeonato 
+     *
+     * @param $id
+     * @return Inscription
+     */
 
     public function getDatos($id)
     {
@@ -51,6 +72,13 @@ class InscriptionUserChampionshipMapper
         return $inscription;
     }
 
+    /**
+     * Devuelve todas las inscripcioned de los campeonatos 
+     *
+     * 
+     * @return mixed Inscription
+     */
+
     public function getAllInscriptionsInChampionship()
     {
         $stmt = $this->db->query("SELECT pa.idPareja,pa.idCapitan,pa.idCompañero,cat.nivel,cat.sexo,cam.nombreCampeonato 
@@ -69,6 +97,13 @@ class InscriptionUserChampionshipMapper
         
         return $inscriptions;
     }
+
+    /**
+     * Devuelve las inscripciones del usuario logeado
+     *
+     * @param $login
+     * @return Inscription
+     */
 
     public function getInscriptionsCurrentUserInChampionship($login)
     {

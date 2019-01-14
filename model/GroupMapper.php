@@ -1,12 +1,18 @@
 <?php
-// file: model/UserMapper.php
+
 require_once (__DIR__ . "/../core/PDOConnection.php");
 
+/**
+* Clase GroupMapper
+*
+* Interfaz de base de datos para entidades GroupMapper
+* 
+*
+*/
 class GroupMapper
 {
-
     /**
-     * Reference to the PDO connection
+     * Referencia a conexión PDO
      *
      * @var PDO
      */
@@ -18,11 +24,9 @@ class GroupMapper
     }
 
     /**
-     * Saves a User into the database
+     * Guarda un grupo
      *
-     * @param User $user
-     *            The user to be saved
-     * @throws PDOException if a database error occurs
+     * @param $group
      * @return void
      */
     public function save($group)
@@ -39,6 +43,12 @@ class GroupMapper
         return $this->db->lastInsertId();
     }
 
+    /**
+     * Devuelve el grupo por defecto 
+     *
+     * @param $idCampeonato, $idCategoria
+     * @return Group
+     */
     public function getGrupoDefault($idCampeonato, $idCategoria)
     {
         $stmt = $this->db->prepare("SELECT *
@@ -59,6 +69,12 @@ class GroupMapper
         }
     }
 
+    /**
+     * Devuelve el grupo de una categoria
+     *
+     * @param $idCampeonato, $idCategoria
+     * @return Group
+     */
     public function getGroup($idCampeonato, $idCategoria)
     {
         $stmt = $this->db->prepare("SELECT *
@@ -78,6 +94,13 @@ class GroupMapper
             return NULL;
         }
     }
+
+    /**
+     * Devuelve todos los grupos de una categoria 
+     *
+     * @param $idCampeonato, $idCategoria
+     * @return Group
+     */
     public function getGroups($idCampeonato, $idCategoria)
     {
         $stmt = $this->db->prepare("SELECT *
@@ -100,6 +123,8 @@ class GroupMapper
 
     /**
      * Retorna todos los grupos asociados a un campeonato
+     * @param $idChampionship
+     * @return mixed Group
      */
     public function getGroupsFromChampionship($idChampionship)
     {

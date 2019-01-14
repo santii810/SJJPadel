@@ -12,7 +12,11 @@ require_once (__DIR__ . "/../model/CategoryChampionship.php");
 
 class CategoryChampionshipMapper
 {
-
+    /**
+     * Referencia a conexión PDO
+     *
+     * @var PDO
+     */
     private $db;
 
     public function __construct()

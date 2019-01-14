@@ -1,5 +1,11 @@
 <?php
-
+/**
+* Clase Fase
+*
+* Representa una clase abstrata con unas constantes 
+* predefinidas
+*
+*/
 abstract class Fase
 {
 

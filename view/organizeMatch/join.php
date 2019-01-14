@@ -2,7 +2,7 @@
 /**
 * join (organizeMatch)
 *
-* Vista que muestra un formulario para añadirse a un partido 
+* Vista que muestra un formulario para unirse a un partido 
 * organizado
 *
 */
@@ -53,10 +53,10 @@ $play = $view->getVariable("play");
                 </div>
               <?php endforeach; ?>
             </td>
-		
-		
+
+
 		<tr>
-	
+
 	</tbody>
 </table>
 <?php if(!$play): ?>

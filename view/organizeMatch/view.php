@@ -2,8 +2,8 @@
 /**
 * view (organizeMatch)
 *
-* Vista que muestra una tabla con los partidos 
-* organizados
+* Vista que muestra una tabla con los partidos
+* organizados que aun no tienen 4 jugadores
 *
 */
 require_once (__DIR__ . "/../../core/ViewManager.php");
@@ -58,11 +58,11 @@ $currentRol = $view->getVariable("currentRol");
           <?php endif; ?>
         </form>
 			</td>
-		
-		
+
+
 		<tr>
       <?php endforeach; ?>
-    
-	
+
+
 	</tbody>
 </table>

@@ -2,8 +2,8 @@
 /**
 * viewReservationMatches (Schedule)
 *
-* Vista que muestra las reservas de pista
-* 
+* Vista que muestra las reservas de pista que tiene hechas un jugador
+*
 *
 */
 require_once (__DIR__ . "/../../core/ViewManager.php");

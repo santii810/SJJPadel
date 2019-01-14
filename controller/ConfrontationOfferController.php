@@ -31,7 +31,8 @@ require_once (__DIR__ . "/../controller/BaseController.php");
 /**
  * Clase ConfrontationOfferController
  *
- * Controlador para ofrecer un partido y unirse a un torneo
+ * Controlador para ofrecer un partido o unirse a otros partidos qu eya hayan
+ * establecido otras parejas
  */
 class ConfrontationOfferController extends BaseController
 {
@@ -113,19 +114,22 @@ class ConfrontationOfferController extends BaseController
         $this->partnerGroupMapper = new PartnergroupMapper();
     }
 
-   
+
+/*
+* Acción de mostrar las categorias y torneos en el que el jugador loggeado está inscrito
+*/
     public function view()
     {
         if (! isset($this->currentUser)) {
             throw new Exception("Not in session. Check Confrontations requires login");
         }
-        
+
         $currentUser = $this->currentUser->getLogin();
-        
+
         $partner = $this->partnerMapper->getMyParners($currentUser);
-        
+
         $category_wt_tournament = array();
-        
+
         if ($partner != null) {
             foreach ($partner as $partnerCategory) {
                 $categoryChampionship = $this->categoryChampionshipMapper->getChampionshipFromIdCategory($partnerCategory->getIdCategoryChampionship());
@@ -147,12 +151,15 @@ class ConfrontationOfferController extends BaseController
                 }
             }
         }
-        
+
         $this->view->setVariable("category_wt_tournament", $category_wt_tournament);
-        
+
         $this->view->render("confrontation", "confrontationOffer");
     }
 
+/*
+* Acción de seleccionar una categoria de un torneo para ver los partidos que hay ofertados
+*/
     public function select()
     {
         if (! isset($this->currentUser)) {
@@ -161,19 +168,19 @@ class ConfrontationOfferController extends BaseController
         if (! (isset($_GET["idCategoriaCampeonato"]) && isset($_GET["idCampeonato"]) && isset($_GET["idCategoria"]) && isset($_GET["idPareja"]))) {
             throw new Exception("Error in the parameters");
         }
-        
+
         $idCategoriaCampeonato = $_GET["idCategoriaCampeonato"];
         $idCampeonato = $_GET["idCampeonato"];
         $idCategoria = $_GET["idCategoria"];
         $idPareja = $_GET["idPareja"];
-        
+
         $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPareja);
-        
+
         $this->validateMatchs($idGrupo);
-        
+
         $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
         $posibleOffers = array();
-        
+
         foreach ($confrontationOffers as $offer) {
             if ($idPareja != $offer->getIdPareja()) {
                 if (! $this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo)) {
@@ -183,13 +190,17 @@ class ConfrontationOfferController extends BaseController
                 }
             }
         }
-        
+
         $this->view->setVariable("idCampeonato", $idCampeonato);
         $this->view->setVariable("idPareja", $idPareja);
         $this->view->setVariable("posibleOffers", $posibleOffers);
         $this->view->render("confrontation", "confrontationSelect");
     }
 
+/*
+* Accion de unirse a un partido ya ofrecido por otra pareja del torneo
+*
+*/
     public function join()
     {
         if (! isset($this->currentUser)) {
@@ -204,7 +215,7 @@ class ConfrontationOfferController extends BaseController
         $ofertaEnfrentamiento = $this->confrontationOfferMapper->getOffer($idOfertaEnfrentamiento);
         $miembrosPareja = $this->partnerMapper->getMembers($idParejaOffer);
         $ofertaEnfrentamiento->setPareja($miembrosPareja);
-        
+
         if (isset($_POST["idOfertaEnfrentamiento"])) {
             $idOfertaEnfrentamiento = $_POST["idOfertaEnfrentamiento"];
             $idParejaOferta = $_REQUEST["idParejaOffer"];
@@ -213,23 +224,29 @@ class ConfrontationOfferController extends BaseController
             $ofertaEnfrentamiento = $this->confrontationOfferMapper->getOffer($idOfertaEnfrentamiento);
             $reservation = new Reservation(null, $idCapitan, $ofertaEnfrentamiento->getFecha(), $ofertaEnfrentamiento->getHora());
             $this->reservationMapper->makeReservation($reservation);
-            
+
             $idConfrontation = $this->confrontationMapper->getIdConfrontation($idParejaOffer, $idPareja);
-            
+
             $this->confrontationMapper->actualizarHorario($idConfrontation, $ofertaEnfrentamiento->getFecha(), $ofertaEnfrentamiento->getHora());
-            
+
             $this->confrontationOfferMapper->delete($ofertaEnfrentamiento->getIdOfertaEnfrentamiento());
-            
+
             $this->view->setFlash(sprintf(i18n("Join match successfully.")));
             $this->view->redirect("confrontationOffer", "view");
         }
-        
+
         $this->view->setVariable("idPareja", $idPareja);
         $this->view->setVariable("idParejaOffer", $idParejaOffer);
         $this->view->setVariable("ofertaEnfrentamiento", $ofertaEnfrentamiento);
         $this->view->render("confrontation", "confrontationOfferJoin");
     }
 
+
+/*
+* Acción de ofrecer una fecha y hora para un enfrentamiento con otras parejas de torneo con
+* las que aun no se haya jugado
+*
+*/
     public function offer()
     {
         if (! isset($this->currentUser)) {
@@ -238,40 +255,46 @@ class ConfrontationOfferController extends BaseController
         if (! (isset($_REQUEST["idPareja"]) && isset($_REQUEST["idCampeonato"]))) {
             throw new Exception("ID partner and ID Championship are neccesay");
         }
-        
+
         $idPartner = $_REQUEST["idPareja"];
         $idChampionship = $_REQUEST["idCampeonato"];
-        
+
         if (isset($_POST["dateOrganizeMatch"])) {
             $fechaOffer = $_POST["dateOrganizeMatch"];
             $dateOffer = date("Y-m-d", strtotime($fechaOffer));
             $horaOffer = $_POST["timeOrganizeMatch"];
-            
+
             if (! ($this->championshipMapper->validateHour($idChampionship, $dateOffer))) {
                 $this->view->setFlash(sprintf(i18n("The date is invalid")));
                 $this->view->redirect("confrontationOffer", "offer", "idPareja=" . $idPartner . "&idCampeonato=" . $idChampionship);
             }
-            
+
             if ($this->reservationMapper->getNumReservations($fechaOffer, substr($horaOffer, 0, 5)) == 5) {
                 $this->view->setFlash(sprintf(i18n("Alredy 5 matches for this hour and date")));
                 $this->view->redirect("confrontationOffer", "offer", "idPareja=" . $idPartner . "&idCampeonato=" . $idChampionship);
             }
-            
+
             $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPartner);
-            
+
             $newConfrontation = new ConfrontationOffer(null, $idPartner, $idGrupo, $horaOffer, $fechaOffer);
-            
+
             $this->confrontationOfferMapper->save($newConfrontation);
-            
+
             $this->view->setFlash(sprintf(i18n("Set your offer successfully")));
             $this->view->redirect("confrontationOffer", "view");
         }
-        
+
         $this->view->setVariable("idPartner", $idPartner);
         $this->view->setVariable("idChampionship", $idChampionship);
         $this->view->render("confrontation", "confrontationOfferAdd");
     }
 
+
+/*
+* Comprueba si para los partidos que están ofrecidos, para su fecha y hora quedan pistas disponibles
+* Si no quedan pistas elimina las ofertas que hay para esa fecha
+*
+*/
     public function validateMatchs($idGrupo)
     {
         $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);

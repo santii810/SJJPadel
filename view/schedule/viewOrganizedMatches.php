@@ -2,8 +2,8 @@
 /**
 * viewOrganizedMatches (Schedule)
 *
-* Vista que muestra los partidos organizados
-* 
+* Vista que muestra los partidos organizados que le quedan por jugar a un jugador
+*
 *
 */
 require_once (__DIR__ . "/../../core/ViewManager.php");

@@ -63,10 +63,8 @@ class ScheduleController extends BaseController
   }
 
   /**
-	* Action to list championshit matches of a user
-	*
-	* Loads all the championshit matches of a user from the database.
-	* No HTTP parameters are needed.
+	* Acción de listar todos los partidos de campeonato que tiene que jugar un usuario
+  * y su fecha y hora ya se ha establecido
 	*
 	*/
   public function viewChampionshipMatches()
@@ -96,10 +94,9 @@ class ScheduleController extends BaseController
   }
 
   /**
-	* Action to list reservations of a user
+	* Accion de listar las reservas hechas por un usuario
 	*
-	* Loads all the reservations of a user from the database.
-	* No HTTP parameters are needed.
+  * Muestras las reservas que un usuario ha realizado
 	*
 	*/
   public function viewReservations()
@@ -121,10 +118,7 @@ class ScheduleController extends BaseController
   }
 
   /**
-  * Action to list participate organized matches of a user
-  *
-  * Loads all the participate organized matches of a user from the database.
-  * No HTTP parameters are needed.
+  * Acción de mostrar los partidos organizados que se han creado para un usuario
   *
   */
   public function viewOrganizedMatches()

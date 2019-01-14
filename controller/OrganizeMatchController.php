@@ -65,6 +65,10 @@ class OrganizeMatchController extends BaseController
         $this->organizedMatchMapper = new OrganizedMatchMapper();
     }
 
+/*
+* Accion de crear una oferta de partido
+*
+*/
     public function add()
     {
         if (! isset($this->currentUser) && $this->currentRol == 'a') {
@@ -106,6 +110,10 @@ class OrganizeMatchController extends BaseController
         $this->view->render("organizeMatch", "add");
     }
 
+/*
+* Acción de mostrar todas las ofertas de partidos que hay creadas
+*
+*/
     public function viewAll()
     {
         if (! isset($this->currentUser)) {
@@ -124,6 +132,12 @@ class OrganizeMatchController extends BaseController
         $this->view->render("organizeMatch", "view");
     }
 
+/*
+* Accion de unirse a un partido organizado, si ya hay 4 jugadores se genera la reserva
+* si no se espera a que se llene, si no quedan pistas disponibles para esa fecha y hora
+* se eliminar el partido organizado
+*
+*/
     public function join()
     {
         if (! isset($this->currentUser) && $this->currentRol == 'd') {
@@ -194,6 +208,9 @@ class OrganizeMatchController extends BaseController
         $this->view->render("organizeMatch", "join");
     }
 
+/*
+* Acción de eliminar un partido organizado
+*/
     public function delete()
     {
         if (! isset($this->currentUser) && $this->currentRol == 'a') {
@@ -230,6 +247,12 @@ class OrganizeMatchController extends BaseController
         $this->view->render("organizeMatch", "delete");
     }
 
+/*
+* Acción de cancelacion de un usuario la inscricción a un partido organizado,
+* solo se permite si ese usuario no es el cuarto jugador o la reserva aun no se
+* ha generado
+*
+*/
     public function cancel()
     {
         if (! isset($this->currentUser) && $this->currentRol == 'a') {

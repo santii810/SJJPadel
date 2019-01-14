@@ -2,8 +2,8 @@
 /**
 * viewChampionshipMatches (Schedule)
 *
-* Vista que muestra los partidos de un campeonato 
-* 
+* Vista que muestra los partidos de campeonato que le quedan por jugar a un jugador
+*
 *
 */
 require_once (__DIR__ . "/../../core/ViewManager.php");

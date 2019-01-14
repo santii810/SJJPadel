@@ -1,4 +1,11 @@
 <?php
+/**
+* inscription (partner)
+*
+* Vista que muestra un formulario para inscribirse 
+* con un compañero a una categoria
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

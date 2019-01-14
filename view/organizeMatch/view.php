@@ -1,5 +1,11 @@
 <?php
-// file: view/oragnizeMatch/add.php
+/**
+* view (organizeMatch)
+*
+* Vista que muestra una tabla con los partidos 
+* organizados
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

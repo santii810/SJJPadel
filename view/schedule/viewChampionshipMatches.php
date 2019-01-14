@@ -1,5 +1,11 @@
 <?php
-// file: view/oragnizeMatch/add.php
+/**
+* viewChampionshipMatches (Schedule)
+*
+* Vista que muestra los partidos de un campeonato 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $championshipMatches = $view->getVariable("championshipMatches");

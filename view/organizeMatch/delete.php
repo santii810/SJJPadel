@@ -1,5 +1,11 @@
 <?php
-// file: view/oragnizeMatch/add.php
+/**
+* delete (organizeMatch)
+*
+* Vista que muestra un formulario para eliminar un partido 
+* organizado
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

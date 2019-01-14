@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* showall (User)
+*
+* Vista que muestra una tabla con todos los usuarios registrados 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

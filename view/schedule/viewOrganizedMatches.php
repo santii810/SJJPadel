@@ -1,5 +1,11 @@
 <?php
-// file: view/oragnizeMatch/add.php
+/**
+* viewOrganizedMatches (Schedule)
+*
+* Vista que muestra los partidos organizados
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $organizedMatchesReservation = $view->getVariable("organizedMatchesReservation");

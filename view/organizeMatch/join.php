@@ -1,5 +1,11 @@
 <?php
-// file: view/oragnizeMatch/add.php
+/**
+* join (organizeMatch)
+*
+* Vista que muestra un formulario para añadirse a un partido 
+* organizado
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

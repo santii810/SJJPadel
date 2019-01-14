@@ -1,5 +1,11 @@
 <?php
-// file: view/championship/selectToCalendar.php
+/**
+* selectToCalendar (championship)
+*
+* Vista que muestra un formulario para seleccionar que campeonato
+* en el que generar su calendario
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

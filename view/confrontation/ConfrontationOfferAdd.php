@@ -1,4 +1,11 @@
 <?php
+/**
+* confrontationOfferAdd (confrontation)
+*
+* Vista que muestra un formulario para añadir una oferta 
+* de enfrentamiento
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

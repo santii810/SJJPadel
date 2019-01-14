@@ -1,5 +1,11 @@
 <?php
-// file: view/oragnizeMatch/add.php
+/**
+* confrontationOfferJoin (confrontation)
+*
+* Vista que muestra una tabla con los datos del enfrentamiento
+* para unirse
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

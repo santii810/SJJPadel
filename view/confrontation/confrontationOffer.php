@@ -1,4 +1,11 @@
 <?php
+/**
+* confrontationOffer (confrontation)
+*
+* Vista que muestra una tabla con las ofertas de enfrentamiento 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

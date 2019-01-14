@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* selectmatches (confrontation)
+*
+* Vista que muestra un formulario desplegable para 
+* elegir el grupo deseado para ver los partidos
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

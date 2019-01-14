@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* Vista add (category)
+*
+* Vista que muestra un formulario para añadir categorias
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

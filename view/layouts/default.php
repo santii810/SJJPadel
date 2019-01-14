@@ -1,5 +1,11 @@
 <?php
-// file: view/layouts/default.php
+/**
+* Plantilla default
+*
+* Diseño de toda la pagina de la aplicación web
+* 
+*
+*/
 $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 $currentGender = $view->getVariable("currentGender");

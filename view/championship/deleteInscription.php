@@ -1,5 +1,12 @@
 <?php
-// file: view/users/register.php
+/**
+* Vista deleteInscription (championship)
+*
+* Vista que muestra un formulario con la opción de eliminar 
+* la inscripción a un campeonato
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

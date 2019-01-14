@@ -1,4 +1,11 @@
 <?php
+/**
+*selectChampionship (partner)
+*
+* Vista que muestra un formulario seleccionable para elegir 
+* campeonato
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

@@ -1,4 +1,11 @@
 <?php
+/**
+* showAllInscriptionCurrentUser (championship)
+*
+* Vista que muestra una tabla con todas las inscripciones
+* del usuario logeado
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* Vista showall (category)
+*
+* Vista que muestra una tabla con todas las categorias
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

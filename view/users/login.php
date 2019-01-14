@@ -1,5 +1,11 @@
 <?php
-// file: view/users/login.php
+/**
+* login (User)
+*
+* Vista que muestra un formulario para logearse en la aplicación 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $view->setVariable("title", "Login");

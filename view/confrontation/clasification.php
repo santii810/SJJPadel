@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* clasification (confrontation)
+*
+* Vista que muestra una tabla con la posición en la 
+* clasificación de un grupo y de sus fases posteriores
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

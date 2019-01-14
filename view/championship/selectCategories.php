@@ -1,4 +1,11 @@
 <?php
+/**
+* selectCategories (championship)
+*
+* Vista que muestra un formulario seleccionable para elegir un grupo
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* register (User)
+*
+* Vista que muestra un formulario para el registro de usuarios
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

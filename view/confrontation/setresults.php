@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* selectclasification (confrontation)
+*
+* Vista que muestra un formulario para modificar,ver,borrar o editar 
+* resultados
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

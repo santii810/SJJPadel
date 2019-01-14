@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* delete (User)
+*
+* Vista que muestra un formulario para eliminar un usuario
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

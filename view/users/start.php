@@ -1,5 +1,11 @@
 <?php
-// file: view/posts/index.php
+/**
+* start (User)
+*
+* Vista que muestra una página de bienvenida al usuario 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

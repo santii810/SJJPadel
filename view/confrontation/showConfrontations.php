@@ -1,5 +1,11 @@
 <?php
-// file: view/confrontation/selectGroup.php
+/**
+* selectclasification (confrontation)
+*
+* Vista que muestra los enfrentamientos de un grupo
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

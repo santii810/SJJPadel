@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* Vista edit (category)
+*
+* Vista que muestra un formulario con la opción de editar una categoria
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

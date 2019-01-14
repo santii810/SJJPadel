@@ -1,4 +1,11 @@
 <?php
+/**
+* showall (championship)
+*
+* Vista que muestra una tabla con todos los campeonatos
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

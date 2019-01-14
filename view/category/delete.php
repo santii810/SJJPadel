@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* Vista delete (category)
+*
+* Vista que muestra una tabla con la opción de eliminar una categoria
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

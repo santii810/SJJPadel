@@ -1,5 +1,11 @@
 <?php
-// file: view/layouts/language_select_element.php
+/**
+* Plantilla languague_select_element
+*
+* Define la posición de menú de cambio de idioma
+* 
+*
+*/
 ?>
 
 <a href="index.php?controller=language&amp;action=change&amp;lang=es"> <img

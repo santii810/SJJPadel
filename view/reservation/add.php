@@ -1,5 +1,11 @@
 <?php
-// file: view/reservation/add.php
+/**
+* add (reservation)
+*
+* Vista que muestra una tabla con la información de la reserva 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 
 $view = ViewManager::getInstance();

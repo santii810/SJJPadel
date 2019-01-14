@@ -1,5 +1,11 @@
 <?php
-// file: view/reservation/add.php
+/**
+* selectSchedule (reservation)
+*
+* Vista que muestra un formulario para elegir la pista 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 
 $view = ViewManager::getInstance();

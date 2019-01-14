@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* Vista showall (championship)
+*
+* Vista que muestra un formulario para añadir un campeonato
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");

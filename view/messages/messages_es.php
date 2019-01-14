@@ -1,4 +1,11 @@
 <?php
+/**
+* Fichero messages_es
+*
+* Fichero de traducción de inglés a español
+* 
+*
+*/
 $i18n_messages = array(
     "Users Login" => "Iniciar sesion",
     "Please enter your login and password" => "Por favor introduce tu usuario y contraseña",

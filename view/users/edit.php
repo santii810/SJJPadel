@@ -1,5 +1,11 @@
 <?php
-// file: view/users/register.php
+/**
+* edit (User)
+*
+* Vista que muestra un formulario para editar un usuario 
+* 
+*
+*/
 require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 

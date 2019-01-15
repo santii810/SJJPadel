@@ -1,11 +1,11 @@
 <?php
 /**
-* Plantilla default
-*
-* Diseño de toda la pagina de la aplicación web
-* 
-*
-*/
+ * Plantilla default
+ *
+ * Diseño de toda la pagina de la aplicación web
+ * 
+ *
+ */
 $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 $currentGender = $view->getVariable("currentGender");
@@ -256,19 +256,15 @@ $currentRol = $view->getVariable("currentRol");
 							<!-- Acciones admin -->
 
 							<a class="dropdown-item"
-									href="index.php?controller=schedule&amp;action=viewChampionshipMatches">
-									<?= i18n("Championship Matches") ?></a>
-
-							<a class="dropdown-item"
-									href="index.php?controller=schedule&amp;action=viewReservations">
-									<?= i18n("Reservations") ?></a>
-
-							<a class="dropdown-item"
-									href="index.php?controller=schedule&amp;action=viewOrganizedMatches">
+								href="index.php?controller=schedule&amp;action=viewChampionshipMatches">
+									<?= i18n("Championship Matches") ?></a> <a
+								class="dropdown-item"
+								href="index.php?controller=schedule&amp;action=viewReservations">
+									<?= i18n("Reservations") ?></a> <a class="dropdown-item"
+								href="index.php?controller=schedule&amp;action=viewOrganizedMatches">
 									<?= i18n("Organized Matches") ?></a>
 
-						</div>
-					</li>
+						</div></li>
 				<?php endif ?>
 
 
@@ -320,7 +316,7 @@ $currentRol = $view->getVariable("currentRol");
 				<div class="footer-copyright">
 					<p>� 2018 SJJPadel Company</p>
 				</div>
-
+		
 		</footer>
 	</div>
 

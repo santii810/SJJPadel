@@ -3,7 +3,7 @@
 * Fichero messages_es
 *
 * Fichero de traducción de inglés a español
-* 
+*
 *
 */
 $i18n_messages = array(
@@ -207,6 +207,9 @@ $i18n_messages = array(
     "Not participate in a organnized match" => "No participas en ningún partido organizado",
     "Cancel successfully." => "Cancelado",
     "See participation in championship matches" => "Ver participacion en partidos de campeonato",
-    "Not participate in a championship match" => "No participas en ningún partido de campeonato"
+    "Not participate in a championship match" => "No participas en ningún partido de campeonato",
+    "Cancel reservation" => "Cancelar reserva",
+    "Reservation cancelled" => "Reserva cancelada",
+    "You can't cancel a reservation 1 day left" => "No puedes cancelar una reserva cuando queda solo un dia"
 
 )?>

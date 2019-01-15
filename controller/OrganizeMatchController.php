@@ -25,32 +25,32 @@ class OrganizeMatchController extends BaseController
 {
 
     /**
-     * Reference to the OrganizeMatchMapper to interact
-     * with the database
+     * Referencia OrganizeMatchMapper que interaciona con
+     * la base de datos
      *
      * @var OrganizeMatchMapper
      */
     private $organizeMatchMapper;
 
     /**
-     * Reference to the ParticipantsMatchMapper to interact
-     * with the database
+     * Referencia ParticipantsMatchMapper que interaciona con
+     * la base de datos
      *
      * @var ParticipantsMatchMapper
      */
     private $participantsMatchMapper;
 
     /**
-     * Reference to the ReservationMapper to interact
-     * with the database
+     * Referencia ReservationMapper que interaciona con
+     * la base de datos
      *
      * @var ReservationMapper
      */
     private $reservationMapper;
 
     /**
-     * Reference to the OrganizedMatchMapper to interact
-     * with the database
+     * Referencia OrganizedMatchMapper que interaciona con
+     * la base de datos
      *
      * @var OrganizedMatchMapper
      */

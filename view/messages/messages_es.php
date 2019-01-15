@@ -202,6 +202,9 @@ $i18n_messages = array(
     "Not participate in a championship match" => "No participas en ningún partido de campeonato",
     "Groups has ben generated" => "Grupos generados correctamente",
     "Correctly updated phase" => "Fase actualizada correctamente",
-    "There are not enough registered players" => "No hay suficientes jugadores inscritos"
+    "There are not enough registered players" => "No hay suficientes jugadores inscritos",
+    "Cancel reservation" => "Cancelar reserva",
+    "Reservation cancelled" => "Reserva cancelada",
+    "You can't cancel a reservation 1 day left" => "No puedes cancelar una reserva cuando queda solo un dia"
 
 )?>

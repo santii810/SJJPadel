@@ -9,7 +9,7 @@ require_once (__DIR__ . "/../model/Partner.php");
 * Clase ReservationMapper
 *
 * Interfaz de base de datos para entidades ReservationMapper
-* 
+*
 *
 */
 class ReservationMapper
@@ -27,9 +27,9 @@ class ReservationMapper
     }
 
     /**
-     * Devuelve todas las reservas 
+     * Devuelve todas las reservas
      *
-     * 
+     *
      * @return mixed Reservation
      */
     public function getReservations()
@@ -49,7 +49,7 @@ class ReservationMapper
     }
 
     /**
-     * Guarda una reserva 
+     * Guarda una reserva
      *
      * @param $reservation
      * @return void
@@ -88,7 +88,7 @@ class ReservationMapper
     /**
      * Devuelve número total de reservas
      *
-     * 
+     *
      * @return int
      */
     public function getReservationCount()
@@ -153,7 +153,7 @@ class ReservationMapper
     /**
      * Devuelve los datos estadísticos de una reserva
      *
-     * 
+     *
      * @return mixed estadística
      */
     public function getReservationDayStatistics()
@@ -186,7 +186,7 @@ class ReservationMapper
     /**
      * Devuelve los datos estadísticos de una reserva en una hora determinada
      *
-     * 
+     *
      * @return mixed estadística
      */
     public function getReservationHourStatistics()
@@ -210,7 +210,7 @@ class ReservationMapper
     /**
      * Devuelve los datos estadísticos al comiezo de las reservas
      *
-     * 
+     *
      * @return mixed estadística
      */
     public function getReservationComingStatistics()
@@ -241,7 +241,7 @@ class ReservationMapper
      * @return mixed Reservation
      */
     public function getUserReservations($login){
-      $stmt = $this->db->prepare("SELECT * FROM reserva WHERE idUsuarioReserva = ? AND fechaReserva >= CURDATE()");
+      $stmt = $this->db->prepare("SELECT * FROM reserva WHERE idUsuarioReserva = ? AND fechaReserva >= CURDATE() ORDER BY fechaReserva");
       $stmt->execute(array( $login ));
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -270,4 +270,17 @@ class ReservationMapper
         ));
         return $this->db->lastInsertId();
     }
+
+    /**
+     * Elimina una reserva
+     *
+     * @param $idReserva
+     * @return void
+     */
+    public function delete($idReserva)
+    {
+        $stmt = $this->db->prepare("DELETE FROM reserva where idReserva=?");
+        $stmt->execute(array( $idReserva ));
+    }
+
 }

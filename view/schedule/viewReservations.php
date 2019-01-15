@@ -10,7 +10,7 @@ require_once (__DIR__ . "/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 $reservations = $view->getVariable("reservations");
 $view->setVariable("title", "Ver Partidos Organizados");
-$currentRol = $view->getVariable("currentRol");
+$errors = $view->getVariable("errors");
 
 ?>
 
@@ -28,6 +28,9 @@ $currentRol = $view->getVariable("currentRol");
 			<th scope="col">
         <?= i18n("Time"); ?>
       </th>
+			<th scope="col">
+        <?= i18n("Options"); ?>
+      </th>
 		</tr>
 	</thead>
 	<tbody>
@@ -39,7 +42,17 @@ $currentRol = $view->getVariable("currentRol");
   			<td>
           <?= $reservation->getHourReservation(); ?>
         </td>
+				<td>
+					<form action="index.php?controller=reservation&amp;action=cancel"
+						method="POST">
+						<input type="hidden"
+							value="<?= $reservation->getIdReservation(); ?>"
+							name="idReservation" id="idReservation" /> <input
+							class="button-organize" type="submit" value="<?= i18n("Cancel reservation"); ?>" />
+					</form>
+        </td>
   		<tr>
+
     <?php endforeach; ?>
 
 	</tbody>

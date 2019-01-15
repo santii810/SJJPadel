@@ -25,7 +25,9 @@ $view->setVariable("title", i18n("Sign up for championship"));
 
 <form action="index.php?controller=partner&amp;action=inscription"
 	method="POST">
-
+<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-sm-6 col-xs-12">
 	<div class="form-group">
 
 		<label for="exampleFormControlSelect1" size="1"> <?= i18n("Category") ?> </label>
@@ -45,6 +47,8 @@ $view->setVariable("title", i18n("Sign up for championship"));
 
 
 	<button type="submit" class="btn btn-primary" name="" value=""> <?= i18n("Sign up") ?> </button>
-
+		</div>
+		</div>
+	</div>
 
 </form>

@@ -373,7 +373,7 @@ class ChampionshipMapper
     public function getCouplesPerChampionship()
     {        
         $stmt = $this->db->prepare("select count(idPareja) as num, ca.nombreCampeonato as name 
-            FROM pareja p, categoriasCampeonato c , campeonato ca 
+            FROM pareja p, categoriascampeonato c , campeonato ca 
             WHERE p.idCategoriaCampeonato = c.idCategoriasCampeonato AND c.idCampeonato = ca.idCampeonato 
             GROUP BY c.idCampeonato");
         $stmt->execute();

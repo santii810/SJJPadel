@@ -226,6 +226,7 @@ $currentRol = $view->getVariable("currentRol");
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<!-- Acciones admin -->
+						<?php if($currentRol == 'a'): ?>
 
 							<a class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=championshipStatistics">
@@ -233,6 +234,7 @@ $currentRol = $view->getVariable("currentRol");
 								class="dropdown-item"
 								href="index.php?controller=statistics&amp;action=reservationStatistics">
 						<?= i18n("Reservation statistics") ?></a>
+						<?php endif ?>
 
 						<?php if($currentRol == 'd' || $currentRol == 'e'): ?>
 						<a class="dropdown-item"

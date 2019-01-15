@@ -1,11 +1,4 @@
 <?php
-/**
-* Fichero messages_es
-*
-* Fichero de traducción de inglés a español
-* 
-*
-*/
 $i18n_messages = array(
     "Users Login" => "Iniciar sesion",
     "Please enter your login and password" => "Por favor introduce tu usuario y contraseña",
@@ -161,7 +154,6 @@ $i18n_messages = array(
     "Quarter finals" => "Cuartos de final",
     "Champion" => "Campeon",
     "Can not edit, the championship is not in this phase" => "No se puede editar resultados en esta fase, el campeonato no esta en esta fase.",
-
     "Not in session. see inscription championship requires login" => "No estas en sesion, para ver inscription requiere estar logeado",
     "Not in session. delete Inscription requires login" => "No estas en sesion, para borrar inscription requiere login",
     "Not in session. see users inscriptions in championship requires admin" => "No estas en sesion, para ver las inscripciones de los usuarios requiere ser admin",
@@ -207,6 +199,9 @@ $i18n_messages = array(
     "Not participate in a organnized match" => "No participas en ningún partido organizado",
     "Cancel successfully." => "Cancelado",
     "See participation in championship matches" => "Ver participacion en partidos de campeonato",
-    "Not participate in a championship match" => "No participas en ningún partido de campeonato"
+    "Not participate in a championship match" => "No participas en ningún partido de campeonato",
+    "Groups has ben generated" => "Grupos generados correctamente",
+    "Correctly updated phase" => "Fase actualizada correctamente",
+    "There are not enough registered players" => "No hay suficientes jugadores inscritos"
 
 )?>

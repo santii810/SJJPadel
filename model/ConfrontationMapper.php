@@ -305,12 +305,11 @@ class ConfrontationMapper
      */
     public function hasAllConfrontationsResult($idGroup)
     {
-        $stmt = $this->db->prepare("SELECT count(*) as num FROM enfrentamiento where idGrupo=? and puntosPareja1 is NULL or puntosPareja2 is NULL");
+        $stmt = $this->db->prepare("SELECT count(*) as num FROM enfrentamiento where idGrupo=? and (puntosPareja1 is NULL or puntosPareja2 is NULL)");
         $stmt->execute(array(
             $idGroup
         ));
         $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
-
         return ($toret_db != null && $toret_db["num"] == 0);
     }
 

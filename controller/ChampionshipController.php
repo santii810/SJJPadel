@@ -373,7 +373,6 @@ class ChampionshipController extends BaseController
                     case Fase::INSCRIPCION:
                         // Si está en fase de inscripcion se crean los grupos
                         $groupHasGenerated = $this->generateGroups($campeonato, Fase::GRUPOS);
-                        echo "hola";
                         if ($groupHasGenerated) {
                             
                             $this->championshipMapper->updateFase($campeonato->getId(), Fase::GRUPOS);

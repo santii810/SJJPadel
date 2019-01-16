@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jan 15, 2019 at 11:07 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.0
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-01-2019 a las 16:48:15
+-- Versión del servidor: 10.1.36-MariaDB
+-- Versión de PHP: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sjjpadel`
+-- Base de datos: `sjjpadel`
 --
 CREATE DATABASE IF NOT EXISTS `sjjpadel` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `sjjpadel`;
@@ -27,7 +27,7 @@ USE `sjjpadel`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `campeonato`
+-- Estructura de tabla para la tabla `campeonato`
 --
 
 CREATE TABLE `campeonato` (
@@ -41,7 +41,7 @@ CREATE TABLE `campeonato` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `campeonato`
+-- Volcado de datos para la tabla `campeonato`
 --
 
 INSERT INTO `campeonato` (`idCampeonato`, `fechaInicioInscripcion`, `fechaFinInscripcion`, `fechaInicioCampeonato`, `fechaFinCampeonato`, `nombreCampeonato`, `fase`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `campeonato` (`idCampeonato`, `fechaInicioInscripcion`, `fechaFinIns
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria`
+-- Estructura de tabla para la tabla `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -64,7 +64,7 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categoria`
+-- Volcado de datos para la tabla `categoria`
 --
 
 INSERT INTO `categoria` (`idCategoria`, `nivel`, `sexo`) VALUES
@@ -80,7 +80,7 @@ INSERT INTO `categoria` (`idCategoria`, `nivel`, `sexo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoriascampeonato`
+-- Estructura de tabla para la tabla `categoriascampeonato`
 --
 
 CREATE TABLE `categoriascampeonato` (
@@ -90,7 +90,7 @@ CREATE TABLE `categoriascampeonato` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categoriascampeonato`
+-- Volcado de datos para la tabla `categoriascampeonato`
 --
 
 INSERT INTO `categoriascampeonato` (`idCategoriasCampeonato`, `idCategoria`, `idCampeonato`) VALUES
@@ -103,7 +103,7 @@ INSERT INTO `categoriascampeonato` (`idCategoriasCampeonato`, `idCategoria`, `id
 -- --------------------------------------------------------
 
 --
--- Table structure for table `enfrentamiento`
+-- Estructura de tabla para la tabla `enfrentamiento`
 --
 
 CREATE TABLE `enfrentamiento` (
@@ -121,7 +121,7 @@ CREATE TABLE `enfrentamiento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `enfrentamiento`
+-- Volcado de datos para la tabla `enfrentamiento`
 --
 
 INSERT INTO `enfrentamiento` (`idEnfrentamiento`, `idPareja1`, `idPareja2`, `idGrupo`, `fase`, `fecha`, `hora`, `puntosPareja1`, `puntosPareja2`, `setsPareja1`, `setsPareja2`) VALUES
@@ -186,18 +186,18 @@ INSERT INTO `enfrentamiento` (`idEnfrentamiento`, `idPareja1`, `idPareja2`, `idG
 (450, 218, 221, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (451, 218, 222, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (452, 218, 223, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
-(453, 218, 224, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
-(454, 218, 225, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
+(453, 218, 224, 28, 'Grupos', '2019-01-20', '17:30:00', NULL, NULL, NULL, NULL),
+(454, 218, 225, 28, 'Grupos', '2019-01-17', '16:00:00', NULL, NULL, NULL, NULL),
 (455, 219, 220, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (456, 219, 221, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (457, 219, 222, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (458, 219, 223, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (459, 219, 224, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
-(460, 219, 225, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
+(460, 219, 225, 28, 'Grupos', '2019-01-17', '16:00:00', NULL, NULL, NULL, NULL),
 (461, 220, 221, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (462, 220, 222, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (463, 220, 223, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
-(464, 220, 224, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
+(464, 220, 224, 28, 'Grupos', '2019-01-21', '17:30:00', NULL, NULL, NULL, NULL),
 (465, 220, 225, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (466, 221, 222, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
 (467, 221, 223, 28, 'Grupos', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -220,7 +220,7 @@ INSERT INTO `enfrentamiento` (`idEnfrentamiento`, `idPareja1`, `idPareja2`, `idG
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grupo`
+-- Estructura de tabla para la tabla `grupo`
 --
 
 CREATE TABLE `grupo` (
@@ -231,7 +231,7 @@ CREATE TABLE `grupo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `grupo`
+-- Volcado de datos para la tabla `grupo`
 --
 
 INSERT INTO `grupo` (`idGrupo`, `idCategoria`, `idCampeonato`, `nombreGrupo`) VALUES
@@ -242,7 +242,7 @@ INSERT INTO `grupo` (`idGrupo`, `idCategoria`, `idCampeonato`, `nombreGrupo`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ofertaenfrentamiento`
+-- Estructura de tabla para la tabla `ofertaenfrentamiento`
 --
 
 CREATE TABLE `ofertaenfrentamiento` (
@@ -253,10 +253,27 @@ CREATE TABLE `ofertaenfrentamiento` (
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `ofertaenfrentamiento`
+--
+
+INSERT INTO `ofertaenfrentamiento` (`idOfertaEnfrentamiento`, `idPareja`, `idGrupo`, `hora`, `fecha`) VALUES
+(9, 218, 28, '19:00:00', '2019-01-24'),
+(11, 218, 28, '16:00:00', '2019-01-21'),
+(13, 225, 28, '13:00:00', '2019-01-22'),
+(14, 225, 28, '17:30:00', '2019-01-24'),
+(15, 220, 28, '16:00:00', '2019-01-31'),
+(17, 221, 28, '13:00:00', '2019-01-21'),
+(18, 221, 28, '20:30:00', '2019-01-20'),
+(19, 222, 28, '13:00:00', '2019-01-19'),
+(20, 222, 28, '17:30:00', '2019-01-27'),
+(21, 222, 28, '16:00:00', '2019-01-28'),
+(22, 223, 28, '19:00:00', '2019-01-19');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `organizarpartido`
+-- Estructura de tabla para la tabla `organizarpartido`
 --
 
 CREATE TABLE `organizarpartido` (
@@ -266,7 +283,7 @@ CREATE TABLE `organizarpartido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `organizarpartido`
+-- Volcado de datos para la tabla `organizarpartido`
 --
 
 INSERT INTO `organizarpartido` (`idOrganizarPartido`, `fecha`, `hora`) VALUES
@@ -281,7 +298,7 @@ INSERT INTO `organizarpartido` (`idOrganizarPartido`, `fecha`, `hora`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pareja`
+-- Estructura de tabla para la tabla `pareja`
 --
 
 CREATE TABLE `pareja` (
@@ -292,7 +309,7 @@ CREATE TABLE `pareja` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pareja`
+-- Volcado de datos para la tabla `pareja`
 --
 
 INSERT INTO `pareja` (`idPareja`, `idCapitan`, `idCompañero`, `idCategoriaCampeonato`) VALUES
@@ -332,7 +349,7 @@ INSERT INTO `pareja` (`idPareja`, `idCapitan`, `idCompañero`, `idCategoriaCampe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `parejagrupo`
+-- Estructura de tabla para la tabla `parejagrupo`
 --
 
 CREATE TABLE `parejagrupo` (
@@ -341,7 +358,7 @@ CREATE TABLE `parejagrupo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `parejagrupo`
+-- Volcado de datos para la tabla `parejagrupo`
 --
 
 INSERT INTO `parejagrupo` (`idPareja`, `idGrupo`) VALUES
@@ -373,7 +390,7 @@ INSERT INTO `parejagrupo` (`idPareja`, `idGrupo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `participantespartido`
+-- Estructura de tabla para la tabla `participantespartido`
 --
 
 CREATE TABLE `participantespartido` (
@@ -383,7 +400,7 @@ CREATE TABLE `participantespartido` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `participantespartido`
+-- Volcado de datos para la tabla `participantespartido`
 --
 
 INSERT INTO `participantespartido` (`idParticipantesPartido`, `idOrganizarPartido`, `loginUsuario`) VALUES
@@ -400,7 +417,7 @@ INSERT INTO `participantespartido` (`idParticipantesPartido`, `idOrganizarPartid
 -- --------------------------------------------------------
 
 --
--- Table structure for table `partidoorganizado`
+-- Estructura de tabla para la tabla `partidoorganizado`
 --
 
 CREATE TABLE `partidoorganizado` (
@@ -415,7 +432,7 @@ CREATE TABLE `partidoorganizado` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reserva`
+-- Estructura de tabla para la tabla `reserva`
 --
 
 CREATE TABLE `reserva` (
@@ -426,7 +443,7 @@ CREATE TABLE `reserva` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `reserva`
+-- Volcado de datos para la tabla `reserva`
 --
 
 INSERT INTO `reserva` (`idReserva`, `idUsuarioReserva`, `fechaReserva`, `horaReserva`) VALUES
@@ -501,12 +518,18 @@ INSERT INTO `reserva` (`idReserva`, `idUsuarioReserva`, `fechaReserva`, `horaRes
 (178, 'jose', '2019-01-21', '17:30'),
 (179, 'jose', '2019-01-21', '17:30'),
 (180, 'jose', '2019-01-21', '17:30'),
-(181, 'jose', '2019-01-21', '13:00');
+(181, 'jose', '2019-01-21', '13:00'),
+(182, 'jose', '2019-01-17', '16:00:00'),
+(183, 'jose', '2019-01-17', '16:00:00'),
+(184, 'francisco', '2019-01-20', '17:30:00'),
+(185, 'francisco', '2019-01-21', '17:30:00'),
+(186, 'santi', '2019-01-16', '11:30'),
+(187, 'santi', '2019-01-17', '13:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -519,7 +542,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`login`, `nombre`, `apellidos`, `pass`, `rol`, `genero`) VALUES
@@ -575,23 +598,23 @@ INSERT INTO `usuario` (`login`, `nombre`, `apellidos`, `pass`, `rol`, `genero`) 
 ('sofia', 'Salaidh', 'Bau', 'pass', 'd', 'femenino');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `campeonato`
+-- Indices de la tabla `campeonato`
 --
 ALTER TABLE `campeonato`
   ADD PRIMARY KEY (`idCampeonato`);
 
 --
--- Indexes for table `categoria`
+-- Indices de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
--- Indexes for table `categoriascampeonato`
+-- Indices de la tabla `categoriascampeonato`
 --
 ALTER TABLE `categoriascampeonato`
   ADD PRIMARY KEY (`idCategoriasCampeonato`),
@@ -599,7 +622,7 @@ ALTER TABLE `categoriascampeonato`
   ADD KEY `FK_Campeonato_idx` (`idCampeonato`);
 
 --
--- Indexes for table `enfrentamiento`
+-- Indices de la tabla `enfrentamiento`
 --
 ALTER TABLE `enfrentamiento`
   ADD PRIMARY KEY (`idEnfrentamiento`),
@@ -608,7 +631,7 @@ ALTER TABLE `enfrentamiento`
   ADD KEY `FK_Enfrentamientos_Pareja2_idx` (`idPareja2`);
 
 --
--- Indexes for table `grupo`
+-- Indices de la tabla `grupo`
 --
 ALTER TABLE `grupo`
   ADD PRIMARY KEY (`idGrupo`),
@@ -616,7 +639,7 @@ ALTER TABLE `grupo`
   ADD KEY `FK_Campeonato_idx` (`idCampeonato`);
 
 --
--- Indexes for table `ofertaenfrentamiento`
+-- Indices de la tabla `ofertaenfrentamiento`
 --
 ALTER TABLE `ofertaenfrentamiento`
   ADD PRIMARY KEY (`idOfertaEnfrentamiento`),
@@ -624,13 +647,13 @@ ALTER TABLE `ofertaenfrentamiento`
   ADD KEY `FK_Oferta_Grupo` (`idGrupo`);
 
 --
--- Indexes for table `organizarpartido`
+-- Indices de la tabla `organizarpartido`
 --
 ALTER TABLE `organizarpartido`
   ADD PRIMARY KEY (`idOrganizarPartido`);
 
 --
--- Indexes for table `pareja`
+-- Indices de la tabla `pareja`
 --
 ALTER TABLE `pareja`
   ADD PRIMARY KEY (`idPareja`),
@@ -639,14 +662,14 @@ ALTER TABLE `pareja`
   ADD KEY `FK_CategoriaCampeonato_idx` (`idCategoriaCampeonato`);
 
 --
--- Indexes for table `parejagrupo`
+-- Indices de la tabla `parejagrupo`
 --
 ALTER TABLE `parejagrupo`
   ADD PRIMARY KEY (`idPareja`,`idGrupo`),
   ADD KEY `FK_Grupo_idx` (`idGrupo`);
 
 --
--- Indexes for table `participantespartido`
+-- Indices de la tabla `participantespartido`
 --
 ALTER TABLE `participantespartido`
   ADD PRIMARY KEY (`idParticipantesPartido`),
@@ -654,7 +677,7 @@ ALTER TABLE `participantespartido`
   ADD KEY `FK_Usuario_idx` (`loginUsuario`);
 
 --
--- Indexes for table `partidoorganizado`
+-- Indices de la tabla `partidoorganizado`
 --
 ALTER TABLE `partidoorganizado`
   ADD PRIMARY KEY (`idPartidoOrganizado`),
@@ -665,101 +688,101 @@ ALTER TABLE `partidoorganizado`
   ADD KEY `login4` (`login4`);
 
 --
--- Indexes for table `reserva`
+-- Indices de la tabla `reserva`
 --
 ALTER TABLE `reserva`
   ADD PRIMARY KEY (`idReserva`),
   ADD KEY `FK_Usuario_idx` (`idUsuarioReserva`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`login`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `campeonato`
+-- AUTO_INCREMENT de la tabla `campeonato`
 --
 ALTER TABLE `campeonato`
   MODIFY `idCampeonato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `categoria`
+-- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `categoriascampeonato`
+-- AUTO_INCREMENT de la tabla `categoriascampeonato`
 --
 ALTER TABLE `categoriascampeonato`
   MODIFY `idCategoriasCampeonato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `enfrentamiento`
+-- AUTO_INCREMENT de la tabla `enfrentamiento`
 --
 ALTER TABLE `enfrentamiento`
   MODIFY `idEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=483;
 
 --
--- AUTO_INCREMENT for table `grupo`
+-- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
   MODIFY `idGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `ofertaenfrentamiento`
+-- AUTO_INCREMENT de la tabla `ofertaenfrentamiento`
 --
 ALTER TABLE `ofertaenfrentamiento`
-  MODIFY `idOfertaEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idOfertaEnfrentamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
--- AUTO_INCREMENT for table `organizarpartido`
+-- AUTO_INCREMENT de la tabla `organizarpartido`
 --
 ALTER TABLE `organizarpartido`
   MODIFY `idOrganizarPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `pareja`
+-- AUTO_INCREMENT de la tabla `pareja`
 --
 ALTER TABLE `pareja`
   MODIFY `idPareja` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
--- AUTO_INCREMENT for table `participantespartido`
+-- AUTO_INCREMENT de la tabla `participantespartido`
 --
 ALTER TABLE `participantespartido`
   MODIFY `idParticipantesPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `partidoorganizado`
+-- AUTO_INCREMENT de la tabla `partidoorganizado`
 --
 ALTER TABLE `partidoorganizado`
   MODIFY `idPartidoOrganizado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `reserva`
+-- AUTO_INCREMENT de la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+  MODIFY `idReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `categoriascampeonato`
+-- Filtros para la tabla `categoriascampeonato`
 --
 ALTER TABLE `categoriascampeonato`
   ADD CONSTRAINT `FK_CC_Campeonato` FOREIGN KEY (`idCampeonato`) REFERENCES `campeonato` (`idCampeonato`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_CC_Categoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `enfrentamiento`
+-- Filtros para la tabla `enfrentamiento`
 --
 ALTER TABLE `enfrentamiento`
   ADD CONSTRAINT `FK_Enfrentamientos_Grupo` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`idGrupo`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -767,42 +790,42 @@ ALTER TABLE `enfrentamiento`
   ADD CONSTRAINT `FK_Enfrentamientos_Pareja2` FOREIGN KEY (`idPareja2`) REFERENCES `pareja` (`idPareja`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `grupo`
+-- Filtros para la tabla `grupo`
 --
 ALTER TABLE `grupo`
   ADD CONSTRAINT `FK_Grupo_Campeonato` FOREIGN KEY (`idCampeonato`) REFERENCES `campeonato` (`idCampeonato`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_Grupo_Categoria` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `ofertaenfrentamiento`
+-- Filtros para la tabla `ofertaenfrentamiento`
 --
 ALTER TABLE `ofertaenfrentamiento`
   ADD CONSTRAINT `FK_Oferta_Grupo` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`idGrupo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_Oferta_Pareja` FOREIGN KEY (`idPareja`) REFERENCES `pareja` (`idPareja`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pareja`
+-- Filtros para la tabla `pareja`
 --
 ALTER TABLE `pareja`
   ADD CONSTRAINT `FK_ParejaCompañero` FOREIGN KEY (`idCompañero`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_Pareja_Capitan` FOREIGN KEY (`idCapitan`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `parejagrupo`
+-- Filtros para la tabla `parejagrupo`
 --
 ALTER TABLE `parejagrupo`
   ADD CONSTRAINT `FK_PG_Grupo` FOREIGN KEY (`idGrupo`) REFERENCES `grupo` (`idGrupo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_PG_Pareja` FOREIGN KEY (`idPareja`) REFERENCES `pareja` (`idPareja`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `participantespartido`
+-- Filtros para la tabla `participantespartido`
 --
 ALTER TABLE `participantespartido`
   ADD CONSTRAINT `FK_Participantes_OrganizarPartido` FOREIGN KEY (`idOrganizarPartido`) REFERENCES `organizarpartido` (`idOrganizarPartido`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_Participantes_Usuario` FOREIGN KEY (`loginUsuario`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `partidoorganizado`
+-- Filtros para la tabla `partidoorganizado`
 --
 ALTER TABLE `partidoorganizado`
   ADD CONSTRAINT `partidoorganizado_ibfk_1` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -812,7 +835,7 @@ ALTER TABLE `partidoorganizado`
   ADD CONSTRAINT `partidoorganizado_ibfk_5` FOREIGN KEY (`login4`) REFERENCES `usuario` (`login`);
 
 --
--- Constraints for table `reserva`
+-- Filtros para la tabla `reserva`
 --
 ALTER TABLE `reserva`
   ADD CONSTRAINT `FK_Reserva_Usuario` FOREIGN KEY (`idUsuarioReserva`) REFERENCES `usuario` (`login`) ON DELETE CASCADE ON UPDATE CASCADE;

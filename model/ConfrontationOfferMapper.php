@@ -5,7 +5,7 @@ require_once (__DIR__ . "/../core/PDOConnection.php");
 * Clase ConfrontationOfferMapper
 *
 * Interfaz de base de datos para entidades ConfrontationOfferMapper
-* 
+*
 *
 */
 class ConfrontationOfferMapper
@@ -24,7 +24,7 @@ class ConfrontationOfferMapper
     }
 
     /**
-     * Obtiene las ofertas de enfrentamiento por grupo 
+     * Obtiene las ofertas de enfrentamiento por grupo
      *
      * @param $idGrupo
      * @return mixed ConfrontationOffer
@@ -84,6 +84,32 @@ class ConfrontationOfferMapper
             $confrontationOffer->getFecha(),
             $confrontationOffer->getHora()
         ));
+    }
+
+    /**
+     * Obtiene las ofertas de enfrentamiento por grupo
+     *
+     * @param $idGrupo,$idParejaRival
+     * @return mixed ConfrontationOffer
+     */
+    public function getConfrontationOffersForGroupAndFase($idGrupo,$idParejaRival){
+      $stmt = $this->db->prepare("SELECT * FROM ofertaenfrentamiento WHERE idGrupo=? AND idPareja=? AND CURDATE() <= fecha");
+      $stmt->execute(array(
+          $idGrupo,
+          $idParejaRival
+      ));
+      $ofertasEnfrentamientos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $enfrentamientos_array = array();
+
+      if ($ofertasEnfrentamientos != null) {
+          foreach ($ofertasEnfrentamientos as $enfrentamiento) {
+              $fecha = new DateTime($enfrentamiento["fecha"]);
+              $enf = new ConfrontationOffer($enfrentamiento["idOfertaEnfrentamiento"], $enfrentamiento["idPareja"], $enfrentamiento["idGrupo"], $enfrentamiento["hora"], $fecha->format('d-m-Y'));
+              array_push($enfrentamientos_array, $enf);
+          }
+      }
+      return $enfrentamientos_array;
     }
 
     /**

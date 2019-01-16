@@ -241,7 +241,7 @@ class ConfrontationMapper
      */
     public function hadPlayed($idPareja1, $idPareja2, $idGrupo)
     {
-        $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR
       (idPareja1=? AND idPareja2=?)) AND hora is null");
         $stmt->execute(array(
             $idGrupo,
@@ -250,19 +250,13 @@ class ConfrontationMapper
             $idPareja2,
             $idPareja1
         ));
-        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $numero_filas = mysql_num_rows($resultado);
+        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($numero_filas == 0){
-          return true;
-        }else{
-           foreach ($toret_db as $confrontation) {
-             if($confrontation['fase'] != 'Grupos'){
-               return true;
-             }
-           }
-           return false;
-        }
+        if ($toret_db["count"] == 0) {
+            return true;
+        } else {
+            return false;
+      }
     }
 
     /**
@@ -463,5 +457,28 @@ class ConfrontationMapper
       }
       return $championshipM;
     }
+
+    /**
+     * Devuelve el enfrentamiento de una pareja
+     *
+     * @param $idPareja, $idGrupo, $fase
+     * @return Confrontation
+     */
+     public function getConfrontationByPhase($idPareja, $idGrupo, $fase){
+       $stmt = $this->db->prepare("SELECT * FROM enfrentamiento where (idPareja1=? OR idPareja2=?) AND idGrupo=? AND fase=? AND fecha is null");
+       $stmt->execute(array(
+           $idPareja,
+           $idPareja,
+           $idGrupo,
+           $fase
+       ));
+       $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+       if($toret_db != null){
+         return new Confrontation($toret_db["idEnfrentamiento"], $toret_db["idPareja1"], $toret_db["idPareja2"], $toret_db["idGrupo"], $toret_db['fase'], null, null, null,
+                  null, null, null);
+       }else{
+         return null;
+       }
+     }
 
 }

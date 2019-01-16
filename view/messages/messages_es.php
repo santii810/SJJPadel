@@ -205,6 +205,7 @@ $i18n_messages = array(
     "There are not enough registered players" => "No hay suficientes jugadores inscritos",
     "Cancel reservation" => "Cancelar reserva",
     "Reservation cancelled" => "Reserva cancelada",
-    "You can't cancel a reservation 1 day left" => "No puedes cancelar una reserva cuando queda solo un dia"
+    "You can't cancel a reservation 1 day left" => "No puedes cancelar una reserva cuando queda solo un dia",
+    "Alredy 5 matches for this hour and date" => "No quedan pistas para esta fecha y hora"
 
 )?>

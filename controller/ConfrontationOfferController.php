@@ -175,21 +175,75 @@ class ConfrontationOfferController extends BaseController
         $idPareja = $_GET["idPareja"];
 
         $idGrupo = $this->partnerGroupMapper->getIdGrupo($idPareja);
+        $campeonato =  $this->championshipMapper->getCampeonato($idCampeonato);
 
+        $fase = $campeonato->getFase();
         $this->validateMatchs($idGrupo);
-
-        $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
         $posibleOffers = array();
+        if($fase == 'Grupos'){
+          $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroup($idGrupo);
 
-        foreach ($confrontationOffers as $offer) {
-            if ($idPareja != $offer->getIdPareja()) {
-                if (!$this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo)) {
-                    $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
-                    $offer->setPareja($miembrosPareja);
-                    array_push($posibleOffers, $offer);
-                }
+          foreach ($confrontationOffers as $offer) {
+              if ($idPareja != $offer->getIdPareja()) {
+                  if (! $this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo)) {
+                      $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
+                      $offer->setPareja($miembrosPareja);
+                      array_push($posibleOffers, $offer);
+                  }
+              }
+          }
+        }else if($fase == 'Cuartos'){
+          $confrontation = $this->confrontationMapper->getConfrontationByPhase($idPareja, $idGrupo, $fase);
+          if($confrontation != null){
+            if ($confrontation->getIdPartner1() != $idPareja){
+              $idParejaRival = $confrontation->getIdPartner1();
+            }else{
+              $idParejaRival = $confrontation->getIdPartner2();
             }
+            $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroupAndFase($idGrupo,$idParejaRival);
+            foreach ($confrontationOffers as $offer) {
+              $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
+              $offer->setPareja($miembrosPareja);
+              array_push($posibleOffers, $offer);
+            }
+          }
         }
+        else if($fase == 'Semifinal'){
+          $confrontation = $this->confrontationMapper->getConfrontationByPhase($idPareja, $idGrupo, $fase);
+          if($confrontation != null){
+            if ($confrontation->getIdPartner1() != $idPareja){
+              $idParejaRival = $confrontation->getIdPartner1();
+            }else{
+              $idParejaRival = $confrontation->getIdPartner2();
+            }
+            $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroupAndFase($idGrupo,$idParejaRival);
+            foreach ($confrontationOffers as $offer) {
+              $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
+              $offer->setPareja($miembrosPareja);
+              array_push($posibleOffers, $offer);
+            }
+          }
+        }
+        else if($fase == 'Final'){
+          $confrontation = $this->confrontationMapper->getConfrontationByPhase($idPareja, $idGrupo, $fase);
+          if($confrontation != null){
+            if ($confrontation->getIdPartner1() != $idPareja){
+              $idParejaRival = $confrontation->getIdPartner1();
+            }else{
+              $idParejaRival = $confrontation->getIdPartner2();
+            }
+            $confrontationOffers = $this->confrontationOfferMapper->getConfrontationOffersForGroupAndFase($idGrupo,$idParejaRival);
+            foreach ($confrontationOffers as $offer) {
+              $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
+              $offer->setPareja($miembrosPareja);
+              array_push($posibleOffers, $offer);
+            }
+          }
+        }
+
+
+
+
 
         $this->view->setVariable("idCampeonato", $idCampeonato);
         $this->view->setVariable("idPareja", $idPareja);

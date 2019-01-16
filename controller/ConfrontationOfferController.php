@@ -183,7 +183,7 @@ class ConfrontationOfferController extends BaseController
 
         foreach ($confrontationOffers as $offer) {
             if ($idPareja != $offer->getIdPareja()) {
-                if (! $this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo)) {
+                if (!$this->confrontationMapper->hadPlayed($idPareja, $offer->getIdPareja(), $idGrupo)) {
                     $miembrosPareja = $this->partnerMapper->getMembers($offer->getIdPareja());
                     $offer->setPareja($miembrosPareja);
                     array_push($posibleOffers, $offer);

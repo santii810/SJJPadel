@@ -6,7 +6,7 @@ require_once (__DIR__ . "/../core/PDOConnection.php");
 * Clase ConfrontationMapper
 *
 * Interfaz de base de datos para entidades ConfrontationMapper
-* 
+*
 *
 */
 
@@ -241,7 +241,7 @@ class ConfrontationMapper
      */
     public function hadPlayed($idPareja1, $idPareja2, $idGrupo)
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR
+        $stmt = $this->db->prepare("SELECT * FROM enfrentamiento WHERE idGrupo=? AND (( idPareja1=? AND idPareja2=?) OR
       (idPareja1=? AND idPareja2=?)) AND hora is null");
         $stmt->execute(array(
             $idGrupo,
@@ -250,12 +250,18 @@ class ConfrontationMapper
             $idPareja2,
             $idPareja1
         ));
-        $toret_db = $stmt->fetch(PDO::FETCH_ASSOC);
+        $toret_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $numero_filas = mysql_num_rows($resultado);
 
-        if ($toret_db["count"] == 0) {
-            return true;
-        } else {
-            return false;
+        if($numero_filas == 0){
+          return true;
+        }else{
+           foreach ($toret_db as $confrontation) {
+             if($confrontation['fase'] != 'Grupos'){
+               return true;
+             }
+           }
+           return false;
         }
     }
 
